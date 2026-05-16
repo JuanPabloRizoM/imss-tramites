@@ -32,14 +32,16 @@ export function ApartadoShell({ numero, titulo, resumen, children }: Props) {
           <p className="mt-3 max-w-2xl text-base text-zinc-600">{resumen}</p>
         </header>
 
-        <section className="rounded-lg border border-dashed border-zinc-300 bg-white p-8 text-center">
-          {children ?? (
+        {children ? (
+          <section>{children}</section>
+        ) : (
+          <section className="rounded-lg border border-dashed border-zinc-300 bg-white p-8 text-center">
             <p className="text-sm text-zinc-500">
               En construcción. Este apartado se implementa en la fase
               correspondiente del plan.
             </p>
-          )}
-        </section>
+          </section>
+        )}
       </div>
     </main>
   );
