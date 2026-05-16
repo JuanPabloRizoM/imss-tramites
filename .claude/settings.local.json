@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /Users/juanpablorizo/Downloads/imss-tramites.md /Users/juanpablorizo/Downloads/responsive-audit.skill /Users/juanpablorizo/Downloads/back-end-supabase /Users/juanpablorizo/Downloads/front-desing.md 2>&1)",
+      "Bash(unzip -o /Users/juanpablorizo/Downloads/responsive-audit.skill -d responsive-audit)",
+      "Bash(ls -la /tmp/imss-skills/supabase-local-to-remote/supabase-local-to-remote/ /tmp/imss-skills/responsive-audit/responsive-audit/)",
+      "Bash(npm --version)",
+      "Bash(mkdir -p /Users/juanpablorizo/Documents/imss-tramites/.claude/skills)",
+      "Bash(cp -R /tmp/imss-skills/supabase-local-to-remote/supabase-local-to-remote /Users/juanpablorizo/Documents/imss-tramites/.claude/skills/supabase-local-to-remote)",
+      "Bash(cp -R /tmp/imss-skills/responsive-audit/responsive-audit /Users/juanpablorizo/Documents/imss-tramites/.claude/skills/responsive-audit)",
+      "Bash(mkdir -p /Users/juanpablorizo/Documents/imss-tramites/.claude/skills/bd-web-design)",
+      "Bash(cp /Users/juanpablorizo/Downloads/front-desing.md /Users/juanpablorizo/Documents/imss-tramites/.claude/skills/bd-web-design/SKILL.md)",
+      "Bash(npx --yes create-next-app@latest . --typescript --app --tailwind --eslint --no-src-dir --import-alias \"@/*\" --use-npm --yes)"
+    ]
+  }
+}
