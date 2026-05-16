@@ -74,21 +74,20 @@ export function CapturaCelular() {
     if (inputRef.current) inputRef.current.value = "";
   }
 
+  const ocupado = estado.tipo === "subiendo" || estado.tipo === "procesando";
+
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-7">
       <div className="flex flex-col gap-2">
-        <label
-          htmlFor="doc-type"
-          className="text-sm font-medium text-zinc-700"
-        >
+        <label htmlFor="doc-type" className="text-sm font-medium text-ink-2">
           Tipo de documento
         </label>
         <select
           id="doc-type"
           value={docType}
           onChange={(e) => setDocType(e.target.value)}
-          disabled={estado.tipo === "subiendo" || estado.tipo === "procesando"}
-          className="h-12 rounded-md border border-zinc-300 bg-white px-3 text-base text-zinc-900 focus-visible:border-zinc-900 disabled:bg-zinc-50 disabled:text-zinc-500"
+          disabled={ocupado}
+          className="h-12 rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:border-ink disabled:bg-paper-2 disabled:text-ink-3"
         >
           {TIPOS.map((t) => (
             <option key={t.id} value={t.id}>
@@ -96,7 +95,7 @@ export function CapturaCelular() {
             </option>
           ))}
         </select>
-        <p className="text-xs text-zinc-500">
+        <p className="text-xs text-ink-3">
           Si no estás seguro deja &quot;documento (tipo no especificado)&quot;.
         </p>
       </div>
@@ -117,14 +116,14 @@ export function CapturaCelular() {
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
-          disabled={estado.tipo === "subiendo" || estado.tipo === "procesando"}
-          className="flex min-h-[56px] items-center justify-center rounded-md bg-zinc-900 px-6 text-base font-semibold text-white hover:bg-zinc-800 focus-visible:bg-zinc-800 disabled:bg-zinc-400"
+          disabled={ocupado}
+          className="flex min-h-[64px] items-center justify-center rounded-md bg-ink px-6 text-base font-semibold text-paper hover:bg-ink-2 focus-visible:bg-ink-2 disabled:bg-ink-3"
         >
-          Tomar foto / subir
+          Tomar foto del documento
         </button>
 
-        <p className="text-center text-xs text-zinc-500">
-          Se redimensiona en el celular antes de subir (lado largo 1600 px, JPEG).
+        <p className="text-center text-xs text-ink-3">
+          Se redimensiona en el celular antes de subir · 1600 px · JPEG.
         </p>
       </div>
 
@@ -139,53 +138,45 @@ function EstadoBox({ estado, onReset }: { estado: Estado; onReset: () => void })
   if (estado.tipo === "subiendo" || estado.tipo === "procesando") {
     const texto =
       estado.tipo === "subiendo"
-        ? "Subiendo a Supabase..."
-        : "La IA está leyendo el documento...";
+        ? "Subiendo…"
+        : "La IA está leyendo el documento…";
     return (
-      <div
-        role="status"
-        className="rounded-md border border-zinc-200 bg-white p-4"
-      >
-        <p className="text-sm font-medium text-zinc-900">{estado.nombre}</p>
-        <p className="mt-1 text-sm text-zinc-600">{texto}</p>
+      <div role="status" className="rounded-md border border-line bg-paper-2 p-4">
+        <p className="eyebrow mb-1">En curso</p>
+        <p className="text-sm font-medium text-ink">{estado.nombre}</p>
+        <p className="mt-1 text-sm text-ink-2">{texto}</p>
       </div>
     );
   }
 
   if (estado.tipo === "listo") {
     return (
-      <div
-        role="status"
-        className="rounded-md border border-emerald-300 bg-emerald-50 p-4"
-      >
-        <p className="text-sm font-medium text-emerald-900">
-          Listo: {estado.nombre}
-        </p>
-        <p className="mt-1 text-sm text-emerald-800">
+      <div role="status" className="rounded-md border border-ok/30 bg-ok-soft p-4">
+        <p className="eyebrow mb-1 text-ok">Listo</p>
+        <p className="text-sm font-medium text-ink">{estado.nombre}</p>
+        <p className="mt-1 text-sm text-ink-2">
           Revisa los datos en la computadora.
         </p>
         <button
           type="button"
           onClick={onReset}
-          className="mt-3 inline-flex min-h-[44px] items-center rounded-md border border-emerald-300 bg-white px-4 text-sm font-medium text-emerald-900 hover:bg-emerald-100"
+          className="mt-3 inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink hover:bg-paper-2"
         >
-          Capturar otro documento
+          Capturar otro
         </button>
       </div>
     );
   }
 
   return (
-    <div
-      role="alert"
-      className="rounded-md border border-red-300 bg-red-50 p-4"
-    >
-      <p className="text-sm font-medium text-red-900">No se pudo procesar</p>
-      <p className="mt-1 text-sm text-red-800">{estado.mensaje}</p>
+    <div role="alert" className="rounded-md border border-err/30 bg-err-soft p-4">
+      <p className="eyebrow mb-1 text-err">Error</p>
+      <p className="text-sm font-medium text-ink">No se pudo procesar</p>
+      <p className="mt-1 text-sm text-ink-2">{estado.mensaje}</p>
       <button
         type="button"
         onClick={onReset}
-        className="mt-3 inline-flex min-h-[44px] items-center rounded-md border border-red-300 bg-white px-4 text-sm font-medium text-red-900 hover:bg-red-100"
+        className="mt-3 inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink hover:bg-paper-2"
       >
         Intentar de nuevo
       </button>

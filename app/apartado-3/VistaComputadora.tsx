@@ -134,22 +134,24 @@ function ListaDocumentos({
 }) {
   if (cargando) {
     return (
-      <aside className="rounded-md border border-zinc-200 bg-white p-4 text-sm text-zinc-500">
-        Cargando...
+      <aside className="rounded-md border border-line bg-paper-2 p-4 text-sm text-ink-3">
+        Cargando…
       </aside>
     );
   }
   if (docs.length === 0) {
     return (
-      <aside className="rounded-md border border-dashed border-zinc-300 bg-white p-4 text-sm text-zinc-500">
-        Aún no hay documentos. Sube uno desde{" "}
-        <code className="rounded bg-zinc-100 px-1 py-0.5">/movil</code>.
+      <aside className="rounded-md border border-dashed border-line-2 bg-paper-2 p-4 text-sm text-ink-2">
+        <p className="eyebrow mb-2">Sin documentos</p>
+        Toma una foto desde{" "}
+        <code className="rounded bg-paper px-1 py-0.5 font-mono text-xs">/movil</code>{" "}
+        para verla aparecer aquí.
       </aside>
     );
   }
   return (
-    <aside className="rounded-md border border-zinc-200 bg-white">
-      <ul className="divide-y divide-zinc-200">
+    <aside className="rounded-md border border-line bg-paper-2">
+      <ul className="divide-y divide-line">
         {docs.map((d) => {
           const tipo = obtenerDocType(d.doc_type);
           const esActivo = d.id === seleccionId;
@@ -158,12 +160,12 @@ function ListaDocumentos({
               <button
                 type="button"
                 onClick={() => onSelect(d.id)}
-                className={`flex w-full flex-col items-start gap-1 px-4 py-3 text-left text-sm hover:bg-zinc-50 ${
-                  esActivo ? "bg-zinc-100" : ""
+                className={`flex w-full flex-col items-start gap-1 px-4 py-3 text-left text-sm transition-colors hover:bg-paper ${
+                  esActivo ? "bg-paper" : ""
                 }`}
               >
-                <span className="font-medium text-zinc-900">{tipo.label}</span>
-                <span className="text-xs text-zinc-500">
+                <span className="font-medium text-ink">{tipo.label}</span>
+                <span className="text-xs text-ink-3">
                   {new Date(d.created_at).toLocaleString("es-MX")}
                 </span>
                 <EstadoChip estado={d.extraction_status} />
@@ -178,14 +180,16 @@ function ListaDocumentos({
 
 function EstadoChip({ estado }: { estado: DocumentRow["extraction_status"] }) {
   const map: Record<DocumentRow["extraction_status"], { txt: string; cls: string }> = {
-    pendiente: { txt: "Pendiente", cls: "bg-zinc-100 text-zinc-700" },
-    procesando: { txt: "Procesando", cls: "bg-amber-100 text-amber-900" },
-    listo: { txt: "Listo", cls: "bg-emerald-100 text-emerald-900" },
-    error: { txt: "Error", cls: "bg-red-100 text-red-900" },
+    pendiente: { txt: "Pendiente", cls: "bg-paper-2 text-ink-2 border border-line" },
+    procesando: { txt: "Procesando", cls: "bg-warn-soft text-ink" },
+    listo: { txt: "Listo", cls: "bg-ok-soft text-ok" },
+    error: { txt: "Error", cls: "bg-err-soft text-err" },
   };
   const { txt, cls } = map[estado];
   return (
-    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${cls}`}>
+    <span
+      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium tracking-wide ${cls}`}
+    >
       {txt}
     </span>
   );
@@ -245,7 +249,7 @@ function DetalleDocumento({
 
   if (!documento) {
     return (
-      <div className="rounded-md border border-dashed border-zinc-300 bg-white p-8 text-center text-sm text-zinc-500">
+      <div className="rounded-md border border-dashed border-line-2 bg-paper-2 p-10 text-center text-sm text-ink-2">
         Selecciona un documento de la izquierda.
       </div>
     );
@@ -253,7 +257,7 @@ function DetalleDocumento({
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <div className="rounded-md border border-zinc-200 bg-white p-3">
+      <div className="overflow-hidden rounded-md border border-line bg-paper-2 p-3">
         {signedUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -262,30 +266,28 @@ function DetalleDocumento({
             className="h-auto w-full rounded-sm"
           />
         ) : (
-          <div className="flex h-64 items-center justify-center text-sm text-zinc-500">
-            Cargando imagen...
+          <div className="flex h-64 items-center justify-center text-sm text-ink-3">
+            Cargando imagen…
           </div>
         )}
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-5">
         <div className="flex items-center gap-3">
-          <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
-            {tipo.label}
-          </p>
+          <p className="eyebrow">{tipo.label}</p>
           <EstadoChip estado={documento.extraction_status} />
         </div>
 
         {documento.extraction_status === "error" && (
-          <div role="alert" className="rounded-md border border-red-300 bg-red-50 p-3">
-            <p className="text-sm font-medium text-red-900">Falló la extracción</p>
-            <p className="mt-1 text-sm text-red-800">
+          <div role="alert" className="rounded-md border border-err/30 bg-err-soft p-4">
+            <p className="text-sm font-medium text-err">Falló la extracción</p>
+            <p className="mt-1 text-sm text-ink-2">
               {documento.extraction_error ?? "Sin detalles."}
             </p>
             <button
               type="button"
               onClick={() => onReintentar(documento.id)}
-              className="mt-3 inline-flex min-h-[44px] items-center rounded-md border border-red-300 bg-white px-4 text-sm font-medium text-red-900 hover:bg-red-100"
+              className="mt-3 inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink hover:bg-paper-2"
             >
               Reintentar extracción
             </button>
@@ -294,7 +296,7 @@ function DetalleDocumento({
 
         {(documento.extraction_status === "pendiente" ||
           documento.extraction_status === "procesando") && (
-          <p className="text-sm text-zinc-600">
+          <p className="text-sm text-ink-2">
             La IA está leyendo el documento. Aparecerá aquí en cuanto termine.
           </p>
         )}
@@ -316,7 +318,7 @@ function DetalleDocumento({
                 <div key={campo.id} className="flex flex-col gap-1">
                   <label
                     htmlFor={inputId}
-                    className="flex items-center gap-2 text-sm font-medium text-zinc-700"
+                    className="flex items-center gap-2 text-sm font-medium text-ink-2"
                   >
                     {campo.label}
                     <ConfianzaTag valor={confianza} />
@@ -337,7 +339,7 @@ function DetalleDocumento({
                         },
                       }))
                     }
-                    className="h-11 rounded-md border border-zinc-300 bg-white px-3 text-base text-zinc-900 focus-visible:border-zinc-900"
+                    className="h-11 rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:border-ink"
                   />
                 </div>
               );
@@ -347,17 +349,17 @@ function DetalleDocumento({
               <button
                 type="submit"
                 disabled={guardando === "guardando"}
-                className="inline-flex min-h-[44px] items-center rounded-md bg-zinc-900 px-5 text-sm font-semibold text-white hover:bg-zinc-800 disabled:bg-zinc-400"
+                className="inline-flex min-h-[44px] items-center rounded-md bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink-2 disabled:bg-ink-3"
               >
-                {guardando === "guardando" ? "Guardando..." : "Guardar correcciones"}
+                {guardando === "guardando" ? "Guardando…" : "Guardar correcciones"}
               </button>
               {guardando === "guardado" && (
-                <span className="text-sm text-emerald-700">Guardado.</span>
+                <span className="text-sm text-ok">Guardado.</span>
               )}
               <button
                 type="button"
                 onClick={() => onReintentar(documento.id)}
-                className="ml-auto inline-flex min-h-[44px] items-center rounded-md border border-zinc-300 bg-white px-4 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                className="ml-auto inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink-2 hover:bg-paper-2 hover:text-ink"
               >
                 Reextraer
               </button>
@@ -371,13 +373,15 @@ function DetalleDocumento({
 
 function ConfianzaTag({ valor }: { valor: DatoExtraido["confianza"] }) {
   const map: Record<DatoExtraido["confianza"], { txt: string; cls: string }> = {
-    alto: { txt: "alta", cls: "bg-emerald-100 text-emerald-900" },
-    medio: { txt: "media", cls: "bg-amber-100 text-amber-900" },
-    bajo: { txt: "baja", cls: "bg-red-100 text-red-900" },
+    alto: { txt: "alta", cls: "bg-ok-soft text-ok" },
+    medio: { txt: "media", cls: "bg-warn-soft text-ink-2" },
+    bajo: { txt: "baja", cls: "bg-err-soft text-err" },
   };
   const { txt, cls } = map[valor];
   return (
-    <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium ${cls}`}>
+    <span
+      className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium tracking-wide ${cls}`}
+    >
       confianza {txt}
     </span>
   );

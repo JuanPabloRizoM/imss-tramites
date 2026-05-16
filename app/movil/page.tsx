@@ -6,18 +6,16 @@ export const metadata = {
 
 export default function MovilPage() {
   return (
-    <main className="flex-1 px-4 py-8">
+    <main className="flex-1 px-5 py-10">
       <div className="mx-auto w-full max-w-md">
-        <header className="mb-8">
-          <p className="mb-2 text-sm font-medium uppercase tracking-wider text-zinc-500">
-            Celular
-          </p>
-          <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
-            Capturar documento
+        <header className="mb-10">
+          <p className="eyebrow mb-3">Celular</p>
+          <h1 className="font-display text-4xl text-ink">
+            Una foto del{" "}
+            <em className="italic text-accent">documento</em>.
           </h1>
-          <p className="mt-2 text-sm text-zinc-600">
-            Toma una foto del documento. La computadora la recibirá en cuanto la
-            IA termine de leerla.
+          <p className="mt-3 text-base text-ink-2">
+            La computadora lo recibe en cuanto la IA lo lee.
           </p>
         </header>
 
