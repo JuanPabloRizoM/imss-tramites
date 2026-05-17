@@ -39,7 +39,7 @@
     "calle":                   { "page": 0, "x": 80,  "y": 310, "size": 9,  "ancho_max": 200 },
     "numero_exterior":         { "page": 0, "x": 145, "y": 278, "size": 9,  "ancho_max": 110 },
     "numero_interior":         { "page": 0, "x": 290, "y": 278, "size": 9,  "ancho_max": 100 },
-    "colonia":                 { "page": 0, "x": 80,  "y": 253, "size": 9,  "ancho_max": 200 },
+    "colonia":                 { "page": 0, "x": 80,  "y": 260, "size": 9,  "ancho_max": 200 },
     "localidad":               { "page": 0, "x": 100, "y": 232, "size": 9,  "ancho_max": 180 },
     "municipio":               { "page": 0, "x": 140, "y": 210, "size": 9,  "ancho_max": 135 },
     "estado":                  { "page": 0, "x": 90,  "y": 190, "size": 9,  "ancho_max": 195 },
@@ -50,28 +50,28 @@
     "no_acta":                 { "page": 1, "x": 380, "y": 648, "size": 9,  "ancho_max": 200 },
     "no_libro":                { "page": 1, "x": 100, "y": 622, "size": 9,  "ancho_max": 200 },
     "no_foja":                 { "page": 1, "x": 380, "y": 622, "size": 9,  "ancho_max": 200 },
-    "registro_publico":        { "page": 1, "x": 195, "y": 595, "size": 9,  "ancho_max": 100 },
-    "informacion_adicional":   { "page": 1, "x": 430, "y": 595, "size": 9,  "ancho_max": 150 },
-    "lugar_fecha_constitucion":{ "page": 1, "x": 160, "y": 570, "size": 9,  "ancho_max": 420 },
+    "registro_publico":        { "page": 1, "x": 195, "y": 605, "size": 9,  "ancho_max": 100 },
+    "informacion_adicional":   { "page": 1, "x": 430, "y": 605, "size": 9,  "ancho_max": 150 },
+    "lugar_fecha_constitucion":{ "page": 1, "x": 160, "y": 580, "size": 9,  "ancho_max": 420 },
 
-    "causa_b_nombre_anterior":    { "page": 1, "x": 220, "y": 422, "size": 9, "ancho_max": 290 },
-    "causa_b_registro_anterior":  { "page": 1, "x": 510, "y": 422, "size": 9, "ancho_max": 90 },
+    "causa_b_nombre_anterior":    { "page": 1, "x": 220, "y": 495, "size": 9, "ancho_max": 290 },
+    "causa_b_registro_anterior":  { "page": 1, "x": 510, "y": 495, "size": 9, "ancho_max": 90 },
 
-    "causa_c_cp_anterior":          { "page": 1, "x": 220, "y": 372, "size": 9, "ancho_max": 50 },
-    "causa_c_calle_anterior":       { "page": 1, "x": 275, "y": 372, "size": 9, "ancho_max": 75 },
-    "causa_c_num_ext_int_anterior": { "page": 1, "x": 355, "y": 372, "size": 9, "ancho_max": 85 },
-    "causa_c_colonia_anterior":     { "page": 1, "x": 445, "y": 372, "size": 9, "ancho_max": 50 },
-    "causa_c_municipio_anterior":   { "page": 1, "x": 500, "y": 372, "size": 9, "ancho_max": 80 },
-    "causa_c_estado_anterior":      { "page": 1, "x": 585, "y": 372, "size": 9, "ancho_max": 30 },
+    "causa_c_cp_anterior":          { "page": 1, "x": 220, "y": 435, "size": 9, "ancho_max": 50 },
+    "causa_c_calle_anterior":       { "page": 1, "x": 275, "y": 435, "size": 9, "ancho_max": 75 },
+    "causa_c_num_ext_int_anterior": { "page": 1, "x": 355, "y": 435, "size": 9, "ancho_max": 85 },
+    "causa_c_colonia_anterior":     { "page": 1, "x": 445, "y": 435, "size": 9, "ancho_max": 50 },
+    "causa_c_municipio_anterior":   { "page": 1, "x": 500, "y": 435, "size": 9, "ancho_max": 80 },
+    "causa_c_estado_anterior":      { "page": 1, "x": 575, "y": 435, "size": 9, "ancho_max": 35 },
 
-    "causa_d_nombre_anterior":      { "page": 1, "x": 220, "y": 318, "size": 9, "ancho_max": 380 },
+    "causa_d_nombre_anterior":      { "page": 1, "x": 220, "y": 388, "size": 9, "ancho_max": 380 },
 
-    "causa_e_nombre_sustituido":    { "page": 1, "x": 220, "y": 272, "size": 9, "ancho_max": 290 },
-    "causa_e_registro_sustituido":  { "page": 1, "x": 510, "y": 272, "size": 9, "ancho_max": 90 },
+    "causa_e_nombre_sustituido":    { "page": 1, "x": 220, "y": 362, "size": 9, "ancho_max": 290 },
+    "causa_e_registro_sustituido":  { "page": 1, "x": 510, "y": 362, "size": 9, "ancho_max": 90 },
 
-    "causa_f_registro_1":           { "page": 1, "x": 310, "y": 232, "size": 9, "ancho_max": 130 },
-    "causa_f_registro_2":           { "page": 1, "x": 480, "y": 232, "size": 9, "ancho_max": 130 },
+    "causa_f_registro_1":           { "page": 1, "x": 310, "y": 322, "size": 9, "ancho_max": 130 },
+    "causa_f_registro_2":           { "page": 1, "x": 480, "y": 322, "size": 9, "ancho_max": 130 },
 
-    "causa_g_motivo":               { "page": 1, "x": 220, "y": 195, "size": 9, "ancho_max": 380 }
+    "causa_g_motivo":               { "page": 1, "x": 220, "y": 283, "size": 9, "ancho_max": 380 }
   }
 }
