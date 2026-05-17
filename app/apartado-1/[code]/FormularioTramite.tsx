@@ -6,6 +6,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getBrowserClient } from "@/lib/supabase/client";
 import {
   agruparPorSeccion,
+  debeMostrar,
   type CampoSchema,
   type TramiteType,
 } from "@/lib/tramites";
@@ -37,9 +38,16 @@ export function FormularioTramite({ tramiteType }: Props) {
   const [mensaje, setMensaje] = useState<string | null>(null);
   const [precargando, setPrecargando] = useState(false);
 
+  // Solo campos visibles según `show_if`. Los ocultos no se muestran ni
+  // bloquean la validación, y no se envían al PDF (su valor queda en blanco).
+  const camposVisibles = useMemo(
+    () =>
+      tramiteType.field_schema.filter((c) => debeMostrar(c, valores)),
+    [tramiteType.field_schema, valores]
+  );
   const grupos = useMemo(
-    () => agruparPorSeccion(tramiteType.field_schema),
-    [tramiteType.field_schema]
+    () => agruparPorSeccion(camposVisibles),
+    [camposVisibles]
   );
 
   const setCampo = (id: string, valor: string) => {
@@ -139,12 +147,18 @@ export function FormularioTramite({ tramiteType }: Props) {
     setGenerando(true);
     setMensaje(null);
     try {
+      // Solo manda valores de campos visibles — evita escribir en el PDF
+      // datos residuales de un sub-form que se ocultó al cambiar la causa.
+      const valoresFiltrados: Record<string, string> = {};
+      for (const c of camposVisibles) {
+        if (valores[c.id]) valoresFiltrados[c.id] = valores[c.id];
+      }
       const res = await fetch("/api/generar-pdf", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           tramite_type_code: tramiteType.code,
-          field_values: valores,
+          field_values: valoresFiltrados,
         }),
       });
       if (!res.ok) {
@@ -165,9 +179,9 @@ export function FormularioTramite({ tramiteType }: Props) {
     } finally {
       setGenerando(false);
     }
-  }, [tramiteType.code, valores]);
+  }, [tramiteType.code, valores, camposVisibles]);
 
-  const camposFaltantes = tramiteType.field_schema.filter(
+  const camposFaltantes = camposVisibles.filter(
     (c) => c.required && !valores[c.id]?.trim()
   );
   const faltaObligatorio = camposFaltantes.length > 0;

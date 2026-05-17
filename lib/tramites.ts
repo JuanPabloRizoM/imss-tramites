@@ -29,7 +29,22 @@ export type CampoSchema = {
   portal_skip?: boolean;
   // Mostrar este texto en el panel flotante de la extensión como nota.
   portal_show_in_panel?: boolean;
+  // Condición de visibilidad: solo mostrar este campo si el campo `campo`
+  // tiene un valor que coincide con `igual` (string) o está en `en` (array).
+  // Útil para sub-formularios que dependen de una causa/tipo elegido.
+  show_if?: { campo: string; igual?: string; en?: string[] };
 };
+
+export function debeMostrar(
+  campo: CampoSchema,
+  valores: Record<string, string | null | undefined>
+): boolean {
+  if (!campo.show_if) return true;
+  const v = (valores[campo.show_if.campo] ?? "").toString().trim();
+  if (campo.show_if.igual != null) return v === campo.show_if.igual;
+  if (campo.show_if.en) return campo.show_if.en.includes(v);
+  return true;
+}
 
 export type TramiteType = {
   id: string;
