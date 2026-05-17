@@ -1,0 +1,18 @@
+{
+  "_nota": "Solo se listan los campos que DIFIEREN del formulario de Persona Moral. El resto (domicilio fiscal, centro de trabajo, giro, etc.) usa los mismos selectores que persona-moral.raw.json.",
+  "campos_propios_de_persona_fisica": [
+    { "tag": "input", "type": "text", "name": "curpDG",                "id": "txtCurpDG",                "label": "CURP",                "required": true,  "maxlength": 18 },
+    { "tag": "input", "type": "text", "name": "rfcDG",                 "id": "txtRfcDG",                 "label": "RFC",                 "required": true,  "maxlength": 13 },
+    { "tag": "input", "type": "text", "name": "nomNombreRazonSocial",  "id": "txtNombreRazonDG",         "label": "Nombre(s)",           "required": true,  "maxlength": 60 },
+    { "tag": "input", "type": "text", "name": "apellidoPaternoDG",     "id": "txtApellidoPaternoDG",     "label": "Primer apellido",     "required": true,  "maxlength": 60 },
+    { "tag": "input", "type": "text", "name": "apellidoMaternoDG",     "id": "txtApellidoMaternoDG",     "label": "Segundo apellido",    "required": false, "maxlength": 60 },
+    { "tag": "input", "type": "checkbox", "id": "chkMostrarRLFisica",  "label": "Mostrar representante legal (opcional para persona física)" }
+  ],
+  "campos_ausentes_respecto_a_moral": [
+    "txtNombreORazonSocial (es persona física, no jurídica)",
+    "slcTipoSociedad (no aplica)",
+    "txtNumEscritura, txtNumNotaria, txtNumFolioMerc (sin acta constitutiva)",
+    "slcLugarFechaExpeEC, slcMunicipDelegFE, txtLugarFechaExpeEC (sin lugar/fecha de expedición de acta)",
+    "chkIndActAdmon (no aplica)"
+  ]
+}

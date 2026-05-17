@@ -13,9 +13,22 @@ export type CampoSchema = {
   required?: boolean;
   section?: string;
   source_doc?: string | null;
-  portal_selector?: string | null;
   options?: string[];
   placeholder?: string;
+  // Selector CSS del campo en el portal externo (p. ej. "#txtRfc" o
+  // '[name="DN_O"]'). Lo lee la extensión de navegador.
+  portal_selector?: string | null;
+  // Si el portal usa el texto visible de las options (vs. su value),
+  // "text" hace que la extensión busque por textContent. Default: "value".
+  portal_option_match?: "text" | "value";
+  // Para selects dependientes que se popula vía DWR cuando cambia el padre.
+  portal_chain?: { parent: string };
+  // Datepicker de jQuery: setear value + disparar change.
+  portal_datepicker?: boolean;
+  // No inyectar este campo al portal — solo guardarlo o mostrarlo en el panel.
+  portal_skip?: boolean;
+  // Mostrar este texto en el panel flotante de la extensión como nota.
+  portal_show_in_panel?: boolean;
 };
 
 export type TramiteType = {

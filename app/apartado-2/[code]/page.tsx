@@ -1,0 +1,57 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+import { ApartadoShell } from "@/components/ApartadoShell";
+import { getServerClient } from "@/lib/supabase/server";
+import type { TramiteType } from "@/lib/tramites";
+import { FormularioExtension } from "./FormularioExtension";
+
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ code: string }>;
+}) {
+  const { code } = await params;
+  return { title: `${code.toUpperCase()} · Trámites IMSS` };
+}
+
+export default async function PaginaTramite2({
+  params,
+}: {
+  params: Promise<{ code: string }>;
+}) {
+  const { code } = await params;
+  const supabase = await getServerClient();
+
+  const { data } = await supabase
+    .from("tramite_types")
+    .select("id, code, name, apartado, output_type, field_schema, source_docs, active, portal_url")
+    .eq("code", code)
+    .eq("apartado", 2)
+    .maybeSingle();
+
+  if (!data) notFound();
+  const tramiteType = data as TramiteType & { portal_url: string | null };
+
+  return (
+    <ApartadoShell
+      numero={2}
+      titulo={tramiteType.name}
+      resumen={`Llena/revisa los campos. Cuando los marques "revisado", la extensión los puede pegar en el portal.`}
+    >
+      <nav className="mb-6 text-sm">
+        <Link
+          href="/apartado-2"
+          className="inline-flex min-h-[44px] items-center gap-2 text-ink-2 hover:text-ink"
+        >
+          <span aria-hidden="true">←</span>
+          Otros trámites
+        </Link>
+      </nav>
+
+      <FormularioExtension tramiteType={tramiteType} />
+    </ApartadoShell>
+  );
+}

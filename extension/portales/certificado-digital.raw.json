@@ -1,0 +1,33 @@
+{
+  "_nota": "El portal de Certificado Digital usa names sin labels asociados — la mayoría de inputs no tiene id. La identificación viene únicamente por name (CSS: [name=\"...\"]). Las etiquetas se infirieron por contexto.",
+  "campos": [
+    { "name": "DN_OU",                 "label_inferida": "Registro patronal (NRP)",        "type": "text", "maxlength": 10 },
+    { "name": "digitoVerificadorNRP",  "label_inferida": "Dígito verificador NRP",         "type": "text", "maxlength": 1 },
+    { "name": "DN_O",                  "label_inferida": "Razón social o nombre",          "type": "text", "maxlength": 50 },
+    { "name": "RFCA",                  "label_inferida": "RFC (sin homoclave)",            "type": "text", "maxlength": 13 },
+    { "name": "RFCB",                  "label_inferida": "Homoclave del RFC",              "type": "text", "maxlength": 3 },
+    { "name": "LOGIN",                 "label_inferida": "Usuario (login)",                "type": "text", "maxlength": 20 },
+    { "name": "DN_PHONE",              "label_inferida": "Teléfono",                       "type": "text", "maxlength": 20 },
+    { "name": "DN_FAX",                "label_inferida": "Fax",                            "type": "text", "maxlength": 20 },
+    { "name": "DN_E",                  "label_inferida": "Correo electrónico",             "type": "text", "maxlength": 40 },
+    { "name": "confirmaCorreo",        "label_inferida": "Confirmar correo electrónico",   "type": "text", "maxlength": 40 },
+    { "name": "rolSolicitante",        "label_inferida": "Rol del solicitante",            "type": "select",
+      "opciones": ["1=Patrón","2=Sujeto Obligado","3=Representante Legal"] },
+    { "name": "REP_NOMBRES",           "label_inferida": "Nombre(s) representante legal",  "type": "text", "maxlength": 40 },
+    { "name": "REP_APE_PAT",           "label_inferida": "Apellido paterno rep. legal",    "type": "text", "maxlength": 40 },
+    { "name": "REP_APE_MAT",           "label_inferida": "Apellido materno rep. legal",    "type": "text", "maxlength": 40 },
+    { "name": "DN_T",                  "label_inferida": "CURP del representante",         "type": "text", "maxlength": 18 },
+    { "name": "RFC_RL",                "label_inferida": "RFC del representante",          "type": "text", "maxlength": 13 },
+    { "name": "calle",                 "label_inferida": "Calle",                          "type": "text", "maxlength": 40 },
+    { "name": "numeroExterior",        "label_inferida": "Número exterior",                "type": "text", "maxlength": 10 },
+    { "name": "numeroInterior",        "label_inferida": "Número interior",                "type": "text", "maxlength": 10 },
+    { "name": "col",                   "label_inferida": "Colonia",                        "type": "text", "maxlength": 40 },
+    { "name": "DN_S",                  "label_inferida": "Estado",                         "type": "select",
+      "_nota_codigos": "Códigos distintos a los del portal AFIL: aquí son AS/BC/BS/CC, no AGS/BCN/BCS/CAMP",
+      "opciones": ["AS=Aguascalientes","BC=Baja California","BS=Baja California Sur","CC=Campeche"] },
+    { "id": "MUNICIPIO",               "label_inferida": "Municipio",                      "type": "select",
+      "depends_on": "DN_S", "_nota": "se popula dinámicamente; no tiene atributo name" },
+    { "name": "DN_L",                  "label_inferida": "Localidad",                      "type": "text", "maxlength": 40 },
+    { "name": "DN_POSTALCODE",         "label_inferida": "Código postal",                  "type": "text", "maxlength": 5 }
+  ]
+}
