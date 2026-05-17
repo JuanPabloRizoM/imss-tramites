@@ -7,6 +7,7 @@ import {
   type CampoSchema,
   type TramiteType,
 } from "@/lib/tramites";
+import { existePdfBase, generarOverlay } from "@/lib/pdf-overlay";
 
 // Tamaños base en puntos (1 pt = 1/72 in). Carta = 612 × 792.
 const PAGE_W = 612;
@@ -292,15 +293,22 @@ function formatearFecha(iso: string | undefined | null): string {
 }
 
 // Punto de entrada — elige el generador correcto según el código.
+//
+// Prioridad:
+//   1) Si existe assets/formatos/<code>.pdf + .coords.json → overlay sobre
+//      el PDF oficial del IMSS (caso ideal, queda imprimible y entregable).
+//   2) "escrito-generico" → carta formateada desde plantilla.
+//   3) Cualquier otro → "ficha de captura" agrupada (legible, pero no es el
+//      formato oficial; útil mientras se calibran coordenadas).
 export async function generarPDF(
   tipo: TramiteType,
   values: Record<string, string>
 ): Promise<Uint8Array> {
-  switch (tipo.code) {
-    case "escrito-generico":
-      return generarEscritoGenerico(values);
-    default:
-      // AFIL-01 y futuros formatos sin overlay todavía: ficha de captura.
-      return generarFichaCampos(tipo, values);
+  if (await existePdfBase(tipo.code)) {
+    return generarOverlay(tipo.code, values);
   }
+  if (tipo.code === "escrito-generico") {
+    return generarEscritoGenerico(values);
+  }
+  return generarFichaCampos(tipo, values);
 }

@@ -1,0 +1,57 @@
+{
+  "_nota": "Coordenadas v5 para AFIL-01. Calibradas iterativamente — quedan razonables pero requieren ajuste fino con `node tools/calibrar-pdf.mjs afil-01` y abrir /tmp/afil-01-grilla.pdf.",
+  "_dimensiones": { "ancho": 612, "alto": 794 },
+  "_default_size": 9,
+  "campos": {
+    "fecha_solicitud_dd":      { "page": 0, "x": 370, "y": 555, "size": 9 },
+    "fecha_solicitud_mm":      { "page": 0, "x": 432, "y": 555, "size": 9 },
+    "fecha_solicitud_aaaa":    { "page": 0, "x": 495, "y": 555, "size": 9 },
+
+    "causa_aviso":             { "page": 0, "type": "checkbox-grid",
+      "options": {
+        "A": { "x": 322, "y": 590 }, "B": { "x": 478, "y": 590 },
+        "C": { "x": 322, "y": 575 }, "D": { "x": 478, "y": 575 },
+        "E": { "x": 322, "y": 560 }, "F": { "x": 478, "y": 560 },
+        "G": { "x": 322, "y": 545 }, "H": { "x": 478, "y": 545 }
+      }
+    },
+
+    "razon_social":            { "page": 0, "x": 50,  "y": 470, "size": 9,  "ancho_max": 530 },
+    "nombre":                  { "page": 0, "x": 220, "y": 448, "size": 9,  "ancho_max": 110 },
+    "apellido_paterno":        { "page": 0, "x": 360, "y": 448, "size": 9,  "ancho_max": 110 },
+    "apellido_materno":        { "page": 0, "x": 480, "y": 448, "size": 9,  "ancho_max": 100 },
+
+    "rfc":                     { "page": 0, "x": 80,  "y": 432, "size": 9,  "ancho_max": 200 },
+    "curp":                    { "page": 0, "x": 360, "y": 432, "size": 9,  "ancho_max": 220 },
+
+    "clase_riesgo":            { "page": 0, "x": 230, "y": 412, "size": 9,  "ancho_max": 60 },
+    "registro_patronal":       { "page": 0, "x": 480, "y": 412, "size": 9,  "ancho_max": 110 },
+
+    "fraccion":                { "page": 0, "x": 90,  "y": 392, "size": 9,  "ancho_max": 200 },
+    "actividad_giro":          { "page": 0, "x": 430, "y": 392, "size": 9,  "ancho_max": 155 },
+
+    "prima":                   { "page": 0, "x": 80,  "y": 372, "size": 9,  "ancho_max": 210 },
+    "fecha_causa_dd":          { "page": 0, "x": 475, "y": 372, "size": 9 },
+    "fecha_causa_mm":          { "page": 0, "x": 522, "y": 372, "size": 9 },
+    "fecha_causa_aaaa":        { "page": 0, "x": 568, "y": 372, "size": 9 },
+
+    "codigo_postal":           { "page": 0, "x": 120, "y": 343, "size": 9,  "ancho_max": 150 },
+    "calle":                   { "page": 0, "x": 80,  "y": 322, "size": 9,  "ancho_max": 200 },
+    "numero_exterior":         { "page": 0, "x": 145, "y": 288, "size": 9,  "ancho_max": 110 },
+    "numero_interior":         { "page": 0, "x": 290, "y": 288, "size": 9,  "ancho_max": 100 },
+    "colonia":                 { "page": 0, "x": 80,  "y": 263, "size": 9,  "ancho_max": 200 },
+    "localidad":               { "page": 0, "x": 100, "y": 230, "size": 9,  "ancho_max": 180 },
+    "municipio":               { "page": 0, "x": 140, "y": 207, "size": 9,  "ancho_max": 135 },
+    "estado":                  { "page": 0, "x": 90,  "y": 185, "size": 9,  "ancho_max": 195 },
+    "telefono":                { "page": 0, "x": 205, "y": 162, "size": 9,  "ancho_max": 75 },
+    "correo":                  { "page": 0, "x": 145, "y": 140, "size": 9,  "ancho_max": 135 },
+
+    "no_notaria":              { "page": 1, "x": 100, "y": 700, "size": 9,  "ancho_max": 200 },
+    "no_acta":                 { "page": 1, "x": 380, "y": 700, "size": 9,  "ancho_max": 200 },
+    "no_libro":                { "page": 1, "x": 100, "y": 676, "size": 9,  "ancho_max": 200 },
+    "no_foja":                 { "page": 1, "x": 380, "y": 676, "size": 9,  "ancho_max": 200 },
+    "registro_publico":        { "page": 1, "x": 195, "y": 650, "size": 9,  "ancho_max": 100 },
+    "informacion_adicional":   { "page": 1, "x": 430, "y": 650, "size": 9,  "ancho_max": 150 },
+    "lugar_fecha_constitucion":{ "page": 1, "x": 160, "y": 624, "size": 9,  "ancho_max": 420 }
+  }
+}
