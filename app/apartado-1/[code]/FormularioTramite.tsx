@@ -167,9 +167,10 @@ export function FormularioTramite({ tramiteType }: Props) {
     }
   }, [tramiteType.code, valores]);
 
-  const faltaObligatorio = tramiteType.field_schema.some(
+  const camposFaltantes = tramiteType.field_schema.filter(
     (c) => c.required && !valores[c.id]?.trim()
   );
+  const faltaObligatorio = camposFaltantes.length > 0;
 
   return (
     <div className="grid gap-8">
@@ -230,9 +231,9 @@ export function FormularioTramite({ tramiteType }: Props) {
             <span className="text-sm text-ok">Borrador guardado.</span>
           )}
           {faltaObligatorio && (
-            <span className="text-sm text-ink-3">
-              Faltan campos obligatorios.
-            </span>
+            <div className="text-sm text-ink-3">
+              Faltan: {camposFaltantes.map((c) => c.label).join(", ")}
+            </div>
           )}
         </div>
       </form>
