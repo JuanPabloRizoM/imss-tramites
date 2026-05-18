@@ -17,9 +17,9 @@
     },
 
     "razon_social":            { "page": 0, "x": 50,  "y": 470, "size": 9,  "ancho_max": 530 },
-    "nombre":                  { "page": 0, "x": 220, "y": 448, "size": 9,  "ancho_max": 110 },
-    "apellido_paterno":        { "page": 0, "x": 360, "y": 448, "size": 9,  "ancho_max": 110 },
-    "apellido_materno":        { "page": 0, "x": 480, "y": 448, "size": 9,  "ancho_max": 100 },
+    "nombre":                  { "page": 0, "x": 250, "y": 448, "size": 9,  "ancho_max": 90 },
+    "apellido_paterno":        { "page": 0, "x": 388, "y": 448, "size": 9,  "ancho_max": 90 },
+    "apellido_materno":        { "page": 0, "x": 500, "y": 448, "size": 9,  "ancho_max": 95 },
 
     "rfc":                     { "page": 0, "x": 80,  "y": 432, "size": 9,  "ancho_max": 200 },
     "curp":                    { "page": 0, "x": 360, "y": 432, "size": 9,  "ancho_max": 220 },
@@ -62,7 +62,7 @@
     "causa_c_num_ext_int_anterior": { "page": 1, "x": 355, "y": 435, "size": 9, "ancho_max": 85 },
     "causa_c_colonia_anterior":     { "page": 1, "x": 445, "y": 435, "size": 9, "ancho_max": 50 },
     "causa_c_municipio_anterior":   { "page": 1, "x": 500, "y": 435, "size": 9, "ancho_max": 80 },
-    "causa_c_estado_anterior":      { "page": 1, "x": 575, "y": 435, "size": 9, "ancho_max": 35 },
+    "causa_c_estado_anterior":      { "page": 1, "x": 558, "y": 435, "size": 9, "ancho_max": 50 },
 
     "causa_d_nombre_anterior":      { "page": 1, "x": 220, "y": 388, "size": 9, "ancho_max": 380 },
 
