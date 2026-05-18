@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 
 import { redimensionarImagen } from "@/lib/imagen";
 import { listarDocTypes } from "@/lib/extraccion";
@@ -10,7 +11,7 @@ type Estado =
   | { tipo: "vacio" }
   | { tipo: "subiendo"; nombre: string }
   | { tipo: "procesando"; nombre: string }
-  | { tipo: "listo"; nombre: string }
+  | { tipo: "listo"; nombre: string; documentId: string }
   | { tipo: "error"; mensaje: string; ultimoDocumentId?: string };
 
 const TIPOS = listarDocTypes();
@@ -62,7 +63,7 @@ export function CapturaCelular() {
         throw new Error(errJson?.error ?? `Error de extracción (${res.status}).`);
       }
 
-      setEstado({ tipo: "listo", nombre });
+      setEstado({ tipo: "listo", nombre, documentId: ins.data.id });
     } catch (err) {
       const mensaje = err instanceof Error ? err.message : "Error desconocido.";
       setEstado({ tipo: "error", mensaje });
@@ -155,15 +156,23 @@ function EstadoBox({ estado, onReset }: { estado: Estado; onReset: () => void })
         <p className="eyebrow mb-1 text-ok">Listo</p>
         <p className="text-sm font-medium text-ink">{estado.nombre}</p>
         <p className="mt-1 text-sm text-ink-2">
-          Revisa los datos en la computadora.
+          Los datos quedaron extraídos. Ábrelos para revisarlos y corregirlos.
         </p>
-        <button
-          type="button"
-          onClick={onReset}
-          className="mt-3 inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink hover:bg-paper-2"
-        >
-          Capturar otro
-        </button>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link
+            href={`/apartado-3?doc=${estado.documentId}`}
+            className="inline-flex min-h-[44px] items-center rounded-md bg-ink px-4 text-sm font-semibold text-paper hover:bg-ink-2"
+          >
+            Ver datos extraídos →
+          </Link>
+          <button
+            type="button"
+            onClick={onReset}
+            className="inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink hover:bg-paper-2"
+          >
+            Capturar otro
+          </button>
+        </div>
       </div>
     );
   }
