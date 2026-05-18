@@ -37,6 +37,11 @@ yarn-error.log*
 .env*.local
 !.env.local.example
 
+# Claude Code: settings.local.json registra los comandos Bash permitidos
+# durante una sesión, donde a veces aparecen claves como argumentos.
+# settings.json (compartido) sí se versiona; .local.json es personal.
+.claude/settings.local.json
+
 # vercel
 .vercel
 
