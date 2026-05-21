@@ -6,6 +6,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getBrowserClient } from "@/lib/supabase/client";
 import {
   agruparPorSeccion,
+  normalizarParaSalida,
   type CampoSchema,
   type TramiteType,
 } from "@/lib/tramites";
@@ -36,9 +37,12 @@ export function FormCliente({ tipo }: { tipo: TramiteType }) {
     setEstado("enviando");
     setError(null);
 
-    // Limpia strings vacíos a null para no guardar basura.
+    // Normalizar a MAYÚSCULAS los datos cortos (textarea/date/select/etc.
+    // se preservan). Luego limpia strings vacíos a null para no guardar
+    // basura.
+    const normalizados = normalizarParaSalida(tipo.field_schema, valores);
     const limpio: Record<string, string | null> = {};
-    for (const [k, v] of Object.entries(valores)) {
+    for (const [k, v] of Object.entries(normalizados)) {
       limpio[k] = v.trim() === "" ? null : v.trim();
     }
 
@@ -54,7 +58,7 @@ export function FormCliente({ tipo }: { tipo: TramiteType }) {
       return;
     }
     setEstado("enviado");
-  }, [supabase, tipo.id, valores]);
+  }, [supabase, tipo.id, tipo.field_schema, valores]);
 
   const reiniciar = () => {
     setValores({});

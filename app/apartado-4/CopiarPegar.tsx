@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import {
   agruparPorSeccion,
+  normalizarParaSalida,
   type CampoSchema,
   type TramiteType,
 } from "@/lib/tramites";
@@ -15,6 +16,14 @@ export function CopiarPegar({ tipo }: { tipo: TramiteType }) {
   const grupos = useMemo(
     () => agruparPorSeccion(tipo.field_schema),
     [tipo.field_schema]
+  );
+
+  // Lo que el usuario ve mientras tipea es lo que escribió. Lo que se COPIA
+  // sale en MAYÚSCULAS (regla de presentación del IMSS). textarea/date/etc.
+  // se preservan.
+  const valoresSalida = useMemo(
+    () => normalizarParaSalida(tipo.field_schema, valores),
+    [tipo.field_schema, valores]
   );
 
   const setCampo = (id: string, v: string) =>
@@ -35,13 +44,13 @@ export function CopiarPegar({ tipo }: { tipo: TramiteType }) {
     for (const { seccion, campos } of grupos) {
       lineas.push(`# ${seccion}`);
       for (const c of campos) {
-        const v = valores[c.id]?.trim();
+        const v = valoresSalida[c.id]?.trim();
         if (v) lineas.push(`${c.label}: ${v}`);
       }
       lineas.push("");
     }
     return lineas.join("\n").trim();
-  }, [grupos, valores]);
+  }, [grupos, valoresSalida]);
 
   const limpiar = () => setValores({});
 
@@ -64,7 +73,7 @@ export function CopiarPegar({ tipo }: { tipo: TramiteType }) {
                   campo={c}
                   valor={valores[c.id] ?? ""}
                   onChange={(v) => setCampo(c.id, v)}
-                  onCopy={() => copiar(valores[c.id] ?? "", c.id)}
+                  onCopy={() => copiar(valoresSalida[c.id] ?? "", c.id)}
                   copiado={copiado === c.id}
                 />
               ))}

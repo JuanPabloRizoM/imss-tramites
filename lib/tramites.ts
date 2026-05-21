@@ -69,6 +69,44 @@ export type Tramite = {
   updated_at: string;
 };
 
+// Regla de presentación: el IMSS y los formatos oficiales se llenan en
+// MAYÚSCULAS. Aplicamos la regla al momento de SALIDA (PDF, portal vía
+// extensión, copy-paste), no mientras el usuario tipea.
+//
+//   text   → MAYÚSCULAS
+//   number → preservar (números, sin caso)
+//   date   → preservar (formato fecha)
+//   select → preservar (corresponde a un código del catálogo, ej. "A", "II",
+//            "reanudacion" — no se debe alterar)
+//   checkbox → preservar
+//   textarea → preservar (notas, descripciones, cuerpo de escritos, giro
+//              detallado, etc. — texto largo donde el caso original importa)
+export function normalizarParaSalida(
+  schema: CampoSchema[],
+  values: Record<string, string | null | undefined>
+): Record<string, string> {
+  const porId = new Map(schema.map((c) => [c.id, c]));
+  const out: Record<string, string> = {};
+
+  for (const [id, raw] of Object.entries(values)) {
+    const valor = (raw ?? "").toString();
+    if (valor === "") {
+      out[id] = "";
+      continue;
+    }
+    const campo = porId.get(id);
+    const preservar =
+      !campo ||
+      campo.type === "textarea" ||
+      campo.type === "date" ||
+      campo.type === "number" ||
+      campo.type === "select" ||
+      campo.type === "checkbox";
+    out[id] = preservar ? valor : valor.trim().toUpperCase();
+  }
+  return out;
+}
+
 // Agrupa los campos en su orden original, conservando el orden de aparición
 // de las secciones.
 export function agruparPorSeccion(

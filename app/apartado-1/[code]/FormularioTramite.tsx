@@ -7,6 +7,7 @@ import { getBrowserClient } from "@/lib/supabase/client";
 import {
   agruparPorSeccion,
   debeMostrar,
+  normalizarParaSalida,
   type CampoSchema,
   type TramiteType,
 } from "@/lib/tramites";
@@ -120,7 +121,8 @@ export function FormularioTramite({ tramiteType }: Props) {
   const guardarBorrador = useCallback(async () => {
     if (!supabase) return;
     setGuardar("guardando");
-    const payload = { field_values: valores, status: "revisado" as const };
+    const normalizados = normalizarParaSalida(tramiteType.field_schema, valores);
+    const payload = { field_values: normalizados, status: "revisado" as const };
     if (tramiteId) {
       const { error } = await supabase
         .from("tramites")
@@ -141,7 +143,7 @@ export function FormularioTramite({ tramiteType }: Props) {
     }
     setTramiteId(data.id);
     setGuardar("guardado");
-  }, [supabase, valores, tramiteId, tramiteType.id]);
+  }, [supabase, valores, tramiteId, tramiteType.id, tramiteType.field_schema]);
 
   const generarPDF = useCallback(async () => {
     setGenerando(true);

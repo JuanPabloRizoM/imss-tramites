@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import { generarPDF } from "@/lib/pdf";
 import { getServiceRoleClient } from "@/lib/supabase/server";
-import type { TramiteType } from "@/lib/tramites";
+import { normalizarParaSalida, type TramiteType } from "@/lib/tramites";
 
 export const runtime = "nodejs";
 
@@ -35,7 +35,14 @@ export async function POST(req: Request) {
   }
 
   try {
-    const bytes = await generarPDF(data as TramiteType, values);
+    const tramiteType = data as TramiteType;
+    // El IMSS exige MAYÚSCULAS para datos cortos. textarea/date/select/etc.
+    // se preservan tal cual (notas, descripciones, fechas, códigos).
+    const valoresNormalizados = normalizarParaSalida(
+      tramiteType.field_schema,
+      values
+    );
+    const bytes = await generarPDF(tramiteType, valoresNormalizados);
     const arrayBuffer = (bytes.buffer as ArrayBuffer).slice(
       bytes.byteOffset,
       bytes.byteOffset + bytes.byteLength

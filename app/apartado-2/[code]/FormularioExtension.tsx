@@ -6,6 +6,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getBrowserClient } from "@/lib/supabase/client";
 import {
   agruparPorSeccion,
+  normalizarParaSalida,
   type CampoSchema,
   type TramiteType,
 } from "@/lib/tramites";
@@ -106,7 +107,11 @@ export function FormularioExtension({ tramiteType }: Props) {
     async (nuevoStatus: "revisado" | "nuevo") => {
       if (!supabase) return;
       setEstado("guardando");
-      const payload = { field_values: valores, status: nuevoStatus };
+      // MAYÚSCULAS para datos cortos antes de guardar: la extensión pega
+      // estos valores tal cual en el portal del IMSS, y el IMSS los exige
+      // así. textarea/date/select/etc. se preservan.
+      const normalizados = normalizarParaSalida(tramiteType.field_schema, valores);
+      const payload = { field_values: normalizados, status: nuevoStatus };
       if (tramiteId) {
         const { error } = await supabase
           .from("tramites")
@@ -129,7 +134,7 @@ export function FormularioExtension({ tramiteType }: Props) {
       setTramiteId(data.id);
       setEstado(nuevoStatus === "revisado" ? "revisado" : "guardado");
     },
-    [supabase, valores, tramiteId, tramiteType.id]
+    [supabase, valores, tramiteId, tramiteType.id, tramiteType.field_schema]
   );
 
   const faltaObligatorio = tramiteType.field_schema.some(
