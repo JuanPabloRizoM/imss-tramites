@@ -75,6 +75,7 @@ create table if not exists public.documents (
   extraction_status  text not null default 'pendiente'
                        check (extraction_status in ('pendiente', 'procesando', 'listo', 'error')),
   extraction_error   text,
+  image_deleted_at   timestamptz,
   created_at         timestamptz not null default now()
 );
 

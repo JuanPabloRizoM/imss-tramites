@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
@@ -22,6 +23,7 @@ type DocumentRow = {
   extracted_data: Record<string, ExtractedValue> | null;
   extraction_status: "pendiente" | "procesando" | "listo" | "error";
   extraction_error: string | null;
+  image_deleted_at: string | null;
   created_at: string;
 };
 
@@ -47,7 +49,7 @@ export function VistaComputadora() {
       const { data } = await supabase
         .from("documents")
         .select(
-          "id, storage_path, doc_type, extracted_data, extraction_status, extraction_error, created_at"
+          "id, storage_path, doc_type, extracted_data, extraction_status, extraction_error, image_deleted_at, created_at"
         )
         .order("created_at", { ascending: false })
         .limit(50);
@@ -129,6 +131,9 @@ export function VistaComputadora() {
             body: JSON.stringify({ documentId: id }),
           });
         }}
+        onEliminado={(id) => {
+          if (seleccionManual === id) setSeleccionManual(null);
+        }}
       />
     </div>
   );
@@ -181,7 +186,17 @@ function ListaDocumentos({
                 <span className="text-xs text-ink-3">
                   {new Date(d.created_at).toLocaleString("es-MX")}
                 </span>
-                <EstadoChip estado={d.extraction_status} />
+                <div className="flex flex-wrap items-center gap-1">
+                  <EstadoChip estado={d.extraction_status} />
+                  {d.image_deleted_at && (
+                    <span
+                      className="inline-flex items-center rounded-full border border-line bg-paper px-2 py-0.5 text-[11px] font-medium tracking-wide text-ink-3"
+                      title="La foto fue eliminada; solo quedan los datos extraídos."
+                    >
+                      Sin foto
+                    </span>
+                  )}
+                </div>
               </button>
             </li>
           );
@@ -212,10 +227,12 @@ function DetalleDocumento({
   documento,
   supabase,
   onReintentar,
+  onEliminado,
 }: {
   documento: DocumentRow | null;
   supabase: SupabaseClient;
   onReintentar: (id: string) => Promise<void>;
+  onEliminado: (id: string) => void;
 }) {
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
   // Overrides para campos planos (uno por campo).
@@ -228,6 +245,14 @@ function DetalleDocumento({
   const [guardando, setGuardando] = useState<"idle" | "guardando" | "guardado">(
     "idle"
   );
+  // "borrando-foto" libera Storage pero conserva los datos; "eliminando-todo"
+  // borra también el row.
+  const [accionEliminar, setAccionEliminar] = useState<
+    "idle" | "borrando-foto" | "eliminando-todo"
+  >("idle");
+  const [errorEliminar, setErrorEliminar] = useState<string | null>(null);
+  const ocupadoEliminando = accionEliminar !== "idle";
+  const imagenBorrada = documento?.image_deleted_at != null;
 
   const tipo: DocType = useMemo(
     () => obtenerDocType(documento?.doc_type ?? null),
@@ -245,9 +270,13 @@ function DetalleDocumento({
     return { ...out, ...overridesCampos };
   }, [documento, overridesCampos]);
 
-  // Imagen firmada (bucket privado).
+  // Imagen firmada (bucket privado). Si image_deleted_at != null el objeto ya
+  // no existe en Storage — saltamos la llamada para no generar 404s.
   useEffect(() => {
-    if (!documento) return;
+    if (!documento || documento.image_deleted_at) {
+      setSignedUrl(null);
+      return;
+    }
     let cancelado = false;
     (async () => {
       const { data } = await supabase.storage
@@ -259,6 +288,70 @@ function DetalleDocumento({
       cancelado = true;
     };
   }, [documento, supabase]);
+
+  // Borra solo la foto del Storage para liberar espacio. Los datos extraídos
+  // quedan en la tabla — el row sigue visible en la lista.
+  const borrarFoto = useCallback(async () => {
+    if (!documento || imagenBorrada) return;
+    const ok = window.confirm(
+      "¿Borrar la foto? Se libera el almacenamiento; los datos extraídos se quedan en la lista y los puedes seguir editando."
+    );
+    if (!ok) return;
+    setAccionEliminar("borrando-foto");
+    setErrorEliminar(null);
+
+    const stRes = await supabase.storage
+      .from("documentos")
+      .remove([documento.storage_path]);
+    if (stRes.error) {
+      setErrorEliminar(stRes.error.message);
+      setAccionEliminar("idle");
+      return;
+    }
+    const dbRes = await supabase
+      .from("documents")
+      .update({ image_deleted_at: new Date().toISOString() })
+      .eq("id", documento.id);
+    if (dbRes.error) {
+      setErrorEliminar(dbRes.error.message);
+      setAccionEliminar("idle");
+      return;
+    }
+    setSignedUrl(null);
+    setAccionEliminar("idle");
+  }, [documento, supabase, imagenBorrada]);
+
+  // Elimina el registro completo: foto (si aún hay) + row de la tabla.
+  const eliminarRegistro = useCallback(async () => {
+    if (!documento) return;
+    const ok = window.confirm(
+      "¿Eliminar este documento por completo? Se borran la foto y los datos extraídos. No se puede recuperar."
+    );
+    if (!ok) return;
+    setAccionEliminar("eliminando-todo");
+    setErrorEliminar(null);
+
+    if (!imagenBorrada) {
+      const stRes = await supabase.storage
+        .from("documentos")
+        .remove([documento.storage_path]);
+      if (stRes.error) {
+        setErrorEliminar(stRes.error.message);
+        setAccionEliminar("idle");
+        return;
+      }
+    }
+    const dbRes = await supabase
+      .from("documents")
+      .delete()
+      .eq("id", documento.id);
+    if (dbRes.error) {
+      setErrorEliminar(dbRes.error.message);
+      setAccionEliminar("idle");
+      return;
+    }
+    onEliminado(documento.id);
+  }, [documento, supabase, imagenBorrada, onEliminado]);
 
   const guardar = useCallback(async () => {
     if (!documento) return;
@@ -286,7 +379,14 @@ function DetalleDocumento({
     <div className="flex flex-col gap-6">
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="overflow-hidden rounded-md border border-line bg-paper-2 p-3">
-          {signedUrl ? (
+          {imagenBorrada ? (
+            <div className="flex h-64 flex-col items-center justify-center gap-1 text-center text-sm text-ink-3">
+              <p className="font-medium text-ink-2">Foto eliminada</p>
+              <p className="text-xs">
+                Los datos extraídos siguen disponibles y se pueden editar.
+              </p>
+            </div>
+          ) : signedUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={signedUrl}
@@ -359,27 +459,63 @@ function DetalleDocumento({
         />
       )}
 
-      {documento.extraction_status === "listo" && (
-        <div className="flex items-center gap-3 border-t border-line pt-6">
+      <div className="flex flex-wrap items-center gap-3 border-t border-line pt-6">
+        {documento.extraction_status === "listo" && (
+          <>
+            <button
+              type="button"
+              onClick={guardar}
+              disabled={guardando === "guardando" || ocupadoEliminando}
+              className="inline-flex min-h-[44px] items-center rounded-md bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink-2 disabled:bg-ink-3"
+            >
+              {guardando === "guardando" ? "Guardando…" : "Guardar correcciones"}
+            </button>
+            {guardando === "guardado" && (
+              <span className="text-sm text-ok">Guardado.</span>
+            )}
+            {!imagenBorrada && (
+              <button
+                type="button"
+                onClick={() => onReintentar(documento.id)}
+                disabled={ocupadoEliminando}
+                className="inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink-2 hover:bg-paper-2 hover:text-ink disabled:text-ink-3"
+              >
+                Reextraer
+              </button>
+            )}
+          </>
+        )}
+        <Link
+          href="/movil"
+          className="ml-auto inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink hover:bg-paper-2"
+        >
+          + Escanear otra hoja
+        </Link>
+        {!imagenBorrada && (
           <button
             type="button"
-            onClick={guardar}
-            disabled={guardando === "guardando"}
-            className="inline-flex min-h-[44px] items-center rounded-md bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink-2 disabled:bg-ink-3"
+            onClick={borrarFoto}
+            disabled={ocupadoEliminando}
+            className="inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink-2 hover:bg-paper-2 hover:text-ink disabled:text-ink-3"
+            title="Libera el almacenamiento. Conserva los datos extraídos."
           >
-            {guardando === "guardando" ? "Guardando…" : "Guardar correcciones"}
+            {accionEliminar === "borrando-foto" ? "Borrando foto…" : "Borrar foto"}
           </button>
-          {guardando === "guardado" && (
-            <span className="text-sm text-ok">Guardado.</span>
-          )}
-          <button
-            type="button"
-            onClick={() => onReintentar(documento.id)}
-            className="ml-auto inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink-2 hover:bg-paper-2 hover:text-ink"
-          >
-            Reextraer
-          </button>
-        </div>
+        )}
+        <button
+          type="button"
+          onClick={eliminarRegistro}
+          disabled={ocupadoEliminando}
+          className="inline-flex min-h-[44px] items-center rounded-md border border-err/40 bg-paper px-4 text-sm font-medium text-err hover:bg-err-soft disabled:opacity-60"
+          title="Borra foto y datos. Irreversible."
+        >
+          {accionEliminar === "eliminando-todo"
+            ? "Eliminando…"
+            : "Eliminar todo"}
+        </button>
+      </div>
+      {errorEliminar && (
+        <p className="text-sm text-err">No se pudo eliminar: {errorEliminar}</p>
       )}
     </div>
   );
