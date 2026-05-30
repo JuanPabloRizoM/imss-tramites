@@ -41,6 +41,7 @@ yarn-error.log*
 # durante una sesión, donde a veces aparecen claves como argumentos.
 # settings.json (compartido) sí se versiona; .local.json es personal.
 .claude/settings.local.json
+.claude/scheduled_tasks.lock
 
 # vercel
 .vercel

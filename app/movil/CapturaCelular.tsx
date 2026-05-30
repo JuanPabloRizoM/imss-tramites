@@ -1,11 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import { redimensionarImagen } from "@/lib/imagen";
 import { listarDocTypes } from "@/lib/extraccion";
 import { getBrowserClient } from "@/lib/supabase/client";
+import {
+  guardarSesionCelular,
+  leerSesionCelular,
+} from "@/lib/pareo-cliente";
+import type { SesionResumen } from "@/lib/pareo";
+import { PantallaPareoCelular } from "./PantallaPareoCelular";
 
 type Estado =
   | { tipo: "vacio" }
@@ -20,6 +26,15 @@ export function CapturaCelular() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [docType, setDocType] = useState<string>("generico");
   const [estado, setEstado] = useState<Estado>({ tipo: "vacio" });
+  // null = todavía no decidimos (server-side render). undefined = sin sesión.
+  const [sesion, setSesion] = useState<SesionResumen | null | undefined>(null);
+  const [recienConectado, setRecienConectado] = useState<string | null>(null);
+
+  // En mount: si ya hay sesión guardada en sessionStorage, usarla. Si no,
+  // mostrar la pantalla de pareo. Solo corre en cliente.
+  useEffect(() => {
+    setSesion(leerSesionCelular() ?? undefined);
+  }, []);
 
   async function manejarArchivo(file: File) {
     try {
@@ -37,15 +52,34 @@ export function CapturaCelular() {
         });
       if (up.error) throw up.error;
 
-      const ins = await supabase
+      // Intenta insertar con la sesión actual. Si la sesión de la
+      // computadora ya cerró, el FK falla (23503) — reintentamos sin
+      // session_id (fallback: visible para todas las computadoras).
+      const sessionId = sesion?.id ?? null;
+      let ins = await supabase
         .from("documents")
         .insert({
           storage_path: path,
           doc_type: docType,
           extraction_status: "pendiente",
+          session_id: sessionId,
         })
         .select("id")
         .single();
+      if (ins.error && (ins.error as { code?: string }).code === "23503") {
+        // La sesión ya no existe en la BD: avísale al usuario después.
+        guardarSesionCelular(null);
+        ins = await supabase
+          .from("documents")
+          .insert({
+            storage_path: path,
+            doc_type: docType,
+            extraction_status: "pendiente",
+            session_id: null,
+          })
+          .select("id")
+          .single();
+      }
       if (ins.error || !ins.data) throw ins.error ?? new Error("Insert vacío.");
 
       setEstado({ tipo: "procesando", nombre });
@@ -77,8 +111,61 @@ export function CapturaCelular() {
 
   const ocupado = estado.tipo === "subiendo" || estado.tipo === "procesando";
 
+  // Estado inicial — todavía no leímos sessionStorage.
+  if (sesion === null) {
+    return (
+      <p className="text-center text-sm text-ink-3">Cargando…</p>
+    );
+  }
+
+  // No hay sesión: pantalla de pareo.
+  if (sesion === undefined) {
+    return (
+      <PantallaPareoCelular
+        onConectado={(s) => {
+          setSesion(s);
+          setRecienConectado(s.code);
+          // Limpia el aviso después de unos segundos.
+          setTimeout(() => setRecienConectado(null), 4500);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="flex flex-col gap-7">
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-line bg-paper-2 px-3 py-2 text-xs">
+        <span className="text-ink-2">
+          Conectado a la computadora{" "}
+          <span className="font-mono font-semibold text-ink">
+            …{sesion.code.slice(-2)}
+          </span>
+        </span>
+        <button
+          type="button"
+          onClick={() => {
+            guardarSesionCelular(null);
+            setSesion(undefined);
+            setEstado({ tipo: "vacio" });
+          }}
+          className="text-ink-3 underline-offset-2 hover:text-ink hover:underline"
+        >
+          Cambiar
+        </button>
+      </div>
+
+      {recienConectado && (
+        <div
+          role="status"
+          className="rounded-md border border-ok/30 bg-ok-soft px-3 py-2 text-sm text-ink-2"
+        >
+          Conectado a esta computadora ·{" "}
+          <span className="font-mono font-semibold text-ink">
+            …{recienConectado.slice(-2)}
+          </span>
+        </div>
+      )}
+
       <div className="flex flex-col gap-2">
         <label htmlFor="doc-type" className="text-sm font-medium text-ink-2">
           Tipo de documento

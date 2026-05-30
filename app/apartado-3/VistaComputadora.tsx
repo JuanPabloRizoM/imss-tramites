@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { getBrowserClient } from "@/lib/supabase/client";
+import { useSesionId } from "@/lib/pareo-cliente";
 import {
   obtenerDocType,
   esFilaArray,
@@ -24,6 +25,7 @@ type DocumentRow = {
   extraction_status: "pendiente" | "procesando" | "listo" | "error";
   extraction_error: string | null;
   image_deleted_at: string | null;
+  session_id: string | null;
   created_at: string;
 };
 
@@ -34,6 +36,7 @@ function initSupabase(): SupabaseClient | null {
 
 export function VistaComputadora() {
   const [supabase] = useState<SupabaseClient | null>(initSupabase);
+  const sesionId = useSesionId();
   const [docs, setDocs] = useState<DocumentRow[]>([]);
   const [seleccionManual, setSeleccionManual] = useState<string | null>(null);
   const [cargando, setCargando] = useState(true);
@@ -42,15 +45,30 @@ export function VistaComputadora() {
   // Si la URL viene con ?doc=<id>, preselecciona ese documento.
   const docDesdeUrl = searchParams.get("doc");
 
+  // Esta computadora muestra:
+  //   1) Documentos pareados a esta sesión (session_id == sesionId).
+  //   2) Documentos huérfanos (session_id IS NULL): fallback cuando la
+  //      sesión origen ya no existe — visibles para todas las computadoras.
+  // Postgres realtime no permite filtro OR; suscribimos sin filtro y
+  // descartamos en cliente lo que no nos toca.
+  const documentoMeCorresponde = useCallback(
+    (d: { session_id: string | null }) =>
+      d.session_id === null || (sesionId !== null && d.session_id === sesionId),
+    [sesionId]
+  );
+
   useEffect(() => {
-    if (!supabase) return;
+    if (!supabase || sesionId === null) return;
     let cancelado = false;
+
     (async () => {
+      // Trae lo nuestro + lo huérfano (.or filtra por OR en PostgREST).
       const { data } = await supabase
         .from("documents")
         .select(
-          "id, storage_path, doc_type, extracted_data, extraction_status, extraction_error, image_deleted_at, created_at"
+          "id, storage_path, doc_type, extracted_data, extraction_status, extraction_error, image_deleted_at, session_id, created_at"
         )
+        .or(`session_id.eq.${sesionId},session_id.is.null`)
         .order("created_at", { ascending: false })
         .limit(50);
 
@@ -60,7 +78,7 @@ export function VistaComputadora() {
     })();
 
     const channel = supabase
-      .channel("documents-feed")
+      .channel(`documents-feed-${sesionId}`)
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "documents" },
@@ -68,11 +86,18 @@ export function VistaComputadora() {
           setDocs((prev) => {
             if (payload.eventType === "INSERT") {
               const nuevo = payload.new as DocumentRow;
+              if (!documentoMeCorresponde(nuevo)) return prev;
               if (prev.some((d) => d.id === nuevo.id)) return prev;
               return [nuevo, ...prev].slice(0, 50);
             }
             if (payload.eventType === "UPDATE") {
               const upd = payload.new as DocumentRow;
+              if (!documentoMeCorresponde(upd)) {
+                // Cambió a otra sesión — sácalo si estaba.
+                return prev.filter((d) => d.id !== upd.id);
+              }
+              const existia = prev.some((d) => d.id === upd.id);
+              if (!existia) return [upd, ...prev].slice(0, 50);
               return prev.map((d) => (d.id === upd.id ? upd : d));
             }
             if (payload.eventType === "DELETE") {
@@ -89,7 +114,7 @@ export function VistaComputadora() {
       cancelado = true;
       supabase.removeChannel(channel);
     };
-  }, [supabase]);
+  }, [supabase, sesionId, documentoMeCorresponde]);
 
   // Selección efectiva: query param > manual > primero.
   const seleccionId = useMemo(() => {
@@ -194,6 +219,14 @@ function ListaDocumentos({
                       title="La foto fue eliminada; solo quedan los datos extraídos."
                     >
                       Sin foto
+                    </span>
+                  )}
+                  {d.session_id === null && (
+                    <span
+                      className="inline-flex items-center rounded-full border border-line bg-paper px-2 py-0.5 text-[11px] font-medium tracking-wide text-ink-3"
+                      title="Sesión cerrada antes de que llegara el upload. Visible para todas las computadoras."
+                    >
+                      Sesión cerrada · captura disponible para todos
                     </span>
                   )}
                 </div>

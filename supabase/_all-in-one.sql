@@ -66,6 +66,24 @@ create trigger tramites_set_updated_at
   for each row
   execute function public.set_updated_at();
 
+-- Tabla: sessions ----------------------------------------------------------
+-- Pareo celular ↔ computadora. Cada pestaña de computadora crea una
+-- sesión con un código corto; los celulares pegan ese código para que sus
+-- uploads queden amarrados a esa sesión y no aparezcan en otras
+-- computadoras (Fase 2.6).
+create table if not exists public.sessions (
+  id           uuid primary key default gen_random_uuid(),
+  code         text not null unique
+                 check (code ~ '^[A-HJKMNP-Z2-9]{4}$'),
+  created_at   timestamptz not null default now(),
+  last_seen_at timestamptz not null default now(),
+  active       boolean not null default true
+);
+
+create index if not exists sessions_code_active_idx
+  on public.sessions (code)
+  where active;
+
 -- Tabla: documents ---------------------------------------------------------
 create table if not exists public.documents (
   id                 uuid primary key default gen_random_uuid(),
@@ -77,6 +95,7 @@ create table if not exists public.documents (
                        check (extraction_status in ('pendiente', 'procesando', 'listo', 'error')),
   extraction_error   text,
   image_deleted_at   timestamptz,
+  session_id         uuid references public.sessions(id) on delete set null,
   created_at         timestamptz not null default now()
 );
 
@@ -118,6 +137,7 @@ on conflict (id) do nothing;
 alter table public.tramite_types enable row level security;
 alter table public.tramites      enable row level security;
 alter table public.documents     enable row level security;
+alter table public.sessions      enable row level security;
 
 drop policy if exists "anon_all_tramite_types" on public.tramite_types;
 create policy "anon_all_tramite_types"
@@ -138,6 +158,14 @@ create policy "anon_all_tramites"
 drop policy if exists "anon_all_documents" on public.documents;
 create policy "anon_all_documents"
   on public.documents
+  for all
+  to anon, authenticated
+  using (true)
+  with check (true);
+
+drop policy if exists "anon_all_sessions" on public.sessions;
+create policy "anon_all_sessions"
+  on public.sessions
   for all
   to anon, authenticated
   using (true)
