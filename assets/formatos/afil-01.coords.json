@@ -3,13 +3,13 @@
   "_dimensiones": { "ancho": 612, "alto": 794 },
   "_default_size": 9,
   "campos": {
-    "fecha_solicitud_dd":      { "page": 0, "x": 370, "y": 635, "size": 9 },
+    "fecha_solicitud_dd":      { "page": 0, "x": 380, "y": 635, "size": 9 },
     "fecha_solicitud_mm":      { "page": 0, "x": 432, "y": 635, "size": 9 },
     "fecha_solicitud_aaaa":    { "page": 0, "x": 495, "y": 635, "size": 9 },
 
     "causa_aviso":             { "page": 0, "type": "checkbox-grid",
       "options": {
-        "A": { "x": 322, "y": 582 }, "B": { "x": 478, "y": 582 },
+        "A": { "x": 322, "y": 584 }, "B": { "x": 478, "y": 582 },
         "C": { "x": 322, "y": 564 }, "D": { "x": 478, "y": 564 },
         "E": { "x": 322, "y": 544 }, "F": { "x": 478, "y": 544 },
         "G": { "x": 322, "y": 526 }, "H": { "x": 478, "y": 526 }
