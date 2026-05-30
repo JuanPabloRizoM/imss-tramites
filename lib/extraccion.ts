@@ -70,6 +70,14 @@ export const DOC_TYPES: Record<string, DocType> = {
       { id: "domicilio", label: "Domicilio completo" },
     ],
   },
+  ine_representante: {
+    id: "ine_representante",
+    label: "INE del representante legal",
+    campos: [
+      { id: "nombre_representante", label: "Nombre completo del representante" },
+      { id: "curp_representante", label: "CURP del representante" },
+    ],
+  },
   tip: {
     id: "tip",
     label: "Tarjeta de Identificación Patronal (TIP)",

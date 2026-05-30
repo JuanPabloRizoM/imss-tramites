@@ -46,6 +46,21 @@ export function debeMostrar(
   return true;
 }
 
+// Algunos trámites (AFIL-01, AM-SRT) tienen CASOS: subtipos del mismo trámite
+// con diferentes campos y diferentes documentos fuente. El usuario elige el
+// caso ANTES de capturar nada. Si `cases` es null/[], el trámite no tiene
+// casos y se comporta como antes (un solo flujo lineal con todos los campos).
+export type CasoTramite = {
+  id: string; // Ej. "A", "C"
+  label: string;
+  description?: string;
+  // IDs de campos del field_schema que SI aplican a este caso. Si vacío:
+  // todos. Si presente: solo estos se muestran/validan/incluyen en el PDF.
+  required_fields: string[];
+  // IDs de doc types (de DOC_TYPES) que este caso necesita extraer.
+  required_source_docs: string[];
+};
+
 export type TramiteType = {
   id: string;
   code: string;
@@ -54,9 +69,25 @@ export type TramiteType = {
   output_type: "pdf" | "extension" | "copy";
   field_schema: CampoSchema[];
   source_docs: string[];
+  cases: CasoTramite[] | null;
   portal_url: string | null;
   active: boolean;
 };
+
+// Devuelve solo los campos del schema que el caso requiere. Si caso es null,
+// regresa todo el schema sin filtrar (trámite sin casos).
+export function camposDelCaso(
+  schema: CampoSchema[],
+  caso: CasoTramite | null
+): CampoSchema[] {
+  if (!caso || caso.required_fields.length === 0) return schema;
+  const setIds = new Set(caso.required_fields);
+  return schema.filter((c) => setIds.has(c.id));
+}
+
+export function tieneCasos(t: Pick<TramiteType, "cases">): boolean {
+  return Array.isArray(t.cases) && t.cases.length > 0;
+}
 
 export type Tramite = {
   id: string;

@@ -22,6 +22,7 @@ create table if not exists public.tramite_types (
   output_type  text not null check (output_type in ('pdf', 'extension', 'copy')),
   field_schema jsonb not null default '[]'::jsonb,
   source_docs  jsonb not null default '[]'::jsonb,
+  cases        jsonb,
   portal_url   text,
   active       boolean not null default true,
   created_at   timestamptz not null default now()

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ApartadoShell } from "@/components/ApartadoShell";
 import { getServerClient } from "@/lib/supabase/server";
 import type { TramiteType } from "@/lib/tramites";
-import { FormularioTramite } from "./FormularioTramite";
+import { VistaTramite } from "./VistaTramite";
 
 export const dynamic = "force-dynamic";
 
@@ -27,21 +27,29 @@ export default async function PaginaTramite({
 
   const { data: tipo } = await supabase
     .from("tramite_types")
-    .select("id, code, name, apartado, output_type, field_schema, source_docs, active")
+    .select(
+      "id, code, name, apartado, output_type, field_schema, source_docs, cases, active"
+    )
     .eq("code", code)
     .eq("apartado", 1)
     .maybeSingle();
 
   if (!tipo) notFound();
   const tramiteType = tipo as TramiteType;
+  const tieneCasos = Array.isArray(tramiteType.cases) && tramiteType.cases.length > 0;
 
   return (
     <ApartadoShell
       numero={1}
       titulo={tramiteType.name}
-      resumen={`Llena los campos. Genera un PDF descargable. ${tramiteType.field_schema.length} campos en ${
-        new Set(tramiteType.field_schema.map((c) => c.section ?? "Datos")).size
-      } secciones.`}
+      resumen={
+        tieneCasos
+          ? "Elige el caso, captura los documentos requeridos y genera el PDF."
+          : `Llena los campos. Genera un PDF descargable. ${tramiteType.field_schema.length} campos en ${
+              new Set(tramiteType.field_schema.map((c) => c.section ?? "Datos"))
+                .size
+            } secciones.`
+      }
     >
       <nav className="mb-6 text-sm">
         <Link
@@ -53,7 +61,7 @@ export default async function PaginaTramite({
         </Link>
       </nav>
 
-      <FormularioTramite tramiteType={tramiteType} />
+      <VistaTramite tramiteType={tramiteType} />
     </ApartadoShell>
   );
 }

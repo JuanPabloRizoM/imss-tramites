@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
+import { PDFDocument } from "pdf-lib";
 
 import {
   construirPromptSistema,
@@ -8,8 +9,14 @@ import {
 } from "@/lib/extraccion";
 import { getServiceRoleClient } from "@/lib/supabase/server";
 
-// API route que toma un document.id, descarga su imagen desde Storage, llama
+// API route que toma un document.id, descarga el archivo desde Storage, llama
 // a Claude Haiku con un prompt cerrado y guarda los datos extraídos.
+//
+// Soporta:
+//   - Imágenes (JPG, PNG, WebP, GIF): se envían como bloque "image".
+//   - PDFs: se envían como bloque "document". Antes de enviar contamos las
+//     páginas; si son más de COST_GUARD_PAGES rechazamos el request a menos
+//     que el caller mande confirmPdfPages=true (lo decide el usuario).
 //
 // Reglas clave (Principio 1.5 y 7.3):
 //   - La ANTHROPIC_API_KEY y la SERVICE_ROLE_KEY solo se usan aquí, en el server.
@@ -19,9 +26,16 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 const MODEL = "claude-haiku-4-5";
+// La API de Anthropic cobra por página de PDF. Más de este umbral exige
+// confirmación explícita del usuario para evitar facturas inesperadas.
+const COST_GUARD_PAGES = 15;
 
 export async function POST(req: Request) {
-  const { documentId } = (await req.json()) as { documentId?: string };
+  const body = (await req.json()) as {
+    documentId?: string;
+    confirmPdfPages?: boolean;
+  };
+  const { documentId, confirmPdfPages } = body;
   if (!documentId) {
     return NextResponse.json(
       { error: "Falta documentId en el body." },
@@ -74,13 +88,62 @@ export async function POST(req: Request) {
 
   const buffer = Buffer.from(await blob.arrayBuffer());
   const base64 = buffer.toString("base64");
-  const mediaType = inferMediaType(doc.storage_path, blob.type);
+  const esPdf = inferEsPdf(doc.storage_path, blob.type);
+
+  // Guard de costo: PDF con más de COST_GUARD_PAGES exige confirmación
+  // explícita del usuario porque Anthropic cobra por página.
+  if (esPdf) {
+    let paginas = 0;
+    try {
+      const pdf = await PDFDocument.load(buffer, { ignoreEncryption: true });
+      paginas = pdf.getPageCount();
+    } catch (err) {
+      const mensaje =
+        err instanceof Error ? err.message : "No se pudo leer el PDF.";
+      await marcarError(supabase, documentId, mensaje);
+      return NextResponse.json({ error: mensaje }, { status: 400 });
+    }
+    if (paginas > COST_GUARD_PAGES && !confirmPdfPages) {
+      // Dejamos el documento en "pendiente" — el usuario decide.
+      await supabase
+        .from("documents")
+        .update({ extraction_status: "pendiente", extraction_error: null })
+        .eq("id", documentId);
+      return NextResponse.json(
+        {
+          error: "pdf_demasiadas_paginas",
+          paginas,
+          umbral: COST_GUARD_PAGES,
+          mensaje: `Este PDF tiene ${paginas} páginas y la extracción se cobra por página (Anthropic). Es ~${paginas}× más caro que una página única. Confirma para procesarlo de todos modos.`,
+        },
+        { status: 409 }
+      );
+    }
+  }
 
   // 3) Llamar a Claude Haiku con el prompt cerrado.
   const docType = obtenerDocType(doc.doc_type);
   const systemPrompt = construirPromptSistema(docType);
 
   const anthropic = new Anthropic({ apiKey });
+
+  const bloqueArchivo = esPdf
+    ? ({
+        type: "document" as const,
+        source: {
+          type: "base64" as const,
+          media_type: "application/pdf" as const,
+          data: base64,
+        },
+      })
+    : ({
+        type: "image" as const,
+        source: {
+          type: "base64" as const,
+          media_type: inferMediaType(doc.storage_path, blob.type),
+          data: base64,
+        },
+      });
 
   try {
     const respuesta = await anthropic.messages.create({
@@ -91,14 +154,7 @@ export async function POST(req: Request) {
         {
           role: "user",
           content: [
-            {
-              type: "image",
-              source: {
-                type: "base64",
-                media_type: mediaType,
-                data: base64,
-              },
-            },
+            bloqueArchivo,
             {
               type: "text",
               text: "Extrae los campos del documento siguiendo las reglas del sistema. Devuelve solo el JSON.",
@@ -159,4 +215,9 @@ function inferMediaType(
   if (fallback === "image/webp") return "image/webp";
   if (fallback === "image/gif") return "image/gif";
   return "image/jpeg";
+}
+
+function inferEsPdf(path: string, fallback?: string): boolean {
+  if (path.toLowerCase().endsWith(".pdf")) return true;
+  return fallback === "application/pdf";
 }
