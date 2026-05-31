@@ -67,6 +67,6 @@
     "causa_f_registro_1":           { "page": 1, "x": 310, "y": 322, "size": 9, "ancho_max": 130 },
     "causa_f_registro_2":           { "page": 1, "x": 480, "y": 322, "size": 9, "ancho_max": 130 },
 
-    "causa_g_motivo":               { "page": 1, "x": 230, "y": 292, "size": 9, "ancho_max": 380 }
+    "causa_g_motivo":               { "page": 1, "x": 260, "y": 292, "size": 9, "ancho_max": 380 }
   }
 }
