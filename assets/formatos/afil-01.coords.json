@@ -10,7 +10,7 @@
     "causa_aviso":             { "page": 0, "type": "checkbox-grid",
       "options": {
         "A": { "x": 322, "y": 584 }, "B": { "x": 448, "y": 585 },
-        "C": { "x": 322, "y": 571 }, "D": { "x": 453, "y": 571 },
+        "C": { "x": 322, "y": 571 }, "D": { "x": 447, "y": 572 },
         "E": { "x": 322, "y": 544 }, "F": { "x": 478, "y": 544 },
         "G": { "x": 322, "y": 526 }, "H": { "x": 478, "y": 526 }
       }
@@ -59,7 +59,7 @@
 
     "causa_c_domicilio_anterior":   { "page": 1, "x": 150, "y": 435, "size": 9, "ancho_max": 440 },
 
-    "causa_d_nombre_anterior":      { "page": 1, "x": 190, "y": 391, "size": 9, "ancho_max": 380 },
+    "causa_d_nombre_anterior":      { "page": 1, "x": 183, "y": 391, "size": 9, "ancho_max": 380 },
 
     "causa_e_nombre_sustituido":    { "page": 1, "x": 220, "y": 362, "size": 9, "ancho_max": 290 },
     "causa_e_registro_sustituido":  { "page": 1, "x": 510, "y": 362, "size": 9, "ancho_max": 90 },
