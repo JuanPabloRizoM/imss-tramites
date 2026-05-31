@@ -633,6 +633,43 @@ function FormularioCaso({
   );
   const grupos = useMemo(() => agruparPorSeccion(campos), [campos]);
 
+  // AM-SRT: vigila la fracción y aplica el auto-llenado SIN IMPORTAR el
+  // origen (typing, extracción IA, precarga desde docs). El check de
+  // igualdad evita loop infinito.
+  useEffect(() => {
+    if (tramiteType.code !== "am-srt") return;
+    const frac = valores.fraccion;
+    if (!frac) return;
+    const hit = buscarFraccion(frac);
+    if (!hit) return;
+    if (
+      valores.fraccion === hit.fraccionCodigo &&
+      valores.division === hit.divisionCodigo &&
+      valores.grupo === hit.grupoCodigo &&
+      valores.clase === hit.claseCodigo
+    ) {
+      return;
+    }
+    setValores((prev) => ({
+      ...prev,
+      fraccion: hit.fraccionCodigo,
+      division: hit.divisionCodigo,
+      grupo: hit.grupoCodigo,
+      clase: hit.claseCodigo,
+      division_descripcion: hit.divisionNombre,
+      grupo_descripcion: hit.grupoNombre,
+      fraccion_descripcion: hit.fraccionTitulo,
+      clase_descripcion: hit.claseNombre,
+    }));
+  }, [
+    tramiteType.code,
+    valores.fraccion,
+    valores.division,
+    valores.grupo,
+    valores.clase,
+    setValores,
+  ]);
+
   const setCampo = (id: string, valor: string) => {
     setValores((prev) => {
       const next = { ...prev, [id]: valor };
