@@ -11,7 +11,7 @@
       "options": {
         "A": { "x": 322, "y": 584 }, "B": { "x": 448, "y": 585 },
         "C": { "x": 322, "y": 571 }, "D": { "x": 447, "y": 572 },
-        "E": { "x": 322, "y": 554 }, "F": { "x": 478, "y": 544 },
+        "E": { "x": 322, "y": 554 }, "F": { "x": 450, "y": 540 },
         "G": { "x": 322, "y": 541 }, "H": { "x": 478, "y": 526 }
       }
     },
@@ -64,8 +64,8 @@
     "causa_e_nombre_sustituido":    { "page": 1, "x": 195, "y": 362, "size": 9, "ancho_max": 290 },
     "causa_e_registro_sustituido":  { "page": 1, "x": 485, "y": 362, "size": 9, "ancho_max": 90 },
 
-    "causa_f_registro_1":           { "page": 1, "x": 310, "y": 322, "size": 9, "ancho_max": 130 },
-    "causa_f_registro_2":           { "page": 1, "x": 480, "y": 322, "size": 9, "ancho_max": 130 },
+    "causa_f_registro_1":           { "page": 1, "x": 230, "y": 319, "size": 9, "ancho_max": 130 },
+    "causa_f_registro_2":           { "page": 1, "x": 400, "y": 319, "size": 9, "ancho_max": 130 },
 
     "causa_g_motivo":               { "page": 1, "x": 260, "y": 292, "size": 9, "ancho_max": 380 }
   }
