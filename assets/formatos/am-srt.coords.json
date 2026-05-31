@@ -3,9 +3,9 @@
   "_dimensiones": { "ancho": 612, "alto": 964 },
   "_default_size": 9,
   "campos": {
-    "fecha_presentacion_dd":     { "page": 0, "x": 195, "y": 755, "size": 9, "ancho_max": 18 },
-    "fecha_presentacion_mm":     { "page": 0, "x": 225, "y": 755, "size": 9, "ancho_max": 18 },
-    "fecha_presentacion_aaaa":   { "page": 0, "x": 255, "y": 755, "size": 9, "ancho_max": 40 },
+    "fecha_presentacion_dd":     { "page": 0, "x": 180, "y": 755, "size": 9, "ancho_max": 18 },
+    "fecha_presentacion_mm":     { "page": 0, "x": 210, "y": 755, "size": 9, "ancho_max": 18 },
+    "fecha_presentacion_aaaa":   { "page": 0, "x": 240, "y": 755, "size": 9, "ancho_max": 40 },
 
     "fecha_modificacion_dd":     { "page": 0, "x": 465, "y": 755, "size": 9, "ancho_max": 18 },
     "fecha_modificacion_mm":     { "page": 0, "x": 495, "y": 755, "size": 9, "ancho_max": 18 },
