@@ -23,10 +23,14 @@ type CoordCampo =
       y: number;
       size?: number;
       ancho_max?: number;
+      // Si está, copia el valor de otro campo (útil para que el mismo dato
+      // aparezca en varias secciones del PDF — ej. clase en I.3 y en III.1).
+      from?: string;
     }
   | {
       page?: number;
       type: "checkbox-grid";
+      from?: string;
       options: Record<string, { page?: number; x: number; y: number; size?: number }>;
     };
 
@@ -78,8 +82,11 @@ export async function generarOverlay(
   }
 
   for (const [campoId, conf] of Object.entries(coords.campos)) {
+    // Si la coord tiene `from`, toma el valor de ese campo en vez del id propio.
+    const valueKey = (conf as { from?: string }).from ?? campoId;
+
     if ("type" in conf && conf.type === "checkbox-grid") {
-      const elegido = (flat[campoId] ?? "").toString().trim();
+      const elegido = (flat[valueKey] ?? "").toString().trim();
       if (!elegido) continue;
       const norm = elegido.toLowerCase();
       const opt =
@@ -101,7 +108,7 @@ export async function generarOverlay(
 
     // Campo de texto en (x,y).
     const c = conf as Extract<CoordCampo, { x: number }>;
-    const valor = flat[campoId];
+    const valor = flat[valueKey];
     if (valor == null || String(valor).trim() === "") continue;
     const page = pages[c.page ?? 0];
     if (!page) continue;

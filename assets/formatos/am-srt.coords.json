@@ -66,6 +66,12 @@
     "telefono_2":                { "page": 1, "x": 434, "y": 695, "size": 9, "ancho_max": 270 },
     "correo":                    { "page": 1, "x": 114, "y": 675, "size": 9, "ancho_max": 550 },
 
+    "division_iii1":             { "page": 1, "x": 200, "y": 499, "size": 9, "ancho_max": 70, "from": "division" },
+    "grupo_iii1":                { "page": 1, "x": 200, "y": 480, "size": 9, "ancho_max": 70, "from": "grupo" },
+    "fraccion_iii1":             { "page": 1, "x": 200, "y": 460, "size": 9, "ancho_max": 70, "from": "fraccion" },
+    "clase_iii1":                { "page": 1, "x": 200, "y": 440, "size": 9, "ancho_max": 70, "from": "clase" },
+    "prima_srt_iii1":            { "page": 1, "x": 440, "y": 440, "size": 9, "ancho_max": 80, "from": "prima_srt" },
+
     "giro":                      { "page": 1, "x": 113, "y": 610, "size": 9, "ancho_max": 270 },
     "presta_servicios_personal": { "page": 1, "type": "checkbox-grid",
       "options": {
