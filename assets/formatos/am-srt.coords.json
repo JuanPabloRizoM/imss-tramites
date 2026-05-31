@@ -62,15 +62,15 @@
     "municipio":                 { "page": 1, "x": 139, "y": 715, "size": 9, "ancho_max": 270 },
     "estado":                    { "page": 1, "x": 414, "y": 715, "size": 9, "ancho_max": 170 },
     "codigo_postal":             { "page": 1, "x": 557, "y": 715, "size": 9, "ancho_max": 90 },
-    "telefono_1":                { "page": 1, "x": 164, "y": 695, "size": 9, "ancho_max": 270 },
-    "telefono_2":                { "page": 1, "x": 444, "y": 695, "size": 9, "ancho_max": 270 },
+    "telefono_1":                { "page": 1, "x": 154, "y": 695, "size": 9, "ancho_max": 270 },
+    "telefono_2":                { "page": 1, "x": 434, "y": 695, "size": 9, "ancho_max": 270 },
     "correo":                    { "page": 1, "x": 114, "y": 675, "size": 9, "ancho_max": 550 },
 
-    "giro":                      { "page": 1, "x": 84,  "y": 610, "size": 9, "ancho_max": 270 },
+    "giro":                      { "page": 1, "x": 111, "y": 610, "size": 9, "ancho_max": 270 },
     "presta_servicios_personal": { "page": 1, "type": "checkbox-grid",
       "options": {
-        "si": { "x": 454, "y": 608 },
-        "no": { "x": 544, "y": 608 }
+        "si": { "x": 459, "y": 611 },
+        "no": { "x": 549, "y": 611 }
       }
     }
   }
