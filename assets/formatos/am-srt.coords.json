@@ -14,16 +14,16 @@
     "razon_social":              { "page": 0, "x": 150, "y": 666, "size": 10, "ancho_max": 540 },
 
     "nombre":                    { "page": 0, "x": 83,  "y": 613, "size": 9,  "ancho_max": 125 },
-    "apellido_paterno":          { "page": 0, "x": 232, "y": 613, "size": 9,  "ancho_max": 125 },
-    "apellido_materno":          { "page": 0, "x": 379, "y": 613, "size": 9,  "ancho_max": 125 },
+    "apellido_paterno":          { "page": 0, "x": 233, "y": 613, "size": 9,  "ancho_max": 125 },
+    "apellido_materno":          { "page": 0, "x": 380, "y": 613, "size": 9,  "ancho_max": 125 },
     "curp":                      { "page": 0, "x": 480, "y": 613, "size": 9,  "ancho_max": 130 },
 
-    "registro_patronal":         { "page": 0, "x": 102, "y": 557, "size": 9,  "ancho_max": 270 },
-    "rfc":                       { "page": 0, "x": 342, "y": 557, "size": 9,  "ancho_max": 260 },
+    "registro_patronal":         { "page": 0, "x": 103, "y": 557, "size": 9,  "ancho_max": 270 },
+    "rfc":                       { "page": 0, "x": 341, "y": 558, "size": 9,  "ancho_max": 260 },
 
     "division":                  { "page": 0, "x": 80,  "y": 539, "size": 9,  "ancho_max": 85 },
-    "grupo":                     { "page": 0, "x": 169, "y": 539, "size": 9,  "ancho_max": 90 },
-    "fraccion":                  { "page": 0, "x": 267, "y": 539, "size": 9,  "ancho_max": 200 },
+    "grupo":                     { "page": 0, "x": 167, "y": 539, "size": 9,  "ancho_max": 90 },
+    "fraccion":                  { "page": 0, "x": 266, "y": 539, "size": 9,  "ancho_max": 200 },
     "clase":                     { "page": 0, "x": 463, "y": 539, "size": 9,  "ancho_max": 55 },
     "prima_srt":                 { "page": 0, "x": 546, "y": 539, "size": 9,  "ancho_max": 90 },
 
@@ -53,24 +53,24 @@
     "fecha_baja_aaaa":           { "page": 0, "x": 555, "y": 415, "size": 9, "ancho_max": 40 },
 
     "calle":                     { "page": 1, "x": 69,  "y": 773, "size": 9, "ancho_max": 270 },
-    "numero_exterior":           { "page": 1, "x": 349, "y": 773, "size": 9, "ancho_max": 130 },
-    "numero_interior":           { "page": 1, "x": 489, "y": 773, "size": 9, "ancho_max": 130 },
-    "entre_calles":              { "page": 1, "x": 69,  "y": 753, "size": 9, "ancho_max": 270 },
-    "calle_posterior":           { "page": 1, "x": 349, "y": 753, "size": 9, "ancho_max": 270 },
-    "colonia":                   { "page": 1, "x": 69,  "y": 733, "size": 9, "ancho_max": 270 },
-    "localidad":                 { "page": 1, "x": 349, "y": 733, "size": 9, "ancho_max": 270 },
-    "municipio":                 { "page": 1, "x": 69,  "y": 715, "size": 9, "ancho_max": 270 },
-    "estado":                    { "page": 1, "x": 349, "y": 715, "size": 9, "ancho_max": 170 },
-    "codigo_postal":             { "page": 1, "x": 529, "y": 715, "size": 9, "ancho_max": 90 },
-    "telefono_1":                { "page": 1, "x": 69,  "y": 695, "size": 9, "ancho_max": 270 },
-    "telefono_2":                { "page": 1, "x": 349, "y": 695, "size": 9, "ancho_max": 270 },
-    "correo":                    { "page": 1, "x": 69,  "y": 675, "size": 9, "ancho_max": 550 },
+    "numero_exterior":           { "page": 1, "x": 354, "y": 773, "size": 9, "ancho_max": 130 },
+    "numero_interior":           { "page": 1, "x": 494, "y": 773, "size": 9, "ancho_max": 130 },
+    "entre_calles":              { "page": 1, "x": 74,  "y": 753, "size": 9, "ancho_max": 270 },
+    "calle_posterior":           { "page": 1, "x": 354, "y": 753, "size": 9, "ancho_max": 270 },
+    "colonia":                   { "page": 1, "x": 74,  "y": 733, "size": 9, "ancho_max": 270 },
+    "localidad":                 { "page": 1, "x": 354, "y": 733, "size": 9, "ancho_max": 270 },
+    "municipio":                 { "page": 1, "x": 74,  "y": 715, "size": 9, "ancho_max": 270 },
+    "estado":                    { "page": 1, "x": 354, "y": 715, "size": 9, "ancho_max": 170 },
+    "codigo_postal":             { "page": 1, "x": 534, "y": 715, "size": 9, "ancho_max": 90 },
+    "telefono_1":                { "page": 1, "x": 74,  "y": 695, "size": 9, "ancho_max": 270 },
+    "telefono_2":                { "page": 1, "x": 354, "y": 695, "size": 9, "ancho_max": 270 },
+    "correo":                    { "page": 1, "x": 74,  "y": 675, "size": 9, "ancho_max": 550 },
 
-    "giro":                      { "page": 1, "x": 69,  "y": 610, "size": 9, "ancho_max": 270 },
+    "giro":                      { "page": 1, "x": 74,  "y": 610, "size": 9, "ancho_max": 270 },
     "presta_servicios_personal": { "page": 1, "type": "checkbox-grid",
       "options": {
-        "si": { "x": 439, "y": 608 },
-        "no": { "x": 529, "y": 608 }
+        "si": { "x": 444, "y": 608 },
+        "no": { "x": 534, "y": 608 }
       }
     }
   }
