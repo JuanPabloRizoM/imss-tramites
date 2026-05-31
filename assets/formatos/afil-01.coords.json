@@ -9,7 +9,7 @@
 
     "causa_aviso":             { "page": 0, "type": "checkbox-grid",
       "options": {
-        "A": { "x": 322, "y": 584 }, "B": { "x": 478, "y": 582 },
+        "A": { "x": 322, "y": 584 }, "B": { "x": 448, "y": 585 },
         "C": { "x": 322, "y": 564 }, "D": { "x": 478, "y": 564 },
         "E": { "x": 322, "y": 544 }, "F": { "x": 478, "y": 544 },
         "G": { "x": 322, "y": 526 }, "H": { "x": 478, "y": 526 }
@@ -25,7 +25,7 @@
     "curp":                    { "page": 0, "x": 345, "y": 440, "size": 9,  "ancho_max": 220 },
 
     "clase_riesgo":            { "page": 0, "x": 215, "y": 418, "size": 9,  "ancho_max": 60 },
-    "registro_patronal":       { "page": 0, "x": 480, "y": 412, "size": 9,  "ancho_max": 110 },
+    "registro_patronal":       { "page": 0, "x": 460, "y": 422, "size": 9,  "ancho_max": 110 },
 
     "fraccion":                { "page": 0, "x": 70,  "y": 401, "size": 9,  "ancho_max": 200 },
     "actividad_giro":          { "page": 0, "x": 440, "y": 397, "size": 9,  "ancho_max": 155 },
@@ -50,12 +50,12 @@
     "no_acta":                 { "page": 1, "x": 370, "y": 656, "size": 9,  "ancho_max": 200 },
     "no_libro":                { "page": 1, "x": 90,  "y": 634, "size": 9,  "ancho_max": 200 },
     "no_foja":                 { "page": 1, "x": 370, "y": 634, "size": 9,  "ancho_max": 200 },
-    "registro_publico":        { "page": 1, "x": 197, "y": 613, "size": 9,  "ancho_max": 100 },
+    "registro_publico":        { "page": 1, "x": 207, "y": 613, "size": 9,  "ancho_max": 100 },
     "informacion_adicional":   { "page": 1, "x": 415, "y": 613, "size": 9,  "ancho_max": 150 },
     "lugar_fecha_constitucion":{ "page": 1, "x": 153, "y": 593, "size": 9,  "ancho_max": 420 },
 
-    "causa_b_nombre_anterior":    { "page": 1, "x": 220, "y": 495, "size": 9, "ancho_max": 290 },
-    "causa_b_registro_anterior":  { "page": 1, "x": 510, "y": 495, "size": 9, "ancho_max": 90 },
+    "causa_b_nombre_anterior":    { "page": 1, "x": 205, "y": 492, "size": 9, "ancho_max": 290 },
+    "causa_b_registro_anterior":  { "page": 1, "x": 495, "y": 492, "size": 9, "ancho_max": 90 },
 
     "causa_c_cp_anterior":          { "page": 1, "x": 220, "y": 435, "size": 9, "ancho_max": 50 },
     "causa_c_calle_anterior":       { "page": 1, "x": 275, "y": 435, "size": 9, "ancho_max": 75 },
