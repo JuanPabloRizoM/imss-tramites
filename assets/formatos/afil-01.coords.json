@@ -25,7 +25,7 @@
     "curp":                    { "page": 0, "x": 345, "y": 440, "size": 9,  "ancho_max": 220 },
 
     "clase_riesgo":            { "page": 0, "x": 215, "y": 418, "size": 9,  "ancho_max": 60 },
-    "registro_patronal":       { "page": 0, "x": 460, "y": 422, "size": 9,  "ancho_max": 110 },
+    "registro_patronal":       { "page": 0, "x": 451, "y": 419, "size": 9,  "ancho_max": 110 },
 
     "fraccion":                { "page": 0, "x": 70,  "y": 401, "size": 9,  "ancho_max": 200 },
     "actividad_giro":          { "page": 0, "x": 440, "y": 397, "size": 9,  "ancho_max": 155 },
@@ -54,8 +54,8 @@
     "informacion_adicional":   { "page": 1, "x": 415, "y": 613, "size": 9,  "ancho_max": 150 },
     "lugar_fecha_constitucion":{ "page": 1, "x": 153, "y": 593, "size": 9,  "ancho_max": 420 },
 
-    "causa_b_nombre_anterior":    { "page": 1, "x": 205, "y": 492, "size": 9, "ancho_max": 290 },
-    "causa_b_registro_anterior":  { "page": 1, "x": 495, "y": 492, "size": 9, "ancho_max": 90 },
+    "causa_b_nombre_anterior":    { "page": 1, "x": 205, "y": 491, "size": 9, "ancho_max": 290 },
+    "causa_b_registro_anterior":  { "page": 1, "x": 489, "y": 491, "size": 9, "ancho_max": 90 },
 
     "causa_c_cp_anterior":          { "page": 1, "x": 220, "y": 435, "size": 9, "ancho_max": 50 },
     "causa_c_calle_anterior":       { "page": 1, "x": 275, "y": 435, "size": 9, "ancho_max": 75 },
