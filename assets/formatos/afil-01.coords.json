@@ -10,7 +10,7 @@
     "causa_aviso":             { "page": 0, "type": "checkbox-grid",
       "options": {
         "A": { "x": 322, "y": 584 }, "B": { "x": 448, "y": 585 },
-        "C": { "x": 322, "y": 568 }, "D": { "x": 478, "y": 564 },
+        "C": { "x": 322, "y": 570 }, "D": { "x": 478, "y": 564 },
         "E": { "x": 322, "y": 544 }, "F": { "x": 478, "y": 544 },
         "G": { "x": 322, "y": 526 }, "H": { "x": 478, "y": 526 }
       }
@@ -57,12 +57,12 @@
     "causa_b_nombre_anterior":    { "page": 1, "x": 195, "y": 491, "size": 9, "ancho_max": 290 },
     "causa_b_registro_anterior":  { "page": 1, "x": 479, "y": 491, "size": 9, "ancho_max": 90 },
 
-    "causa_c_cp_anterior":          { "page": 1, "x": 220, "y": 435, "size": 9, "ancho_max": 50 },
-    "causa_c_calle_anterior":       { "page": 1, "x": 275, "y": 435, "size": 9, "ancho_max": 75 },
-    "causa_c_num_ext_int_anterior": { "page": 1, "x": 355, "y": 435, "size": 9, "ancho_max": 85 },
-    "causa_c_colonia_anterior":     { "page": 1, "x": 445, "y": 435, "size": 9, "ancho_max": 50 },
-    "causa_c_municipio_anterior":   { "page": 1, "x": 500, "y": 435, "size": 9, "ancho_max": 80 },
-    "causa_c_estado_anterior":      { "page": 1, "x": 558, "y": 435, "size": 9, "ancho_max": 50 },
+    "causa_c_cp_anterior":          { "page": 1, "x": 150, "y": 435, "size": 9, "ancho_max": 50 },
+    "causa_c_calle_anterior":       { "page": 1, "x": 205, "y": 435, "size": 9, "ancho_max": 75 },
+    "causa_c_num_ext_int_anterior": { "page": 1, "x": 285, "y": 435, "size": 9, "ancho_max": 85 },
+    "causa_c_colonia_anterior":     { "page": 1, "x": 375, "y": 435, "size": 9, "ancho_max": 50 },
+    "causa_c_municipio_anterior":   { "page": 1, "x": 430, "y": 435, "size": 9, "ancho_max": 80 },
+    "causa_c_estado_anterior":      { "page": 1, "x": 488, "y": 435, "size": 9, "ancho_max": 50 },
 
     "causa_d_nombre_anterior":      { "page": 1, "x": 220, "y": 388, "size": 9, "ancho_max": 380 },
 
