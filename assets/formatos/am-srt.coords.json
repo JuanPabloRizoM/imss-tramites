@@ -70,7 +70,7 @@
     "presta_servicios_personal": { "page": 1, "type": "checkbox-grid",
       "options": {
         "si": { "x": 459, "y": 611 },
-        "no": { "x": 549, "y": 611 }
+        "no": { "x": 539, "y": 610 }
       }
     }
   }
