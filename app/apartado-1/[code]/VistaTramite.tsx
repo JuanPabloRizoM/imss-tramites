@@ -659,7 +659,7 @@ function FormularioCaso({
       division_descripcion: hit.divisionNombre,
       grupo_descripcion: hit.grupoNombre,
       fraccion_descripcion: hit.fraccionTitulo,
-      clase_descripcion: hit.claseNombre,
+      // clase_descripcion: NO se auto-llena (redundante con la columna Clave).
     }));
   }, [
     tramiteType.code,
@@ -687,7 +687,8 @@ function FormularioCaso({
           next.division_descripcion = hit.divisionNombre;
           next.grupo_descripcion = hit.grupoNombre;
           next.fraccion_descripcion = hit.fraccionTitulo;
-          next.clase_descripcion = hit.claseNombre;
+          // clase_descripcion no se auto-llena: el código romano en la
+          // columna Clave ya basta y agregar "Riesgo X" suena redundante.
         }
       }
       return next;
