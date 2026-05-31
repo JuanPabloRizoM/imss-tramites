@@ -15,6 +15,7 @@ import {
 } from "@/lib/tramites";
 import { obtenerDocType, type DatoExtraido } from "@/lib/extraccion";
 import { redimensionarImagen } from "@/lib/imagen";
+import { buscarFraccion } from "@/lib/catalogo-imss";
 
 // -------------------------------------------------------------------------
 // Orquestador del flujo de un trámite:
@@ -633,7 +634,25 @@ function FormularioCaso({
   const grupos = useMemo(() => agruparPorSeccion(campos), [campos]);
 
   const setCampo = (id: string, valor: string) => {
-    setValores((prev) => ({ ...prev, [id]: valor }));
+    setValores((prev) => {
+      const next = { ...prev, [id]: valor };
+      // AM-SRT: cuando el usuario escribe el código de fracción, busca en el
+      // catálogo del art. 196 RACERF y auto-llena división/grupo/clase y sus
+      // descripciones. Prima SRT se queda manual — puede cambiar por caso.
+      if (tramiteType.code === "am-srt" && id === "fraccion") {
+        const hit = buscarFraccion(valor);
+        if (hit) {
+          next.division = hit.divisionCodigo;
+          next.grupo = hit.grupoCodigo;
+          next.clase = hit.claseCodigo;
+          next.division_descripcion = hit.divisionNombre;
+          next.grupo_descripcion = hit.grupoNombre;
+          next.fraccion_descripcion = hit.fraccionTitulo;
+          next.clase_descripcion = hit.claseNombre;
+        }
+      }
+      return next;
+    });
     if (guardar === "guardado") setGuardar("idle");
   };
 
