@@ -40,14 +40,32 @@ const NOMBRE_CLASE: Record<string, string> = {
   V: "Riesgo máximo",
 };
 
+// El RACERF (texto legal) usa códigos de 3 dígitos (grupo 2 + fracción 1)
+// para grupos con menos de 10 fracciones, y 4 dígitos para los demás. El
+// sistema IMSS (Alta Patronal, AM-SRT, etc.) SIEMPRE usa 4 dígitos: 2 del
+// grupo + 2 de la fracción interna. Para convertir un código RACERF de 3
+// dígitos al formato IMSS basta insertar "0" en la 3ra posición.
+//   "141"  → "1401" (grupo 14 · fracción 01)
+//   "011"  → "0101" (grupo 01 · fracción 01)
+//   "2010" → "2010" (ya 4 dígitos, queda igual)
+function aFormatoImss(racerf: string): string {
+  if (racerf.length === 4) return racerf;
+  if (racerf.length === 3) return racerf.slice(0, 2) + "0" + racerf.slice(2);
+  return racerf;
+}
+
 const indice = new Map<
   string,
-  { division: Division; grupo: Grupo; fraccion: Fraccion }
+  { division: Division; grupo: Grupo; fraccion: Fraccion; imssCodigo: string }
 >();
 for (const division of (catalogo as RawCatalogo).divisiones) {
   for (const grupo of division.grupos) {
     for (const fraccion of grupo.fracciones) {
-      indice.set(fraccion.codigo, { division, grupo, fraccion });
+      const imss = aFormatoImss(fraccion.codigo);
+      const entry = { division, grupo, fraccion, imssCodigo: imss };
+      // Registrar AMBOS formatos para que el lookup acepte cualquiera.
+      indice.set(fraccion.codigo, entry);
+      indice.set(imss, entry);
     }
   }
 }
@@ -57,7 +75,8 @@ export type ResultadoFraccion = {
   divisionNombre: string;
   grupoCodigo: string;
   grupoNombre: string;
-  fraccionCodigo: string;
+  fraccionCodigo: string; // formato IMSS de 4 dígitos
+  fraccionRacerf: string; // formato corto del RACERF (3 o 4 dígitos)
   fraccionTitulo: string;
   fraccionDescripcionLegal: string;
   claseCodigo: string;
@@ -82,7 +101,10 @@ export function buscarFraccion(input: string): ResultadoFraccion | null {
     divisionNombre: hit.division.nombre,
     grupoCodigo: hit.grupo.codigo,
     grupoNombre: hit.grupo.nombre,
-    fraccionCodigo: hit.fraccion.codigo,
+    // El form siempre guarda el código IMSS de 4 dígitos (es lo que el PDF
+    // del IMSS espera ver). El RACERF original queda en fraccionRacerf.
+    fraccionCodigo: hit.imssCodigo,
+    fraccionRacerf: hit.fraccion.codigo,
     fraccionTitulo: hit.fraccion.titulo,
     fraccionDescripcionLegal: hit.fraccion.descripcion,
     claseCodigo: hit.fraccion.clase,

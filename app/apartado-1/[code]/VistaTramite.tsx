@@ -642,6 +642,8 @@ function FormularioCaso({
       if (tramiteType.code === "am-srt" && id === "fraccion") {
         const hit = buscarFraccion(valor);
         if (hit) {
+          // Normalizar al formato IMSS de 4 dígitos (lo que el PDF espera).
+          next.fraccion = hit.fraccionCodigo;
           next.division = hit.divisionCodigo;
           next.grupo = hit.grupoCodigo;
           next.clase = hit.claseCodigo;
