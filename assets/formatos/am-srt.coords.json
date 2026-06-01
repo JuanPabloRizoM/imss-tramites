@@ -72,40 +72,40 @@
     "clase_iii1":                 { "page": 1, "x": 120, "y": 441, "size": 9, "ancho_max": 70, "from": "clase" },
     "prima_srt_iii1":             { "page": 1, "x": 375, "y": 443, "size": 9, "ancho_max": 80, "from": "prima_srt" },
 
-    "division_descripcion_iii1":  { "page": 1, "x": 225, "y": 501, "size": 9, "ancho_max": 320, "from": "division_descripcion" },
-    "grupo_descripcion_iii1":     { "page": 1, "x": 225, "y": 481, "size": 9, "ancho_max": 320, "from": "grupo_descripcion" },
-    "fraccion_descripcion_iii1":  { "page": 1, "x": 225, "y": 461, "size": 9, "ancho_max": 320, "from": "fraccion_descripcion" },
-    "clase_descripcion_iii1":     { "page": 1, "x": 195, "y": 441, "size": 9, "ancho_max": 130, "from": "clase_descripcion" },
+    "division_descripcion_iii1":  { "page": 1, "x": 215, "y": 501, "size": 9, "ancho_max": 320, "from": "division_descripcion" },
+    "grupo_descripcion_iii1":     { "page": 1, "x": 215, "y": 481, "size": 9, "ancho_max": 320, "from": "grupo_descripcion" },
+    "fraccion_descripcion_iii1":  { "page": 1, "x": 215, "y": 461, "size": 9, "ancho_max": 320, "from": "fraccion_descripcion" },
+    "clase_descripcion_iii1":     { "page": 1, "x": 185, "y": 441, "size": 9, "ancho_max": 130, "from": "clase_descripcion" },
 
     "productos_elaborados": { "type": "table-cells",
       "_nota": "Tabla IV.1: 5 filas × 2 columnas en página 2. Acepta hasta 10 items separados por coma o salto de línea.",
       "cells": [
-        { "page": 1, "x": 35,  "y": 351, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 31,  "y": 351, "size": 9, "ancho_max": 260 },
         { "page": 1, "x": 305, "y": 351, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 31,  "y": 332, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 332, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 35,  "y": 314, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 314, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 35,  "y": 298, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 298, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 35,  "y": 282, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 282, "size": 9, "ancho_max": 280 }
+        { "page": 1, "x": 31,  "y": 333, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 333, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 31,  "y": 315, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 315, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 31,  "y": 297, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 297, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 31,  "y": 280, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 280, "size": 9, "ancho_max": 280 }
       ]
     },
 
     "materias_primas": { "type": "table-cells",
       "_nota": "Tabla IV.2: 5 filas × 2 columnas en página 2.",
       "cells": [
-        { "page": 1, "x": 35,  "y": 226, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 226, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 35,  "y": 208, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 31,  "y": 227, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 227, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 31,  "y": 208, "size": 9, "ancho_max": 260 },
         { "page": 1, "x": 305, "y": 208, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 35,  "y": 190, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 31,  "y": 190, "size": 9, "ancho_max": 260 },
         { "page": 1, "x": 305, "y": 190, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 35,  "y": 173, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 31,  "y": 173, "size": 9, "ancho_max": 260 },
         { "page": 1, "x": 305, "y": 173, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 35,  "y": 160, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 160, "size": 9, "ancho_max": 280 }
+        { "page": 1, "x": 31,  "y": 157, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 157, "size": 9, "ancho_max": 280 }
       ]
     },
 
