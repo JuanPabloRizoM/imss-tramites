@@ -80,32 +80,32 @@
     "productos_elaborados": { "type": "table-cells",
       "_nota": "Tabla IV.1: 5 filas × 2 columnas en página 2. Acepta hasta 10 items separados por coma o salto de línea.",
       "cells": [
-        { "page": 1, "x": 50,  "y": 350, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 320, "y": 350, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 50,  "y": 330, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 320, "y": 330, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 50,  "y": 310, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 320, "y": 310, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 50,  "y": 290, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 320, "y": 290, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 50,  "y": 270, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 320, "y": 270, "size": 9, "ancho_max": 280 }
+        { "page": 1, "x": 35,  "y": 351, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 351, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 35,  "y": 330, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 330, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 35,  "y": 310, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 310, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 35,  "y": 290, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 290, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 35,  "y": 270, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 270, "size": 9, "ancho_max": 280 }
       ]
     },
 
     "materias_primas": { "type": "table-cells",
       "_nota": "Tabla IV.2: 5 filas × 2 columnas en página 2.",
       "cells": [
-        { "page": 1, "x": 50,  "y": 225, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 320, "y": 225, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 50,  "y": 205, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 320, "y": 205, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 50,  "y": 185, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 320, "y": 185, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 50,  "y": 165, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 320, "y": 165, "size": 9, "ancho_max": 280 },
-        { "page": 1, "x": 50,  "y": 145, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 320, "y": 145, "size": 9, "ancho_max": 280 }
+        { "page": 1, "x": 35,  "y": 226, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 226, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 35,  "y": 207, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 207, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 35,  "y": 190, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 190, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 35,  "y": 174, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 174, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 35,  "y": 145, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 145, "size": 9, "ancho_max": 280 }
       ]
     },
 
