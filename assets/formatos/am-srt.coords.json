@@ -96,51 +96,51 @@
     "maquinaria_unidades": { "type": "table-cells",
       "_nota": "IV.3 col 1 (Número de unidades) — página 3.",
       "cells": [
-        { "page": 2, "x": 45, "y": 740, "size": 9, "ancho_max": 75 },
-        { "page": 2, "x": 45, "y": 720, "size": 9, "ancho_max": 75 },
-        { "page": 2, "x": 45, "y": 700, "size": 9, "ancho_max": 75 },
-        { "page": 2, "x": 45, "y": 680, "size": 9, "ancho_max": 75 },
-        { "page": 2, "x": 45, "y": 660, "size": 9, "ancho_max": 75 }
+        { "page": 2, "x": 45, "y": 746, "size": 9, "ancho_max": 75 },
+        { "page": 2, "x": 45, "y": 726, "size": 9, "ancho_max": 75 },
+        { "page": 2, "x": 45, "y": 706, "size": 9, "ancho_max": 75 },
+        { "page": 2, "x": 45, "y": 686, "size": 9, "ancho_max": 75 },
+        { "page": 2, "x": 45, "y": 666, "size": 9, "ancho_max": 75 }
       ]
     },
     "maquinaria_nombre": { "type": "table-cells",
       "_nota": "IV.3 col 2 (Nombre) — página 3.",
       "cells": [
-        { "page": 2, "x": 135, "y": 740, "size": 9, "ancho_max": 135 },
-        { "page": 2, "x": 135, "y": 720, "size": 9, "ancho_max": 135 },
-        { "page": 2, "x": 135, "y": 700, "size": 9, "ancho_max": 135 },
-        { "page": 2, "x": 135, "y": 680, "size": 9, "ancho_max": 135 },
-        { "page": 2, "x": 135, "y": 660, "size": 9, "ancho_max": 135 }
+        { "page": 2, "x": 95, "y": 746, "size": 9, "ancho_max": 135 },
+        { "page": 2, "x": 95, "y": 726, "size": 9, "ancho_max": 135 },
+        { "page": 2, "x": 95, "y": 706, "size": 9, "ancho_max": 135 },
+        { "page": 2, "x": 95, "y": 686, "size": 9, "ancho_max": 135 },
+        { "page": 2, "x": 95, "y": 666, "size": 9, "ancho_max": 135 }
       ]
     },
     "maquinaria_uso": { "type": "table-cells",
       "_nota": "IV.3 col 3 (Uso) — página 3.",
       "cells": [
-        { "page": 2, "x": 280, "y": 740, "size": 9, "ancho_max": 85 },
-        { "page": 2, "x": 280, "y": 720, "size": 9, "ancho_max": 85 },
-        { "page": 2, "x": 280, "y": 700, "size": 9, "ancho_max": 85 },
-        { "page": 2, "x": 280, "y": 680, "size": 9, "ancho_max": 85 },
-        { "page": 2, "x": 280, "y": 660, "size": 9, "ancho_max": 85 }
+        { "page": 2, "x": 240, "y": 746, "size": 9, "ancho_max": 85 },
+        { "page": 2, "x": 240, "y": 726, "size": 9, "ancho_max": 85 },
+        { "page": 2, "x": 240, "y": 706, "size": 9, "ancho_max": 85 },
+        { "page": 2, "x": 240, "y": 686, "size": 9, "ancho_max": 85 },
+        { "page": 2, "x": 240, "y": 666, "size": 9, "ancho_max": 85 }
       ]
     },
     "maquinaria_tipo": { "type": "table-cells",
       "_nota": "IV.3 col 4 (Tipo: motorizados/no motorizados/etc.) — página 3.",
       "cells": [
-        { "page": 2, "x": 370, "y": 740, "size": 9, "ancho_max": 125 },
-        { "page": 2, "x": 370, "y": 720, "size": 9, "ancho_max": 125 },
-        { "page": 2, "x": 370, "y": 700, "size": 9, "ancho_max": 125 },
-        { "page": 2, "x": 370, "y": 680, "size": 9, "ancho_max": 125 },
-        { "page": 2, "x": 370, "y": 660, "size": 9, "ancho_max": 125 }
+        { "page": 2, "x": 370, "y": 746, "size": 9, "ancho_max": 125 },
+        { "page": 2, "x": 370, "y": 726, "size": 9, "ancho_max": 125 },
+        { "page": 2, "x": 370, "y": 706, "size": 9, "ancho_max": 125 },
+        { "page": 2, "x": 370, "y": 686, "size": 9, "ancho_max": 125 },
+        { "page": 2, "x": 370, "y": 666, "size": 9, "ancho_max": 125 }
       ]
     },
     "maquinaria_capacidad": { "type": "table-cells",
       "_nota": "IV.3 col 5 (Capacidad o potencia) — página 3.",
       "cells": [
-        { "page": 2, "x": 500, "y": 740, "size": 9, "ancho_max": 105 },
-        { "page": 2, "x": 500, "y": 720, "size": 9, "ancho_max": 105 },
-        { "page": 2, "x": 500, "y": 700, "size": 9, "ancho_max": 105 },
-        { "page": 2, "x": 500, "y": 680, "size": 9, "ancho_max": 105 },
-        { "page": 2, "x": 500, "y": 660, "size": 9, "ancho_max": 105 }
+        { "page": 2, "x": 500, "y": 746, "size": 9, "ancho_max": 105 },
+        { "page": 2, "x": 500, "y": 726, "size": 9, "ancho_max": 105 },
+        { "page": 2, "x": 500, "y": 706, "size": 9, "ancho_max": 105 },
+        { "page": 2, "x": 500, "y": 686, "size": 9, "ancho_max": 105 },
+        { "page": 2, "x": 500, "y": 666, "size": 9, "ancho_max": 105 }
       ]
     },
 
