@@ -32,6 +32,19 @@ type CoordCampo =
       type: "checkbox-grid";
       from?: string;
       options: Record<string, { page?: number; x: number; y: number; size?: number }>;
+    }
+  | {
+      type: "table-cells";
+      from?: string;
+      // Cada celda es una posición (x,y) — el valor se split por comas/saltos
+      // y cada item va en su celda. Si hay más items que celdas, se truncan.
+      cells: Array<{
+        page?: number;
+        x: number;
+        y: number;
+        size?: number;
+        ancho_max?: number;
+      }>;
     };
 
 type CoordSchema = {
@@ -84,6 +97,25 @@ export async function generarOverlay(
   for (const [campoId, conf] of Object.entries(coords.campos)) {
     // Si la coord tiene `from`, toma el valor de ese campo en vez del id propio.
     const valueKey = (conf as { from?: string }).from ?? campoId;
+
+    // Tabla de celdas: split por coma o salto de línea, una entrada por celda.
+    if ("type" in conf && conf.type === "table-cells") {
+      const valor = (flat[valueKey] ?? "").toString();
+      if (!valor.trim()) continue;
+      const items = valor
+        .split(/[,\n]/g)
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0);
+      for (let i = 0; i < Math.min(items.length, conf.cells.length); i++) {
+        const cell = conf.cells[i];
+        const page = pages[cell.page ?? 0];
+        if (!page) continue;
+        const size = cell.size ?? defaultSize;
+        const texto = truncarParaCabe(items[i], font, size, cell.ancho_max);
+        page.drawText(texto, { x: cell.x, y: cell.y, size, font, color: COLOR });
+      }
+      continue;
+    }
 
     if ("type" in conf && conf.type === "checkbox-grid") {
       const elegido = (flat[valueKey] ?? "").toString().trim();

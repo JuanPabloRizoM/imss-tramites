@@ -670,6 +670,44 @@ function FormularioCaso({
     setValores,
   ]);
 
+  // AM-SRT: pedir sugerencias de productos + materias primas con Haiku.
+  const [sugiriendo, setSugiriendo] = useState(false);
+  const [errorSugerir, setErrorSugerir] = useState<string | null>(null);
+  const sugerirProductosMaterias = useCallback(async () => {
+    setErrorSugerir(null);
+    setSugiriendo(true);
+    try {
+      const res = await fetch("/api/sugerir-productos-materiales", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fraccion: valores.fraccion ?? "",
+          giro: valores.giro ?? "",
+        }),
+      });
+      const j = (await res.json()) as {
+        productos?: string[];
+        materias_primas?: string[];
+        error?: string;
+      };
+      if (!res.ok || j.error) {
+        setErrorSugerir(j.error ?? `Error ${res.status}`);
+        return;
+      }
+      setValores((prev) => ({
+        ...prev,
+        productos_elaborados: (j.productos ?? []).join("\n"),
+        materias_primas: (j.materias_primas ?? []).join("\n"),
+      }));
+    } catch (err) {
+      setErrorSugerir(
+        err instanceof Error ? err.message : "Error de red al sugerir."
+      );
+    } finally {
+      setSugiriendo(false);
+    }
+  }, [setValores, valores.fraccion, valores.giro]);
+
   const setCampo = (id: string, valor: string) => {
     setValores((prev) => {
       const next = { ...prev, [id]: valor };
@@ -781,6 +819,27 @@ function FormularioCaso({
             Revisa y corrige. Los campos vacíos se pueden llenar a mano. Al
             generar el PDF solo van los datos de este caso.
           </p>
+        </div>
+      )}
+
+      {tramiteType.code === "am-srt" && (
+        <div className="flex flex-wrap items-center gap-3 rounded-md border border-line bg-paper-2 p-4">
+          <button
+            type="button"
+            onClick={sugerirProductosMaterias}
+            disabled={sugiriendo || (!valores.fraccion && !valores.giro)}
+            className="inline-flex min-h-[44px] items-center rounded-md bg-ink px-4 text-sm font-semibold text-paper hover:bg-ink-2 disabled:bg-ink-3"
+            title="Llama a Haiku 4.5 con la fracción y giro para sugerir productos y materias primas. Costo aproximado: $0.003 USD por click."
+          >
+            {sugiriendo ? "Generando…" : "Sugerir productos y materias primas con IA"}
+          </button>
+          <span className="text-xs text-ink-3">
+            Llena los apartados IV.1 y IV.2 con sugerencias editables. Necesita
+            que pongas la fracción o el giro primero.
+          </span>
+          {errorSugerir && (
+            <span className="text-sm text-err">{errorSugerir}</span>
+          )}
         </div>
       )}
 
