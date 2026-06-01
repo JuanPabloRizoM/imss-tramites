@@ -69,15 +69,15 @@
     "division_iii1":              { "page": 1, "x": 135, "y": 501, "size": 9, "ancho_max": 70, "from": "division" },
     "grupo_iii1":                 { "page": 1, "x": 135, "y": 481, "size": 9, "ancho_max": 70, "from": "grupo" },
     "fraccion_iii1":              { "page": 1, "x": 135, "y": 461, "size": 9, "ancho_max": 70, "from": "fraccion" },
-    "clase_iii1":                 { "page": 1, "x": 135, "y": 441, "size": 9, "ancho_max": 70, "from": "clase" },
+    "clase_iii1":                 { "page": 1, "x": 120, "y": 441, "size": 9, "ancho_max": 70, "from": "clase" },
     "prima_srt_iii1":             { "page": 1, "x": 375, "y": 443, "size": 9, "ancho_max": 80, "from": "prima_srt" },
 
-    "division_descripcion_iii1":  { "page": 1, "x": 245, "y": 501, "size": 9, "ancho_max": 320, "from": "division_descripcion" },
-    "grupo_descripcion_iii1":     { "page": 1, "x": 245, "y": 481, "size": 9, "ancho_max": 320, "from": "grupo_descripcion" },
-    "fraccion_descripcion_iii1":  { "page": 1, "x": 245, "y": 461, "size": 9, "ancho_max": 320, "from": "fraccion_descripcion" },
-    "clase_descripcion_iii1":     { "page": 1, "x": 215, "y": 441, "size": 9, "ancho_max": 130, "from": "clase_descripcion" },
+    "division_descripcion_iii1":  { "page": 1, "x": 225, "y": 501, "size": 9, "ancho_max": 320, "from": "division_descripcion" },
+    "grupo_descripcion_iii1":     { "page": 1, "x": 225, "y": 481, "size": 9, "ancho_max": 320, "from": "grupo_descripcion" },
+    "fraccion_descripcion_iii1":  { "page": 1, "x": 225, "y": 461, "size": 9, "ancho_max": 320, "from": "fraccion_descripcion" },
+    "clase_descripcion_iii1":     { "page": 1, "x": 195, "y": 441, "size": 9, "ancho_max": 130, "from": "clase_descripcion" },
 
-    "giro":                      { "page": 1, "x": 113, "y": 610, "size": 9, "ancho_max": 270 },
+    "giro":                      { "page": 1, "x": 114, "y": 610, "size": 9, "ancho_max": 270 },
     "presta_servicios_personal": { "page": 1, "type": "checkbox-grid",
       "options": {
         "si": { "x": 459, "y": 611 },
