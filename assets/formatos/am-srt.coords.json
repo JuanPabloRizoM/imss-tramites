@@ -234,6 +234,67 @@
       ]
     },
 
+    "personal_num_izq": { "type": "table-cells",
+      "_nota": "IV.7 col 1 izq (No. Trabajadores) — página 4. 6 filas.",
+      "cells": [
+        { "page": 3, "x": 33, "y": 770, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 33, "y": 745, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 33, "y": 720, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 33, "y": 695, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 33, "y": 670, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 33, "y": 645, "size": 9, "ancho_max": 85 }
+      ]
+    },
+    "personal_oficio_izq": { "type": "table-cells",
+      "_nota": "IV.7 col 2 izq (Oficio u ocupación) — página 4. 6 filas.",
+      "cells": [
+        { "page": 3, "x": 130, "y": 770, "size": 9, "ancho_max": 165 },
+        { "page": 3, "x": 130, "y": 745, "size": 9, "ancho_max": 165 },
+        { "page": 3, "x": 130, "y": 720, "size": 9, "ancho_max": 165 },
+        { "page": 3, "x": 130, "y": 695, "size": 9, "ancho_max": 165 },
+        { "page": 3, "x": 130, "y": 670, "size": 9, "ancho_max": 165 },
+        { "page": 3, "x": 130, "y": 645, "size": 9, "ancho_max": 165 }
+      ]
+    },
+    "personal_num_der": { "type": "table-cells",
+      "_nota": "IV.7 col 3 der (No. Trabajadores) — página 4.",
+      "cells": [
+        { "page": 3, "x": 310, "y": 770, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 310, "y": 745, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 310, "y": 720, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 310, "y": 695, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 310, "y": 670, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 310, "y": 645, "size": 9, "ancho_max": 85 }
+      ]
+    },
+    "personal_oficio_der": { "type": "table-cells",
+      "_nota": "IV.7 col 4 der (Oficio u ocupación) — página 4.",
+      "cells": [
+        { "page": 3, "x": 420, "y": 770, "size": 9, "ancho_max": 175 },
+        { "page": 3, "x": 420, "y": 745, "size": 9, "ancho_max": 175 },
+        { "page": 3, "x": 420, "y": 720, "size": 9, "ancho_max": 175 },
+        { "page": 3, "x": 420, "y": 695, "size": 9, "ancho_max": 175 },
+        { "page": 3, "x": 420, "y": 670, "size": 9, "ancho_max": 175 },
+        { "page": 3, "x": 420, "y": 645, "size": 9, "ancho_max": 175 }
+      ]
+    },
+
+    "distribucion_mercancias": { "type": "checkbox-grid",
+      "_nota": "IV.8 — radio de 3 opciones. Página 4.",
+      "options": {
+        "CON TRANSPORTE PROPIO":      { "page": 3, "x": 128, "y": 618 },
+        "CON TRANSPORTE AJENO":       { "page": 3, "x": 128, "y": 602 },
+        "NO DISTRIBUYE NI ENTREGA":   { "page": 3, "x": 128, "y": 586 }
+      }
+    },
+    "servicios_terceros": { "type": "checkbox-grid",
+      "_nota": "IV.8 — Servicios a terceros. SI marca la X en el radio. Página 4.",
+      "options": {
+        "SI": { "page": 3, "x": 338, "y": 632 },
+        "NO": { "page": 3, "x": 338, "y": 632 }
+      }
+    },
+
     "materias_primas": { "type": "table-cells",
       "_nota": "Tabla IV.2: 5 filas × 2 columnas en página 2.",
       "cells": [
