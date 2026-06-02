@@ -203,34 +203,34 @@
       ]
     },
 
-    "procesos_principales": { "type": "table-cells",
-      "_nota": "IV.6 Procesos principales — página 3.",
+    "procesos_principales": { "type": "text-wrap",
+      "_nota": "IV.6 Procesos principales — texto continuo que wrap a 5 filas. Página 3.",
       "cells": [
-        { "page": 2, "x": 41, "y": 391, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 373, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 355, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 337, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 319, "size": 9, "ancho_max": 540 }
+        { "page": 2, "x": 35, "y": 391, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 373, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 355, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 337, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 319, "size": 9, "ancho_max": 540 }
       ]
     },
-    "procesos_intermedios": { "type": "table-cells",
-      "_nota": "IV.6 Procesos intermedios — página 3.",
+    "procesos_intermedios": { "type": "text-wrap",
+      "_nota": "IV.6 Procesos intermedios — texto continuo. Página 3.",
       "cells": [
-        { "page": 2, "x": 41, "y": 281, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 263, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 245, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 227, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 209, "size": 9, "ancho_max": 540 }
+        { "page": 2, "x": 35, "y": 281, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 263, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 245, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 227, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 209, "size": 9, "ancho_max": 540 }
       ]
     },
-    "procesos_finales": { "type": "table-cells",
-      "_nota": "IV.6 Procesos finales — página 3.",
+    "procesos_finales": { "type": "text-wrap",
+      "_nota": "IV.6 Procesos finales — texto continuo. Página 3.",
       "cells": [
-        { "page": 2, "x": 41, "y": 174, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 156, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 138, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 120, "size": 9, "ancho_max": 540 },
-        { "page": 2, "x": 41, "y": 102, "size": 9, "ancho_max": 540 }
+        { "page": 2, "x": 35, "y": 174, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 156, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 138, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 120, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 35, "y": 102, "size": 9, "ancho_max": 540 }
       ]
     },
 

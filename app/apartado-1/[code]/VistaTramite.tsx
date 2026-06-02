@@ -695,7 +695,7 @@ function FormularioCaso({
           }),
         });
         const j = (await res.json()) as {
-          items?: string[];
+          text?: string;
           error?: string;
         };
         if (!res.ok || j.error) {
@@ -710,7 +710,7 @@ function FormularioCaso({
             : "procesos_finales";
         setValores((prev) => ({
           ...prev,
-          [target]: (j.items ?? []).join("\n"),
+          [target]: j.text ?? "",
         }));
       } catch (err) {
         setErrorProc(err instanceof Error ? err.message : "Error de red.");

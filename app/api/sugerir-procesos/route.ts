@@ -78,23 +78,24 @@ export async function POST(req: Request) {
   const systemPrompt = `Eres un asistente experto en clasificación de empresas IMSS.
 
 Tu tarea: dado el contexto de una empresa (fracción, giro, productos, materias
-primas), sugerir UNA lista de procesos de trabajo de la sección solicitada.
+primas), describir en un PÁRRAFO CORRIDO los procesos de trabajo de la sección
+solicitada.
 
 ${DESCRIPCION_SECCION[seccion]}
 
 Reglas:
-  1. 3-5 items, frases cortas (3-6 palabras), en MAYÚSCULAS.
-  2. Específicos al giro y a esa sección — no mezcles fases.
-  3. Verbos en infinitivo o sustantivos de acción ("CORTE DE PIEZAS",
-     "MEZCLADO DE CONCRETO", "INSPECCIÓN FINAL").
-  4. Si no aplica algún proceso de esa sección al giro, igual sugiere algo
-     genérico razonable (ej. para "Comercio al menudeo" los "principales"
-     pueden ser recepción de mercancía, los "intermedios" exhibición y
-     atención, los "finales" cobro y entrega).
-  5. Responde EXCLUSIVAMENTE un objeto JSON sin markdown:
-     {"items": ["...", "...", "..."]}`;
+  1. UN solo párrafo corrido (no listas, no bullets, no saltos de línea).
+  2. Entre 200 y 400 caracteres aproximadamente. Cabe en 5 renglones del
+     formato IMSS.
+  3. Texto en MAYÚSCULAS, con espacios entre palabras.
+  4. Estilo descriptivo y natural — "SE RECIBE LA MATERIA PRIMA, SE
+     INSPECCIONA Y SE CLASIFICA POR LOTES. SE PREPARA EL ÁREA DE TRABAJO Y
+     SE ALIMENTA LA MAQUINARIA SEGÚN EL PROGRAMA DEL DÍA."
+  5. Específico al giro y a la sección — no mezcles fases.
+  6. Responde EXCLUSIVAMENTE un objeto JSON sin markdown:
+     {"text": "PÁRRAFO EN MAYÚSCULAS..."}`;
 
-  const userPrompt = `${contexto}\n\nDevuelve JSON con la lista de procesos ${seccion.toUpperCase()}.`;
+  const userPrompt = `${contexto}\n\nDevuelve JSON con el párrafo de procesos ${seccion.toUpperCase()}.`;
 
   try {
     const anthropic = new Anthropic({ apiKey });
@@ -116,12 +117,10 @@ Reglas:
       .replace(/```$/i, "")
       .trim();
 
-    const obj = JSON.parse(limpio) as { items?: unknown };
-    const items = Array.isArray(obj.items)
-      ? obj.items.map((x) => String(x).trim().toUpperCase()).filter(Boolean).slice(0, 5)
-      : [];
+    const obj = JSON.parse(limpio) as { text?: unknown };
+    const text = typeof obj.text === "string" ? obj.text.trim().toUpperCase() : "";
 
-    return NextResponse.json({ seccion, items });
+    return NextResponse.json({ seccion, text });
   } catch (err) {
     const mensaje = err instanceof Error ? err.message : "Error desconocido.";
     return NextResponse.json({ error: mensaje }, { status: 500 });

@@ -45,6 +45,20 @@ type CoordCampo =
         size?: number;
         ancho_max?: number;
       }>;
+    }
+  | {
+      type: "text-wrap";
+      from?: string;
+      // Texto continuo que se word-wrap a lo ancho de cada celda. Cuando una
+      // celda se llena, salta a la siguiente. Si se acaban las celdas, lo
+      // demás se descarta. Útil para escribir párrafos en tablas-renglón.
+      cells: Array<{
+        page?: number;
+        x: number;
+        y: number;
+        size?: number;
+        ancho_max?: number;
+      }>;
     };
 
 type CoordSchema = {
@@ -97,6 +111,41 @@ export async function generarOverlay(
   for (const [campoId, conf] of Object.entries(coords.campos)) {
     // Si la coord tiene `from`, toma el valor de ese campo en vez del id propio.
     const valueKey = (conf as { from?: string }).from ?? campoId;
+
+    // Texto largo word-wrap a través de celdas: cuando una se llena, salta.
+    if ("type" in conf && conf.type === "text-wrap") {
+      const valor = (flat[valueKey] ?? "").toString().trim();
+      if (!valor) continue;
+      // Normalizar saltos de línea a espacios — el wrap es uniforme.
+      const palabras = valor.replace(/\s+/g, " ").split(" ");
+      let palabraIdx = 0;
+      for (const cell of conf.cells) {
+        if (palabraIdx >= palabras.length) break;
+        const page = pages[cell.page ?? 0];
+        if (!page) continue;
+        const size = cell.size ?? defaultSize;
+        const ancho = cell.ancho_max ?? 540;
+        // Acumular palabras hasta que la siguiente no entre.
+        let linea = "";
+        while (palabraIdx < palabras.length) {
+          const candidata = linea ? `${linea} ${palabras[palabraIdx]}` : palabras[palabraIdx];
+          if (font.widthOfTextAtSize(candidata, size) > ancho) {
+            if (!linea) {
+              // Una sola palabra que no cabe: truncar y avanzar.
+              linea = truncarParaCabe(palabras[palabraIdx], font, size, ancho);
+              palabraIdx++;
+            }
+            break;
+          }
+          linea = candidata;
+          palabraIdx++;
+        }
+        if (linea) {
+          page.drawText(linea, { x: cell.x, y: cell.y, size, font, color: COLOR });
+        }
+      }
+      continue;
+    }
 
     // Tabla de celdas: split por coma o salto de línea, una entrada por celda.
     if ("type" in conf && conf.type === "table-cells") {
