@@ -51,23 +51,84 @@ const valoresMuestra = {
   lugar_fecha_constitucion: "Guadalajara, Jalisco, 15 de marzo de 2024",
   causa_b_nombre_anterior: "MUEBLES ANTERIORES SA DE CV",
   causa_b_registro_anterior: "Y11-1111-11",
-  causa_c_cp_anterior: "44200", causa_c_calle_anterior: "Hidalgo",
-  causa_c_num_ext_int_anterior: "100-A", causa_c_colonia_anterior: "Reforma",
-  causa_c_municipio_anterior: "Zapopan", causa_c_estado_anterior: "JAL",
+  causa_c_domicilio_anterior:
+    "HIDALGO 100-A, COL. REFORMA, ZAPOPAN, JAL., C.P. 44200",
   causa_d_nombre_anterior: "RAZON SOCIAL ANTERIOR SA",
   causa_e_nombre_sustituido: "PATRON ANTERIOR SA DE CV",
   causa_e_registro_sustituido: "Y22-2222-22",
   causa_f_registro_1: "Y33-3333-33", causa_f_registro_2: "Y44-4444-44",
   causa_g_motivo: "Cese de operaciones por jubilación del titular.",
-  // ── AM-SRT ──
+  // ── AM-SRT ── (CONSTRUCTORA TEST — datos coherentes del form en vivo)
   fecha_presentacion: "2026-05-16", fecha_modificacion: "2026-05-01",
-  division: "5", grupo: "55", clase: "II", prima_srt: "0.50625",
+  razon_social: "CONSTRUCTORA TEST SA DE CV",
+  division: "4", grupo: "41", fraccion: "4101", clase: "V", prima_srt: "7.58875",
+  // III.1 descripciones (mirror via `from`).
+  // Clase NO lleva descripción — solo el romano (I-V) ya va en `clase`.
+  division_descripcion: "INDUSTRIA DE LA CONSTRUCCIÓN",
+  grupo_descripcion: "CONSTRUCCIÓN, RECONSTRUCCIÓN Y ENSAMBLE",
+  fraccion_descripcion: "CONSTRUCCIÓN DE EDIFICIOS Y CASAS",
   tipo_modificacion: "cambio_actividad",
   delegacion_baja: "Jal-1", subdelegacion_baja: "02", fecha_baja: "2026-04-30",
   entre_calles: "López Cotilla", calle_posterior: "Vallarta",
   telefono_1: "33-3333-3333", telefono_2: "33-4444-4444",
-  giro: "Comercio de muebles para el hogar",
+  giro: "CONSTRUCCIÓN DE CASAS HABITACIÓN",
   presta_servicios_personal: "no",
+  // IV.1 / IV.2
+  productos_elaborados:
+    "CASAS HABITACION\nEDIFICIOS RESIDENCIALES\nOFICINAS\nBODEGAS INDUSTRIALES\nCENTROS COMERCIALES\nESCUELAS\nCLINICAS Y HOSPITALES\nCONJUNTOS HABITACIONALES\nDEPARTAMENTOS\nLOCALES COMERCIALES",
+  materias_primas:
+    "CEMENTO, ARENA, GRAVA, VARILLA, BLOCK, AGUA, ALAMBRE, MADERA, YESO, PINTURA",
+  // IV.4 — Maquinaria y equipo
+  maquinaria_unidades: "2\n1\n3\n5\n1",
+  maquinaria_nombre:
+    "REVOLVEDORA\nTORRE GRUA\nVIBRADOR\nMARTILLO ELECTRICO\nSOLDADORA",
+  maquinaria_uso:
+    "MEZCLAR CONCRETO\nIZAJE DE CARGA\nCOMPACTAR CONCRETO\nDEMOLICION\nUNIR PIEZAS METALICAS",
+  maquinaria_tipo:
+    "MOTORIZADOS NO AUTOMATIZADOS\nAUTOMATIZADOS\nMOTORIZADOS NO AUTOMATIZADOS\nMOTORIZADOS NO AUTOMATIZADOS\nMOTORIZADOS NO AUTOMATIZADOS",
+  maquinaria_capacidad: "1 M3\n5 TON\n2 HP\n1500 W\n200 AMP",
+  // IV.5 — Equipo de transporte
+  cuenta_equipo_transporte: "SI",
+  transporte_unidades: "1\n2\n1\n3\n1",
+  transporte_nombre:
+    "CAMIONETA PICK-UP\nMONTACARGAS\nCAMION DE VOLTEO\nGRUA HIDRAULICA\nMOTOCICLETA",
+  transporte_uso:
+    "TRANSPORTE DE MATERIAL\nCARGA Y DESCARGA\nTRANSPORTE DE GRAVA\nIZAJE\nMENSAJERIA",
+  transporte_combustible: "GASOLINA\nDIESEL\nDIESEL\nDIESEL\nGASOLINA",
+  transporte_capacidad: "1 TON\n3 TON\n7 M3\n10 TON\n150 CC",
+  // IV.6 — Procesos
+  procesos_principales:
+    "SE LLEGA A LA CASA SE INSPECCIONA LOS ARREGLOS QUE HAY QUE HACER Y SE COTIZA AL CLIENTE. SE LE EXPLICA AL DUEÑO QUÉ MATERIALES SE OCUPAN Y SE ACUERDA UNA FECHA DE INICIO. SE FIRMA UN CONTRATO BREVE Y SE COMPRAN LOS INSUMOS.",
+  procesos_intermedios:
+    "SE MANEJAN LOS HORARIOS PARA TRABAJAR Y NO INVADIR MUCHO LAS HABITACIONES OCUPADAS. SE HACEN LAS REPARACIONES A LA CASA SIGUIENDO EL ORDEN DE LO MÁS URGENTE A LO MENOS. SE PROTEGEN LOS MUEBLES Y SE LIMPIA CADA DÍA DESPUÉS DEL TURNO.",
+  procesos_finales:
+    "SE ENTREGAN LOS ARREGLOS Y SE REVISAN LOS ACABADOS JUNTO CON EL CLIENTE. SE COBRA EL SALDO PENDIENTE Y SE LE ENTREGA UN COMPROBANTE. SE OFRECE UNA GARANTÍA DE 30 DÍAS POR CUALQUIER DETALLE.",
+  // IV.7 — Personal por oficio
+  personal_num_izq: "5\n3\n2\n1\n4\n2",
+  personal_oficio_izq: "ALBAÑIL\nELECTRICISTA\nPLOMERO\nINGENIERO\nAYUDANTE\nSOLDADOR",
+  personal_num_der: "2\n1\n1\n3\n1\n1",
+  personal_oficio_der: "CARPINTERO\nPINTOR\nSUPERVISOR\nALMACENISTA\nCHOFER\nAUXILIAR",
+  // IV.8
+  distribucion_mercancias: "CON TRANSPORTE PROPIO",
+  servicios_terceros: "NO",
+  // V — Empresa sustituida o fusionada
+  sustituida_razon_social: "CONSTRUCTORA ANTERIOR SA DE CV",
+  sustituida_nombre: "PEDRO",
+  sustituida_apellido_paterno: "RAMÍREZ",
+  sustituida_apellido_materno: "LÓPEZ",
+  sustituida_curp: "RALP800101HJCMPD05",
+  sustituida_registro_patronal: "Y11-1111-11",
+  sustituida_rfc: "RAL800101ABC",
+  sustituida_division: "4", sustituida_grupo: "41", sustituida_fraccion: "4101",
+  sustituida_clase: "V", sustituida_prima_srt: "7.58875",
+  // VI — Bienes
+  bienes_cantidad: "1\n3\n10\n2",
+  bienes_descripcion:
+    "REVOLVEDORA INDUSTRIAL DE 1 M3\nTORRES GRÚA DE 5 TON\nMARTILLOS DEMOLEDORES ELÉCTRICOS\nSOLDADORAS DE ARCO 200 AMP",
+  bienes_uso:
+    "ESTOS BIENES SE UTILIZAN DENTRO DE LA OPERACIÓN DIARIA DE LA OBRA PARA MEZCLAR CONCRETO EN VOLÚMENES PEQUEÑOS Y MEDIANOS, MOVER CARGAS PESADAS DE ACERO Y BLOCK ENTRE NIVELES, DEMOLER MUROS Y LOSAS DURANTE REMODELACIONES, Y EJECUTAR LOS TRABAJOS DE SOLDADURA ESTRUCTURAL.",
+  bienes_afectacion:
+    "LA INCORPORACIÓN DE ESTOS BIENES NO AFECTA NEGATIVAMENTE LA ACTIVIDAD MANIFESTADA; AL CONTRARIO, AMPLÍA LA CAPACIDAD INSTALADA Y PERMITE ATENDER OBRAS DE MAYOR ENVERGADURA SIN SUBCONTRATAR EQUIPO. NO CAMBIA EL GIRO NI LA CLASIFICACIÓN DE RIESGO.",
 };
 
 async function generar(conGrilla) {
@@ -84,20 +145,77 @@ async function generar(conGrilla) {
   }
 
   const pages = doc.getPages();
+  const defaultSize = coords._default_size ?? 9;
 
-  // 1) Datos.
+  const truncar = (texto, size, ancho) => {
+    if (!ancho || ancho <= 0) return texto;
+    if (font.widthOfTextAtSize(texto, size) <= ancho) return texto;
+    let cur = texto;
+    while (cur.length > 1 && font.widthOfTextAtSize(cur + "…", size) > ancho) {
+      cur = cur.slice(0, -1);
+    }
+    return cur + "…";
+  };
+
+  // 1) Datos. Mirror exacto de lib/pdf-overlay.ts (from, text-wrap, table-cells, checkbox-grid, texto).
   for (const [id, conf] of Object.entries(coords.campos)) {
+    const valueKey = conf.from ?? id;
+
     if (conf.type === "checkbox-grid") {
-      const v = flat[id]; if (!v) continue;
-      const opt = conf.options[v]; if (!opt) continue;
-      pages[opt.page ?? conf.page ?? 0].drawText("X", {
-        x: opt.x, y: opt.y, size: opt.size ?? 10, font: fontBold, color: C
-      });
+      // En el PDF de calibración pintamos X sobre TODAS las opciones a la vez
+      // para verificar que cada coordenada cae dentro de su casilla. El
+      // overlay real (lib/pdf-overlay.ts) sí elige solo una.
+      for (const opt of Object.values(conf.options)) {
+        pages[opt.page ?? conf.page ?? 0].drawText("X", {
+          x: opt.x, y: opt.y, size: opt.size ?? 10, font: fontBold, color: C
+        });
+      }
       continue;
     }
-    const v = flat[id]; if (!v) continue;
-    pages[conf.page ?? 0].drawText(String(v), {
-      x: conf.x, y: conf.y, size: conf.size ?? 9, font, color: C
+
+    if (conf.type === "text-wrap") {
+      const valor = (flat[valueKey] ?? "").toString().trim();
+      if (!valor) continue;
+      const palabras = valor.replace(/\s+/g, " ").split(" ");
+      let idx = 0;
+      for (const cell of conf.cells) {
+        if (idx >= palabras.length) break;
+        const page = pages[cell.page ?? 0]; if (!page) continue;
+        const size = cell.size ?? defaultSize;
+        const ancho = cell.ancho_max ?? 540;
+        let linea = "";
+        while (idx < palabras.length) {
+          const cand = linea ? `${linea} ${palabras[idx]}` : palabras[idx];
+          if (font.widthOfTextAtSize(cand, size) > ancho) {
+            if (!linea) { linea = truncar(palabras[idx], size, ancho); idx++; }
+            break;
+          }
+          linea = cand; idx++;
+        }
+        if (linea) page.drawText(linea, { x: cell.x, y: cell.y, size, font, color: C });
+      }
+      continue;
+    }
+
+    if (conf.type === "table-cells") {
+      const valor = (flat[valueKey] ?? "").toString();
+      if (!valor.trim()) continue;
+      const items = valor.split(/[,\n]/g).map((s) => s.trim()).filter(Boolean);
+      for (let i = 0; i < Math.min(items.length, conf.cells.length); i++) {
+        const cell = conf.cells[i];
+        const page = pages[cell.page ?? 0]; if (!page) continue;
+        const size = cell.size ?? defaultSize;
+        const texto = truncar(items[i], size, cell.ancho_max);
+        page.drawText(texto, { x: cell.x, y: cell.y, size, font, color: C });
+      }
+      continue;
+    }
+
+    const v = flat[valueKey]; if (v == null || String(v).trim() === "") continue;
+    const size = conf.size ?? defaultSize;
+    const texto = truncar(String(v), size, conf.ancho_max);
+    pages[conf.page ?? 0].drawText(texto, {
+      x: conf.x, y: conf.y, size, font, color: C
     });
   }
 
