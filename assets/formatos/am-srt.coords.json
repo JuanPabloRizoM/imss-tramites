@@ -203,6 +203,37 @@
       ]
     },
 
+    "procesos_principales": { "type": "table-cells",
+      "_nota": "IV.6 Procesos principales — página 3.",
+      "cells": [
+        { "page": 2, "x": 50, "y": 385, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 367, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 349, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 331, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 313, "size": 9, "ancho_max": 540 }
+      ]
+    },
+    "procesos_intermedios": { "type": "table-cells",
+      "_nota": "IV.6 Procesos intermedios — página 3.",
+      "cells": [
+        { "page": 2, "x": 50, "y": 280, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 262, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 244, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 226, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 208, "size": 9, "ancho_max": 540 }
+      ]
+    },
+    "procesos_finales": { "type": "table-cells",
+      "_nota": "IV.6 Procesos finales — página 3.",
+      "cells": [
+        { "page": 2, "x": 50, "y": 174, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 156, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 138, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 120, "size": 9, "ancho_max": 540 },
+        { "page": 2, "x": 50, "y": 102, "size": 9, "ancho_max": 540 }
+      ]
+    },
+
     "materias_primas": { "type": "table-cells",
       "_nota": "Tabla IV.2: 5 filas × 2 columnas en página 2.",
       "cells": [

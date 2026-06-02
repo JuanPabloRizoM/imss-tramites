@@ -673,6 +673,59 @@ function FormularioCaso({
   // AM-SRT: pedir sugerencias de productos + materias primas con Haiku.
   const [sugiriendo, setSugiriendo] = useState(false);
   const [errorSugerir, setErrorSugerir] = useState<string | null>(null);
+  // Sugerencias de procesos (IV.6) — por sección, independientes.
+  const [sugiriendoProc, setSugiriendoProc] = useState<
+    "principales" | "intermedios" | "finales" | null
+  >(null);
+  const [errorProc, setErrorProc] = useState<string | null>(null);
+  const sugerirProcesos = useCallback(
+    async (seccion: "principales" | "intermedios" | "finales") => {
+      setErrorProc(null);
+      setSugiriendoProc(seccion);
+      try {
+        const res = await fetch("/api/sugerir-procesos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fraccion: valores.fraccion ?? "",
+            giro: valores.giro ?? "",
+            productos: valores.productos_elaborados ?? "",
+            materias: valores.materias_primas ?? "",
+            seccion,
+          }),
+        });
+        const j = (await res.json()) as {
+          items?: string[];
+          error?: string;
+        };
+        if (!res.ok || j.error) {
+          setErrorProc(j.error ?? `Error ${res.status}`);
+          return;
+        }
+        const target =
+          seccion === "principales"
+            ? "procesos_principales"
+            : seccion === "intermedios"
+            ? "procesos_intermedios"
+            : "procesos_finales";
+        setValores((prev) => ({
+          ...prev,
+          [target]: (j.items ?? []).join("\n"),
+        }));
+      } catch (err) {
+        setErrorProc(err instanceof Error ? err.message : "Error de red.");
+      } finally {
+        setSugiriendoProc(null);
+      }
+    },
+    [
+      setValores,
+      valores.fraccion,
+      valores.giro,
+      valores.productos_elaborados,
+      valores.materias_primas,
+    ]
+  );
   const sugerirProductosMaterias = useCallback(async () => {
     setErrorSugerir(null);
     setSugiriendo(true);
@@ -823,23 +876,38 @@ function FormularioCaso({
       )}
 
       {tramiteType.code === "am-srt" && (
-        <div className="flex flex-wrap items-center gap-3 rounded-md border border-line bg-paper-2 p-4">
-          <button
-            type="button"
-            onClick={sugerirProductosMaterias}
-            disabled={sugiriendo || (!valores.fraccion && !valores.giro)}
-            className="inline-flex min-h-[44px] items-center rounded-md bg-ink px-4 text-sm font-semibold text-paper hover:bg-ink-2 disabled:bg-ink-3"
-            title="Llama a Haiku 4.5 con la fracción y giro para sugerir productos y materias primas. Costo aproximado: $0.003 USD por click."
-          >
-            {sugiriendo ? "Generando…" : "Sugerir productos y materias primas con IA"}
-          </button>
-          <span className="text-xs text-ink-3">
-            Llena los apartados IV.1 y IV.2 con sugerencias editables. Necesita
-            que pongas la fracción o el giro primero.
-          </span>
-          {errorSugerir && (
-            <span className="text-sm text-err">{errorSugerir}</span>
-          )}
+        <div className="grid gap-3 rounded-md border border-line bg-paper-2 p-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={sugerirProductosMaterias}
+              disabled={sugiriendo || (!valores.fraccion && !valores.giro)}
+              className="inline-flex min-h-[44px] items-center rounded-md bg-ink px-4 text-sm font-semibold text-paper hover:bg-ink-2 disabled:bg-ink-3"
+              title="Genera IV.1 y IV.2 con Haiku. Necesita fracción o giro. ~$0.003 USD."
+            >
+              {sugiriendo ? "Generando…" : "Sugerir productos y materias (IV.1 / IV.2)"}
+            </button>
+            {errorSugerir && (
+              <span className="text-sm text-err">{errorSugerir}</span>
+            )}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs text-ink-3">Procesos (IV.6) — uno a la vez:</span>
+            {(["principales","intermedios","finales"] as const).map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => sugerirProcesos(s)}
+                disabled={sugiriendoProc === s || (!valores.fraccion && !valores.giro)}
+                className="inline-flex min-h-[36px] items-center rounded-md border border-line bg-paper px-3 text-xs font-medium text-ink hover:bg-paper-2 disabled:text-ink-3"
+                title={`Sugiere procesos ${s} con Haiku. ~$0.003 USD.`}
+              >
+                {sugiriendoProc === s ? "Generando…" : `Sugerir ${s}`}
+              </button>
+            ))}
+            {errorProc && <span className="text-sm text-err">{errorProc}</span>}
+          </div>
         </div>
       )}
 
