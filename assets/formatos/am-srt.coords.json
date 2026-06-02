@@ -237,12 +237,12 @@
     "personal_num_izq": { "type": "table-cells",
       "_nota": "IV.7 col 1 izq (No. Trabajadores) — página 4. 6 filas.",
       "cells": [
-        { "page": 3, "x": 39, "y": 780, "size": 9, "ancho_max": 85 },
-        { "page": 3, "x": 39, "y": 755, "size": 9, "ancho_max": 85 },
-        { "page": 3, "x": 39, "y": 730, "size": 9, "ancho_max": 85 },
-        { "page": 3, "x": 39, "y": 705, "size": 9, "ancho_max": 85 },
-        { "page": 3, "x": 39, "y": 680, "size": 9, "ancho_max": 85 },
-        { "page": 3, "x": 39, "y": 655, "size": 9, "ancho_max": 85 }
+        { "page": 3, "x": 43, "y": 780, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 43, "y": 755, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 43, "y": 740, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 43, "y": 715, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 43, "y": 690, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 43, "y": 665, "size": 9, "ancho_max": 85 }
       ]
     },
     "personal_oficio_izq": { "type": "table-cells",
@@ -250,7 +250,7 @@
       "cells": [
         { "page": 3, "x": 115, "y": 780, "size": 9, "ancho_max": 165 },
         { "page": 3, "x": 115, "y": 755, "size": 9, "ancho_max": 165 },
-        { "page": 3, "x": 115, "y": 730, "size": 9, "ancho_max": 165 },
+        { "page": 3, "x": 115, "y": 740, "size": 9, "ancho_max": 165 },
         { "page": 3, "x": 115, "y": 705, "size": 9, "ancho_max": 165 },
         { "page": 3, "x": 115, "y": 680, "size": 9, "ancho_max": 165 },
         { "page": 3, "x": 115, "y": 655, "size": 9, "ancho_max": 165 }
@@ -259,12 +259,12 @@
     "personal_num_der": { "type": "table-cells",
       "_nota": "IV.7 col 3 der (No. Trabajadores) — página 4.",
       "cells": [
-        { "page": 3, "x": 316, "y": 780, "size": 9, "ancho_max": 85 },
-        { "page": 3, "x": 316, "y": 755, "size": 9, "ancho_max": 85 },
-        { "page": 3, "x": 316, "y": 730, "size": 9, "ancho_max": 85 },
-        { "page": 3, "x": 316, "y": 705, "size": 9, "ancho_max": 85 },
-        { "page": 3, "x": 316, "y": 680, "size": 9, "ancho_max": 85 },
-        { "page": 3, "x": 316, "y": 655, "size": 9, "ancho_max": 85 }
+        { "page": 3, "x": 320, "y": 780, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 320, "y": 755, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 320, "y": 730, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 320, "y": 705, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 320, "y": 680, "size": 9, "ancho_max": 85 },
+        { "page": 3, "x": 320, "y": 655, "size": 9, "ancho_max": 85 }
       ]
     },
     "personal_oficio_der": { "type": "table-cells",
