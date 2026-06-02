@@ -16,3 +16,9 @@ Estos archivos están calibrados iterativamente desde el feedback del usuario ("
 4. Si quieres recalibrar todo desde cero, pídele permiso explícito primero.
 
 El equivalente para el `field_schema` (en `supabase/migrations/`): cada migration nueva debe apoyarse en la última aplicada, no rebobinar al original.
+
+# Regla de mayúsculas (IMSS)
+
+**TODO el texto que va al PDF de un formato del IMSS va en MAYÚSCULAS.** Sin excepciones para etiquetas, ejemplos, placeholders, `options` de selects o de textareas con chips, ni valores hardcoded para pruebas. Cuando agregues un nuevo `options: [...]` al schema, ya van en mayúsculas — no dejes que el usuario me lo recuerde.
+
+(`lib/tramites.ts::normalizarParaSalida` ya hace el upcase para campos `text` en el momento de generar PDF, pero NO para `textarea` ni para opciones de chips — esas las tengo que poner ya en mayúsculas yo desde el schema.)

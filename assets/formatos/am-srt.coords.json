@@ -116,21 +116,21 @@
     "maquinaria_uso": { "type": "table-cells",
       "_nota": "IV.3 col 3 (Uso) — página 3.",
       "cells": [
-        { "page": 2, "x": 234, "y": 746, "size": 8, "ancho_max": 135 },
-        { "page": 2, "x": 234, "y": 726, "size": 8, "ancho_max": 135 },
-        { "page": 2, "x": 234, "y": 706, "size": 8, "ancho_max": 135 },
-        { "page": 2, "x": 234, "y": 686, "size": 8, "ancho_max": 135 },
-        { "page": 2, "x": 234, "y": 666, "size": 8, "ancho_max": 135 }
+        { "page": 2, "x": 228, "y": 746, "size": 8, "ancho_max": 135 },
+        { "page": 2, "x": 228, "y": 726, "size": 8, "ancho_max": 135 },
+        { "page": 2, "x": 228, "y": 706, "size": 8, "ancho_max": 135 },
+        { "page": 2, "x": 228, "y": 686, "size": 8, "ancho_max": 135 },
+        { "page": 2, "x": 228, "y": 666, "size": 8, "ancho_max": 135 }
       ]
     },
     "maquinaria_tipo": { "type": "table-cells",
       "_nota": "IV.3 col 4 (Tipo: motorizados/no motorizados/etc.) — página 3.",
       "cells": [
-        { "page": 2, "x": 364, "y": 746, "size": 7, "ancho_max": 140 },
-        { "page": 2, "x": 364, "y": 726, "size": 7, "ancho_max": 140 },
-        { "page": 2, "x": 364, "y": 706, "size": 7, "ancho_max": 140 },
-        { "page": 2, "x": 364, "y": 686, "size": 7, "ancho_max": 140 },
-        { "page": 2, "x": 364, "y": 666, "size": 7, "ancho_max": 140 }
+        { "page": 2, "x": 360, "y": 746, "size": 7, "ancho_max": 140 },
+        { "page": 2, "x": 360, "y": 726, "size": 7, "ancho_max": 140 },
+        { "page": 2, "x": 360, "y": 706, "size": 7, "ancho_max": 140 },
+        { "page": 2, "x": 360, "y": 686, "size": 7, "ancho_max": 140 },
+        { "page": 2, "x": 360, "y": 666, "size": 7, "ancho_max": 140 }
       ]
     },
     "maquinaria_capacidad": { "type": "table-cells",
