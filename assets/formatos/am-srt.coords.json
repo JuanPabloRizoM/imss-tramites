@@ -144,6 +144,65 @@
       ]
     },
 
+    "cuenta_equipo_transporte": { "type": "checkbox-grid",
+      "_nota": "IV.4 ¿Cuenta con equipo de transporte? SI/NO — página 3.",
+      "options": {
+        "SI": { "page": 2, "x": 50, "y": 617 },
+        "NO": { "page": 2, "x": 320, "y": 617 }
+      }
+    },
+
+    "transporte_unidades": { "type": "table-cells",
+      "_nota": "IV.5 col 1 (Número de unidades) — página 3.",
+      "cells": [
+        { "page": 2, "x": 45, "y": 540, "size": 9, "ancho_max": 75 },
+        { "page": 2, "x": 45, "y": 520, "size": 9, "ancho_max": 75 },
+        { "page": 2, "x": 45, "y": 500, "size": 9, "ancho_max": 75 },
+        { "page": 2, "x": 45, "y": 480, "size": 9, "ancho_max": 75 },
+        { "page": 2, "x": 45, "y": 460, "size": 9, "ancho_max": 75 }
+      ]
+    },
+    "transporte_nombre": { "type": "table-cells",
+      "_nota": "IV.5 col 2 (Nombre) — página 3.",
+      "cells": [
+        { "page": 2, "x": 89, "y": 540, "size": 8, "ancho_max": 150 },
+        { "page": 2, "x": 89, "y": 520, "size": 8, "ancho_max": 150 },
+        { "page": 2, "x": 89, "y": 500, "size": 8, "ancho_max": 150 },
+        { "page": 2, "x": 89, "y": 480, "size": 8, "ancho_max": 150 },
+        { "page": 2, "x": 89, "y": 460, "size": 8, "ancho_max": 150 }
+      ]
+    },
+    "transporte_uso": { "type": "table-cells",
+      "_nota": "IV.5 col 3 (Uso) — página 3.",
+      "cells": [
+        { "page": 2, "x": 228, "y": 540, "size": 8, "ancho_max": 135 },
+        { "page": 2, "x": 228, "y": 520, "size": 8, "ancho_max": 135 },
+        { "page": 2, "x": 228, "y": 500, "size": 8, "ancho_max": 135 },
+        { "page": 2, "x": 228, "y": 480, "size": 8, "ancho_max": 135 },
+        { "page": 2, "x": 228, "y": 460, "size": 8, "ancho_max": 135 }
+      ]
+    },
+    "transporte_combustible": { "type": "table-cells",
+      "_nota": "IV.5 col 4 (Combustible o energía) — página 3.",
+      "cells": [
+        { "page": 2, "x": 360, "y": 540, "size": 8, "ancho_max": 140 },
+        { "page": 2, "x": 360, "y": 520, "size": 8, "ancho_max": 140 },
+        { "page": 2, "x": 360, "y": 500, "size": 8, "ancho_max": 140 },
+        { "page": 2, "x": 360, "y": 480, "size": 8, "ancho_max": 140 },
+        { "page": 2, "x": 360, "y": 460, "size": 8, "ancho_max": 140 }
+      ]
+    },
+    "transporte_capacidad": { "type": "table-cells",
+      "_nota": "IV.5 col 5 (Capacidad o potencia) — página 3.",
+      "cells": [
+        { "page": 2, "x": 500, "y": 540, "size": 9, "ancho_max": 105 },
+        { "page": 2, "x": 500, "y": 520, "size": 9, "ancho_max": 105 },
+        { "page": 2, "x": 500, "y": 500, "size": 9, "ancho_max": 105 },
+        { "page": 2, "x": 500, "y": 480, "size": 9, "ancho_max": 105 },
+        { "page": 2, "x": 500, "y": 460, "size": 9, "ancho_max": 105 }
+      ]
+    },
+
     "materias_primas": { "type": "table-cells",
       "_nota": "Tabla IV.2: 5 filas × 2 columnas en página 2.",
       "cells": [
