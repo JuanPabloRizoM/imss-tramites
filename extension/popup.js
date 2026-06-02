@@ -7,7 +7,22 @@
 // 3) Al hacer click en "Llenar formulario", envía un mensaje al tab activo
 //    si está en el portal del IMSS. El content script hace el llenado.
 
-const PORTAL_HOST = "altapatronalpresencial.imss.gob.mx";
+// Lista de hosts que la extensión soporta (debe quedar sincronizada con
+// `host_permissions` y `content_scripts.matches` del manifest.json). Sirve
+// para el mensaje genérico al inicio, cuando todavía no se eligió trámite.
+const PORTAL_HOSTS = [
+  "altapatronalpresencial.imss.gob.mx",
+  "idse.imss.gob.mx",
+];
+
+// Saca el host de una URL — null si la URL es inválida.
+function hostOf(url) {
+  try {
+    return new URL(url).host;
+  } catch {
+    return null;
+  }
+}
 
 const $ = (sel) => document.querySelector(sel);
 const $config = $("#config-block");
@@ -92,6 +107,8 @@ async function pintarLista() {
       });
       $btnLlenar.disabled = false;
       setMsg("");
+      // Revalida el portal contra el primer trámite seleccionado por defecto.
+      verificarPortalAbierto(tramitesCache[0]?.tipo?.portal_url);
     }
   } catch (err) {
     setMsg(err.message || "Error", "err");
@@ -99,13 +116,29 @@ async function pintarLista() {
   }
 }
 
-async function verificarPortalAbierto() {
+// Verifica si la pestaña activa está en alguno de los portales soportados.
+// Si pasas `expectedPortalUrl`, exige que esté en ese portal específico
+// (host match). Sin parámetro, acepta cualquiera de los PORTAL_HOSTS.
+async function verificarPortalAbierto(expectedPortalUrl) {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  const url = tab?.url ?? "";
-  const ok = url.includes(PORTAL_HOST);
-  $portalStatus.textContent = ok
-    ? "Portal del IMSS detectado en esta pestaña."
-    : "Abre el portal del IMSS en esta pestaña antes de llenar.";
+  const tabHost = hostOf(tab?.url ?? "");
+  let ok = false;
+  let mensaje = "Abre el portal del IMSS en esta pestaña antes de llenar.";
+
+  if (expectedPortalUrl) {
+    const expected = hostOf(expectedPortalUrl);
+    ok = !!tabHost && !!expected && tabHost === expected;
+    mensaje = ok
+      ? `Portal correcto detectado (${expected}).`
+      : `Abre ${expected} en esta pestaña — actualmente estás en ${tabHost || "una pestaña sin URL"}.`;
+  } else {
+    ok = !!tabHost && PORTAL_HOSTS.includes(tabHost);
+    mensaje = ok
+      ? `Portal del IMSS detectado (${tabHost}).`
+      : "Abre el portal del IMSS en esta pestaña antes de llenar.";
+  }
+
+  $portalStatus.textContent = mensaje;
   $portalStatus.style.color = ok ? "var(--ok)" : "var(--ink-3)";
   return ok;
 }
@@ -115,9 +148,15 @@ async function llenarFormulario() {
   const tramite = tramitesCache[idx];
   if (!tramite) return;
 
-  const portalOk = await verificarPortalAbierto();
+  // Valida contra el portal específico de este trámite (no genérico).
+  const portalOk = await verificarPortalAbierto(tramite.tipo?.portal_url);
   if (!portalOk) {
-    setMsg("Esta pestaña no es el portal del IMSS.", "err");
+    setMsg(
+      tramite.tipo?.portal_url
+        ? `Abre ${hostOf(tramite.tipo.portal_url)} en esta pestaña.`
+        : "Este trámite no tiene portal_url configurado.",
+      "err"
+    );
     return;
   }
 
@@ -181,5 +220,14 @@ $("#cfg-save").addEventListener("click", guardarConfig);
 $("#btn-reset").addEventListener("click", resetConfig);
 $("#btn-llenar").addEventListener("click", llenarFormulario);
 $("#btn-refresh").addEventListener("click", pintarLista);
+
+// Al cambiar de trámite en el dropdown, revalida contra ese portal específico
+// — así el mensaje "Abre X en esta pestaña" siempre coincide con el destino
+// real del trámite seleccionado.
+$select.addEventListener("change", () => {
+  const idx = Number($select.value);
+  const tramite = tramitesCache[idx];
+  verificarPortalAbierto(tramite?.tipo?.portal_url);
+});
 
 init();

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Trámites IMSS — Llenado del portal",
   "short_name": "Trámites IMSS",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Llena automáticamente los formularios del portal del IMSS con datos preparados en la app interna.",
   "action": {
     "default_title": "Trámites IMSS",
@@ -11,12 +11,14 @@
   "permissions": ["activeTab", "scripting", "storage"],
   "host_permissions": [
     "https://altapatronalpresencial.imss.gob.mx/*",
+    "https://idse.imss.gob.mx/*",
     "https://*.supabase.co/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://altapatronalpresencial.imss.gob.mx/*"
+        "https://altapatronalpresencial.imss.gob.mx/*",
+        "https://idse.imss.gob.mx/*"
       ],
       "js": ["content.js"],
       "run_at": "document_idle"
