@@ -12,7 +12,7 @@ export default function Apartado3() {
     <ApartadoShell
       numero={3}
       titulo="Extracción de datos"
-      resumen="Subes un documento desde el celular y aparece aquí con sus datos para revisar."
+      resumen="Subes un documento desde el celular o desde esta computadora y aparece aquí con sus datos para revisar."
     >
       <PareoProvider>
         <PareoBanner />

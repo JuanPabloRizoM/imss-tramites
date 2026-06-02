@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -8,12 +8,14 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getBrowserClient } from "@/lib/supabase/client";
 import { useSesionId } from "@/lib/pareo-cliente";
 import {
+  listarDocTypes,
   obtenerDocType,
   esFilaArray,
   type DatoExtraido,
   type DocType,
   type FilaExtraida,
 } from "@/lib/extraccion";
+import { redimensionarImagen } from "@/lib/imagen";
 
 type ExtractedValue = DatoExtraido | FilaExtraida[];
 
@@ -138,14 +140,20 @@ export function VistaComputadora() {
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-[280px_1fr]">
-      <ListaDocumentos
-        docs={docs}
-        cargando={cargando}
-        seleccionId={seleccionId}
-        onSelect={setSeleccionManual}
+    <div className="grid gap-6">
+      <SubirDesdePc
+        supabase={supabase}
+        sesionId={sesionId}
+        onSubido={(id) => setSeleccionManual(id)}
       />
-      <DetalleDocumento
+      <div className="grid gap-6 md:grid-cols-[280px_1fr]">
+        <ListaDocumentos
+          docs={docs}
+          cargando={cargando}
+          seleccionId={seleccionId}
+          onSelect={setSeleccionManual}
+        />
+        <DetalleDocumento
         key={seleccion?.id ?? "vacio"}
         documento={seleccion}
         supabase={supabase}
@@ -160,7 +168,238 @@ export function VistaComputadora() {
           if (seleccionManual === id) setSeleccionManual(null);
         }}
       />
+      </div>
     </div>
+  );
+}
+
+// Subida desde la PC — mismo flujo que CapturaCelular.tsx pero sin pareo.
+// Acepta múltiples archivos (imágenes y PDFs) y los procesa en secuencia.
+// Por archivo: resize (solo imágenes) → upload a storage → insert documents
+// → POST /api/extraer. Cada uno aparece en la Lista de la izquierda via
+// realtime subscription, no se duplica.
+
+type SubidaPc = {
+  localId: string;
+  nombre: string;
+  estado: "subiendo" | "procesando" | "listo" | "error";
+  documentId?: string;
+  error?: string;
+};
+
+const TIPOS_DOC = listarDocTypes();
+
+function SubirDesdePc({
+  supabase,
+  sesionId,
+  onSubido,
+}: {
+  supabase: SupabaseClient;
+  sesionId: string | null;
+  onSubido: (documentId: string) => void;
+}) {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [docType, setDocType] = useState<string>("generico");
+  const [subidas, setSubidas] = useState<SubidaPc[]>([]);
+
+  const actualizar = useCallback(
+    (localId: string, patch: Partial<SubidaPc>) =>
+      setSubidas((prev) =>
+        prev.map((s) => (s.localId === localId ? { ...s, ...patch } : s))
+      ),
+    []
+  );
+
+  const procesarUno = useCallback(
+    async (file: File, localId: string) => {
+      try {
+        const esImagen = file.type.startsWith("image/");
+        const esPdf =
+          file.type === "application/pdf" ||
+          file.name.toLowerCase().endsWith(".pdf");
+        if (!esImagen && !esPdf) {
+          throw new Error("Solo imágenes (JPG/PNG/WebP/GIF) o PDF.");
+        }
+
+        // Imágenes: resize antes de subir (1600 px lado largo, JPEG q=0.8).
+        // PDFs: van tal cual (el extractor ya soporta multipágina hasta 6 pp).
+        let blob: Blob;
+        let nombre: string;
+        let contentType: string;
+        let ext: string;
+        if (esImagen) {
+          const r = await redimensionarImagen(file);
+          blob = r.blob;
+          nombre = r.nombre;
+          contentType = "image/jpeg";
+          ext = "jpg";
+        } else {
+          blob = file;
+          nombre = file.name.replace(/[^\w.\-]/g, "_");
+          contentType = "application/pdf";
+          ext = "pdf";
+        }
+
+        const path = `${crypto.randomUUID()}-${nombre.endsWith(`.${ext}`) ? nombre : `${nombre}.${ext}`}`;
+        const up = await supabase.storage
+          .from("documentos")
+          .upload(path, blob, { contentType, upsert: false });
+        if (up.error) throw up.error;
+
+        // Insertar con session_id de la PC. Si la sesión no existe (raro en
+        // PC porque PareoProvider la crea), cae a null.
+        let ins = await supabase
+          .from("documents")
+          .insert({
+            storage_path: path,
+            doc_type: docType,
+            extraction_status: "pendiente",
+            session_id: sesionId,
+          })
+          .select("id")
+          .single();
+        if (ins.error && (ins.error as { code?: string }).code === "23503") {
+          ins = await supabase
+            .from("documents")
+            .insert({
+              storage_path: path,
+              doc_type: docType,
+              extraction_status: "pendiente",
+              session_id: null,
+            })
+            .select("id")
+            .single();
+        }
+        if (ins.error || !ins.data) throw ins.error ?? new Error("Insert vacío.");
+
+        actualizar(localId, { estado: "procesando", documentId: ins.data.id });
+
+        const res = await fetch("/api/extraer", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ documentId: ins.data.id }),
+        });
+        if (!res.ok) {
+          const j = (await res.json().catch(() => null)) as { error?: string } | null;
+          throw new Error(j?.error ?? `Error de extracción (${res.status}).`);
+        }
+
+        actualizar(localId, { estado: "listo" });
+        onSubido(ins.data.id);
+      } catch (err) {
+        actualizar(localId, {
+          estado: "error",
+          error: err instanceof Error ? err.message : "Error desconocido.",
+        });
+      }
+    },
+    [supabase, sesionId, docType, actualizar, onSubido]
+  );
+
+  const onArchivos = useCallback(
+    async (files: FileList | null) => {
+      if (!files || files.length === 0) return;
+      const items: SubidaPc[] = Array.from(files).map((f) => ({
+        localId: `${crypto.randomUUID()}`,
+        nombre: f.name,
+        estado: "subiendo",
+      }));
+      setSubidas((prev) => [...items, ...prev].slice(0, 20));
+      // Procesar en secuencia — el extractor (Anthropic) no quiere ráfagas.
+      for (let i = 0; i < items.length; i++) {
+        await procesarUno(files[i], items[i].localId);
+      }
+      if (inputRef.current) inputRef.current.value = "";
+    },
+    [procesarUno]
+  );
+
+  const limpiarFinalizadas = useCallback(() => {
+    setSubidas((prev) => prev.filter((s) => s.estado !== "listo" && s.estado !== "error"));
+  }, []);
+
+  const hayFinalizadas = subidas.some(
+    (s) => s.estado === "listo" || s.estado === "error"
+  );
+
+  return (
+    <section className="rounded-md border border-line bg-paper-2 p-5">
+      <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="eyebrow">Subir desde esta computadora</p>
+          <p className="mt-1 text-xs text-ink-3">
+            Alternativa a la cámara del celular. Acepta JPG, PNG, WebP, GIF y
+            PDF (hasta 6 páginas). Puedes subir varios archivos a la vez.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-end gap-3">
+        <label className="flex flex-col gap-1">
+          <span className="text-sm font-medium text-ink-2">Tipo de documento</span>
+          <select
+            value={docType}
+            onChange={(e) => setDocType(e.target.value)}
+            className="h-11 min-w-[260px] rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:border-ink"
+          >
+            {TIPOS_DOC.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="inline-flex min-h-[44px] cursor-pointer items-center rounded-md bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink-2">
+          Elegir archivos…
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/*,application/pdf"
+            multiple
+            className="sr-only"
+            onChange={(e) => onArchivos(e.target.files)}
+          />
+        </label>
+
+        {hayFinalizadas && (
+          <button
+            type="button"
+            onClick={limpiarFinalizadas}
+            className="inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink-2 hover:bg-paper-2 hover:text-ink"
+          >
+            Limpiar finalizados
+          </button>
+        )}
+      </div>
+
+      {subidas.length > 0 && (
+        <ul className="mt-4 grid gap-2">
+          {subidas.map((s) => (
+            <li
+              key={s.localId}
+              className="flex items-center justify-between gap-3 rounded-md border border-line bg-paper px-3 py-2 text-sm"
+            >
+              <span className="truncate text-ink">{s.nombre}</span>
+              <span className="shrink-0">
+                {s.estado === "subiendo" && (
+                  <span className="text-ink-3">Subiendo…</span>
+                )}
+                {s.estado === "procesando" && (
+                  <span className="text-warn">Extrayendo…</span>
+                )}
+                {s.estado === "listo" && <span className="text-ok">✓ Listo</span>}
+                {s.estado === "error" && (
+                  <span className="text-err" title={s.error}>
+                    Error: {s.error}
+                  </span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 
@@ -186,9 +425,8 @@ function ListaDocumentos({
     return (
       <aside className="rounded-md border border-dashed border-line-2 bg-paper-2 p-4 text-sm text-ink-2">
         <p className="eyebrow mb-2">Sin documentos</p>
-        Toma una foto desde{" "}
-        <code className="rounded bg-paper px-1 py-0.5 font-mono text-xs">/movil</code>{" "}
-        para verla aparecer aquí.
+        Sube un archivo arriba (PC) o toma una foto desde{" "}
+        <code className="rounded bg-paper px-1 py-0.5 font-mono text-xs">/movil</code>.
       </aside>
     );
   }
