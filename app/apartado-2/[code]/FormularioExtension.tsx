@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { getBrowserClient } from "@/lib/supabase/client";
@@ -35,11 +35,43 @@ export function FormularioExtension({ tramiteType }: Props) {
   const [estado, setEstado] = useState<"idle" | "guardando" | "guardado" | "revisado" | "error">("idle");
   const [precargando, setPrecargando] = useState(false);
   const [mensaje, setMensaje] = useState<string | null>(null);
+  const [copiado, setCopiado] = useState(false);
 
   const grupos = useMemo(
     () => agruparPorSeccion(tramiteType.field_schema),
     [tramiteType.field_schema]
   );
+
+  // Texto compilado para pegar al portal cuando la extensión no esté
+  // disponible. Aplica las mismas mayúsculas que la extensión (text → upcase;
+  // textarea/date/select/etc. quedan tal cual). Solo incluye campos llenos.
+  const textoParaPortal = useMemo(() => {
+    const normalizados = normalizarParaSalida(tramiteType.field_schema, valores);
+    const partes: string[] = [];
+    for (const { seccion, campos } of grupos) {
+      const llenos = campos.filter((c) => (normalizados[c.id] ?? "").trim() !== "");
+      if (llenos.length === 0) continue;
+      partes.push(`=== ${seccion.toUpperCase()} ===`);
+      const ancho = Math.max(...llenos.map((c) => c.label.length));
+      for (const c of llenos) {
+        const v = (normalizados[c.id] ?? "").trim();
+        partes.push(`${c.label.padEnd(ancho)}  ${v}`);
+      }
+      partes.push("");
+    }
+    return partes.join("\n").trimEnd();
+  }, [grupos, valores, tramiteType.field_schema]);
+
+  const copiarTodo = useCallback(async () => {
+    if (!textoParaPortal) return;
+    try {
+      await navigator.clipboard.writeText(textoParaPortal);
+      setCopiado(true);
+      setTimeout(() => setCopiado(false), 2000);
+    } catch (err) {
+      setMensaje(err instanceof Error ? err.message : "No se pudo copiar al portapapeles.");
+    }
+  }, [textoParaPortal]);
 
   const setCampo = (id: string, valor: string) => {
     setValores((prev) => ({ ...prev, [id]: valor }));
@@ -102,6 +134,15 @@ export function FormularioExtension({ tramiteType }: Props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supabase, tramiteType]);
+
+  // Auto-precarga al montar: si hay documentos extraídos, jala todo sin que
+  // el usuario tenga que dar click. Corre una sola vez por sesión.
+  const autoPrecargado = useRef(false);
+  useEffect(() => {
+    if (autoPrecargado.current || !supabase) return;
+    autoPrecargado.current = true;
+    precargar();
+  }, [supabase, precargar]);
 
   const guardar = useCallback(
     async (nuevoStatus: "revisado" | "nuevo") => {
@@ -238,6 +279,34 @@ export function FormularioExtension({ tramiteType }: Props) {
           )}
         </div>
       </form>
+
+      <section className="rounded-md border border-line bg-paper-2 p-5">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="eyebrow">Copiar todo para pegar al portal</p>
+            <p className="mt-1 text-xs text-ink-3">
+              Alternativa por si la extensión no está disponible: copia este
+              bloque al portapapeles y pega cada valor a mano en su campo del
+              portal. Ya viene en MAYÚSCULAS donde aplica.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={copiarTodo}
+            disabled={!textoParaPortal}
+            className="inline-flex min-h-[44px] items-center rounded-md bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink-2 disabled:bg-ink-3"
+          >
+            {copiado ? "✓ Copiado" : "Copiar todo"}
+          </button>
+        </div>
+        <textarea
+          readOnly
+          value={textoParaPortal || "(Sin datos capturados todavía.)"}
+          rows={Math.min(14, Math.max(4, textoParaPortal.split("\n").length))}
+          className="w-full rounded-md border border-line bg-paper px-3 py-2 font-mono text-xs text-ink"
+          onFocus={(e) => e.currentTarget.select()}
+        />
+      </section>
 
       {camposPanel.length > 0 && (
         <section className="rounded-md border border-accent/30 bg-accent-soft p-5">
