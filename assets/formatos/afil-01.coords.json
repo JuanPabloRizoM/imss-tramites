@@ -19,7 +19,7 @@
     "razon_social":            { "page": 0, "x": 50,  "y": 465, "size": 9,  "ancho_max": 530 },
     "nombre":                  { "page": 0, "x": 195, "y": 460, "size": 9,  "ancho_max": 90 },
     "apellido_paterno":        { "page": 0, "x": 315, "y": 460, "size": 9,  "ancho_max": 90 },
-    "apellido_materno":        { "page": 0, "x": 460, "y": 460, "size": 9,  "ancho_max": 30 },
+    "apellido_materno":        { "page": 0, "x": 460, "y": 460, "size": 9,  "ancho_max": 130 },
 
     "rfc":                     { "page": 0, "x": 55,  "y": 440, "size": 9,  "ancho_max": 200 },
     "curp":                    { "page": 0, "x": 345, "y": 440, "size": 9,  "ancho_max": 220 },
