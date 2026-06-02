@@ -937,13 +937,32 @@ function CampoInput({
         {campo.required && <span className="text-accent"> *</span>}
       </label>
       {esTextarea ? (
-        <textarea
-          id={id}
-          value={valor}
-          onChange={(e) => onChange(e.target.value)}
-          rows={6}
-          className="rounded-md border border-line bg-paper px-3 py-2 text-base text-ink focus-visible:border-ink"
-        />
+        <>
+          {campo.options && campo.options.length > 0 && (
+            <div className="flex flex-wrap gap-1">
+              {campo.options.map((opt) => (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() =>
+                    onChange(valor.trim() ? `${valor}\n${opt}` : opt)
+                  }
+                  className="rounded-md border border-line bg-paper px-2 py-1 text-xs text-ink-2 hover:bg-paper-2 hover:text-ink"
+                  title={`Insertar "${opt}" en nueva línea`}
+                >
+                  + {opt}
+                </button>
+              ))}
+            </div>
+          )}
+          <textarea
+            id={id}
+            value={valor}
+            onChange={(e) => onChange(e.target.value)}
+            rows={6}
+            className="rounded-md border border-line bg-paper px-3 py-2 text-base text-ink focus-visible:border-ink"
+          />
+        </>
       ) : esSelect ? (
         <select
           id={id}
