@@ -147,7 +147,7 @@
     "cuenta_equipo_transporte": { "type": "checkbox-grid",
       "_nota": "IV.4 ¿Cuenta con equipo de transporte? SI/NO — página 3.",
       "options": {
-        "SI": { "page": 2, "x": 46, "y": 615 },
+        "SI": { "page": 2, "x": 44, "y": 615 },
         "NO": { "page": 2, "x": 316, "y": 615 }
       }
     },
