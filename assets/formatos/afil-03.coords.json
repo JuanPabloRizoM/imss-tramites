@@ -1,5 +1,5 @@
 {
-  "_nota": "AFIL-04 v1 — Aviso de Baja del Trabajador. Coords ESTIMADAS de la imagen del PDF; calibrar contra la grilla con `node tools/calibrar-pdf.mjs afil-04`.",
+  "_nota": "AFIL-03 v1 — Aviso de Reingreso del Trabajador. Coords ESTIMADAS (PDF de referencia no enviado todavía); calibrar con `node tools/calibrar-pdf.mjs afil-03` y la grilla.",
   "_dimensiones": { "ancho": 612, "alto": 794 },
   "_default_size": 9,
   "_max_paginas": 1,
@@ -29,11 +29,24 @@
       }
     },
 
-    "fecha_baja_dd":              { "page": 0, "x": 213, "y": 433, "size": 9 },
-    "fecha_baja_mm":              { "page": 0, "x": 250, "y": 433, "size": 9 },
-    "fecha_baja_aaaa":            { "page": 0, "x": 288, "y": 433, "size": 9 },
+    "fecha_reingreso_dd":         { "page": 0, "x": 213, "y": 433, "size": 9 },
+    "fecha_reingreso_mm":         { "page": 0, "x": 250, "y": 433, "size": 9 },
+    "fecha_reingreso_aaaa":       { "page": 0, "x": 288, "y": 433, "size": 9 },
 
-    "causa_baja":                 { "page": 0, "x": 50,  "y": 405, "size": 9, "ancho_max": 240 },
+    "salario_base":               { "page": 0, "x": 90,  "y": 405, "size": 9, "ancho_max": 200 },
+
+    "tipo_salario":               { "page": 0, "type": "checkbox-grid",
+      "options": {
+        "0":       { "x": 67,  "y": 380 },
+        "1":       { "x": 174, "y": 380 },
+        "2":       { "x": 256, "y": 380 },
+        "fijo":    { "x": 67,  "y": 380 },
+        "variable":{ "x": 174, "y": 380 },
+        "mixto":   { "x": 256, "y": 380 }
+      }
+    },
+
+    "ocupacion":                  { "page": 0, "x": 50,  "y": 355, "size": 9, "ancho_max": 240 },
 
     "registro_patronal":          { "page": 0, "x": 326, "y": 608, "size": 9, "ancho_max": 260 },
     "curp_patron":                { "page": 0, "x": 326, "y": 585, "size": 9, "ancho_max": 260 },
