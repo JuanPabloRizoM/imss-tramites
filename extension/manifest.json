@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Trámites IMSS — Llenado del portal",
-  "short_name": "Trámites IMSS",
-  "version": "0.3.0",
+  "short_name": "Trámites",
+  "version": "0.4.0",
   "description": "Llena automáticamente los formularios del portal del IMSS con datos preparados en la app interna.",
   "action": {
     "default_title": "Trámites IMSS",

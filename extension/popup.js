@@ -1,11 +1,17 @@
 // Popup de la extensión.
 //
-// 1) En primer arranque pide URL + anon key de Supabase y las guarda en
-//    chrome.storage.local (no en código — así nadie puede leerlas
-//    revisando la extensión).
+// 1) Credenciales del Supabase de la papelería vienen embebidas (build time).
+//    La anon key está diseñada para ser pública (Row Level Security protege
+//    los datos). chrome.storage.local sigue funcionando como override por si
+//    en una computadora específica se necesita apuntar a otra base.
 // 2) Lista trámites del apartado 2 cuyo `tramites.status = 'revisado'`.
 // 3) Al hacer click en "Llenar formulario", envía un mensaje al tab activo
 //    si está en el portal del IMSS. El content script hace el llenado.
+
+// Inyectados en build desde .env.local — NO editar a mano. Si necesitas
+// reemplazarlos corre: node tools/build-extension.mjs
+const SUPABASE_URL_DEFAULT = "__SUPABASE_URL__";
+const SUPABASE_KEY_DEFAULT = "__SUPABASE_KEY__";
 
 // Lista de hosts que la extensión soporta (debe quedar sincronizada con
 // `host_permissions` y `content_scripts.matches` del manifest.json). Sirve
@@ -41,11 +47,11 @@ function setMsg(text, type = "") {
 }
 
 async function getConfig() {
-  const { supabaseUrl, supabaseKey } = await chrome.storage.local.get([
-    "supabaseUrl",
-    "supabaseKey",
-  ]);
-  return { supabaseUrl, supabaseKey };
+  const stored = await chrome.storage.local.get(["supabaseUrl", "supabaseKey"]);
+  return {
+    supabaseUrl: stored.supabaseUrl || SUPABASE_URL_DEFAULT,
+    supabaseKey: stored.supabaseKey || SUPABASE_KEY_DEFAULT,
+  };
 }
 
 async function rest(url, key, path) {
@@ -206,6 +212,11 @@ async function init() {
   const { supabaseUrl, supabaseKey } = await getConfig();
   $loading.hidden = true;
 
+  // Con credenciales embebidas siempre hay URL+key — el config screen se
+  // omite. Si una papelería necesita apuntar a otra base, el botón Reset
+  // limpia el storage y la próxima carga de getConfig() volverá a los
+  // valores embebidos (o, si se llenó el storage manualmente desde una
+  // versión anterior, a esos).
   if (!supabaseUrl || !supabaseKey) {
     $config.hidden = false;
     return;
