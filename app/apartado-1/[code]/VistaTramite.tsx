@@ -18,6 +18,7 @@ import { obtenerDocType, type DatoExtraido } from "@/lib/extraccion";
 import { redimensionarImagen } from "@/lib/imagen";
 import { buscarFraccion } from "@/lib/catalogo-imss";
 import { buscarDelegacion } from "@/lib/delegaciones";
+import { SubirDocumentoTramite } from "@/components/SubirDocumentoTramite";
 
 // -------------------------------------------------------------------------
 // Orquestador del flujo de un trámite:
@@ -120,34 +121,6 @@ export function VistaTramite({ tramiteType }: Props) {
         cases={tramiteType.cases ?? []}
         onSeleccionar={(id) => {
           setCasoId(id);
-          setPaso("intake");
-        }}
-      />
-    );
-  }
-
-  if (paso === "intake" && caso && supabase) {
-    return (
-      <IntakeDocumentos
-        supabase={supabase}
-        caso={caso}
-        intake={intake}
-        setIntake={setIntake}
-        tramiteSchema={tramiteType.field_schema}
-        onVolver={() => setPaso("caso")}
-        onContinuar={(datosCombinados) => {
-          // Prellenar valores desde la extracción.
-          setValores((prev) => {
-            const out = { ...prev };
-            for (const campo of tramiteType.field_schema) {
-              if (!campo.source_doc) continue;
-              const dat = datosCombinados[campo.source_doc]?.[campo.id];
-              if (dat?.valor && !out[campo.id]) {
-                out[campo.id] = dat.valor;
-              }
-            }
-            return out;
-          });
           setPaso("form");
         }}
       />
@@ -161,7 +134,7 @@ export function VistaTramite({ tramiteType }: Props) {
       valores={valores}
       setValores={setValores}
       supabase={supabase}
-      onVolverIntake={conCasos ? () => setPaso("intake") : null}
+      onVolverCaso={conCasos ? () => setPaso("caso") : null}
     />
   );
 }
@@ -179,7 +152,7 @@ function CasoPicker({
   return (
     <section className="grid gap-4">
       <header className="grid gap-1">
-        <p className="eyebrow">Paso 1 de 3</p>
+        <p className="eyebrow">Paso 1 de 2</p>
         <h2 className="text-xl font-medium text-ink">¿Qué caso vas a tramitar?</h2>
         <p className="text-sm text-ink-2">
           Cada caso pide su propio juego de datos y documentos. Elige el que
@@ -660,14 +633,14 @@ function FormularioCaso({
   valores,
   setValores,
   supabase,
-  onVolverIntake,
+  onVolverCaso,
 }: {
   tramiteType: TramiteType;
   caso: CasoTramite | null;
   valores: Valores;
   setValores: React.Dispatch<React.SetStateAction<Valores>>;
   supabase: SupabaseClient | null;
-  onVolverIntake: (() => void) | null;
+  onVolverCaso: (() => void) | null;
 }) {
   const [tramiteId, setTramiteId] = useState<string | null>(null);
   const [guardar, setGuardar] = useState<EstadoGuardar>("idle");
@@ -908,18 +881,55 @@ function FormularioCaso({
   );
   const faltaObligatorio = camposFaltantes.length > 0;
 
+  // Aplica datos extraídos por la IA al form. Solo llena campos vacíos —
+  // no pisa lo que el usuario ya capturó. Los campos con valor=null que
+  // la IA marcó como "no encontré" se ignoran.
+  const aplicarDatosExtraidos = useCallback(
+    (datos: Record<string, DatoExtraido>): number => {
+      let aplicados = 0;
+      setValores((prev) => {
+        const out = { ...prev };
+        for (const campo of tramiteType.field_schema) {
+          const d = datos[campo.id];
+          if (d?.valor && !out[campo.id]?.trim()) {
+            out[campo.id] = d.valor;
+            aplicados += 1;
+          }
+        }
+        return out;
+      });
+      return aplicados;
+    },
+    [tramiteType.field_schema, setValores]
+  );
+
+  // El schema que recibe el widget — filtrado al caso si aplica (los
+  // required_fields), para que la IA solo busque lo que este caso muestra.
+  const schemaParaSubida = useMemo(
+    () => camposDelCaso(tramiteType.field_schema, caso).filter((c) => c.id !== "causa_aviso"),
+    [tramiteType.field_schema, caso]
+  );
+
   return (
     <div className="grid gap-8">
       {caso && (
         <div className="rounded-md border border-line bg-paper-2 p-4">
           <p className="eyebrow">
-            Paso 3 de 3 · Caso {caso.id} — {caso.label}
+            Paso 2 de 2 · Caso {caso.id} — {caso.label}
           </p>
           <p className="mt-1 text-sm text-ink-2">
-            Revisa y corrige. Los campos vacíos se pueden llenar a mano. Al
-            generar el PDF solo van los datos de este caso.
+            Sube los documentos del cliente arriba (se autollenan los campos)
+            o llena a mano. Al generar el PDF solo van los datos de este caso.
           </p>
         </div>
+      )}
+
+      {supabase && (
+        <SubirDocumentoTramite
+          supabase={supabase}
+          schema={schemaParaSubida}
+          onExtraido={aplicarDatosExtraidos}
+        />
       )}
 
       {tramiteType.code === "am-srt" && (
@@ -997,13 +1007,13 @@ function FormularioCaso({
           >
             {guardar === "guardando" ? "Guardando…" : "Guardar borrador"}
           </button>
-          {onVolverIntake && (
+          {onVolverCaso && (
             <button
               type="button"
-              onClick={onVolverIntake}
+              onClick={onVolverCaso}
               className="inline-flex min-h-[48px] items-center rounded-md border border-line bg-paper px-5 text-sm font-medium text-ink-2 hover:bg-paper-2 hover:text-ink"
             >
-              ← Volver a documentos
+              ← Cambiar de caso
             </button>
           )}
           {guardar === "guardado" && (
