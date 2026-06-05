@@ -64,6 +64,10 @@ type CoordCampo =
 type CoordSchema = {
   _dimensiones?: { ancho: number; alto: number };
   _default_size?: number;
+  // Si está, recorta el PDF base a las primeras N páginas antes de pintar
+  // los campos. Útil para formatos cuyo IMSS publica páginas finales con
+  // instructivo, generalidades, etc. — solo se imprime lo capturable.
+  _max_paginas?: number;
   campos: Record<string, CoordCampo>;
 };
 
@@ -91,6 +95,17 @@ export async function generarOverlay(
 
   const coords = JSON.parse(coordsRaw) as CoordSchema;
   const doc = await PDFDocument.load(pdfBytes);
+
+  // Recortar páginas si el coords lo indica (ej. AM-SRT: solo páginas 1-5,
+  // las posteriores son instructivo/generalidades que no se entregan).
+  // Borrar del final hacia el principio para no invalidar índices.
+  if (coords._max_paginas && coords._max_paginas > 0) {
+    const total = doc.getPageCount();
+    for (let i = total - 1; i >= coords._max_paginas; i--) {
+      doc.removePage(i);
+    }
+  }
+
   const font = await doc.embedFont(StandardFonts.Helvetica);
   const fontBold = await doc.embedFont(StandardFonts.HelveticaBold);
   const pages = doc.getPages();

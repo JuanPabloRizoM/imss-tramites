@@ -133,6 +133,12 @@ const valoresMuestra = {
 
 async function generar(conGrilla) {
   const doc = await PDFDocument.load(pdfBytes);
+  // Mismo recorte que el server (lib/pdf-overlay.ts) — solo deja las
+  // primeras N páginas si el coords lo indica.
+  if (coords._max_paginas && coords._max_paginas > 0) {
+    const total = doc.getPageCount();
+    for (let i = total - 1; i >= coords._max_paginas; i--) doc.removePage(i);
+  }
   const font = await doc.embedFont(StandardFonts.Helvetica);
   const fontBold = await doc.embedFont(StandardFonts.HelveticaBold);
   const C = rgb(0.08, 0.08, 0.12);
