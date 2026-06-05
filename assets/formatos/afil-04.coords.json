@@ -1,0 +1,51 @@
+{
+  "_nota": "AFIL-04 v1 — Aviso de Baja del Trabajador. Coords ESTIMADAS de la imagen del PDF; calibrar contra la grilla con `node tools/calibrar-pdf.mjs afil-04`.",
+  "_dimensiones": { "ancho": 612, "alto": 794 },
+  "_default_size": 9,
+  "campos": {
+    "fecha_publicacion_dof_dd":   { "page": 0, "x": 175, "y": 666, "size": 9 },
+    "fecha_publicacion_dof_mm":   { "page": 0, "x": 212, "y": 666, "size": 9 },
+    "fecha_publicacion_dof_aaaa": { "page": 0, "x": 252, "y": 666, "size": 9 },
+
+    "umf":                        { "page": 0, "x": 405, "y": 666, "size": 9, "ancho_max": 50 },
+    "fecha_solicitud_dd":         { "page": 0, "x": 478, "y": 666, "size": 9 },
+    "fecha_solicitud_mm":         { "page": 0, "x": 514, "y": 666, "size": 9 },
+    "fecha_solicitud_aaaa":       { "page": 0, "x": 552, "y": 666, "size": 9 },
+
+    "nss":                        { "page": 0, "x": 50,  "y": 608, "size": 9, "ancho_max": 240 },
+    "curp_trabajador":            { "page": 0, "x": 50,  "y": 585, "size": 9, "ancho_max": 240 },
+    "rfc_trabajador":             { "page": 0, "x": 50,  "y": 562, "size": 9, "ancho_max": 240 },
+    "nombre":                     { "page": 0, "x": 50,  "y": 535, "size": 9, "ancho_max": 240 },
+    "apellido_paterno":           { "page": 0, "x": 50,  "y": 506, "size": 9, "ancho_max": 240 },
+    "apellido_materno":           { "page": 0, "x": 50,  "y": 478, "size": 9, "ancho_max": 240 },
+
+    "sexo":                       { "page": 0, "type": "checkbox-grid",
+      "options": {
+        "1": { "x": 167, "y": 455 },
+        "2": { "x": 234, "y": 455 },
+        "hombre": { "x": 167, "y": 455 },
+        "mujer":  { "x": 234, "y": 455 }
+      }
+    },
+
+    "fecha_baja_dd":              { "page": 0, "x": 213, "y": 433, "size": 9 },
+    "fecha_baja_mm":              { "page": 0, "x": 250, "y": 433, "size": 9 },
+    "fecha_baja_aaaa":            { "page": 0, "x": 288, "y": 433, "size": 9 },
+
+    "causa_baja":                 { "page": 0, "x": 50,  "y": 405, "size": 9, "ancho_max": 240 },
+
+    "registro_patronal":          { "page": 0, "x": 326, "y": 608, "size": 9, "ancho_max": 260 },
+    "curp_patron":                { "page": 0, "x": 326, "y": 585, "size": 9, "ancho_max": 260 },
+    "rfc_patron":                 { "page": 0, "x": 326, "y": 562, "size": 9, "ancho_max": 260 },
+    "razon_social":               { "page": 0, "x": 326, "y": 535, "size": 9, "ancho_max": 260 },
+
+    "codigo_postal":              { "page": 0, "x": 326, "y": 460, "size": 9, "ancho_max": 260 },
+    "calle":                      { "page": 0, "x": 326, "y": 436, "size": 9, "ancho_max": 260 },
+    "numero_exterior":            { "page": 0, "x": 326, "y": 396, "size": 9, "ancho_max": 130 },
+    "numero_interior":            { "page": 0, "x": 462, "y": 396, "size": 9, "ancho_max": 130 },
+    "colonia":                    { "page": 0, "x": 326, "y": 372, "size": 9, "ancho_max": 260 },
+    "localidad":                  { "page": 0, "x": 326, "y": 332, "size": 9, "ancho_max": 260 },
+    "municipio":                  { "page": 0, "x": 326, "y": 308, "size": 9, "ancho_max": 260 },
+    "estado":                     { "page": 0, "x": 326, "y": 284, "size": 9, "ancho_max": 260 }
+  }
+}
