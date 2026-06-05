@@ -10,7 +10,11 @@ import {
   type CampoSchema,
   type TramiteType,
 } from "@/lib/tramites";
-import type { DatoExtraido } from "@/lib/extraccion";
+import {
+  listarDocTypes,
+  type DatoExtraido,
+} from "@/lib/extraccion";
+import { redimensionarImagen } from "@/lib/imagen";
 
 type Props = { tramiteType: TramiteType & { portal_url: string | null } };
 type Valores = Record<string, string>;
@@ -144,6 +148,29 @@ export function FormularioExtension({ tramiteType }: Props) {
     precargar();
   }, [supabase, precargar]);
 
+  // Aplica datos extraídos al form. Solo llena campos vacíos (no pisa lo
+  // que el usuario ya capturó). El IA puede devolver valor=null para campos
+  // que no encontró — esos los ignoramos.
+  const aplicarDatosExtraidos = useCallback(
+    (datos: Record<string, DatoExtraido>): number => {
+      let aplicados = 0;
+      setValores((prev) => {
+        const out = { ...prev };
+        for (const campo of tramiteType.field_schema) {
+          const d = datos[campo.id];
+          if (d?.valor && !out[campo.id]?.trim()) {
+            out[campo.id] = d.valor;
+            aplicados += 1;
+          }
+        }
+        return out;
+      });
+      if (estado === "guardado" || estado === "revisado") setEstado("idle");
+      return aplicados;
+    },
+    [tramiteType.field_schema, estado]
+  );
+
   const guardar = useCallback(
     async (nuevoStatus: "revisado" | "nuevo") => {
       if (!supabase) return;
@@ -212,6 +239,14 @@ export function FormularioExtension({ tramiteType }: Props) {
           <li>Click en el ícono de la extensión → elige este trámite → &quot;Llenar formulario&quot;.</li>
         </ol>
       </div>
+
+      {supabase && (
+        <SubirDocumentoTramite
+          supabase={supabase}
+          schema={tramiteType.field_schema}
+          onExtraido={aplicarDatosExtraidos}
+        />
+      )}
 
       <div className="flex flex-wrap items-center gap-3 rounded-md border border-line bg-paper-2 p-4">
         <button
@@ -326,6 +361,225 @@ export function FormularioExtension({ tramiteType }: Props) {
         </p>
       )}
     </div>
+  );
+}
+
+// Widget de subida de documentos con extracción dirigida por el schema del
+// trámite (target_fields). Recibe el schema del trámite y llama onExtraido
+// con los campos que la IA pudo extraer del documento. Mismo patrón que
+// SubirDesdePc en apartado-3, pero aquí los datos no se guardan en una lista
+// sino que rellenan el form actual.
+
+const TIPOS_DOC = listarDocTypes();
+
+type SubidaTramite = {
+  localId: string;
+  nombre: string;
+  estado: "subiendo" | "procesando" | "listo" | "error";
+  campos_aplicados?: number;
+  error?: string;
+};
+
+function SubirDocumentoTramite({
+  supabase,
+  schema,
+  onExtraido,
+}: {
+  supabase: SupabaseClient;
+  schema: CampoSchema[];
+  onExtraido: (datos: Record<string, DatoExtraido>) => number;
+}) {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [docType, setDocType] = useState<string>("generico");
+  const [subidas, setSubidas] = useState<SubidaTramite[]>([]);
+
+  // Campos que mandamos a /api/extraer como target_fields — solo id+label.
+  // No filtramos por tipo (el AI puede leer fechas/numbers/etc. de la imagen).
+  const targetFields = useMemo(
+    () => schema.map((c) => ({ id: c.id, label: c.label })),
+    [schema]
+  );
+
+  const actualizar = useCallback(
+    (localId: string, patch: Partial<SubidaTramite>) =>
+      setSubidas((prev) => prev.map((s) => (s.localId === localId ? { ...s, ...patch } : s))),
+    []
+  );
+
+  const procesarUno = useCallback(
+    async (file: File, localId: string) => {
+      try {
+        const esImagen = file.type.startsWith("image/");
+        const esPdf =
+          file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+        if (!esImagen && !esPdf) throw new Error("Solo imágenes (JPG/PNG/WebP/GIF) o PDF.");
+
+        let blob: Blob;
+        let nombre: string;
+        let contentType: string;
+        let ext: string;
+        if (esImagen) {
+          const r = await redimensionarImagen(file);
+          blob = r.blob;
+          nombre = r.nombre;
+          contentType = "image/jpeg";
+          ext = "jpg";
+        } else {
+          blob = file;
+          nombre = file.name.replace(/[^\w.\-]/g, "_");
+          contentType = "application/pdf";
+          ext = "pdf";
+        }
+
+        const path = `${crypto.randomUUID()}-${nombre.endsWith(`.${ext}`) ? nombre : `${nombre}.${ext}`}`;
+        const up = await supabase.storage
+          .from("documentos")
+          .upload(path, blob, { contentType, upsert: false });
+        if (up.error) throw up.error;
+
+        const ins = await supabase
+          .from("documents")
+          .insert({
+            storage_path: path,
+            doc_type: docType,
+            extraction_status: "pendiente",
+            session_id: null,
+          })
+          .select("id")
+          .single();
+        if (ins.error || !ins.data) throw ins.error ?? new Error("Insert vacío.");
+
+        actualizar(localId, { estado: "procesando" });
+
+        const res = await fetch("/api/extraer", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            documentId: ins.data.id,
+            target_fields: targetFields,
+          }),
+        });
+        if (!res.ok) {
+          const j = (await res.json().catch(() => null)) as { error?: string } | null;
+          throw new Error(j?.error ?? `Error de extracción (${res.status}).`);
+        }
+
+        // Trae los datos extraídos para aplicarlos al form.
+        const { data: docRow } = await supabase
+          .from("documents")
+          .select("extracted_data")
+          .eq("id", ins.data.id)
+          .single();
+        const datos = (docRow?.extracted_data ?? {}) as Record<string, DatoExtraido>;
+        const aplicados = onExtraido(datos);
+        actualizar(localId, { estado: "listo", campos_aplicados: aplicados });
+      } catch (err) {
+        actualizar(localId, {
+          estado: "error",
+          error: err instanceof Error ? err.message : "Error desconocido.",
+        });
+      }
+    },
+    [supabase, docType, targetFields, actualizar, onExtraido]
+  );
+
+  const onArchivos = useCallback(
+    async (files: FileList | null) => {
+      if (!files || files.length === 0) return;
+      const items: SubidaTramite[] = Array.from(files).map((f) => ({
+        localId: crypto.randomUUID(),
+        nombre: f.name,
+        estado: "subiendo",
+      }));
+      setSubidas((prev) => [...items, ...prev].slice(0, 10));
+      for (let i = 0; i < items.length; i++) await procesarUno(files[i], items[i].localId);
+      if (inputRef.current) inputRef.current.value = "";
+    },
+    [procesarUno]
+  );
+
+  const limpiarFinalizadas = useCallback(() => {
+    setSubidas((prev) => prev.filter((s) => s.estado !== "listo" && s.estado !== "error"));
+  }, []);
+  const hayFinalizadas = subidas.some((s) => s.estado === "listo" || s.estado === "error");
+
+  return (
+    <section className="rounded-md border border-line bg-paper-2 p-5">
+      <div className="mb-4">
+        <p className="eyebrow">Subir documento para autollenar</p>
+        <p className="mt-1 text-xs text-ink-3">
+          La IA va a buscar SOLO los campos que pide este trámite en el
+          documento. Lo que no encuentre queda vacío para que lo llenes a
+          mano.
+        </p>
+      </div>
+
+      <div className="flex flex-wrap items-end gap-3">
+        <label className="flex flex-col gap-1">
+          <span className="text-sm font-medium text-ink-2">Tipo de documento</span>
+          <select
+            value={docType}
+            onChange={(e) => setDocType(e.target.value)}
+            className="h-11 min-w-[260px] rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:border-ink"
+          >
+            {TIPOS_DOC.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="inline-flex min-h-[44px] cursor-pointer items-center rounded-md bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink-2">
+          Elegir archivo…
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/*,application/pdf"
+            multiple
+            className="sr-only"
+            onChange={(e) => onArchivos(e.target.files)}
+          />
+        </label>
+
+        {hayFinalizadas && (
+          <button
+            type="button"
+            onClick={limpiarFinalizadas}
+            className="inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink-2 hover:bg-paper-2 hover:text-ink"
+          >
+            Limpiar finalizados
+          </button>
+        )}
+      </div>
+
+      {subidas.length > 0 && (
+        <ul className="mt-4 grid gap-2">
+          {subidas.map((s) => (
+            <li
+              key={s.localId}
+              className="flex items-center justify-between gap-3 rounded-md border border-line bg-paper px-3 py-2 text-sm"
+            >
+              <span className="truncate text-ink">{s.nombre}</span>
+              <span className="shrink-0">
+                {s.estado === "subiendo" && <span className="text-ink-3">Subiendo…</span>}
+                {s.estado === "procesando" && <span className="text-warn">Extrayendo…</span>}
+                {s.estado === "listo" && (
+                  <span className="text-ok">
+                    ✓ {s.campos_aplicados ?? 0} campo{(s.campos_aplicados ?? 0) === 1 ? "" : "s"} llenado{(s.campos_aplicados ?? 0) === 1 ? "" : "s"}
+                  </span>
+                )}
+                {s.estado === "error" && (
+                  <span className="text-err" title={s.error}>
+                    Error: {s.error}
+                  </span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 
