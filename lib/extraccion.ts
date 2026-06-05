@@ -170,12 +170,23 @@ export function obtenerDocType(id: string | null | undefined): DocType {
 // =============================================================================
 // Prompt builder
 // =============================================================================
-export function construirPromptSistema(docType: DocType): string {
-  const camposListados = docType.campos
+export function construirPromptSistema(
+  docType: DocType,
+  // Si se pasa `targetCampos`, sobre-escribe la lista de campos a extraer.
+  // Lo usa el flujo "extracción dirigida por trámite": el frontend manda los
+  // campos del field_schema del trámite que estás llenando, y la IA solo
+  // busca esos en el documento — los que no encuentre quedan en null sin
+  // ensuciar otros campos del form.
+  targetCampos?: ColumnaTabla[]
+): string {
+  const camposParaPrompt = targetCampos ?? docType.campos;
+  const camposListados = camposParaPrompt
     .map((c) => `- ${c.id} — ${c.label}`)
     .join("\n");
 
-  const seccionTabla = docType.tabla
+  // La tabla solo se pide cuando NO hay targetCampos — la extracción dirigida
+  // por trámite no toma tablas (los formatos del apartado 1 son campos planos).
+  const seccionTabla = !targetCampos && docType.tabla
     ? `
 
 Adicionalmente, este documento contiene una tabla llamada "${docType.tabla.label}".
@@ -188,6 +199,7 @@ Devuelve la tabla en la clave "${docType.tabla.id}" como un ARRAY de objetos. Ca
         .join(", ")}, cada una con su {"valor", "confianza"} como los campos
 de arriba. Si una columna no aparece para una fila, "valor" = null y "confianza" = "bajo".`
     : "";
+  const incluyeTabla = !targetCampos && !!docType.tabla;
 
   return `Eres un extractor de datos de documentos oficiales mexicanos.
 Tu tarea: leer el documento adjunto y devolver únicamente sus datos en JSON.
@@ -214,12 +226,12 @@ Reglas estrictas:
 6. Si el documento tiene tabla, lista TODAS las filas que veas — no inventes
    filas. Si el documento no tiene tabla aunque te pidan una, devuelve un
    array vacío [].
-${docType.tabla ? `
-7. Para la tabla "${docType.tabla.id}", cada fila es un objeto con las
+${incluyeTabla ? `
+7. Para la tabla "${docType.tabla!.id}", cada fila es un objeto con las
    columnas listadas. Devuelve un array (aunque haya solo una fila).
 ` : ""}
 Ejemplo de forma (los valores son ilustrativos):
-{"rfc":{"valor":"ABCD010101AAA","confianza":"alto"}${docType.tabla ? `,"${docType.tabla.id}":[{"nss":{"valor":"12345678901","confianza":"alto"},"nombre":{"valor":"JUAN PEREZ","confianza":"alto"}}]` : ""}}`;
+{"rfc":{"valor":"ABCD010101AAA","confianza":"alto"}${incluyeTabla ? `,"${docType.tabla!.id}":[{"nss":{"valor":"12345678901","confianza":"alto"},"nombre":{"valor":"JUAN PEREZ","confianza":"alto"}}]` : ""}}`;
 }
 
 // =============================================================================

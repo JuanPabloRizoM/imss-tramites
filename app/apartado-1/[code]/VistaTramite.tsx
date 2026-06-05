@@ -133,6 +133,7 @@ export function VistaTramite({ tramiteType }: Props) {
         caso={caso}
         intake={intake}
         setIntake={setIntake}
+        tramiteSchema={tramiteType.field_schema}
         onVolver={() => setPaso("caso")}
         onContinuar={(datosCombinados) => {
           // Prellenar valores desde la extracción.
@@ -225,6 +226,7 @@ function IntakeDocumentos({
   setIntake,
   onVolver,
   onContinuar,
+  tramiteSchema,
 }: {
   supabase: SupabaseClient;
   caso: CasoTramite;
@@ -232,6 +234,9 @@ function IntakeDocumentos({
   setIntake: React.Dispatch<React.SetStateAction<IntakeState>>;
   onVolver: () => void;
   onContinuar: (datos: Record<string, Record<string, DatoExtraido>>) => void;
+  // El schema del trámite — se usa para mandar `target_fields` a /api/extraer
+  // y que la IA solo busque los campos que este trámite/caso necesita.
+  tramiteSchema: CampoSchema[];
 }) {
   // Suscripción a documents para detectar cuando la extracción termina.
   useEffect(() => {
@@ -340,10 +345,20 @@ function IntakeDocumentos({
           },
         }));
 
+        // Extracción dirigida: mandamos los campos del trámite (filtrados al
+        // caso si aplica) para que la IA solo busque eso. Lo que no
+        // encuentre queda en null (regla 3 del prompt) y no contamina.
+        const targetFields = camposDelCaso(tramiteSchema, caso).map(
+          (c) => ({ id: c.id, label: c.label })
+        );
         const res = await fetch("/api/extraer", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ documentId: ins.data.id, confirmPdfPages }),
+          body: JSON.stringify({
+            documentId: ins.data.id,
+            confirmPdfPages,
+            target_fields: targetFields,
+          }),
         });
 
         if (res.status === 409) {
@@ -392,7 +407,7 @@ function IntakeDocumentos({
         }));
       }
     },
-    [supabase, setIntake]
+    [supabase, setIntake, tramiteSchema, caso]
   );
 
   const confirmarPdfGrande = useCallback(
@@ -401,10 +416,17 @@ function IntakeDocumentos({
         ...prev,
         [docTypeId]: { tipo: "procesando", documentId, nombreArchivo: "PDF" },
       }));
+      const targetFields = camposDelCaso(tramiteSchema, caso).map(
+        (c) => ({ id: c.id, label: c.label })
+      );
       const res = await fetch("/api/extraer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ documentId, confirmPdfPages: true }),
+        body: JSON.stringify({
+          documentId,
+          confirmPdfPages: true,
+          target_fields: targetFields,
+        }),
       });
       if (!res.ok) {
         const j = (await res.json().catch(() => null)) as { error?: string } | null;
@@ -417,7 +439,7 @@ function IntakeDocumentos({
         }));
       }
     },
-    [setIntake]
+    [setIntake, tramiteSchema, caso]
   );
 
   const saltar = (docTypeId: string) =>

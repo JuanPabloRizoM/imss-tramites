@@ -34,8 +34,13 @@ export async function POST(req: Request) {
   const body = (await req.json()) as {
     documentId?: string;
     confirmPdfPages?: boolean;
+    // Extracción dirigida por trámite: el frontend manda los campos del
+    // field_schema del trámite que se está llenando. Si llega, sobreescribe
+    // los campos default del doc_type — la IA solo busca estos. Los que no
+    // encuentre quedan en null (regla 3 del prompt) y no ensucian el form.
+    target_fields?: Array<{ id: string; label: string }>;
   };
-  const { documentId, confirmPdfPages } = body;
+  const { documentId, confirmPdfPages, target_fields } = body;
   if (!documentId) {
     return NextResponse.json(
       { error: "Falta documentId en el body." },
@@ -123,7 +128,15 @@ export async function POST(req: Request) {
 
   // 3) Llamar a Claude Haiku con el prompt cerrado.
   const docType = obtenerDocType(doc.doc_type);
-  const systemPrompt = construirPromptSistema(docType);
+  // Si llegan target_fields desde el trámite, esos sobreescriben los del
+  // doc_type. Filtramos vacíos por defensividad.
+  const targetCampos = (target_fields ?? []).filter(
+    (f) => f && typeof f.id === "string" && f.id && typeof f.label === "string"
+  );
+  const systemPrompt = construirPromptSistema(
+    docType,
+    targetCampos.length > 0 ? targetCampos : undefined
+  );
 
   const anthropic = new Anthropic({ apiKey });
 
