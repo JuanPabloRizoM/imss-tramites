@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ApartadoShell } from "@/components/ApartadoShell";
 import { getServerClient } from "@/lib/supabase/server";
 import type { TramiteType } from "@/lib/tramites";
+import { esEscrito } from "@/lib/delegaciones";
 import { VistaTramite } from "./VistaTramite";
 
 export const dynamic = "force-dynamic";
@@ -37,6 +38,14 @@ export default async function PaginaTramite({
   if (!tipo) notFound();
   const tramiteType = tipo as TramiteType;
   const tieneCasos = Array.isArray(tramiteType.cases) && tramiteType.cases.length > 0;
+  const esEscritoTipo = esEscrito(tramiteType.code);
+
+  // El breadcrumb regresa a la lista de la que vino:
+  //   - Escritos → /apartado-1/escritos
+  //   - Formatos → /apartado-1/formatos
+  // Conservamos `?delegacion=X` si existe (NextLink lo arrastra automático).
+  const volverHref = esEscritoTipo ? "/apartado-1/escritos" : "/apartado-1/formatos";
+  const volverLabel = esEscritoTipo ? "Otros escritos" : "Otros formatos";
 
   return (
     <ApartadoShell
@@ -53,11 +62,11 @@ export default async function PaginaTramite({
     >
       <nav className="mb-6 text-sm">
         <Link
-          href="/apartado-1"
+          href={volverHref}
           className="inline-flex min-h-[44px] items-center gap-2 text-ink-2 hover:text-ink"
         >
           <span aria-hidden="true">←</span>
-          Otros formatos
+          {volverLabel}
         </Link>
       </nav>
 

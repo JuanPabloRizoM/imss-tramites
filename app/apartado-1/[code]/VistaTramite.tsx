@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { getBrowserClient } from "@/lib/supabase/client";
@@ -16,6 +17,7 @@ import {
 import { obtenerDocType, type DatoExtraido } from "@/lib/extraccion";
 import { redimensionarImagen } from "@/lib/imagen";
 import { buscarFraccion } from "@/lib/catalogo-imss";
+import { buscarDelegacion } from "@/lib/delegaciones";
 
 // -------------------------------------------------------------------------
 // Orquestador del flujo de un trámite:
@@ -61,6 +63,15 @@ function valoresIniciales(schema: CampoSchema[]): Valores {
 export function VistaTramite({ tramiteType }: Props) {
   const [supabase] = useState<SupabaseClient | null>(initSupabase);
   const conCasos = tieneCasos(tramiteType);
+  const searchParams = useSearchParams();
+  // Si la URL trae ?delegacion=<id> (caso del flujo /apartado-1/escritos),
+  // resolvemos la delegación una vez para pre-llenar el campo `dependencia`
+  // del escrito en el form. Solo aplica a escritos que tengan ese campo en
+  // su schema — los demás trámites lo ignoran.
+  const delegacionElegida = useMemo(
+    () => buscarDelegacion(searchParams.get("delegacion")),
+    [searchParams]
+  );
 
   const [paso, setPaso] = useState<Paso>(conCasos ? "caso" : "form");
   const [casoId, setCasoId] = useState<string | null>(null);
@@ -73,9 +84,23 @@ export function VistaTramite({ tramiteType }: Props) {
   );
 
   const [intake, setIntake] = useState<IntakeState>({});
-  const [valores, setValores] = useState<Valores>(() =>
-    valoresIniciales(tramiteType.field_schema)
-  );
+  const [valores, setValores] = useState<Valores>(() => {
+    const v = valoresIniciales(tramiteType.field_schema);
+    // Pre-llenado desde la delegación elegida en el picker de escritos.
+    // Solo toca campos que existan en el schema — silenciosamente ignora
+    // los que no aplican (trámites que no son escritos).
+    const ids = new Set(tramiteType.field_schema.map((c) => c.id));
+    if (delegacionElegida) {
+      if (ids.has("dependencia")) v.dependencia = delegacionElegida.dependencia;
+      if (delegacionElegida.destinatario_default && ids.has("destinatario") && !v.destinatario) {
+        v.destinatario = delegacionElegida.destinatario_default;
+      }
+      if (delegacionElegida.cargo_default && ids.has("cargo") && !v.cargo) {
+        v.cargo = delegacionElegida.cargo_default;
+      }
+    }
+    return v;
+  });
 
   // Cuando se elige caso, prellenar el campo causa_aviso (queda oculto en el
   // form, pero lo necesita el generador de PDF para marcar el bloque correcto).
