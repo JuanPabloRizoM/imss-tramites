@@ -29,6 +29,37 @@ import { redimensionarImagen } from "@/lib/imagen";
 
 const TIPOS_DOC = listarDocTypes();
 
+// Algunos doc_types son inequívocos sobre a quién pertenecen los datos
+// (TIP → patrón, Acta → patrón, INE del representante → patrón). En esos
+// casos no preguntamos y filtramos automáticamente target_fields al lado
+// correcto. En los demás (INE, Cédula RFC, comprobante, genérico) los datos
+// pueden ser del trabajador o del patrón — preguntamos antes de subir.
+const CONTEXTO_FORZADO_POR_DOC_TYPE: Record<string, "patron" | "trabajador" | "representante"> = {
+  tip: "patron",
+  acta_constitutiva: "patron",
+  ine_representante: "representante",
+};
+
+type Contexto = "trabajador" | "patron" | "ambos";
+
+// Decide si un campo cae del lado del trabajador o del patrón según el
+// nombre de su section. Encabezado (fechas, UMF, etc.) se incluye en ambos.
+function pertenecePara(campo: CampoSchema, contexto: Contexto): boolean {
+  if (contexto === "ambos") return true;
+  const sec = (campo.section ?? "").toLowerCase();
+  // Encabezado / sin sección: aplica a ambos.
+  if (sec === "" || sec.includes("encabezado")) return true;
+  if (contexto === "trabajador") {
+    return sec.includes("trabajador") || sec.includes("domicilio");
+  }
+  // contexto === "patron"
+  return (
+    sec.includes("patr") ||
+    sec.includes("centro de trabajo") ||
+    sec.includes("ubicaci")
+  );
+}
+
 type SubidaTramite = {
   localId: string;
   nombre: string;
@@ -42,7 +73,7 @@ export function SubirDocumentoTramite({
   schema,
   onExtraido,
   titulo = "Subir documento para autollenar",
-  hint = "La IA va a buscar SOLO los campos que pide este trámite en el documento. Lo que no encuentre queda vacío para que lo llenes a mano.",
+  hint = "La IA va a buscar SOLO los campos que pide este trámite en el documento. Lo que no encuentre queda vacío para que lo llenes a mano. Si el documento es de un trabajador o de un patrón específicamente, elige a quién — la IA solo intentará rellenar esa columna del form.",
 }: {
   supabase: SupabaseClient;
   schema: CampoSchema[];
@@ -52,12 +83,25 @@ export function SubirDocumentoTramite({
 }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [docType, setDocType] = useState<string>("generico");
+  const [contextoElegido, setContextoElegido] = useState<Contexto>("ambos");
   const [subidas, setSubidas] = useState<SubidaTramite[]>([]);
 
-  // Campos que mandamos a /api/extraer como target_fields — solo id+label.
+  // Si el doc_type fuerza un contexto, lo usamos. Si no, el usuario decide.
+  // "representante" (INE rep) mapea a patrón para fines de filtrado.
+  const contextoForzado = CONTEXTO_FORZADO_POR_DOC_TYPE[docType];
+  const contextoEfectivo: Contexto = contextoForzado === "representante"
+    ? "patron"
+    : (contextoForzado ?? contextoElegido);
+  const necesitaPreguntar = contextoForzado === undefined;
+
+  // target_fields filtrados al contexto elegido — la IA solo busca lo que
+  // aplica a esa columna del form.
   const targetFields = useMemo(
-    () => schema.map((c) => ({ id: c.id, label: c.label })),
-    [schema]
+    () =>
+      schema
+        .filter((c) => pertenecePara(c, contextoEfectivo))
+        .map((c) => ({ id: c.id, label: c.label })),
+    [schema, contextoEfectivo]
   );
 
   const actualizar = useCallback(
@@ -184,6 +228,21 @@ export function SubirDocumentoTramite({
             ))}
           </select>
         </label>
+
+        {necesitaPreguntar && (
+          <label className="flex flex-col gap-1">
+            <span className="text-sm font-medium text-ink-2">¿De quién son los datos?</span>
+            <select
+              value={contextoElegido}
+              onChange={(e) => setContextoElegido(e.target.value as Contexto)}
+              className="h-11 min-w-[180px] rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:border-ink"
+            >
+              <option value="ambos">Ambos / no estoy seguro</option>
+              <option value="trabajador">Trabajador</option>
+              <option value="patron">Patrón</option>
+            </select>
+          </label>
+        )}
 
         <label className="inline-flex min-h-[44px] cursor-pointer items-center rounded-md bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink-2">
           Elegir archivo…
