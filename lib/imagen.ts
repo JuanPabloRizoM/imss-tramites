@@ -42,7 +42,17 @@ export async function redimensionarImagen(
   });
   if (!blob) throw new Error("No se pudo generar la imagen redimensionada.");
 
-  const base = file.name.replace(/\.[^.]+$/, "") || "documento";
+  // Sanitiza el nombre: quita la extensión y reemplaza cualquier carácter
+  // que no sea [a-z0-9_-] por "_". Supabase Storage rechaza paths con
+  // espacios, paréntesis, acentos, etc. (errores tipo "Invalid key: ...").
+  // Especialmente útil para screenshots de macOS cuyo nombre por default
+  // es "Captura de pantalla AAAA-MM-DD a la(s) HH.MM.SS p.m..png".
+  const base =
+    file.name
+      .replace(/\.[^.]+$/, "")
+      .replace(/[^\w\-]+/g, "_")
+      .replace(/_+/g, "_")
+      .replace(/^_|_$/g, "") || "documento";
   return {
     blob,
     nombre: `${base}.jpg`,
