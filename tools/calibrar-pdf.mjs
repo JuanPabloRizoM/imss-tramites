@@ -42,9 +42,9 @@ const valoresMuestra = {
   clase_riesgo: "II", registro_patronal: "Y12-34567-10",
   fraccion: "458", actividad_giro: "Comercio de muebles",
   prima: "0.50625", fecha_causa: "2026-05-01",
-  codigo_postal: "44100", calle: "Av. Vallarta",
-  numero_exterior: "1234", numero_interior: "5", colonia: "Centro",
-  localidad: "Guadalajara", municipio: "Guadalajara", estado: "Jalisco",
+  codigo_postal: "44100", calle: "AV. VALLARTA",
+  numero_exterior: "1234", numero_interior: "5", colonia: "CENTRO",
+  localidad: "GUADALAJARA", municipio: "GUADALAJARA", estado: "JALISCO",
   telefono: "33-3333-3333", correo: "papeleria@example.com",
   no_notaria: "23", no_acta: "5,432", no_libro: "12", no_foja: "108",
   registro_publico: "RPP-2024-001", informacion_adicional: "—",
@@ -124,6 +124,7 @@ const valoresMuestra = {
   // ── AFIL-02 / AFIL-03 / AFIL-04 — trabajador + patrón ──
   fecha_publicacion_dof: "2015-07-31",
   fecha_solicitud: "2026-06-05",
+  umf: "045",
   nss: "12345678901",
   curp_trabajador: "RIZO850101HJCABC09",
   rfc_trabajador: "RIZO850101AB1",
@@ -134,6 +135,8 @@ const valoresMuestra = {
   ocupacion: "OBRERO GENERAL",
   horario_reducido: "L-V 8:00 A 14:00",
   salario_base: "350.00",
+  salario_base_anterior: "300.00",
+  fecha_modificacion: "2026-06-01",
   tipo_contratacion: "1",
   tipo_salario: "0",
   fecha_ingreso: "2026-05-15",
@@ -151,7 +154,7 @@ const valoresMuestra = {
   municipio_trabajador: "GUADALAJARA",
   estado_trabajador: "JALISCO",
   rfc_patron: "MHR240101ABC",
-  curp_patron: "",
+  curp_patron: "RIZO850101HJCABC09",
   codigo_postal_ct: "44100",
   calle_ct: "AV VALLARTA",
   numero_exterior_ct: "1234",
@@ -182,6 +185,17 @@ async function generar(conGrilla) {
   const fontBold = await doc.embedFont(StandardFonts.HelveticaBold);
   const C = rgb(0.08, 0.08, 0.12);
   const G = rgb(0.85, 0.20, 0.20);
+
+  // Tapar áreas pre-impresas (mismo comportamiento que el server).
+  if (coords._tapar) {
+    const pgs = doc.getPages();
+    for (const r of coords._tapar) {
+      const page = pgs[r.page ?? 0];
+      if (!page) continue;
+      const [cr, cg, cb] = r.color ?? [1, 1, 1];
+      page.drawRectangle({ x: r.x, y: r.y, width: r.width, height: r.height, color: rgb(cr, cg, cb) });
+    }
+  }
 
   const flat = { ...valoresMuestra };
   for (const [k, v] of Object.entries(valoresMuestra)) {

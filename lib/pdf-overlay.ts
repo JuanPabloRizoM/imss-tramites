@@ -68,6 +68,20 @@ type CoordSchema = {
   // los campos. Útil para formatos cuyo IMSS publica páginas finales con
   // instructivo, generalidades, etc. — solo se imprime lo capturable.
   _max_paginas?: number;
+  // Rectángulos para "tapar" contenido pre-impreso en el PDF base antes
+  // de dibujar los campos. Útil cuando el formato oficial trae datos
+  // quemados (fecha de publicación en DOF, marcadores de IMSS, etc.)
+  // que no aplican al patrón. Se pintan en orden — los campos se dibujan
+  // por encima, así que se puede tapar + reescribir.
+  _tapar?: Array<{
+    page?: number;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    // Color RGB (0-1). Default blanco hueso para que pase desapercibido.
+    color?: [number, number, number];
+  }>;
   campos: Record<string, CoordCampo>;
 };
 
@@ -110,6 +124,23 @@ export async function generarOverlay(
   const fontBold = await doc.embedFont(StandardFonts.HelveticaBold);
   const pages = doc.getPages();
   const defaultSize = coords._default_size ?? 9;
+
+  // Tapar primero — antes de cualquier campo, así los textos quedan
+  // siempre encima del rectángulo (no debajo).
+  if (coords._tapar) {
+    for (const r of coords._tapar) {
+      const page = pages[r.page ?? 0];
+      if (!page) continue;
+      const [cr, cg, cb] = r.color ?? [1, 1, 1];
+      page.drawRectangle({
+        x: r.x,
+        y: r.y,
+        width: r.width,
+        height: r.height,
+        color: rgb(cr, cg, cb),
+      });
+    }
+  }
 
   // Pre-procesamiento: expandir campos compuestos (fechas → dd/mm/aaaa).
   const flat: Record<string, string> = { ...values };

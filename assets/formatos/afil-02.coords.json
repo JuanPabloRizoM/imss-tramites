@@ -2,93 +2,88 @@
   "_nota": "AFIL-02 v1 — Aviso de Inscripción del Trabajador. Coords ESTIMADAS desde el visual del PDF; calibrar con `node tools/calibrar-pdf.mjs afil-02` y la grilla.",
   "_dimensiones": { "ancho": 612, "alto": 794 },
   "_default_size": 9,
-  "_max_paginas": 1,
   "campos": {
-    "fecha_publicacion_dof_dd":   { "page": 0, "x": 175, "y": 631, "size": 9 },
-    "fecha_publicacion_dof_mm":   { "page": 0, "x": 212, "y": 631, "size": 9 },
-    "fecha_publicacion_dof_aaaa": { "page": 0, "x": 250, "y": 631, "size": 9 },
+    "umf":                        { "page": 0, "x": 335, "y": 653, "size": 9, "ancho_max": 70 },
+    "fecha_solicitud_dd":         { "page": 0, "x": 428, "y": 653, "size": 9 },
+    "fecha_solicitud_mm":         { "page": 0, "x": 469, "y": 653, "size": 9 },
+    "fecha_solicitud_aaaa":       { "page": 0, "x": 508, "y": 653, "size": 9 },
 
-    "umf":                        { "page": 0, "x": 405, "y": 631, "size": 9, "ancho_max": 50 },
-    "fecha_solicitud_dd":         { "page": 0, "x": 478, "y": 631, "size": 9 },
-    "fecha_solicitud_mm":         { "page": 0, "x": 514, "y": 631, "size": 9 },
-    "fecha_solicitud_aaaa":       { "page": 0, "x": 552, "y": 631, "size": 9 },
-
-    "nss":                        { "page": 0, "x": 50,  "y": 573, "size": 9, "ancho_max": 240 },
-    "curp_trabajador":            { "page": 0, "x": 50,  "y": 550, "size": 9, "ancho_max": 240 },
-    "rfc_trabajador":             { "page": 0, "x": 50,  "y": 527, "size": 9, "ancho_max": 240 },
-    "nombre":                     { "page": 0, "x": 50,  "y": 502, "size": 9, "ancho_max": 240 },
-    "apellido_paterno":           { "page": 0, "x": 50,  "y": 473, "size": 9, "ancho_max": 240 },
-    "apellido_materno":           { "page": 0, "x": 50,  "y": 445, "size": 9, "ancho_max": 240 },
+    "nss":                        { "page": 0, "x": 151, "y": 607, "size": 9, "ancho_max": 240 },
+    "curp_trabajador":            { "page": 0, "x": 61,  "y": 587, "size": 9, "ancho_max": 240 },
+    "rfc_trabajador":             { "page": 0, "x": 57,  "y": 565, "size": 9, "ancho_max": 240 },
+    "nombre":                     { "page": 0, "x": 78,  "y": 547, "size": 9, "ancho_max": 240 },
+    "apellido_paterno":           { "page": 0, "x": 98,  "y": 529, "size": 9, "ancho_max": 240 },
+    "apellido_materno":           { "page": 0, "x": 107, "y": 509, "size": 9, "ancho_max": 240 },
 
     "sexo":                       { "page": 0, "type": "checkbox-grid",
       "options": {
-        "1": { "x": 167, "y": 422 },
-        "2": { "x": 234, "y": 422 },
-        "hombre": { "x": 167, "y": 422 },
-        "mujer":  { "x": 234, "y": 422 }
+        "1": { "x": 110, "y": 483 },
+        "2": { "x": 195, "y": 483 },
+        "hombre": { "x": 110, "y": 483 },
+        "mujer":  { "x": 195, "y": 483 }
       }
     },
 
-    "fecha_nacimiento_dd":        { "page": 0, "x": 168, "y": 400, "size": 9 },
-    "fecha_nacimiento_mm":        { "page": 0, "x": 200, "y": 400, "size": 9 },
-    "fecha_nacimiento_aaaa":      { "page": 0, "x": 234, "y": 400, "size": 9 },
+    "fecha_nacimiento_dd":        { "page": 0, "x": 172, "y": 469, "size": 9 },
+    "fecha_nacimiento_mm":        { "page": 0, "x": 207, "y": 469, "size": 9 },
+    "fecha_nacimiento_aaaa":      { "page": 0, "x": 241, "y": 469, "size": 9 },
 
-    "lugar_nacimiento":           { "page": 0, "x": 50,  "y": 377, "size": 9, "ancho_max": 130 },
-    "ocupacion":                  { "page": 0, "x": 190, "y": 377, "size": 9, "ancho_max": 100 },
+    "lugar_nacimiento":           { "page": 0, "x": 37,  "y": 440, "size": 9, "ancho_max": 130 },
+    "ocupacion":                  { "page": 0, "x": 169, "y": 440, "size": 9, "ancho_max": 100 },
 
-    "horario_reducido":           { "page": 0, "x": 50,  "y": 349, "size": 9, "ancho_max": 240 },
-    "salario_base":               { "page": 0, "x": 90,  "y": 327, "size": 9, "ancho_max": 200 },
+    "horario_reducido":           { "page": 0, "x": 73,  "y": 412, "size": 9, "ancho_max": 240 },
+    "salario_base":               { "page": 0, "x": 147, "y": 400, "size": 9, "ancho_max": 200 },
 
     "tipo_contratacion":          { "page": 0, "type": "checkbox-grid",
       "options": {
-        "1":           { "x": 80,  "y": 305 },
-        "2":           { "x": 178, "y": 305 },
-        "3":           { "x": 251, "y": 305 },
-        "permanente":  { "x": 80,  "y": 305 },
-        "eventual":    { "x": 178, "y": 305 },
-        "construccion":{ "x": 251, "y": 305 }
+        "1":           { "x": 37,  "y": 366 },
+        "2":           { "x": 114, "y": 366 },
+        "3":           { "x": 177, "y": 366 },
+        "permanente":  { "x": 37,  "y": 366 },
+        "eventual":    { "x": 114, "y": 366 },
+        "construccion":{ "x": 177, "y": 366 }
       }
     },
 
     "tipo_salario":               { "page": 0, "type": "checkbox-grid",
       "options": {
-        "0":       { "x": 67,  "y": 283 },
-        "1":       { "x": 174, "y": 283 },
-        "2":       { "x": 256, "y": 283 },
-        "fijo":    { "x": 67,  "y": 283 },
-        "variable":{ "x": 174, "y": 283 },
-        "mixto":   { "x": 256, "y": 283 }
+        "0":       { "x": 38,  "y": 338 },
+        "1":       { "x": 113, "y": 337 },
+        "2":       { "x": 178, "y": 337 },
+        "fijo":    { "x": 38,  "y": 338 },
+        "variable":{ "x": 113, "y": 337 },
+        "mixto":   { "x": 178, "y": 337 }
       }
     },
 
-    "fecha_ingreso_dd":           { "page": 0, "x": 178, "y": 260, "size": 9 },
-    "fecha_ingreso_mm":           { "page": 0, "x": 210, "y": 260, "size": 9 },
-    "fecha_ingreso_aaaa":         { "page": 0, "x": 244, "y": 260, "size": 9 },
+    "fecha_ingreso_dd":           { "page": 0, "x": 172, "y": 323, "size": 9 },
+    "fecha_ingreso_mm":           { "page": 0, "x": 208, "y": 323, "size": 9 },
+    "fecha_ingreso_aaaa":         { "page": 0, "x": 243, "y": 323, "size": 9 },
 
-    "nombre_padre":               { "page": 0, "x": 50,  "y": 237, "size": 9, "ancho_max": 240 },
-    "nombre_madre":               { "page": 0, "x": 50,  "y": 210, "size": 9, "ancho_max": 240 },
+    "nombre_padre":               { "page": 0, "x": 35,  "y": 292, "size": 9, "ancho_max": 240 },
+    "nombre_madre":               { "page": 0, "x": 35,  "y": 265, "size": 9, "ancho_max": 240 },
 
-    "codigo_postal_trabajador":   { "page": 0, "x": 110, "y": 168, "size": 9, "ancho_max": 180 },
-    "calle_trabajador":           { "page": 0, "x": 80,  "y": 145, "size": 9, "ancho_max": 210 },
-    "numero_exterior_trabajador": { "page": 0, "x": 110, "y": 122, "size": 9, "ancho_max": 80 },
-    "numero_interior_trabajador": { "page": 0, "x": 215, "y": 122, "size": 9, "ancho_max": 75 },
-    "colonia_trabajador":         { "page": 0, "x": 75,  "y": 99, "size": 9, "ancho_max": 215 },
-    "localidad_trabajador":       { "page": 0, "x": 90,  "y": 76, "size": 9, "ancho_max": 200 },
-    "municipio_trabajador":       { "page": 0, "x": 120, "y": 53, "size": 9, "ancho_max": 170 },
-    "estado_trabajador":          { "page": 0, "x": 65,  "y": 30, "size": 9, "ancho_max": 225 },
+    "codigo_postal_trabajador":   { "page": 0, "x": 97,  "y": 227, "size": 9, "ancho_max": 180 },
+    "calle_trabajador":           { "page": 0, "x": 61,  "y": 207, "size": 9, "ancho_max": 210 },
+    "numero_exterior_trabajador": { "page": 0, "x": 103, "y": 178, "size": 9, "ancho_max": 80 },
+    "numero_interior_trabajador": { "page": 0, "x": 236, "y": 178, "size": 9, "ancho_max": 75 },
+    "colonia_trabajador":         { "page": 0, "x": 73,  "y": 159, "size": 9, "ancho_max": 215 },
+    "localidad_trabajador":       { "page": 0, "x": 83,  "y": 131, "size": 9, "ancho_max": 200 },
+    "municipio_trabajador":       { "page": 0, "x": 120, "y": 112, "size": 9, "ancho_max": 170 },
+    "estado_trabajador":          { "page": 0, "x": 65,  "y": 92,  "size": 9, "ancho_max": 225 },
 
-    "registro_patronal":          { "page": 0, "x": 326, "y": 573, "size": 9, "ancho_max": 260 },
-    "curp_patron":                { "page": 0, "x": 326, "y": 550, "size": 9, "ancho_max": 260 },
-    "rfc_patron":                 { "page": 0, "x": 326, "y": 527, "size": 9, "ancho_max": 260 },
-    "razon_social":               { "page": 0, "x": 326, "y": 502, "size": 9, "ancho_max": 260 },
+    "registro_patronal":          { "page": 0, "x": 437, "y": 607, "size": 9, "ancho_max": 260 },
+    "curp_patron":                { "page": 0, "x": 467, "y": 588, "size": 9, "ancho_max": 260 },
+    "rfc_patron":                 { "page": 0, "x": 337, "y": 568, "size": 9, "ancho_max": 260 },
+    "razon_social":               { "page": 0, "x": 316, "y": 536, "size": 9, "ancho_max": 260 },
 
-    "codigo_postal_ct":           { "page": 0, "x": 326, "y": 425, "size": 9, "ancho_max": 260 },
-    "calle_ct":                   { "page": 0, "x": 326, "y": 401, "size": 9, "ancho_max": 260 },
-    "numero_exterior_ct":         { "page": 0, "x": 326, "y": 365, "size": 9, "ancho_max": 130 },
-    "numero_interior_ct":         { "page": 0, "x": 462, "y": 365, "size": 9, "ancho_max": 130 },
-    "colonia_ct":                 { "page": 0, "x": 326, "y": 343, "size": 9, "ancho_max": 260 },
-    "localidad_ct":               { "page": 0, "x": 326, "y": 305, "size": 9, "ancho_max": 260 },
-    "municipio_ct":               { "page": 0, "x": 326, "y": 283, "size": 9, "ancho_max": 260 },
-    "estado_ct":                  { "page": 0, "x": 326, "y": 261, "size": 9, "ancho_max": 260 }
+    "codigo_postal_ct":           { "page": 0, "x": 375, "y": 489, "size": 9, "ancho_max": 260 },
+    "calle_ct":                   { "page": 0, "x": 340, "y": 470, "size": 9, "ancho_max": 260 },
+    "numero_exterior_ct":         { "page": 0, "x": 386, "y": 430, "size": 9, "ancho_max": 130 },
+    "numero_interior_ct":         { "page": 0, "x": 520, "y": 430, "size": 9, "ancho_max": 130 },
+    "colonia_ct":                 { "page": 0, "x": 350, "y": 410, "size": 9, "ancho_max": 260 },
+    "localidad_ct":               { "page": 0, "x": 361, "y": 369, "size": 9, "ancho_max": 260 },
+    "municipio_ct":               { "page": 0, "x": 400, "y": 350, "size": 9, "ancho_max": 260 },
+    "estado_ct":                  { "page": 0, "x": 348, "y": 330, "size": 9, "ancho_max": 260 }
   }
 }
