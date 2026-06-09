@@ -11,6 +11,7 @@ import {
   type TramiteType,
 } from "@/lib/tramites";
 import type { DatoExtraido } from "@/lib/extraccion";
+import { precargarValores } from "@/lib/precarga";
 import { SubirDocumentoTramite } from "@/components/SubirDocumentoTramite";
 
 type Props = {
@@ -35,22 +36,10 @@ export function FormularioExtension({ tramiteType, precarga }: Props) {
   const [supabase] = useState<SupabaseClient | null>(initSupabase);
   const [valores, setValores] = useState<Valores>(() => {
     const v = valoresIniciales(tramiteType.field_schema);
-    // Precarga desde "Llevar a…" en /apartado-3. Solo mete campos cuyo
-    // id exista en el schema. Los datos extraídos vienen como
-    // {valor, confianza} — sacamos el valor crudo.
+    // Precarga desde "Llevar a…" — precargarValores hace el match con
+    // aliases y sufijos de rol no ambiguos (ver lib/precarga.ts).
     if (precarga) {
-      const ids = new Set(tramiteType.field_schema.map((c) => c.id));
-      for (const [id, raw] of Object.entries(precarga)) {
-        if (!ids.has(id)) continue;
-        if (
-          raw &&
-          typeof raw === "object" &&
-          "valor" in raw &&
-          typeof (raw as { valor: unknown }).valor === "string"
-        ) {
-          v[id] = (raw as { valor: string }).valor;
-        }
-      }
+      Object.assign(v, precargarValores(tramiteType.field_schema, precarga));
     }
     return v;
   });

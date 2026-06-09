@@ -15,6 +15,7 @@ import {
   type TramiteType,
 } from "@/lib/tramites";
 import { obtenerDocType, type DatoExtraido } from "@/lib/extraccion";
+import { precargarValores } from "@/lib/precarga";
 import { redimensionarImagen } from "@/lib/imagen";
 import { buscarFraccion } from "@/lib/catalogo-imss";
 import { buscarDelegacion } from "@/lib/delegaciones";
@@ -94,21 +95,13 @@ export function VistaTramite({ tramiteType, precarga }: Props) {
     const v = valoresIniciales(tramiteType.field_schema);
     const ids = new Set(tramiteType.field_schema.map((c) => c.id));
 
-    // 1) Precarga desde "Llevar a…" en /apartado-3. Solo metemos campos
-    //    cuyo id exista en el schema. Los datos extraídos vienen como
-    //    {valor, confianza} — sacamos el valor crudo.
+    // 1) Precarga desde "Llevar a…" en /apartado-3. precargarValores hace
+    //    el match inteligente: directo por id, aliases (estado↔entidad),
+    //    y sufijos de rol no ambiguos (curp → curp_trabajador si no hay
+    //    curp_patron en el schema).
     if (precarga) {
-      for (const [id, raw] of Object.entries(precarga)) {
-        if (!ids.has(id)) continue;
-        if (
-          raw &&
-          typeof raw === "object" &&
-          "valor" in raw &&
-          typeof (raw as { valor: unknown }).valor === "string"
-        ) {
-          v[id] = (raw as { valor: string }).valor;
-        }
-      }
+      const precargados = precargarValores(tramiteType.field_schema, precarga);
+      Object.assign(v, precargados);
     }
 
     // 2) Pre-llenado desde la delegación elegida en el picker de escritos.
