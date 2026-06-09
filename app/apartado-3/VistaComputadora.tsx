@@ -8,7 +8,6 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getBrowserClient } from "@/lib/supabase/client";
 import { useSesionId } from "@/lib/pareo-cliente";
 import {
-  listarDocTypes,
   obtenerDocType,
   esFilaArray,
   type DatoExtraido,
@@ -16,6 +15,12 @@ import {
   type FilaExtraida,
 } from "@/lib/extraccion";
 import { redimensionarImagen } from "@/lib/imagen";
+import type { CampoSchema, TramiteType } from "@/lib/tramites";
+import { contextoEfectivo, pertenecePara } from "@/lib/extraccion-contexto";
+import {
+  ModalContextoExtraccion,
+  type OpcionesExtraccion,
+} from "@/components/ModalContextoExtraccion";
 
 type ExtractedValue = DatoExtraido | FilaExtraida[];
 
@@ -36,7 +41,16 @@ function initSupabase(): SupabaseClient | null {
   return getBrowserClient();
 }
 
-export function VistaComputadora() {
+type TramiteListItem = Pick<
+  TramiteType,
+  "id" | "code" | "name" | "apartado" | "field_schema"
+>;
+
+export function VistaComputadora({
+  tramites,
+}: {
+  tramites: TramiteListItem[];
+}) {
   const [supabase] = useState<SupabaseClient | null>(initSupabase);
   const sesionId = useSesionId();
   const [docs, setDocs] = useState<DocumentRow[]>([]);
@@ -144,6 +158,7 @@ export function VistaComputadora() {
       <SubirDesdePc
         supabase={supabase}
         sesionId={sesionId}
+        tramites={tramites}
         onSubido={(id) => setSeleccionManual(id)}
       />
       <div className="grid gap-6 md:grid-cols-[280px_1fr]">
@@ -187,20 +202,24 @@ type SubidaPc = {
   error?: string;
 };
 
-const TIPOS_DOC = listarDocTypes();
+type EstadoModal =
+  | { tipo: "cerrado" }
+  | { tipo: "abierto"; archivos: File[] };
 
 function SubirDesdePc({
   supabase,
   sesionId,
+  tramites,
   onSubido,
 }: {
   supabase: SupabaseClient;
   sesionId: string | null;
+  tramites: TramiteListItem[];
   onSubido: (documentId: string) => void;
 }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [docType, setDocType] = useState<string>("generico");
   const [subidas, setSubidas] = useState<SubidaPc[]>([]);
+  const [modal, setModal] = useState<EstadoModal>({ tipo: "cerrado" });
 
   const actualizar = useCallback(
     (localId: string, patch: Partial<SubidaPc>) =>
@@ -211,7 +230,12 @@ function SubirDesdePc({
   );
 
   const procesarUno = useCallback(
-    async (file: File, localId: string) => {
+    async (
+      file: File,
+      localId: string,
+      opts: OpcionesExtraccion,
+      targetFields: { id: string; label: string }[] | null
+    ) => {
       try {
         const esImagen = file.type.startsWith("image/");
         const esPdf =
@@ -252,7 +276,7 @@ function SubirDesdePc({
           .from("documents")
           .insert({
             storage_path: path,
-            doc_type: docType,
+            doc_type: opts.docType,
             extraction_status: "pendiente",
             session_id: sesionId,
           })
@@ -263,7 +287,7 @@ function SubirDesdePc({
             .from("documents")
             .insert({
               storage_path: path,
-              doc_type: docType,
+              doc_type: opts.docType,
               extraction_status: "pendiente",
               session_id: null,
             })
@@ -274,10 +298,18 @@ function SubirDesdePc({
 
         actualizar(localId, { estado: "procesando", documentId: ins.data.id });
 
+        // Si el usuario eligió un trámite destino, mandamos target_fields
+        // para que el motor extraiga solo (y todos) esos campos. Si eligió
+        // "Ninguno", target_fields va undefined y se cae al doc_type fijo.
+        const body: Record<string, unknown> = { documentId: ins.data.id };
+        if (targetFields && targetFields.length > 0) {
+          body.target_fields = targetFields;
+        }
+
         const res = await fetch("/api/extraer", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ documentId: ins.data.id }),
+          body: JSON.stringify(body),
         });
         if (!res.ok) {
           const j = (await res.json().catch(() => null)) as { error?: string } | null;
@@ -293,13 +325,42 @@ function SubirDesdePc({
         });
       }
     },
-    [supabase, sesionId, docType, actualizar, onSubido]
+    [supabase, sesionId, actualizar, onSubido]
   );
 
-  const onArchivos = useCallback(
-    async (files: FileList | null) => {
-      if (!files || files.length === 0) return;
-      const items: SubidaPc[] = Array.from(files).map((f) => ({
+  // Click en "Elegir archivos…" → solo guarda los archivos y abre el modal.
+  // El procesamiento arranca después de que el usuario confirme las opciones.
+  const onArchivos = useCallback((files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    setModal({ tipo: "abierto", archivos: Array.from(files) });
+    if (inputRef.current) inputRef.current.value = "";
+  }, []);
+
+  const cancelarModal = useCallback(() => {
+    setModal({ tipo: "cerrado" });
+  }, []);
+
+  const confirmarModal = useCallback(
+    async (opts: OpcionesExtraccion) => {
+      if (modal.tipo !== "abierto") return;
+      const archivos = modal.archivos;
+      setModal({ tipo: "cerrado" });
+
+      // Calcular target_fields si hay trámite. Filtramos por contexto
+      // efectivo (TIP/Acta/INE rep fuerzan patron; otros usan lo elegido).
+      let targetFields: { id: string; label: string }[] | null = null;
+      if (opts.tramiteCode) {
+        const tramite = tramites.find((t) => t.code === opts.tramiteCode);
+        if (tramite?.field_schema) {
+          const ctx = contextoEfectivo(opts.docType, opts.contexto);
+          const schema = (tramite.field_schema as CampoSchema[]) ?? [];
+          targetFields = schema
+            .filter((c) => pertenecePara(c, ctx))
+            .map((c) => ({ id: c.id, label: c.label }));
+        }
+      }
+
+      const items: SubidaPc[] = archivos.map((f) => ({
         localId: `${crypto.randomUUID()}`,
         nombre: f.name,
         estado: "subiendo",
@@ -307,11 +368,10 @@ function SubirDesdePc({
       setSubidas((prev) => [...items, ...prev].slice(0, 20));
       // Procesar en secuencia — el extractor (Anthropic) no quiere ráfagas.
       for (let i = 0; i < items.length; i++) {
-        await procesarUno(files[i], items[i].localId);
+        await procesarUno(archivos[i], items[i].localId, opts, targetFields);
       }
-      if (inputRef.current) inputRef.current.value = "";
     },
-    [procesarUno]
+    [modal, tramites, procesarUno]
   );
 
   const limpiarFinalizadas = useCallback(() => {
@@ -335,21 +395,6 @@ function SubirDesdePc({
       </div>
 
       <div className="flex flex-wrap items-end gap-3">
-        <label className="flex flex-col gap-1">
-          <span className="text-sm font-medium text-ink-2">Tipo de documento</span>
-          <select
-            value={docType}
-            onChange={(e) => setDocType(e.target.value)}
-            className="h-11 min-w-[260px] rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:border-ink"
-          >
-            {TIPOS_DOC.map((t) => (
-              <option key={t.id} value={t.id}>
-                {t.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
         <label className="inline-flex min-h-[44px] cursor-pointer items-center rounded-md bg-ink px-5 text-sm font-semibold text-paper hover:bg-ink-2">
           Elegir archivos…
           <input
@@ -361,6 +406,10 @@ function SubirDesdePc({
             onChange={(e) => onArchivos(e.target.files)}
           />
         </label>
+        <p className="text-xs text-ink-3">
+          Al elegir archivos te preguntamos para qué trámite son, para que la IA
+          extraiga más datos.
+        </p>
 
         {hayFinalizadas && (
           <button
@@ -399,6 +448,14 @@ function SubirDesdePc({
           ))}
         </ul>
       )}
+
+      <ModalContextoExtraccion
+        isOpen={modal.tipo === "abierto"}
+        archivos={modal.tipo === "abierto" ? modal.archivos : []}
+        tramites={tramites}
+        onConfirmar={confirmarModal}
+        onCancelar={cancelarModal}
+      />
     </section>
   );
 }

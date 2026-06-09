@@ -9,6 +9,11 @@ import {
 } from "@/lib/extraccion";
 import type { CampoSchema } from "@/lib/tramites";
 import { redimensionarImagen } from "@/lib/imagen";
+import {
+  CONTEXTO_FORZADO_POR_DOC_TYPE,
+  pertenecePara,
+  type Contexto,
+} from "@/lib/extraccion-contexto";
 
 // Widget de subida de documentos con extracción dirigida por el schema del
 // trámite. La IA solo busca los campos que el trámite pide; lo que no
@@ -28,37 +33,6 @@ import { redimensionarImagen } from "@/lib/imagen";
 // solo los campos vacíos del form (no pisa lo que ya escribió el usuario).
 
 const TIPOS_DOC = listarDocTypes();
-
-// Algunos doc_types son inequívocos sobre a quién pertenecen los datos
-// (TIP → patrón, Acta → patrón, INE del representante → patrón). En esos
-// casos no preguntamos y filtramos automáticamente target_fields al lado
-// correcto. En los demás (INE, Cédula RFC, comprobante, genérico) los datos
-// pueden ser del trabajador o del patrón — preguntamos antes de subir.
-const CONTEXTO_FORZADO_POR_DOC_TYPE: Record<string, "patron" | "trabajador" | "representante"> = {
-  tip: "patron",
-  acta_constitutiva: "patron",
-  ine_representante: "representante",
-};
-
-type Contexto = "trabajador" | "patron" | "ambos";
-
-// Decide si un campo cae del lado del trabajador o del patrón según el
-// nombre de su section. Encabezado (fechas, UMF, etc.) se incluye en ambos.
-function pertenecePara(campo: CampoSchema, contexto: Contexto): boolean {
-  if (contexto === "ambos") return true;
-  const sec = (campo.section ?? "").toLowerCase();
-  // Encabezado / sin sección: aplica a ambos.
-  if (sec === "" || sec.includes("encabezado")) return true;
-  if (contexto === "trabajador") {
-    return sec.includes("trabajador") || sec.includes("domicilio");
-  }
-  // contexto === "patron"
-  return (
-    sec.includes("patr") ||
-    sec.includes("centro de trabajo") ||
-    sec.includes("ubicaci")
-  );
-}
 
 type SubidaTramite = {
   localId: string;
