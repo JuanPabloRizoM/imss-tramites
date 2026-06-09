@@ -53,3 +53,24 @@ export function contextoEfectivo(
 export function requierePreguntarContexto(docType: string): boolean {
   return CONTEXTO_FORZADO_POR_DOC_TYPE[docType] === undefined;
 }
+
+// Un trámite es patron-only cuando ninguna de sus secciones menciona al
+// trabajador (AFIL-01, AMSRT, todo el apartado 2, etc.). En esos casos
+// no tiene sentido preguntar "Trabajador o Patrón" porque todos los
+// campos son del patrón.
+export function tramiteTieneTrabajador(schema: CampoSchema[]): boolean {
+  return schema.some((c) =>
+    (c.section ?? "").toLowerCase().includes("trabajador")
+  );
+}
+
+// Devuelve los campos del schema que aplican al contexto elegido. Si el
+// trámite es patron-only, regresa TODO el schema (el contexto es
+// irrelevante). Si tiene ambos lados, filtra con pertenecePara.
+export function camposParaExtraccion(
+  schema: CampoSchema[],
+  contexto: Contexto
+): CampoSchema[] {
+  if (!tramiteTieneTrabajador(schema)) return schema;
+  return schema.filter((c) => pertenecePara(c, contexto));
+}

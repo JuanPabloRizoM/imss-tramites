@@ -11,7 +11,8 @@ import type { CampoSchema } from "@/lib/tramites";
 import { redimensionarImagen } from "@/lib/imagen";
 import {
   CONTEXTO_FORZADO_POR_DOC_TYPE,
-  pertenecePara,
+  camposParaExtraccion,
+  tramiteTieneTrabajador,
   type Contexto,
 } from "@/lib/extraccion-contexto";
 
@@ -66,15 +67,24 @@ export function SubirDocumentoTramite({
   const contextoEfectivo: Contexto = contextoForzado === "representante"
     ? "patron"
     : (contextoForzado ?? contextoElegido);
-  const necesitaPreguntar = contextoForzado === undefined;
+  // Solo preguntamos "Trabajador o Patrón" cuando el doc_type no lo fuerza
+  // Y el trámite efectivamente tiene campos de trabajador (AFIL-01, AMSRT
+  // y el apartado 2 son patron-only).
+  const tieneTrabajador = useMemo(
+    () => tramiteTieneTrabajador(schema),
+    [schema]
+  );
+  const necesitaPreguntar = contextoForzado === undefined && tieneTrabajador;
 
   // target_fields filtrados al contexto elegido — la IA solo busca lo que
-  // aplica a esa columna del form.
+  // aplica a esa columna del form. camposParaExtraccion maneja también el
+  // caso patron-only (devuelve todo el schema).
   const targetFields = useMemo(
     () =>
-      schema
-        .filter((c) => pertenecePara(c, contextoEfectivo))
-        .map((c) => ({ id: c.id, label: c.label })),
+      camposParaExtraccion(schema, contextoEfectivo).map((c) => ({
+        id: c.id,
+        label: c.label,
+      })),
     [schema, contextoEfectivo]
   );
 

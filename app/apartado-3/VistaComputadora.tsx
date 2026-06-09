@@ -16,7 +16,7 @@ import {
 } from "@/lib/extraccion";
 import { redimensionarImagen } from "@/lib/imagen";
 import type { CampoSchema, TramiteType } from "@/lib/tramites";
-import { contextoEfectivo, pertenecePara } from "@/lib/extraccion-contexto";
+import { camposParaExtraccion, contextoEfectivo } from "@/lib/extraccion-contexto";
 import {
   ModalContextoExtraccion,
   type OpcionesExtraccion,
@@ -346,17 +346,20 @@ function SubirDesdePc({
       const archivos = modal.archivos;
       setModal({ tipo: "cerrado" });
 
-      // Calcular target_fields si hay trámite. Filtramos por contexto
-      // efectivo (TIP/Acta/INE rep fuerzan patron; otros usan lo elegido).
+      // Calcular target_fields si hay trámite. camposParaExtraccion ya
+      // maneja: (a) trámites patron-only → todo el schema, (b) trámites
+      // con ambos lados → filtra por el contexto efectivo (TIP/Acta/INE
+      // rep fuerzan patron; otros usan lo elegido por el usuario).
       let targetFields: { id: string; label: string }[] | null = null;
       if (opts.tramiteCode) {
         const tramite = tramites.find((t) => t.code === opts.tramiteCode);
         if (tramite?.field_schema) {
           const ctx = contextoEfectivo(opts.docType, opts.contexto);
           const schema = (tramite.field_schema as CampoSchema[]) ?? [];
-          targetFields = schema
-            .filter((c) => pertenecePara(c, ctx))
-            .map((c) => ({ id: c.id, label: c.label }));
+          targetFields = camposParaExtraccion(schema, ctx).map((c) => ({
+            id: c.id,
+            label: c.label,
+          }));
         }
       }
 

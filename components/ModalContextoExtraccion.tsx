@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { listarDocTypes } from "@/lib/extraccion";
 import {
   CONTEXTO_FORZADO_POR_DOC_TYPE,
+  tramiteTieneTrabajador,
   type Contexto,
 } from "@/lib/extraccion-contexto";
-import type { TramiteType } from "@/lib/tramites";
+import type { CampoSchema, TramiteType } from "@/lib/tramites";
 
 // Modal centrado que se abre ANTES de subir documentos en /apartado-3.
 // Pregunta:
@@ -28,7 +29,10 @@ export type OpcionesExtraccion = {
   contexto: Contexto;
 };
 
-type TramiteListItem = Pick<TramiteType, "id" | "code" | "name" | "apartado">;
+type TramiteListItem = Pick<
+  TramiteType,
+  "id" | "code" | "name" | "apartado" | "field_schema"
+>;
 
 const TIPOS_DOC = listarDocTypes();
 
@@ -77,11 +81,21 @@ export function ModalContextoExtraccion({
 
   if (!isOpen) return null;
 
-  // El dropdown de "para quién" solo aplica cuando hay trámite Y el
-  // doc_type no fuerza contexto.
+  // El dropdown de "para quién" solo aplica cuando hay trámite, el
+  // doc_type no fuerza contexto, Y el trámite tiene campos de trabajador
+  // (AFIL-01, AMSRT, todo el apartado 2 son patron-only → no preguntamos).
   const trámiteElegido = tramiteCode !== "";
+  const tramiteActual = trámiteElegido
+    ? tramites.find((t) => t.code === tramiteCode)
+    : undefined;
+  const tramiteSchema = (tramiteActual?.field_schema as CampoSchema[]) ?? [];
+  const tramitePatronOnly =
+    trámiteElegido && !tramiteTieneTrabajador(tramiteSchema);
   const contextoForzadoDocType = CONTEXTO_FORZADO_POR_DOC_TYPE[docType];
-  const mostrarContexto = trámiteElegido && contextoForzadoDocType === undefined;
+  const mostrarContexto =
+    trámiteElegido &&
+    !tramitePatronOnly &&
+    contextoForzadoDocType === undefined;
 
   // Agrupar trámites por apartado para el optgroup del select.
   const grupos = new Map<number, TramiteListItem[]>();
@@ -193,6 +207,12 @@ export function ModalContextoExtraccion({
               "El acta constitutiva siempre es del patrón."}
             {docType === "ine_representante" &&
               "El INE del representante siempre es del lado del patrón."}
+          </p>
+        )}
+
+        {tramitePatronOnly && contextoForzadoDocType === undefined && (
+          <p className="rounded-md border border-line bg-paper-2 p-2 text-xs text-ink-3">
+            Este trámite solo tiene datos del patrón.
           </p>
         )}
 
