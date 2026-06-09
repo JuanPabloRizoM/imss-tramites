@@ -125,8 +125,21 @@ export function ModalContextoExtraccion({
       style={{ top: 0, left: 0, right: 0, bottom: 0 }}
     >
       <div
-        className="fixed left-1/2 top-1/2 grid max-h-[90vh] w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 grid-cols-1 gap-4 overflow-y-auto rounded-lg border-2 border-ink bg-paper p-6 shadow-2xl [&_select]:w-full [&_select]:min-w-0 [&>*]:min-w-0"
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg border-2 border-ink bg-paper shadow-2xl"
         onClick={(e) => e.stopPropagation()}
+        style={{
+          // Ancho forzado por inline para evitar cualquier sobreescritura
+          // de utilidades. 32rem cómodo; baja a 100vw-2rem en viewports
+          // estrechos para garantizar 1rem de margen.
+          width: "min(32rem, calc(100vw - 2rem))",
+          maxHeight: "calc(100vh - 2rem)",
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 1fr)",
+          gap: "1rem",
+          padding: "1.5rem",
+          overflowX: "hidden",
+          overflowY: "auto",
+        }}
       >
         <header className="grid gap-1">
           <p className="eyebrow">Antes de extraer</p>
