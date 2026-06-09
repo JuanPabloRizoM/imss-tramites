@@ -57,13 +57,17 @@ export const DOC_TYPES: Record<string, DocType> = {
       { id: "razon_social", label: "Denominación o razón social", hint: "Nombre completo de la sociedad, ej. 'INDUSTRIAS DEL NORTE SA DE CV'." },
       { id: "tipo_sociedad", label: "Tipo de sociedad", hint: "S.A. de C.V., S. de R.L. de C.V., S.A.P.I., S.C., A.C., etc." },
       { id: "rfc", label: "RFC de la persona moral", hint: "Puede no estar — algunas actas se firman antes del RFC." },
-      { id: "numero_escritura", label: "Número de escritura pública" },
+      { id: "numero_escritura", label: "Número de escritura pública (número de acta)" },
       { id: "fecha_escritura", label: "Fecha de la escritura" },
       { id: "numero_notaria", label: "Número de notaría o correduría" },
       { id: "titular_notaria", label: "Nombre del notario o corredor titular" },
       { id: "ciudad_notaria", label: "Ciudad y estado de la notaría" },
+      { id: "no_libro", label: "Número de libro del protocolo", hint: "Suele venir junto al número de escritura: 'libro X'." },
+      { id: "no_foja", label: "Número de foja", hint: "'foja' o 'fojas' del protocolo, si aparece." },
+      { id: "registro_publico", label: "Datos de inscripción en el Registro Público", hint: "Número de inscripción, volumen/libro y fecha de registro en el RPC o RPP, si el testimonio trae la boleta." },
       { id: "lugar_constitucion", label: "Lugar de constitución (ciudad, estado)" },
       { id: "fecha_constitucion", label: "Fecha de constitución de la sociedad" },
+      { id: "lugar_fecha_constitucion", label: "Lugar y fecha de constitución en una sola frase", hint: "Ej. 'GUADALAJARA, JALISCO, A 15 DE MARZO DE 2019'." },
       { id: "folio_mercantil", label: "Folio mercantil electrónico (FME) del RPC" },
       { id: "duracion", label: "Duración de la sociedad", hint: "Ej. '99 años', 'indefinida'." },
       { id: "capital_social", label: "Capital social", hint: "Monto en pesos mexicanos." },
@@ -137,6 +141,9 @@ export const DOC_TYPES: Record<string, DocType> = {
       "'_representante' al regresar los datos clave.",
     campos: [
       { id: "nombre_representante", label: "Nombre completo del representante (nombre + apellidos)" },
+      { id: "nombres_representante", label: "Nombre(s) de pila del representante (sin apellidos)" },
+      { id: "apellido_paterno_representante", label: "Apellido paterno del representante" },
+      { id: "apellido_materno_representante", label: "Apellido materno del representante" },
       { id: "curp_representante", label: "CURP del representante" },
       { id: "clave_elector_representante", label: "Clave de elector del representante" },
       { id: "fecha_nacimiento_representante", label: "Fecha de nacimiento del representante" },
@@ -149,24 +156,88 @@ export const DOC_TYPES: Record<string, DocType> = {
     descripcion_para_ia:
       "Tarjeta de Identificación Patronal del IMSS. Trae el registro " +
       "patronal (11 posiciones: letra + 10 dígitos, el último es " +
-      "verificador), RFC, razón social, domicilio fiscal del patrón, " +
-      "actividad económica, clase de riesgo, prima de riesgo, fecha de alta " +
-      "patronal, y delegación/subdelegación IMSS de adscripción. " +
-      "El registro patronal es el dato crítico — siempre debe extraerse.",
+      "verificador), RFC, nombre o razón social, domicilio fiscal del " +
+      "patrón, actividad económica, clasificación de riesgo (división, " +
+      "grupo, fracción, clase) con su prima, fecha de alta patronal, y " +
+      "delegación/subdelegación IMSS de adscripción. " +
+      "El registro patronal es el dato crítico — siempre debe extraerse. " +
+      "DISTINGUE el tipo de patrón: si el titular es una sociedad (SA de " +
+      "CV, S de RL, etc.) es persona MORAL → llena razon_social y deja " +
+      "nombre/apellidos null. Si es una persona con nombre y apellidos es " +
+      "persona FÍSICA → llena nombre/apellido_paterno/apellido_materno por " +
+      "separado Y TAMBIÉN razon_social con el nombre completo.",
     campos: [
       { id: "registro_patronal", label: "Registro patronal del IMSS" },
       { id: "rfc", label: "RFC del patrón" },
-      { id: "razon_social", label: "Razón social o nombre del patrón" },
+      { id: "tipo_persona", label: "Tipo de persona del patrón", hint: "'FISICA' o 'MORAL'. Moral si el titular es una sociedad (SA, S DE RL, AC...)." },
+      { id: "razon_social", label: "Razón social o nombre completo del patrón" },
+      { id: "nombre", label: "Nombre(s) de pila del patrón (solo persona física)" },
+      { id: "apellido_paterno", label: "Apellido paterno del patrón (solo persona física)" },
+      { id: "apellido_materno", label: "Apellido materno del patrón (solo persona física)" },
       { id: "domicilio", label: "Domicilio fiscal del patrón (completo)" },
       { id: "actividad", label: "Actividad económica declarada" },
+      { id: "division", label: "División de la actividad (clasificación RT)", hint: "1 dígito del catálogo de actividades." },
+      { id: "grupo", label: "Grupo de la actividad (clasificación RT)", hint: "2 dígitos del catálogo de actividades." },
+      { id: "fraccion_rt", label: "Fracción de la actividad (clasificación RT)" },
       { id: "clase_rt", label: "Clase de riesgo de trabajo" },
-      { id: "fraccion_rt", label: "Fracción de la clase de RT" },
       { id: "prima_rt", label: "Prima de riesgo de trabajo (%)" },
       { id: "fecha_alta_patronal", label: "Fecha de alta patronal en el IMSS" },
       { id: "delegacion_imss", label: "Delegación IMSS" },
       { id: "subdelegacion_imss", label: "Subdelegación IMSS" },
     ],
   },
+  // Alta patronal ya tramitada: AFIL-01 sellado, acuse de inscripción
+  // patronal (IDSE/escritorio virtual) o documento equivalente. Es el
+  // documento más completo sobre el patrón — debe salir TODO.
+  alta_patronal: {
+    id: "alta_patronal",
+    label: "Alta patronal / acuse de inscripción (AFIL-01 lleno)",
+    descripcion_para_ia:
+      "Aviso de inscripción patronal del IMSS ya llenado (formato AFIL-01 " +
+      "sellado, acuse del IDSE o del Escritorio Virtual). Contiene TODOS " +
+      "los datos del patrón: registro patronal, RFC, CURP (si es persona " +
+      "física), nombre o razón social, domicilio completo desglosado, " +
+      "actividad económica con su clasificación de riesgo (división, " +
+      "grupo, fracción, clase, prima), delegación/subdelegación, fecha de " +
+      "inicio de actividades y datos del representante legal. " +
+      "Este documento es la fuente más completa — extrae TODO lo que veas. " +
+      "DISTINGUE persona física (nombre + apellidos separados) de persona " +
+      "moral (razón social).",
+    campos: [
+      { id: "registro_patronal", label: "Registro patronal del IMSS" },
+      { id: "rfc", label: "RFC del patrón" },
+      { id: "curp", label: "CURP del patrón (solo persona física)" },
+      { id: "tipo_persona", label: "Tipo de persona", hint: "'FISICA' o 'MORAL'." },
+      { id: "razon_social", label: "Razón social o nombre completo del patrón" },
+      { id: "nombre", label: "Nombre(s) de pila (solo persona física)" },
+      { id: "apellido_paterno", label: "Apellido paterno (solo persona física)" },
+      { id: "apellido_materno", label: "Apellido materno (solo persona física)" },
+      { id: "calle", label: "Calle del domicilio" },
+      { id: "numero_exterior", label: "Número exterior" },
+      { id: "numero_interior", label: "Número interior" },
+      { id: "colonia", label: "Colonia" },
+      { id: "codigo_postal", label: "Código postal" },
+      { id: "localidad", label: "Localidad" },
+      { id: "municipio", label: "Municipio o alcaldía" },
+      { id: "estado", label: "Entidad federativa (estado)" },
+      { id: "telefono", label: "Teléfono" },
+      { id: "correo", label: "Correo electrónico" },
+      { id: "actividad", label: "Actividad económica / giro declarado" },
+      { id: "division", label: "División (clasificación RT)" },
+      { id: "grupo", label: "Grupo (clasificación RT)" },
+      { id: "fraccion_rt", label: "Fracción (clasificación RT)" },
+      { id: "clase_rt", label: "Clase de riesgo de trabajo" },
+      { id: "prima_rt", label: "Prima de riesgo de trabajo (%)" },
+      { id: "fecha_inicio_actividades", label: "Fecha de inicio de actividades / alta" },
+      { id: "delegacion_imss", label: "Delegación IMSS" },
+      { id: "subdelegacion_imss", label: "Subdelegación IMSS" },
+      { id: "nombre_representante", label: "Nombre completo del representante legal" },
+      { id: "curp_representante", label: "CURP del representante legal" },
+      { id: "folio", label: "Folio o número de acuse" },
+      { id: "fecha", label: "Fecha de sello o emisión del acuse" },
+    ],
+  },
+
   cedula_rfc: {
     id: "cedula_rfc",
     label: "Cédula RFC / Constancia de Situación Fiscal",
@@ -427,6 +498,18 @@ Reglas estrictas:
    estructura), VERIFICA que lo extraído lo cumpla antes de responder. Si no
    lo cumple, vuelve a mirar esa zona del documento; si sigue sin cumplir,
    devuelve lo que leíste pero con confianza "bajo".
+6b. NOMBRES DE PERSONA — convención mexicana. Para separar nombre(s) y
+   apellidos: si el documento los etiqueta o los pone en líneas separadas
+   (INE: paterno arriba, materno en medio, nombre abajo), usa eso. Si solo
+   hay una línea corrida, los documentos oficiales suelen ir APELLIDOS
+   PRIMERO ("PEREZ LOPEZ JUAN CARLOS" = paterno PEREZ, materno LOPEZ,
+   nombres JUAN CARLOS). Con una CURP a la vista, úsala para confirmar la
+   separación (sus iniciales codifican paterno, materno y nombre). Con solo
+   2 palabras: 1 nombre + 1 apellido paterno, apellido materno null — NUNCA
+   lo inventes. Con 3 palabras SIN etiquetas ni CURP, la división es
+   ambigua (¿2 nombres + 1 apellido o 1 nombre + 2 apellidos?): elige la
+   más probable y baja la confianza de los tres campos a "medio" como
+   máximo para que el usuario lo revise.
 7. No agregues claves planas que no estén en la lista.
 8. Si el documento tiene tabla, lista TODAS las filas que veas — no inventes
    filas. Si el documento no tiene tabla aunque te pidan una, devuelve un

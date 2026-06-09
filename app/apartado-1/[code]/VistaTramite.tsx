@@ -40,6 +40,9 @@ type Props = {
   // Si vino vía "Llevar a…" de /apartado-3, son los extracted_data del
   // documento fuente. Pre-llena los campos cuyo id coincida con el schema.
   precarga?: Record<string, unknown> | null;
+  // doc_type del documento fuente — desempata campos ambiguos (trabajador
+  // vs patrón) vía el tag source_doc del schema.
+  precargaDocType?: string | null;
 };
 type Paso = "caso" | "intake" | "form";
 type Valores = Record<string, string>;
@@ -67,7 +70,7 @@ function valoresIniciales(schema: CampoSchema[]): Valores {
   return v;
 }
 
-export function VistaTramite({ tramiteType, precarga }: Props) {
+export function VistaTramite({ tramiteType, precarga, precargaDocType }: Props) {
   const [supabase] = useState<SupabaseClient | null>(initSupabase);
   const conCasos = tieneCasos(tramiteType);
   const searchParams = useSearchParams();
@@ -100,7 +103,11 @@ export function VistaTramite({ tramiteType, precarga }: Props) {
     //    y sufijos de rol no ambiguos (curp → curp_trabajador si no hay
     //    curp_patron en el schema).
     if (precarga) {
-      const precargados = precargarValores(tramiteType.field_schema, precarga);
+      const precargados = precargarValores(
+        tramiteType.field_schema,
+        precarga,
+        precargaDocType
+      );
       Object.assign(v, precargados);
     }
 

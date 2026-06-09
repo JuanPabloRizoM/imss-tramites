@@ -39,16 +39,19 @@ export default async function PaginaTramite2({
   const tramiteType = data as TramiteType & { portal_url: string | null };
 
   // Mismo patrón que /apartado-1/[code]: si vino vía "Llevar a…", trae
-  // el extracted_data del documento fuente para precargar el form.
+  // el extracted_data del documento fuente para precargar el form. El
+  // doc_type viaja junto para desempatar campos ambiguos vía source_doc.
   let precarga: Record<string, unknown> | null = null;
+  let precargaDocType: string | null = null;
   if (source_doc) {
     const { data: doc } = await supabase
       .from("documents")
-      .select("extracted_data")
+      .select("extracted_data, doc_type")
       .eq("id", source_doc)
       .maybeSingle();
     if (doc?.extracted_data) {
       precarga = doc.extracted_data as Record<string, unknown>;
+      precargaDocType = (doc.doc_type as string | null) ?? null;
     }
   }
 
@@ -68,7 +71,11 @@ export default async function PaginaTramite2({
         </Link>
       </nav>
 
-      <FormularioExtension tramiteType={tramiteType} precarga={precarga} />
+      <FormularioExtension
+        tramiteType={tramiteType}
+        precarga={precarga}
+        precargaDocType={precargaDocType}
+      />
     </ApartadoShell>
   );
 }

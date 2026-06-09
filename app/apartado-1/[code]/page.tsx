@@ -43,16 +43,19 @@ export default async function PaginaTramite({
 
   // Si vino con ?source_doc=<uuid>, trae los datos extraídos para precargar
   // el form. Si el doc no existe o no es del usuario, simplemente no
-  // precarga — no rompemos el flujo.
+  // precarga — no rompemos el flujo. El doc_type viaja junto para que la
+  // precarga desempate campos ambiguos vía el tag source_doc del schema.
   let precarga: Record<string, unknown> | null = null;
+  let precargaDocType: string | null = null;
   if (source_doc) {
     const { data: doc } = await supabase
       .from("documents")
-      .select("extracted_data")
+      .select("extracted_data, doc_type")
       .eq("id", source_doc)
       .maybeSingle();
     if (doc?.extracted_data) {
       precarga = doc.extracted_data as Record<string, unknown>;
+      precargaDocType = (doc.doc_type as string | null) ?? null;
     }
   }
   const tieneCasos = Array.isArray(tramiteType.cases) && tramiteType.cases.length > 0;
@@ -88,7 +91,11 @@ export default async function PaginaTramite({
         </Link>
       </nav>
 
-      <VistaTramite tramiteType={tramiteType} precarga={precarga} />
+      <VistaTramite
+        tramiteType={tramiteType}
+        precarga={precarga}
+        precargaDocType={precargaDocType}
+      />
     </ApartadoShell>
   );
 }

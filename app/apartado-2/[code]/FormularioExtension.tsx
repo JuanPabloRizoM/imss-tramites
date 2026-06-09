@@ -18,6 +18,9 @@ type Props = {
   tramiteType: TramiteType & { portal_url: string | null };
   // Datos extraídos del documento fuente cuando se llegó vía "Llevar a…".
   precarga?: Record<string, unknown> | null;
+  // doc_type del documento fuente — desempata campos ambiguos vía el tag
+  // source_doc del schema.
+  precargaDocType?: string | null;
 };
 type Valores = Record<string, string>;
 
@@ -32,14 +35,17 @@ function valoresIniciales(schema: CampoSchema[]): Valores {
   return v;
 }
 
-export function FormularioExtension({ tramiteType, precarga }: Props) {
+export function FormularioExtension({ tramiteType, precarga, precargaDocType }: Props) {
   const [supabase] = useState<SupabaseClient | null>(initSupabase);
   const [valores, setValores] = useState<Valores>(() => {
     const v = valoresIniciales(tramiteType.field_schema);
     // Precarga desde "Llevar a…" — precargarValores hace el match con
-    // aliases y sufijos de rol no ambiguos (ver lib/precarga.ts).
+    // aliases y sufijos no ambiguos (ver lib/precarga.ts).
     if (precarga) {
-      Object.assign(v, precargarValores(tramiteType.field_schema, precarga));
+      Object.assign(
+        v,
+        precargarValores(tramiteType.field_schema, precarga, precargaDocType)
+      );
     }
     return v;
   });

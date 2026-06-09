@@ -35,11 +35,24 @@ import {
 
 const TIPOS_DOC = listarDocTypes();
 
+// Lista corta de labels para no inundar la fila: primeros 4 + "y N más".
+function resumirLabels(labels: string[]): string {
+  const max = 4;
+  if (labels.length <= max) return labels.join(", ");
+  return `${labels.slice(0, max).join(", ")} y ${labels.length - max} más`;
+}
+
 type SubidaTramite = {
   localId: string;
   nombre: string;
   estado: "subiendo" | "procesando" | "listo" | "error";
   campos_aplicados?: number;
+  // Labels de los target_fields que el documento NO trajo — feedback de
+  // qué sigue faltando después de esta subida.
+  faltantes?: string[];
+  // Labels llenados con confianza media/baja — el usuario debe revisarlos
+  // (típico: separación ambigua de nombre/apellidos, dígitos dudosos).
+  dudosos?: string[];
   error?: string;
 };
 
@@ -159,7 +172,21 @@ export function SubirDocumentoTramite({
           .single();
         const datos = (docRow?.extracted_data ?? {}) as Record<string, DatoExtraido>;
         const aplicados = onExtraido(datos);
-        actualizar(localId, { estado: "listo", campos_aplicados: aplicados });
+        // Feedback por subida: qué target_fields no vinieron en el documento
+        // y cuáles vinieron con confianza dudosa (revisar a mano).
+        const faltantes: string[] = [];
+        const dudosos: string[] = [];
+        for (const f of targetFields) {
+          const d = datos[f.id];
+          if (!d?.valor) faltantes.push(f.label);
+          else if (d.confianza !== "alto") dudosos.push(f.label);
+        }
+        actualizar(localId, {
+          estado: "listo",
+          campos_aplicados: aplicados,
+          faltantes,
+          dudosos,
+        });
       } catch (err) {
         actualizar(localId, {
           estado: "error",
@@ -256,23 +283,36 @@ export function SubirDocumentoTramite({
           {subidas.map((s) => (
             <li
               key={s.localId}
-              className="flex items-center justify-between gap-3 rounded-md border border-line bg-paper px-3 py-2 text-sm"
+              className="grid gap-1 rounded-md border border-line bg-paper px-3 py-2 text-sm"
             >
-              <span className="truncate text-ink">{s.nombre}</span>
-              <span className="shrink-0">
-                {s.estado === "subiendo" && <span className="text-ink-3">Subiendo…</span>}
-                {s.estado === "procesando" && <span className="text-warn">Extrayendo…</span>}
-                {s.estado === "listo" && (
-                  <span className="text-ok">
-                    ✓ {s.campos_aplicados ?? 0} campo{(s.campos_aplicados ?? 0) === 1 ? "" : "s"} llenado{(s.campos_aplicados ?? 0) === 1 ? "" : "s"}
-                  </span>
-                )}
-                {s.estado === "error" && (
-                  <span className="text-err" title={s.error}>
-                    Error: {s.error}
-                  </span>
-                )}
-              </span>
+              <div className="flex items-center justify-between gap-3">
+                <span className="truncate text-ink">{s.nombre}</span>
+                <span className="shrink-0">
+                  {s.estado === "subiendo" && <span className="text-ink-3">Subiendo…</span>}
+                  {s.estado === "procesando" && <span className="text-warn">Extrayendo…</span>}
+                  {s.estado === "listo" && (
+                    <span className="text-ok">
+                      ✓ {s.campos_aplicados ?? 0} campo{(s.campos_aplicados ?? 0) === 1 ? "" : "s"} llenado{(s.campos_aplicados ?? 0) === 1 ? "" : "s"}
+                    </span>
+                  )}
+                  {s.estado === "error" && (
+                    <span className="text-err" title={s.error}>
+                      Error: {s.error}
+                    </span>
+                  )}
+                </span>
+              </div>
+              {s.estado === "listo" && (s.dudosos?.length ?? 0) > 0 && (
+                <p className="text-xs text-warn" title={s.dudosos!.join(", ")}>
+                  ⚠ Revisa a mano: {resumirLabels(s.dudosos!)}
+                </p>
+              )}
+              {s.estado === "listo" && (s.faltantes?.length ?? 0) > 0 && (
+                <p className="text-xs text-ink-3" title={s.faltantes!.join(", ")}>
+                  Este documento no trajo: {resumirLabels(s.faltantes!)} — llénalos
+                  a mano o sube otro documento que los tenga.
+                </p>
+              )}
             </li>
           ))}
         </ul>
