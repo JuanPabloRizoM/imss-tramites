@@ -4,6 +4,13 @@
 //   1) Campos planos: "razón social", "RFC", "fecha", etc. → un valor.
 //   2) Tabla (opcional): lista de filas con N columnas, ej. para reportes
 //      del SUA/EMA/EBA donde hay un trabajador por fila.
+//
+// Los formatos estructurados (NSS, registro patronal, CURP, RFC, prima RT,
+// etc.) viven en lib/formatos-imss.ts — el prompt builder inyecta esas
+// pistas automáticamente para cualquier campo cuyo id matchee, incluyendo
+// los target_fields que vienen del field_schema de un trámite.
+
+import { hintFormatoPara } from "./formatos-imss";
 
 export type CampoExtraccion = {
   id: string;
@@ -49,7 +56,7 @@ export const DOC_TYPES: Record<string, DocType> = {
     campos: [
       { id: "razon_social", label: "Denominación o razón social", hint: "Nombre completo de la sociedad, ej. 'INDUSTRIAS DEL NORTE SA DE CV'." },
       { id: "tipo_sociedad", label: "Tipo de sociedad", hint: "S.A. de C.V., S. de R.L. de C.V., S.A.P.I., S.C., A.C., etc." },
-      { id: "rfc", label: "RFC de la persona moral", hint: "12 caracteres alfanuméricos. Puede no estar — algunas actas se firman antes del RFC." },
+      { id: "rfc", label: "RFC de la persona moral", hint: "Puede no estar — algunas actas se firman antes del RFC." },
       { id: "numero_escritura", label: "Número de escritura pública" },
       { id: "fecha_escritura", label: "Fecha de la escritura" },
       { id: "numero_notaria", label: "Número de notaría o correduría" },
@@ -98,24 +105,23 @@ export const DOC_TYPES: Record<string, DocType> = {
       "ANVERSO: foto, nombre, domicilio, clave de elector, CURP, año de " +
       "registro, sección, sexo, fecha de nacimiento, vigencia. " +
       "REVERSO: número OCR/IDMEX largo en el margen inferior. " +
-      "El nombre suele venir en tres líneas: apellido paterno, apellido " +
-      "materno, nombre(s) — extráelos por separado, no concatenes. " +
-      "Para la CURP busca exactamente 18 caracteres alfanuméricos. " +
-      "Para la clave de elector busca exactamente 18 caracteres " +
-      "alfanuméricos distintos del CURP.",
+      "El bloque 'NOMBRE' viene en TRES líneas con este orden vertical: " +
+      "línea 1 (arriba) = apellido paterno, línea 2 (en medio) = apellido " +
+      "materno, línea 3 (abajo) = nombre(s) de pila. Extráelos por separado " +
+      "respetando ese orden — NO asumas que la primera línea es el nombre.",
     campos: [
       { id: "nombre", label: "Nombre(s)", hint: "Sin apellidos. Ej. 'JUAN CARLOS'." },
       { id: "apellido_paterno", label: "Apellido paterno" },
       { id: "apellido_materno", label: "Apellido materno" },
-      { id: "curp", label: "CURP", hint: "18 caracteres alfanuméricos. Aparece bajo 'CURP'." },
-      { id: "clave_elector", label: "Clave de elector", hint: "18 caracteres alfanuméricos, distinto del CURP. Aparece bajo 'CLAVE DE ELECTOR'." },
-      { id: "fecha_nacimiento", label: "Fecha de nacimiento", hint: "Formato DD/MM/AAAA." },
+      { id: "curp", label: "CURP", hint: "Aparece bajo 'CURP' en el anverso." },
+      { id: "clave_elector", label: "Clave de elector" },
+      { id: "fecha_nacimiento", label: "Fecha de nacimiento" },
       { id: "sexo", label: "Sexo (H/M)" },
       { id: "domicilio", label: "Domicilio completo", hint: "Calle, número, colonia, CP, municipio, entidad — tal como aparece, en una sola cadena." },
       { id: "estado", label: "Entidad federativa del domicilio", hint: "Estado, ej. 'JALISCO'." },
       { id: "municipio", label: "Municipio o alcaldía" },
       { id: "localidad", label: "Localidad" },
-      { id: "seccion", label: "Sección electoral", hint: "Número de 4 dígitos." },
+      { id: "seccion", label: "Sección electoral" },
       { id: "año_registro", label: "Año de registro" },
       { id: "vigencia", label: "Vigencia", hint: "Año hasta el cual es válida la credencial." },
       { id: "emision", label: "Año de emisión" },
@@ -142,20 +148,20 @@ export const DOC_TYPES: Record<string, DocType> = {
     label: "Tarjeta de Identificación Patronal (TIP)",
     descripcion_para_ia:
       "Tarjeta de Identificación Patronal del IMSS. Trae el registro " +
-      "patronal (formato AAA0000000-0 — 10 caracteres + dígito verificador), " +
-      "RFC, razón social, domicilio fiscal del patrón, actividad económica, " +
-      "clase de riesgo, prima de riesgo, fecha de alta patronal, y " +
-      "delegación/subdelegación IMSS de adscripción. " +
+      "patronal (11 posiciones: letra + 10 dígitos, el último es " +
+      "verificador), RFC, razón social, domicilio fiscal del patrón, " +
+      "actividad económica, clase de riesgo, prima de riesgo, fecha de alta " +
+      "patronal, y delegación/subdelegación IMSS de adscripción. " +
       "El registro patronal es el dato crítico — siempre debe extraerse.",
     campos: [
-      { id: "registro_patronal", label: "Registro patronal del IMSS", hint: "10 caracteres + dígito verificador. Ej. 'C1234567893'." },
+      { id: "registro_patronal", label: "Registro patronal del IMSS" },
       { id: "rfc", label: "RFC del patrón" },
       { id: "razon_social", label: "Razón social o nombre del patrón" },
       { id: "domicilio", label: "Domicilio fiscal del patrón (completo)" },
       { id: "actividad", label: "Actividad económica declarada" },
-      { id: "clase_rt", label: "Clase de riesgo de trabajo", hint: "I, II, III, IV o V." },
+      { id: "clase_rt", label: "Clase de riesgo de trabajo" },
       { id: "fraccion_rt", label: "Fracción de la clase de RT" },
-      { id: "prima_rt", label: "Prima de riesgo de trabajo (%)", hint: "Decimal, ej. 0.50000." },
+      { id: "prima_rt", label: "Prima de riesgo de trabajo (%)" },
       { id: "fecha_alta_patronal", label: "Fecha de alta patronal en el IMSS" },
       { id: "delegacion_imss", label: "Delegación IMSS" },
       { id: "subdelegacion_imss", label: "Subdelegación IMSS" },
@@ -172,7 +178,7 @@ export const DOC_TYPES: Record<string, DocType> = {
       "municipio, entidad), código de actividad económica y obligaciones. " +
       "Puede traer más de un régimen — pónlos separados por coma en 'regimen'.",
     campos: [
-      { id: "rfc", label: "RFC", hint: "12 o 13 caracteres alfanuméricos." },
+      { id: "rfc", label: "RFC" },
       { id: "razon_social", label: "Razón social o nombre completo" },
       { id: "regimen", label: "Régimen fiscal (puede haber más de uno)" },
       { id: "actividad_economica", label: "Actividad económica principal" },
@@ -313,9 +319,9 @@ export const DOC_TYPES: Record<string, DocType> = {
       { id: "nombre", label: "Nombre completo" },
       { id: "apellido_paterno", label: "Apellido paterno (si aplica)" },
       { id: "apellido_materno", label: "Apellido materno (si aplica)" },
-      { id: "rfc", label: "RFC", hint: "12 o 13 caracteres alfanuméricos." },
-      { id: "curp", label: "CURP", hint: "18 caracteres alfanuméricos." },
-      { id: "nss", label: "NSS — Número de Seguridad Social", hint: "11 dígitos." },
+      { id: "rfc", label: "RFC" },
+      { id: "curp", label: "CURP" },
+      { id: "nss", label: "NSS — Número de Seguridad Social" },
       { id: "fecha_nacimiento", label: "Fecha de nacimiento" },
       { id: "domicilio", label: "Domicilio completo" },
       { id: "codigo_postal", label: "Código postal" },
@@ -355,12 +361,14 @@ export function construirPromptSistema(
   const camposParaPrompt = targetCampos ?? docType.campos;
   // Incluimos el hint en cada línea cuando existe — le da al modelo señales
   // específicas (formato esperado, dónde mirar, ambigüedades a evitar).
-  const camposListados = camposParaPrompt
-    .map((c) => {
-      const hint = "hint" in c && c.hint ? ` — pista: ${c.hint}` : "";
-      return `- ${c.id} — ${c.label}${hint}`;
-    })
-    .join("\n");
+  // El hint local del campo (ubicación en el doc) se combina con el hint
+  // de formato del catálogo central (estructura exacta del dato).
+  const conHints = (c: { id: string; label: string; hint?: string }) => {
+    const partes = [c.hint, hintFormatoPara(c.id)].filter(Boolean);
+    const hint = partes.length > 0 ? ` — pista: ${partes.join(" ")}` : "";
+    return `- ${c.id} — ${c.label}${hint}`;
+  };
+  const camposListados = camposParaPrompt.map(conHints).join("\n");
 
   // Descripción del tipo de documento solo aplica cuando NO hay
   // targetCampos (extracción libre). En extracción dirigida por trámite,
@@ -377,8 +385,8 @@ export function construirPromptSistema(
 
 Adicionalmente, este documento contiene una tabla llamada "${docType.tabla.label}".
 ${docType.tabla.descripcion ?? ""}
-Cada fila representa una entrada distinta. Sus columnas (identificador — etiqueta):
-${docType.tabla.columnas.map((c) => `- ${c.id} — ${c.label}`).join("\n")}
+Cada fila representa una entrada distinta. Sus columnas (identificador — etiqueta — pista opcional):
+${docType.tabla.columnas.map(conHints).join("\n")}
 
 Devuelve la tabla en la clave "${docType.tabla.id}" como un ARRAY de objetos. Cada objeto representa una fila y tiene las claves ${docType.tabla.columnas
         .map((c) => `"${c.id}"`)
@@ -415,12 +423,16 @@ Reglas estrictas:
    NUNCA inventes datos.
 5. Para fechas usa el formato DD/MM/AAAA si es posible. Si solo se ve parcial,
    devuélvela tal como aparece.
-6. No agregues claves planas que no estén en la lista.
-7. Si el documento tiene tabla, lista TODAS las filas que veas — no inventes
+6. Cuando la pista de un campo indique un formato exacto (longitud, patrón,
+   estructura), VERIFICA que lo extraído lo cumpla antes de responder. Si no
+   lo cumple, vuelve a mirar esa zona del documento; si sigue sin cumplir,
+   devuelve lo que leíste pero con confianza "bajo".
+7. No agregues claves planas que no estén en la lista.
+8. Si el documento tiene tabla, lista TODAS las filas que veas — no inventes
    filas. Si el documento no tiene tabla aunque te pidan una, devuelve un
    array vacío [].
 ${incluyeTabla ? `
-8. Para la tabla "${docType.tabla!.id}", cada fila es un objeto con las
+9. Para la tabla "${docType.tabla!.id}", cada fila es un objeto con las
    columnas listadas. Devuelve un array (aunque haya solo una fila).
 ` : ""}
 Ejemplo de forma (los valores son ilustrativos):

@@ -4,9 +4,12 @@ import { PDFDocument } from "pdf-lib";
 
 import {
   construirPromptSistema,
+  esFilaArray,
   obtenerDocType,
   parsearRespuestaIA,
+  type DatoExtraido,
 } from "@/lib/extraccion";
+import { validarValor } from "@/lib/formatos-imss";
 import { getServiceRoleClient } from "@/lib/supabase/server";
 
 // API route que toma un document.id, descarga el archivo desde Storage, llama
@@ -137,6 +140,13 @@ export async function POST(req: Request) {
     docType,
     targetCampos.length > 0 ? targetCampos : undefined
   );
+  // El parser itera sobre los campos del docType. En extracción dirigida el
+  // modelo responde con los ids de target_fields — hay que parsear contra
+  // ESOS, no contra los del doc_type, o se tira casi toda la respuesta.
+  const docTypeParaParseo =
+    targetCampos.length > 0
+      ? { ...docType, campos: targetCampos, tabla: undefined }
+      : docType;
 
   const anthropic = new Anthropic({ apiKey });
 
@@ -182,7 +192,23 @@ export async function POST(req: Request) {
       .map((b) => b.text)
       .join("");
 
-    const datos = parsearRespuestaIA(textoSalida, docType);
+    const datos = parsearRespuestaIA(textoSalida, docTypeParaParseo);
+
+    // Post-validación contra los formatos conocidos (lib/formatos-imss.ts):
+    // normaliza (quita espacios/guiones, upcase) y si el valor no cumple el
+    // formato (longitud, patrón, dígito verificador) baja la confianza a
+    // "bajo" para que el campo se pinte como dudoso en la UI.
+    for (const [id, dato] of Object.entries(datos)) {
+      if (esFilaArray(dato)) {
+        for (const fila of dato) {
+          for (const [colId, celda] of Object.entries(fila)) {
+            aplicarValidacion(colId, celda);
+          }
+        }
+      } else {
+        aplicarValidacion(id, dato);
+      }
+    }
 
     await supabase
       .from("documents")
@@ -199,6 +225,16 @@ export async function POST(req: Request) {
     await marcarError(supabase, documentId, mensaje);
     return NextResponse.json({ error: mensaje }, { status: 500 });
   }
+}
+
+// Muta el dato extraído: guarda el valor normalizado y, si no cumple el
+// formato del campo (regex / dígito verificador), baja la confianza.
+function aplicarValidacion(fieldId: string, dato: DatoExtraido) {
+  if (!dato.valor) return;
+  const res = validarValor(fieldId, dato.valor);
+  if (!res) return; // campo sin formato conocido (texto libre)
+  dato.valor = res.normalizado;
+  if (!res.valido) dato.confianza = "bajo";
 }
 
 async function marcarError(
