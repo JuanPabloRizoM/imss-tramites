@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { listarDocTypes } from "@/lib/extraccion";
 import {
@@ -59,6 +60,10 @@ export function ModalContextoExtraccion({
   const [tramiteCode, setTramiteCode] = useState<string>("");
   const [docType, setDocType] = useState<string>("generico");
   const [contexto, setContexto] = useState<Contexto>("ambos");
+  // createPortal necesita document, que no existe en SSR. Esperamos al
+  // montaje del componente en el cliente antes de renderizar el portal.
+  const [montado, setMontado] = useState(false);
+  useEffect(() => setMontado(true), []);
 
   // Reset al abrir — cada vez que se abre el modal arranca limpio.
   useEffect(() => {
@@ -79,7 +84,7 @@ export function ModalContextoExtraccion({
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, onCancelar]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !montado) return null;
 
   // El dropdown de "para quién" solo aplica cuando hay trámite, el
   // doc_type no fuerza contexto, Y el trámite tiene campos de trabajador
@@ -106,15 +111,21 @@ export function ModalContextoExtraccion({
   }
   const apartadosOrdenados = [...grupos.keys()].sort((a, b) => a - b);
 
-  return (
+  // Renderizamos el modal en document.body via portal. Esto lo saca de
+  // cualquier ancestro que pudiera estar atrapando el `position: fixed`
+  // (algún transform, filter o contain heredado del layout del apartado).
+  // Centrado robusto: top/left 50% + translate(-50%, -50%) en la caja
+  // interna. No depende de flex/grid del wrapper.
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-4"
+      className="fixed inset-0 z-50 bg-black/70"
       onClick={onCancelar}
       role="dialog"
       aria-modal="true"
+      style={{ top: 0, left: 0, right: 0, bottom: 0 }}
     >
       <div
-        className="grid max-h-[90vh] w-full max-w-md gap-4 overflow-y-auto rounded-lg border-2 border-ink bg-paper p-6 shadow-2xl"
+        className="fixed left-1/2 top-1/2 max-h-[90vh] w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 grid gap-4 overflow-y-auto rounded-lg border-2 border-ink bg-paper p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <header className="grid gap-1">
@@ -239,6 +250,7 @@ export function ModalContextoExtraccion({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
