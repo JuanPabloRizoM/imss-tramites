@@ -13,7 +13,11 @@ import {
 import type { DatoExtraido } from "@/lib/extraccion";
 import { SubirDocumentoTramite } from "@/components/SubirDocumentoTramite";
 
-type Props = { tramiteType: TramiteType & { portal_url: string | null } };
+type Props = {
+  tramiteType: TramiteType & { portal_url: string | null };
+  // Datos extraídos del documento fuente cuando se llegó vía "Llevar a…".
+  precarga?: Record<string, unknown> | null;
+};
 type Valores = Record<string, string>;
 
 function initSupabase(): SupabaseClient | null {
@@ -27,11 +31,29 @@ function valoresIniciales(schema: CampoSchema[]): Valores {
   return v;
 }
 
-export function FormularioExtension({ tramiteType }: Props) {
+export function FormularioExtension({ tramiteType, precarga }: Props) {
   const [supabase] = useState<SupabaseClient | null>(initSupabase);
-  const [valores, setValores] = useState<Valores>(() =>
-    valoresIniciales(tramiteType.field_schema)
-  );
+  const [valores, setValores] = useState<Valores>(() => {
+    const v = valoresIniciales(tramiteType.field_schema);
+    // Precarga desde "Llevar a…" en /apartado-3. Solo mete campos cuyo
+    // id exista en el schema. Los datos extraídos vienen como
+    // {valor, confianza} — sacamos el valor crudo.
+    if (precarga) {
+      const ids = new Set(tramiteType.field_schema.map((c) => c.id));
+      for (const [id, raw] of Object.entries(precarga)) {
+        if (!ids.has(id)) continue;
+        if (
+          raw &&
+          typeof raw === "object" &&
+          "valor" in raw &&
+          typeof (raw as { valor: unknown }).valor === "string"
+        ) {
+          v[id] = (raw as { valor: string }).valor;
+        }
+      }
+    }
+    return v;
+  });
   const [tramiteId, setTramiteId] = useState<string | null>(null);
   const [estado, setEstado] = useState<"idle" | "guardando" | "guardado" | "revisado" | "error">("idle");
   const [precargando, setPrecargando] = useState(false);

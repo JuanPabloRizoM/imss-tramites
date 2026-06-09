@@ -34,7 +34,12 @@ import { SubirDocumentoTramite } from "@/components/SubirDocumentoTramite";
 // al formulario con todo el field_schema (comportamiento previo).
 // -------------------------------------------------------------------------
 
-type Props = { tramiteType: TramiteType };
+type Props = {
+  tramiteType: TramiteType;
+  // Si vino vía "Llevar a…" de /apartado-3, son los extracted_data del
+  // documento fuente. Pre-llena los campos cuyo id coincida con el schema.
+  precarga?: Record<string, unknown> | null;
+};
 type Paso = "caso" | "intake" | "form";
 type Valores = Record<string, string>;
 type EstadoGuardar = "idle" | "guardando" | "guardado" | "error";
@@ -61,7 +66,7 @@ function valoresIniciales(schema: CampoSchema[]): Valores {
   return v;
 }
 
-export function VistaTramite({ tramiteType }: Props) {
+export function VistaTramite({ tramiteType, precarga }: Props) {
   const [supabase] = useState<SupabaseClient | null>(initSupabase);
   const conCasos = tieneCasos(tramiteType);
   const searchParams = useSearchParams();
@@ -87,12 +92,32 @@ export function VistaTramite({ tramiteType }: Props) {
   const [intake, setIntake] = useState<IntakeState>({});
   const [valores, setValores] = useState<Valores>(() => {
     const v = valoresIniciales(tramiteType.field_schema);
-    // Pre-llenado desde la delegación elegida en el picker de escritos.
-    // Solo toca campos que existan en el schema — silenciosamente ignora
-    // los que no aplican (trámites que no son escritos).
     const ids = new Set(tramiteType.field_schema.map((c) => c.id));
+
+    // 1) Precarga desde "Llevar a…" en /apartado-3. Solo metemos campos
+    //    cuyo id exista en el schema. Los datos extraídos vienen como
+    //    {valor, confianza} — sacamos el valor crudo.
+    if (precarga) {
+      for (const [id, raw] of Object.entries(precarga)) {
+        if (!ids.has(id)) continue;
+        if (
+          raw &&
+          typeof raw === "object" &&
+          "valor" in raw &&
+          typeof (raw as { valor: unknown }).valor === "string"
+        ) {
+          v[id] = (raw as { valor: string }).valor;
+        }
+      }
+    }
+
+    // 2) Pre-llenado desde la delegación elegida en el picker de escritos.
+    //    Solo toca campos que existan en el schema. La precarga del paso
+    //    anterior tiene preferencia si trae un valor.
     if (delegacionElegida) {
-      if (ids.has("dependencia")) v.dependencia = delegacionElegida.dependencia;
+      if (ids.has("dependencia") && !v.dependencia) {
+        v.dependencia = delegacionElegida.dependencia;
+      }
       if (delegacionElegida.destinatario_default && ids.has("destinatario") && !v.destinatario) {
         v.destinatario = delegacionElegida.destinatario_default;
       }

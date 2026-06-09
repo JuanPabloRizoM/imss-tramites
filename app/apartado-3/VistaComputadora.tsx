@@ -21,6 +21,7 @@ import {
   ModalContextoExtraccion,
   type OpcionesExtraccion,
 } from "@/components/ModalContextoExtraccion";
+import { ModalLlevarA } from "@/components/ModalLlevarA";
 
 type ExtractedValue = DatoExtraido | FilaExtraida[];
 
@@ -172,6 +173,7 @@ export function VistaComputadora({
         key={seleccion?.id ?? "vacio"}
         documento={seleccion}
         supabase={supabase}
+        tramites={tramites}
         onReintentar={async (id) => {
           await fetch("/api/extraer", {
             method: "POST",
@@ -557,14 +559,17 @@ function EstadoChip({ estado }: { estado: DocumentRow["extraction_status"] }) {
 function DetalleDocumento({
   documento,
   supabase,
+  tramites,
   onReintentar,
   onEliminado,
 }: {
   documento: DocumentRow | null;
   supabase: SupabaseClient;
+  tramites: TramiteListItem[];
   onReintentar: (id: string) => Promise<void>;
   onEliminado: (id: string) => void;
 }) {
+  const [modalLlevarAbierto, setModalLlevarAbierto] = useState(false);
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
   // Overrides para campos planos (uno por campo).
   const [overridesCampos, setOverridesCampos] = useState<Record<string, DatoExtraido>>({});
@@ -814,6 +819,15 @@ function DetalleDocumento({
                 Reextraer
               </button>
             )}
+            <button
+              type="button"
+              onClick={() => setModalLlevarAbierto(true)}
+              disabled={ocupadoEliminando}
+              className="inline-flex min-h-[44px] items-center rounded-md border-2 border-ink bg-paper px-4 text-sm font-semibold text-ink hover:bg-paper-2 disabled:opacity-60"
+              title="Lleva estos datos a la pantalla de un trámite y precarga sus campos."
+            >
+              Llevar a…
+            </button>
           </>
         )}
         <Link
@@ -848,6 +862,13 @@ function DetalleDocumento({
       {errorEliminar && (
         <p className="text-sm text-err">No se pudo eliminar: {errorEliminar}</p>
       )}
+
+      <ModalLlevarA
+        isOpen={modalLlevarAbierto}
+        documentId={documento.id}
+        tramites={tramites}
+        onCerrar={() => setModalLlevarAbierto(false)}
+      />
     </div>
   );
 }

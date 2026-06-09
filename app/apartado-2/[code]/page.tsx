@@ -19,10 +19,13 @@ export async function generateMetadata({
 
 export default async function PaginaTramite2({
   params,
+  searchParams,
 }: {
   params: Promise<{ code: string }>;
+  searchParams: Promise<{ source_doc?: string }>;
 }) {
   const { code } = await params;
+  const { source_doc } = await searchParams;
   const supabase = await getServerClient();
 
   const { data } = await supabase
@@ -34,6 +37,20 @@ export default async function PaginaTramite2({
 
   if (!data) notFound();
   const tramiteType = data as TramiteType & { portal_url: string | null };
+
+  // Mismo patrón que /apartado-1/[code]: si vino vía "Llevar a…", trae
+  // el extracted_data del documento fuente para precargar el form.
+  let precarga: Record<string, unknown> | null = null;
+  if (source_doc) {
+    const { data: doc } = await supabase
+      .from("documents")
+      .select("extracted_data")
+      .eq("id", source_doc)
+      .maybeSingle();
+    if (doc?.extracted_data) {
+      precarga = doc.extracted_data as Record<string, unknown>;
+    }
+  }
 
   return (
     <ApartadoShell
@@ -51,7 +68,7 @@ export default async function PaginaTramite2({
         </Link>
       </nav>
 
-      <FormularioExtension tramiteType={tramiteType} />
+      <FormularioExtension tramiteType={tramiteType} precarga={precarga} />
     </ApartadoShell>
   );
 }

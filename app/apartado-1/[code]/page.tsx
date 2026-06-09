@@ -20,10 +20,13 @@ export async function generateMetadata({
 
 export default async function PaginaTramite({
   params,
+  searchParams,
 }: {
   params: Promise<{ code: string }>;
+  searchParams: Promise<{ source_doc?: string; delegacion?: string }>;
 }) {
   const { code } = await params;
+  const { source_doc } = await searchParams;
   const supabase = await getServerClient();
 
   const { data: tipo } = await supabase
@@ -37,6 +40,21 @@ export default async function PaginaTramite({
 
   if (!tipo) notFound();
   const tramiteType = tipo as TramiteType;
+
+  // Si vino con ?source_doc=<uuid>, trae los datos extraídos para precargar
+  // el form. Si el doc no existe o no es del usuario, simplemente no
+  // precarga — no rompemos el flujo.
+  let precarga: Record<string, unknown> | null = null;
+  if (source_doc) {
+    const { data: doc } = await supabase
+      .from("documents")
+      .select("extracted_data")
+      .eq("id", source_doc)
+      .maybeSingle();
+    if (doc?.extracted_data) {
+      precarga = doc.extracted_data as Record<string, unknown>;
+    }
+  }
   const tieneCasos = Array.isArray(tramiteType.cases) && tramiteType.cases.length > 0;
   const esEscritoTipo = esEscrito(tramiteType.code);
 
@@ -70,7 +88,7 @@ export default async function PaginaTramite({
         </Link>
       </nav>
 
-      <VistaTramite tramiteType={tramiteType} />
+      <VistaTramite tramiteType={tramiteType} precarga={precarga} />
     </ApartadoShell>
   );
 }
