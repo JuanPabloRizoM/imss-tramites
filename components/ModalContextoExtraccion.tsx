@@ -108,13 +108,13 @@ export function ModalContextoExtraccion({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/70 px-4 py-8"
       onClick={onCancelar}
       role="dialog"
       aria-modal="true"
     >
       <div
-        className="grid w-full max-w-md gap-4 rounded-md border border-line bg-paper p-6 shadow-lg"
+        className="grid w-full max-w-lg gap-4 rounded-lg border-2 border-ink bg-paper p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <header className="grid gap-1">
