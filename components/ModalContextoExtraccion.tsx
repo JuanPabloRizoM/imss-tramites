@@ -125,7 +125,7 @@ export function ModalContextoExtraccion({
       style={{ top: 0, left: 0, right: 0, bottom: 0 }}
     >
       <div
-        className="fixed left-1/2 top-1/2 max-h-[90vh] w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 grid gap-4 overflow-y-auto rounded-lg border-2 border-ink bg-paper p-6 shadow-2xl"
+        className="fixed left-1/2 top-1/2 grid max-h-[90vh] w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 grid-cols-1 gap-4 overflow-y-auto rounded-lg border-2 border-ink bg-paper p-6 shadow-2xl [&_select]:w-full [&_select]:min-w-0 [&>*]:min-w-0"
         onClick={(e) => e.stopPropagation()}
       >
         <header className="grid gap-1">
