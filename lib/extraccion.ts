@@ -141,6 +141,64 @@ export const DOC_TYPES: Record<string, DocType> = {
     },
   },
 
+  // Propuesta de Cédula de Determinación de Cuotas IMSS — mensual. Comparte
+  // estructura con EMA/EBA (cabecera + DETALLE DE TRABAJADORES) pero la
+  // cabecera trae datos propios (propuesta IMSS, prima RT, UMA, cotizantes,
+  // totales patronal/obrera, fecha límite de pago) y la tabla viene MUY
+  // detallada por cuota (cuota fija, excedente, prestaciones, RT, IV, etc.).
+  // Se usa para extraer la lista de trabajadores → exportar a Excel →
+  // pegar en IDSE para altas/bajas masivas.
+  propuesta_cedula: {
+    id: "propuesta_cedula",
+    label: "Propuesta de Cédula IMSS (mensual)",
+    campos: [
+      { id: "registro_patronal", label: "Registro patronal" },
+      { id: "razon_social", label: "Nombre o razón social del patrón" },
+      { id: "delegacion_imss", label: "Delegación IMSS" },
+      { id: "subdelegacion_imss", label: "Subdelegación IMSS" },
+      { id: "periodo", label: "Periodo (MM-AAAA)" },
+      { id: "propuesta_imss", label: "Número de propuesta IMSS" },
+      { id: "prima_rt", label: "Prima de Riesgo de Trabajo" },
+      { id: "clase_rt", label: "Clase de Riesgo de Trabajo" },
+      { id: "smv", label: "Salario Mínimo Vigente (S.M.V.)" },
+      { id: "uma", label: "U.M.A. vigente" },
+      { id: "cotizantes", label: "Total de cotizantes" },
+      { id: "dias_cot", label: "Total de días cotizados" },
+      { id: "importe_total_patronal", label: "Importe total patronal ($)" },
+      { id: "importe_total_obrera", label: "Importe total obrera ($)" },
+      { id: "importe_total_suma", label: "Importe total ($) — patronal + obrera" },
+      { id: "fecha_limite_pago", label: "Fecha límite de pago" },
+    ],
+    tabla: {
+      id: "trabajadores",
+      label: "Detalle de trabajadores",
+      descripcion:
+        "Una fila por trabajador-movimiento del periodo. Si una columna no aparece, deja el valor null.",
+      columnas: [
+        { id: "nss", label: "Número de Seguridad Social (NSS)" },
+        { id: "nombre", label: "Apellidos y nombre(s)" },
+        { id: "curp", label: "CURP" },
+        { id: "origen", label: "Origen del movimiento" },
+        { id: "clave", label: "Clave de movimiento" },
+        { id: "fecha", label: "Fecha del movimiento" },
+        { id: "dias", label: "Días cotizados en el periodo" },
+        { id: "salario_diario", label: "Salario diario" },
+        { id: "cuota_fija", label: "Cuota fija ($)" },
+        { id: "excedente_pat", label: "Excedente patronal ($)" },
+        { id: "excedente_obr", label: "Excedente obrera ($)" },
+        { id: "prest_dinero_pat", label: "Prestaciones en dinero patronal ($)" },
+        { id: "prest_dinero_obr", label: "Prestaciones en dinero obrera ($)" },
+        { id: "gastos_med_pat", label: "Gastos médicos pensionados patronal ($)" },
+        { id: "gastos_med_obr", label: "Gastos médicos pensionados obrera ($)" },
+        { id: "riesgos_trabajo", label: "Riesgos de trabajo ($)" },
+        { id: "invalidez_vida_pat", label: "Invalidez y vida patronal ($)" },
+        { id: "invalidez_vida_obr", label: "Invalidez y vida obrera ($)" },
+        { id: "guarderias_prest_soc", label: "Guarderías y prestaciones sociales ($)" },
+        { id: "suma", label: "Suma total fila ($)" },
+      ],
+    },
+  },
+
   generico: {
     id: "generico",
     label: "Documento (tipo no especificado)",

@@ -930,9 +930,49 @@ function TablaFilas({
   const eliminarFila = (idx: number) =>
     onChange(filas.filter((_, i) => i !== idx));
 
+  // Feedback "Copiado!" sobre el botón después de Copiar tabla.
+  const [copiado, setCopiado] = useState(false);
+
+  const copiarTSV = useCallback(async () => {
+    const tsv = filasATSV(tabla, filas);
+    try {
+      await navigator.clipboard.writeText(tsv);
+      setCopiado(true);
+      window.setTimeout(() => setCopiado(false), 1500);
+    } catch {
+      // Fallback: textarea + execCommand para navegadores que bloquean
+      // clipboard API en ciertos contextos (p.ej. http en dev).
+      const ta = document.createElement("textarea");
+      ta.value = tsv;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      setCopiado(true);
+      window.setTimeout(() => setCopiado(false), 1500);
+    }
+  }, [tabla, filas]);
+
+  const descargarCSV = useCallback(() => {
+    const csv = filasACSV(tabla, filas);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${tabla.id}-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [tabla, filas]);
+
+  const hayFilas = filas.length > 0;
+
   return (
     <section className="rounded-md border border-line bg-paper-2 p-4">
-      <header className="mb-3 flex items-end justify-between gap-3">
+      <header className="mb-3 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow">{tabla.label}</p>
           <p className="text-xs text-ink-3">
@@ -940,13 +980,33 @@ function TablaFilas({
             {tabla.descripcion ? ` · ${tabla.descripcion}` : ""}
           </p>
         </div>
-        <button
-          type="button"
-          onClick={agregarFila}
-          className="inline-flex min-h-[36px] items-center rounded-md border border-line bg-paper px-3 text-sm font-medium text-ink hover:bg-paper-2"
-        >
-          + Agregar fila
-        </button>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={copiarTSV}
+            disabled={!hayFilas}
+            className="inline-flex min-h-[36px] items-center rounded-md border border-line bg-paper px-3 text-sm font-medium text-ink hover:bg-paper-2 disabled:cursor-not-allowed disabled:opacity-50"
+            title="Copia la tabla como texto separado por tabuladores. Pega directo en Excel/Sheets."
+          >
+            {copiado ? "¡Copiado!" : "Copiar tabla"}
+          </button>
+          <button
+            type="button"
+            onClick={descargarCSV}
+            disabled={!hayFilas}
+            className="inline-flex min-h-[36px] items-center rounded-md border border-line bg-paper px-3 text-sm font-medium text-ink hover:bg-paper-2 disabled:cursor-not-allowed disabled:opacity-50"
+            title="Descarga la tabla como CSV. Excel lo abre directamente."
+          >
+            Descargar CSV
+          </button>
+          <button
+            type="button"
+            onClick={agregarFila}
+            className="inline-flex min-h-[36px] items-center rounded-md border border-line bg-paper px-3 text-sm font-medium text-ink hover:bg-paper-2"
+          >
+            + Agregar fila
+          </button>
+        </div>
       </header>
 
       {filas.length === 0 ? (
@@ -1013,6 +1073,42 @@ function TablaFilas({
       )}
     </section>
   );
+}
+
+// Serializa la tabla extraída como texto separado por tabuladores. Pega
+// directo en Excel/Sheets — cada \t salta de columna, cada \n salta de
+// fila. Sanitizamos tab/newline dentro de celdas para que no rompan
+// columnas al pegar.
+function filasATSV(
+  tabla: NonNullable<DocType["tabla"]>,
+  filas: FilaExtraida[]
+): string {
+  const sanitizar = (v: string) => v.replace(/[\t\r\n]+/g, " ").trim();
+  const headers = tabla.columnas.map((c) => sanitizar(c.label)).join("\t");
+  const filasTxt = filas.map((f) =>
+    tabla.columnas
+      .map((c) => sanitizar(f[c.id]?.valor ?? ""))
+      .join("\t")
+  );
+  return [headers, ...filasTxt].join("\n");
+}
+
+// CSV con BOM UTF-8 al inicio para que Excel detecte la codificación y no
+// rompa acentos/ñ. Escapamos comillas duplicándolas y envolvemos en "..."
+// cualquier celda con coma, comilla o salto de línea.
+function filasACSV(
+  tabla: NonNullable<DocType["tabla"]>,
+  filas: FilaExtraida[]
+): string {
+  const escapar = (v: string) => {
+    if (/[",\r\n]/.test(v)) return `"${v.replace(/"/g, '""')}"`;
+    return v;
+  };
+  const headers = tabla.columnas.map((c) => escapar(c.label)).join(",");
+  const filasTxt = filas.map((f) =>
+    tabla.columnas.map((c) => escapar(f[c.id]?.valor ?? "")).join(",")
+  );
+  return "﻿" + [headers, ...filasTxt].join("\r\n");
 }
 
 function ConfianzaTag({ valor }: { valor: DatoExtraido["confianza"] }) {
