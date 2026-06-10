@@ -22,3 +22,14 @@ El equivalente para el `field_schema` (en `supabase/migrations/`): cada migratio
 **TODO el texto que va al PDF de un formato del IMSS va en MAYÚSCULAS.** Sin excepciones para etiquetas, ejemplos, placeholders, `options` de selects o de textareas con chips, ni valores hardcoded para pruebas. Cuando agregues un nuevo `options: [...]` al schema, ya van en mayúsculas — no dejes que el usuario me lo recuerde.
 
 (`lib/tramites.ts::normalizarParaSalida` ya hace el upcase para campos `text` en el momento de generar PDF, pero NO para `textarea` ni para opciones de chips — esas las tengo que poner ya en mayúsculas yo desde el schema.)
+
+# Gate de extracción
+
+Después de tocar `lib/extraccion.ts`, `lib/precarga.ts`, `lib/formatos-imss.ts` o los `field_schema` de las migrations, corre SIEMPRE antes de commitear:
+
+```
+npx tsx scripts/test-extraccion.ts        # 120+ asserts del pipeline
+npx tsx scripts/auditoria-cobertura.ts    # cobertura doc_types ↔ catálogo vivo (debe dar 0 huecos)
+```
+
+Ambos leen el catálogo vivo de Supabase (.env.local). Si agregas un campo a un schema con `source_doc`, la auditoría te dirá si el doc_type lo puede llenar. Referencia de formatos (NSS, registro patronal, CURP…): `docs/formatos-imss.md`.
