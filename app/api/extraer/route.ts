@@ -26,7 +26,9 @@ import { getServiceRoleClient } from "@/lib/supabase/server";
 //   - No reintentar en bucle: un error queda como tal y la UI ofrece reintento.
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
+// Tablas grandes (SUA con muchos trabajadores) pueden tardar más de 60s en
+// generarse. En Vercel hobby se recorta a 60s igual; en pro/self-host aplica.
+export const maxDuration = 300;
 
 const MODEL = "claude-haiku-4-5";
 // La API de Anthropic cobra por página de PDF. Más de este umbral exige
@@ -168,10 +170,18 @@ export async function POST(req: Request) {
         },
       });
 
+  // Presupuesto de salida: los doc_types con tabla (EMA/EBA/SUA/cédula)
+  // devuelven una fila por trabajador — con ~20 columnas × {valor,confianza}
+  // cada trabajador pesa ~400 tokens. Con 2048 el JSON se truncaba a partir
+  // de ~5 trabajadores y la extracción tronaba en JSON.parse. Solo aplica
+  // a extracción libre: la dirigida (target_fields) no pide tablas.
+  const conTabla = !!docType.tabla && targetCampos.length === 0;
+  const maxTokens = conTabla ? 32768 : 2048;
+
   try {
     const respuesta = await anthropic.messages.create({
       model: MODEL,
-      max_tokens: 2048,
+      max_tokens: maxTokens,
       system: systemPrompt,
       messages: [
         {
@@ -191,6 +201,17 @@ export async function POST(req: Request) {
       .filter((b): b is Anthropic.TextBlock => b.type === "text")
       .map((b) => b.text)
       .join("");
+
+    // Si el modelo se quedó sin presupuesto de salida, el JSON viene
+    // cortado — mejor un error claro que un "Unexpected end of JSON".
+    if (respuesta.stop_reason === "max_tokens") {
+      const mensaje =
+        "El documento tiene demasiadas filas para una sola extracción " +
+        "(la respuesta se truncó). Sube el documento por páginas o en " +
+        "partes más chicas.";
+      await marcarError(supabase, documentId, mensaje);
+      return NextResponse.json({ error: mensaje }, { status: 422 });
+    }
 
     const datos = parsearRespuestaIA(textoSalida, docTypeParaParseo);
 

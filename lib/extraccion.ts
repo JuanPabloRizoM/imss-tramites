@@ -276,15 +276,18 @@ export const DOC_TYPES: Record<string, DocType> = {
     id: "sua_ema_eba",
     label: "Emisión EMA / EBA / reporte SUA (lista de trabajadores)",
     descripcion_para_ia:
-      "Emisión del IMSS: EMA (Emisión Mensual Anticipada — cuotas IMSS del " +
-      "mes) o EBA (Emisión Bimestral Anticipada — RCV e Infonavit del " +
-      "bimestre), o un reporte equivalente del SUA. CABECERA: datos " +
+      "Emisión del IMSS o reporte del SUA: EMA (Emisión Mensual Anticipada " +
+      "— cuotas IMSS del mes), EBA (Emisión Bimestral Anticipada — RCV e " +
+      "Infonavit del bimestre) o Cédula de Determinación de Cuotas del SUA " +
+      "(título 'SISTEMA ÚNICO DE AUTODETERMINACIÓN'). CABECERA: datos " +
       "completos del patrón — registro patronal, RFC, nombre/razón social, " +
       "domicilio, actividad, clasificación de riesgo (prima, clase, " +
-      "fracción), periodo y delegación/subdelegación. La cabecera trae " +
-      "casi todo lo necesario para llenar formatos patronales — extráela " +
-      "COMPLETA. CUERPO: tabla con un trabajador por fila. " +
-      "El documento puede ser impreso o tener anotaciones manuscritas.",
+      "fracción), periodo/bimestre y delegación/subdelegación. La cabecera " +
+      "trae casi todo lo necesario para llenar formatos patronales — " +
+      "extráela COMPLETA. CUERPO: lista de trabajadores donde cada " +
+      "trabajador ocupa un BLOQUE de varias líneas (ver instrucciones de " +
+      "la tabla). El documento puede ser impreso o tener anotaciones " +
+      "manuscritas.",
     campos: [
       { id: "registro_patronal", label: "Registro patronal" },
       { id: "rfc_patron", label: "RFC del patrón" },
@@ -308,20 +311,36 @@ export const DOC_TYPES: Record<string, DocType> = {
       id: "trabajadores",
       label: "Trabajadores listados en el documento",
       descripcion:
-        "Una fila por trabajador. Si la columna no aparece para esa fila, deja el valor como null.",
+        "OJO con el layout: cada trabajador ocupa un BLOQUE de varias " +
+        "líneas impresas, no una sola fila. Línea 1: NSS + nombre + " +
+        "RFC/CURP. Línea 2 (clave ISM u otra): fecha, días, SDI, " +
+        "incapacidades, ausencias y los importes. Después pueden venir " +
+        "líneas de 'Actualización' y 'Recargos' del mismo trabajador. " +
+        "Devuelve UNA SOLA fila por trabajador combinando todo su bloque — " +
+        "NUNCA crees filas separadas para Actualización o Recargos. " +
+        "Si una columna no aparece para ese trabajador, déjala null.",
       columnas: [
-        { id: "nss", label: "Número de Seguridad Social (NSS)" },
-        { id: "nombre", label: "Nombre completo del trabajador" },
-        { id: "rfc_curp", label: "RFC o CURP" },
-        { id: "movimiento", label: "Tipo de movimiento (Alta / Baja / M-S / etc.)" },
+        { id: "nss", label: "Número de Seguridad Social (NSS)", hint: "Suele venir con guiones: '31-00-84-3217-6' — júntalo." },
+        { id: "nombre", label: "Nombre completo del trabajador", hint: "Apellidos primero, tal como aparece." },
+        { id: "rfc_curp", label: "RFC o CURP", hint: "Puede venir truncado y con guiones ('AAAA-111111-') — transcríbelo tal cual." },
+        { id: "movimiento", label: "Clave / tipo de movimiento", hint: "ISM, ALTA, BAJA, M-S, etc. — la clave al inicio de la segunda línea del bloque." },
         { id: "fecha", label: "Fecha del movimiento" },
         { id: "dias", label: "Días trabajados / cotizados" },
         { id: "sdi", label: "Salario Diario Integrado (SDI)" },
-        { id: "cuotas_patronal", label: "Cuotas patronal ($)" },
+        { id: "incapacidades", label: "Incapacidades (Inc.)" },
+        { id: "ausencias", label: "Ausencias (Aus.)" },
+        { id: "retiro", label: "Retiro ($)" },
+        { id: "cuotas_patronal", label: "Cuotas patronal ($)", hint: "En cédula bimestral SUA: Cesantía y Vejez patronal. En EMA: cuotas IMSS patronal." },
         { id: "cuotas_obrera", label: "Cuotas obrera ($)" },
-        { id: "cuotas_suma", label: "Suma de cuotas IMSS ($)" },
-        { id: "aportacion_vivienda", label: "Aportación INFONAVIT / vivienda ($)" },
+        { id: "cuotas_suma", label: "Suma de cuotas ($)" },
+        { id: "aportacion_vivienda", label: "Aportación patronal INFONAVIT ($)" },
+        { id: "porcentaje_cf", label: "% o C.F. o V.S.M. del crédito", hint: "Columna '% o C.F. o V.S.M.' — ej. '600.00 C.F.'." },
+        { id: "amortizacion", label: "Amortización del crédito ($)" },
+        { id: "suma_infonavit", label: "Suma INFONAVIT ($)", hint: "Aportación + amortización." },
         { id: "credito_vivienda", label: "Número de crédito de vivienda (si aplica)" },
+        { id: "tipo_fecha_credito", label: "Tipo y fecha de movimiento del crédito", hint: "Ej. 'ICV 15/08/2004'." },
+        { id: "actualizacion", label: "Actualización ($, suma de la línea 'Actualización')" },
+        { id: "recargos", label: "Recargos ($, suma de la línea 'Recargos')" },
       ],
     },
   },
