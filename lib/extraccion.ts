@@ -96,6 +96,7 @@ export const DOC_TYPES: Record<string, DocType> = {
       { id: "municipio", label: "Municipio o alcaldía" },
       { id: "estado", label: "Entidad federativa (estado)" },
       { id: "codigo_postal", label: "Código postal (5 dígitos)" },
+      { id: "domicilio", label: "Domicilio completo en una sola cadena (como respaldo)" },
       { id: "tipo_comprobante", label: "Tipo de comprobante", hint: "CFE / Telmex / agua / predial / banco / etc." },
       { id: "fecha_emision", label: "Fecha de emisión del comprobante" },
       { id: "periodo", label: "Periodo facturado", hint: "Para servicios. Ej. 'ene-feb 2025'." },
@@ -273,15 +274,31 @@ export const DOC_TYPES: Record<string, DocType> = {
   // anota a mano en el papel que se le entrega).
   sua_ema_eba: {
     id: "sua_ema_eba",
-    label: "Reporte SUA / EMA / EBA (lista de trabajadores)",
+    label: "Emisión EMA / EBA / reporte SUA (lista de trabajadores)",
+    descripcion_para_ia:
+      "Emisión del IMSS: EMA (Emisión Mensual Anticipada — cuotas IMSS del " +
+      "mes) o EBA (Emisión Bimestral Anticipada — RCV e Infonavit del " +
+      "bimestre), o un reporte equivalente del SUA. CABECERA: datos " +
+      "completos del patrón — registro patronal, RFC, nombre/razón social, " +
+      "domicilio, actividad, clasificación de riesgo (prima, clase, " +
+      "fracción), periodo y delegación/subdelegación. La cabecera trae " +
+      "casi todo lo necesario para llenar formatos patronales — extráela " +
+      "COMPLETA. CUERPO: tabla con un trabajador por fila. " +
+      "El documento puede ser impreso o tener anotaciones manuscritas.",
     campos: [
       { id: "registro_patronal", label: "Registro patronal" },
       { id: "rfc_patron", label: "RFC del patrón" },
       { id: "razon_social", label: "Nombre o razón social del patrón" },
+      { id: "tipo_persona", label: "Tipo de persona del patrón", hint: "'FISICA' o 'MORAL' según el titular." },
       { id: "periodo", label: "Periodo / bimestre o mes de proceso" },
+      { id: "tipo_emision", label: "Tipo de emisión", hint: "'EMA' (mensual) o 'EBA' (bimestral), según el título del documento." },
       { id: "actividad", label: "Actividad" },
+      { id: "prima_rt", label: "Prima de riesgo de trabajo (%)" },
+      { id: "clase_rt", label: "Clase de riesgo de trabajo" },
+      { id: "fraccion_rt", label: "Fracción de la actividad" },
       { id: "domicilio", label: "Domicilio del patrón" },
       { id: "codigo_postal", label: "Código postal" },
+      { id: "municipio", label: "Municipio o alcaldía" },
       { id: "estado", label: "Entidad federativa (estado)" },
       { id: "delegacion_imss", label: "Delegación IMSS" },
       { id: "subdelegacion_imss", label: "Subdelegación IMSS" },
@@ -374,6 +391,50 @@ export const DOC_TYPES: Record<string, DocType> = {
         { id: "suma", label: "Suma total fila ($)" },
       ],
     },
+  },
+
+  // El "papelito" del mostrador: el cliente anota sus datos a mano (o
+  // dictados) en una hoja — "me llamo X, me dedico a la construcción, mi
+  // registro es Y". Flujo real de papelería: de ahí se llena el AM-SRT o
+  // el formato que toque.
+  nota_manuscrita: {
+    id: "nota_manuscrita",
+    label: "Nota / papelito con datos del cliente",
+    descripcion_para_ia:
+      "Hoja con datos anotados A MANO (o capturados informalmente) por el " +
+      "cliente o el personal del mostrador. NO es un formato oficial: el " +
+      "orden es libre, puede haber tachones, abreviaturas y ortografía " +
+      "variable. Lee TODO lo que esté escrito e identifica qué dato es " +
+      "cada cosa por su forma (un RFC se reconoce por su patrón, un NSS " +
+      "por sus 11 dígitos, un teléfono por 10, una actividad porque " +
+      "describe un oficio: 'construcción', 'taller mecánico', 'abarrotes'). " +
+      "Si un dato no está escrito, déjalo null — NUNCA completes por " +
+      "intuición. Con letra difícil baja la confianza a 'medio' o 'bajo'.",
+    campos: [
+      { id: "razon_social", label: "Nombre completo o razón social tal como lo anotaron" },
+      { id: "tipo_persona", label: "Tipo de persona", hint: "'FISICA' o 'MORAL' si se puede deducir; null si no." },
+      { id: "nombre", label: "Nombre(s) de pila (si es persona física)" },
+      { id: "apellido_paterno", label: "Apellido paterno" },
+      { id: "apellido_materno", label: "Apellido materno" },
+      { id: "rfc", label: "RFC (si lo anotaron)" },
+      { id: "curp", label: "CURP (si la anotaron)" },
+      { id: "nss", label: "NSS (si lo anotaron)" },
+      { id: "registro_patronal", label: "Registro patronal (si lo anotaron)" },
+      { id: "actividad", label: "Actividad / giro / oficio declarado", hint: "Lo que la persona dice que hace: 'construcción', 'puesto de comida', etc. Transcríbelo completo." },
+      { id: "calle", label: "Calle (si anotaron domicilio)" },
+      { id: "numero_exterior", label: "Número exterior" },
+      { id: "numero_interior", label: "Número interior" },
+      { id: "colonia", label: "Colonia" },
+      { id: "codigo_postal", label: "Código postal" },
+      { id: "municipio", label: "Municipio o alcaldía" },
+      { id: "estado", label: "Entidad federativa (estado)" },
+      { id: "domicilio", label: "Domicilio completo en una sola cadena (como respaldo)" },
+      { id: "telefono", label: "Teléfono" },
+      { id: "correo", label: "Correo electrónico" },
+      { id: "salario", label: "Salario o sueldo (si lo anotaron)" },
+      { id: "fecha", label: "Fecha relevante anotada (alta, movimiento, etc.)" },
+      { id: "notas", label: "Cualquier otro dato anotado que no encaje en los campos anteriores", hint: "Transcripción breve de lo que sobre." },
+    ],
   },
 
   generico: {

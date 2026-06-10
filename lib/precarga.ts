@@ -46,6 +46,7 @@ const ALIASES: Record<string, string[]> = {
   no_acta: ["numero_escritura", "numero_acta"],
   fecha_acta: ["fecha_escritura"],
   giro: ["objeto_social", "actividad_economica", "actividad"],
+  actividad_giro: ["actividad", "giro", "objeto_social", "actividad_economica"],
   // Riesgos de trabajo — el doc_type usa _rt, los schemas no
   clase: ["clase_rt"],
   clase_riesgo: ["clase_rt", "clase"],
