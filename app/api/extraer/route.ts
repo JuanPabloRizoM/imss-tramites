@@ -170,13 +170,13 @@ export async function POST(req: Request) {
         },
       });
 
-  // Presupuesto de salida: los doc_types con tabla (EMA/EBA/SUA/cédula)
-  // devuelven una fila por trabajador — con ~20 columnas × {valor,confianza}
-  // cada trabajador pesa ~400 tokens. Con 2048 el JSON se truncaba a partir
-  // de ~5 trabajadores y la extracción tronaba en JSON.parse. Solo aplica
-  // a extracción libre: la dirigida (target_fields) no pide tablas.
-  const conTabla = !!docType.tabla && targetCampos.length === 0;
-  const maxTokens = conTabla ? 32768 : 2048;
+  // Presupuesto de salida: max_tokens es solo un TOPE — lo no generado no
+  // se cobra, así que va generoso siempre. Con 2048 se truncaba el JSON en
+  // dos casos reales: tablas de trabajadores (SUA/EMA, ~400 tokens por
+  // fila) Y extracción dirigida con schemas grandes (AFIL-02: 40 campos,
+  // AM-SRT: ~97 — el prompt exige devolver TODOS los campos aunque sean
+  // null, y solo las claves ya pesan ~2.5k tokens).
+  const maxTokens = 32768;
 
   try {
     const respuesta = await anthropic.messages.create({
@@ -206,9 +206,9 @@ export async function POST(req: Request) {
     // cortado — mejor un error claro que un "Unexpected end of JSON".
     if (respuesta.stop_reason === "max_tokens") {
       const mensaje =
-        "El documento tiene demasiadas filas para una sola extracción " +
-        "(la respuesta se truncó). Sube el documento por páginas o en " +
-        "partes más chicas.";
+        "La extracción es demasiado grande para una sola pasada (la " +
+        "respuesta se truncó). Sube el documento por páginas o en partes " +
+        "más chicas.";
       await marcarError(supabase, documentId, mensaje);
       return NextResponse.json({ error: mensaje }, { status: 422 });
     }
