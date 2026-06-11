@@ -179,23 +179,29 @@ export async function POST(req: Request) {
   const maxTokens = 32768;
 
   try {
-    const respuesta = await anthropic.messages.create({
-      model: MODEL,
-      max_tokens: maxTokens,
-      system: systemPrompt,
-      messages: [
-        {
-          role: "user",
-          content: [
-            bloqueArchivo,
-            {
-              type: "text",
-              text: "Extrae los campos del documento siguiendo las reglas del sistema. Devuelve solo el JSON.",
-            },
-          ],
-        },
-      ],
-    });
+    // Streaming obligatorio: el SDK rechaza peticiones no-streaming con
+    // max_tokens grandes ("Streaming is required for operations that may
+    // take longer than 10 minutes"). finalMessage() acumula el stream y
+    // devuelve el mismo shape que messages.create.
+    const respuesta = await anthropic.messages
+      .stream({
+        model: MODEL,
+        max_tokens: maxTokens,
+        system: systemPrompt,
+        messages: [
+          {
+            role: "user",
+            content: [
+              bloqueArchivo,
+              {
+                type: "text",
+                text: "Extrae los campos del documento siguiendo las reglas del sistema. Devuelve solo el JSON.",
+              },
+            ],
+          },
+        ],
+      })
+      .finalMessage();
 
     const textoSalida = respuesta.content
       .filter((b): b is Anthropic.TextBlock => b.type === "text")
