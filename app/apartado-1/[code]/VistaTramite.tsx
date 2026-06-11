@@ -8,6 +8,7 @@ import { getBrowserClient } from "@/lib/supabase/client";
 import {
   agruparPorSeccion,
   camposDelCaso,
+  debeMostrar,
   normalizarParaSalida,
   tieneCasos,
   type CampoSchema,
@@ -687,23 +688,30 @@ function FormularioCaso({
     if (!frac) return;
     const hit = buscarFraccion(frac);
     if (!hit) return;
-    if (
+    // Códigos desalineados con el catálogo → corregirlos. Descripciones
+    // VACÍAS → llenarlas (sin pisar las editadas a mano). OJO: el check de
+    // descripciones tiene que estar en el early-return — si los códigos ya
+    // venían llenos (precarga/extracción), antes se regresaba sin escribir
+    // las descripciones nunca.
+    const codigosOk =
       valores.fraccion === hit.fraccionCodigo &&
       valores.division === hit.divisionCodigo &&
       valores.grupo === hit.grupoCodigo &&
-      valores.clase === hit.claseCodigo
-    ) {
-      return;
-    }
+      valores.clase === hit.claseCodigo;
+    const descripcionesOk =
+      !!valores.division_descripcion &&
+      !!valores.grupo_descripcion &&
+      !!valores.fraccion_descripcion;
+    if (codigosOk && descripcionesOk) return;
     setValores((prev) => ({
       ...prev,
       fraccion: hit.fraccionCodigo,
       division: hit.divisionCodigo,
       grupo: hit.grupoCodigo,
       clase: hit.claseCodigo,
-      division_descripcion: hit.divisionNombre,
-      grupo_descripcion: hit.grupoNombre,
-      fraccion_descripcion: hit.fraccionTitulo,
+      division_descripcion: prev.division_descripcion || hit.divisionNombre,
+      grupo_descripcion: prev.grupo_descripcion || hit.grupoNombre,
+      fraccion_descripcion: prev.fraccion_descripcion || hit.fraccionTitulo,
       // clase_descripcion: NO se auto-llena (redundante con la columna Clave).
     }));
   }, [
@@ -712,6 +720,9 @@ function FormularioCaso({
     valores.division,
     valores.grupo,
     valores.clase,
+    valores.division_descripcion,
+    valores.grupo_descripcion,
+    valores.fraccion_descripcion,
     setValores,
   ]);
 
@@ -864,12 +875,17 @@ function FormularioCaso({
     setMensaje(null);
     try {
       // Para el PDF: solo campos del caso (más causa_aviso si aplica) que
-      // tengan valor.
-      const incluir = new Set(campos.map((c) => c.id));
-      if (caso) incluir.add("causa_aviso");
+      // tengan valor Y estén visibles según show_if — si el usuario llenó
+      // la sección V y luego cambió el tipo de modificación, esos valores
+      // ocultos no deben imprimirse.
       const valoresFiltrados: Record<string, string> = {};
-      for (const id of incluir) {
-        if (valores[id]) valoresFiltrados[id] = valores[id];
+      for (const c of campos) {
+        if (valores[c.id] && debeMostrar(c, valores)) {
+          valoresFiltrados[c.id] = valores[c.id];
+        }
+      }
+      if (caso && valores.causa_aviso) {
+        valoresFiltrados.causa_aviso = valores.causa_aviso;
       }
       const res = await fetch("/api/generar-pdf", {
         method: "POST",
@@ -901,8 +917,10 @@ function FormularioCaso({
     }
   }, [tramiteType.code, valores, campos, caso]);
 
+  // Un campo oculto por show_if no puede bloquear el submit aunque sea
+  // required (p.ej. los campos de la sección V cuando no hay sustitución).
   const camposFaltantes = campos.filter(
-    (c) => c.required && !valores[c.id]?.trim()
+    (c) => c.required && debeMostrar(c, valores) && !valores[c.id]?.trim()
   );
   const faltaObligatorio = camposFaltantes.length > 0;
 
@@ -1000,21 +1018,29 @@ function FormularioCaso({
           generarPDF();
         }}
       >
-        {grupos.map(({ seccion, campos: camposSec }) => (
-          <fieldset key={seccion} className="grid gap-4">
-            <legend className="eyebrow">{seccion}</legend>
-            <div className="grid gap-4 md:grid-cols-2">
-              {camposSec.map((campo) => (
-                <CampoInput
-                  key={campo.id}
-                  campo={campo}
-                  valor={valores[campo.id] ?? ""}
-                  onChange={(v) => setCampo(campo.id, v)}
-                />
-              ))}
-            </div>
-          </fieldset>
-        ))}
+        {grupos.map(({ seccion, campos: camposSec }) => {
+          // show_if: solo los campos cuya condición se cumple con los
+          // valores actuales (p.ej. la sección V del AM-SRT solo aparece
+          // con sustitución patronal o fusión). Si la sección entera queda
+          // sin campos visibles, no se pinta ni el encabezado.
+          const visibles = camposSec.filter((c) => debeMostrar(c, valores));
+          if (visibles.length === 0) return null;
+          return (
+            <fieldset key={seccion} className="grid gap-4">
+              <legend className="eyebrow">{seccion}</legend>
+              <div className="grid gap-4 md:grid-cols-2">
+                {visibles.map((campo) => (
+                  <CampoInput
+                    key={campo.id}
+                    campo={campo}
+                    valor={valores[campo.id] ?? ""}
+                    onChange={(v) => setCampo(campo.id, v)}
+                  />
+                ))}
+              </div>
+            </fieldset>
+          );
+        })}
 
         <div className="flex flex-wrap items-center gap-3 border-t border-line pt-6">
           <button

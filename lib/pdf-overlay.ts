@@ -155,6 +155,10 @@ export async function generarOverlay(
   }
 
   for (const [campoId, conf] of Object.entries(coords.campos)) {
+    // Los coords.json calibrados traen notas como '"_nota_x": "texto"' —
+    // cualquier entrada que no sea objeto se ignora (el 'in' sobre un
+    // string truena con "Cannot use 'in' operator").
+    if (conf == null || typeof conf !== "object") continue;
     // Si la coord tiene `from`, toma el valor de ese campo en vez del id propio.
     const valueKey = (conf as { from?: string }).from ?? campoId;
 
