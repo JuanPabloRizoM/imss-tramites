@@ -67,7 +67,7 @@ function initSupabase(): SupabaseClient | null {
 
 function valoresIniciales(schema: CampoSchema[]): Valores {
   const v: Valores = {};
-  for (const c of schema) v[c.id] = "";
+  for (const c of schema) v[c.id] = c.default ?? "";
   return v;
 }
 

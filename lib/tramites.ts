@@ -15,6 +15,10 @@ export type CampoSchema = {
   source_doc?: string | null;
   options?: string[];
   placeholder?: string;
+  // Valor inicial del campo al abrir el form (p.ej. "true" para checkboxes
+  // que casi siempre van marcados, como "poder para actos de administración").
+  // El usuario puede desmarcarlo/cambiarlo.
+  default?: string;
   // Selector CSS del campo en el portal externo (p. ej. "#txtRfc" o
   // '[name="DN_O"]'). Lo lee la extensión de navegador.
   portal_selector?: string | null;
