@@ -50,6 +50,14 @@ Para probar cambios locales antes de mandarlos a la tienda:
 4. Desinstala antes la versión de tienda (o desactívala) para no tener
    dos copias inyectando a la vez.
 
+## Pendiente de publicar
+
+La tienda tiene la **0.4.0**. En el repo ya está la **0.4.1** (candado
+física/moral: avisa si el trámite elegido no corresponde a la captura
+abierta). Decisión: no subirla sola — se va a acumular con la siguiente
+funcionalidad grande (llenado automático de la tabla dinámica de
+Productos, bloqueado por el dump del DOM del sub-formulario del portal).
+
 ## Publicar una versión nueva en la tienda
 
 1. Sube `version` en `extension/manifest.json` (semver).
