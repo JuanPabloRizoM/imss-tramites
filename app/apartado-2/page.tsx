@@ -28,10 +28,18 @@ export default async function Apartado2() {
       resumen="Capturas datos aquí; la extensión los pega en el portal del IMSS en Edge."
     >
       <p className="mb-8 rounded-md border border-line bg-paper-2 p-4 text-sm text-ink-2">
-        Requiere la <strong className="font-medium text-ink">extensión de Edge</strong>{" "}
-        instalada desde la carpeta <code className="font-mono text-xs">extension/</code>.
-        Ver{" "}
-        <code className="font-mono text-xs">extension/README.md</code> para instalación.
+        Requiere la <strong className="font-medium text-ink">extensión de Edge</strong>.
+        Instálala desde la{" "}
+        <a
+          href="https://microsoftedge.microsoft.com/addons/detail/ppmommkgdmjeaoiahapbanjcamodpelm"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-ink underline underline-offset-2 hover:text-accent"
+        >
+          tienda de Microsoft Edge
+        </a>{" "}
+        (un clic) y configúrala con la URL y anon key de Supabase — ver{" "}
+        <code className="font-mono text-xs">extension/README.md</code>.
       </p>
 
       {error && (

@@ -29,11 +29,33 @@ marcados como **revisado** en la app y los pega en el portal del IMSS.
 
 ## Instalación en Microsoft Edge
 
+### Opción A — Tienda oficial (recomendada)
+
+Publicada en la tienda de complementos de Edge (v0.4.0 aprobada):
+
+**https://microsoftedge.microsoft.com/addons/detail/ppmommkgdmjeaoiahapbanjcamodpelm**
+
+1. Abre el link y haz clic en **Obtener**.
+2. Aparecerá el icono en la barra. Fíjalo (pin) para tenerlo siempre visible.
+3. Las actualizaciones llegan solas cuando se publique una versión nueva.
+
+### Opción B — Desde el código (desarrollo)
+
+Para probar cambios locales antes de mandarlos a la tienda:
+
 1. Abre Edge y ve a `edge://extensions`.
 2. Activa **Modo de desarrollador** (toggle abajo a la izquierda).
 3. Haz clic en **Cargar desempaquetada** y selecciona la carpeta
    `extension/` de este proyecto.
-4. Aparecerá el icono en la barra. Fíjalo (pin) para tenerlo siempre visible.
+4. Desinstala antes la versión de tienda (o desactívala) para no tener
+   dos copias inyectando a la vez.
+
+## Publicar una versión nueva en la tienda
+
+1. Sube `version` en `extension/manifest.json` (semver).
+2. Empaqueta la carpeta: `cd extension && zip -r ../tramites-imss-x.y.z.zip . -x ".*"`.
+3. Sube el zip en el [Partner Center de Microsoft](https://partner.microsoft.com/dashboard/microsoftedge/overview)
+   y manda a revisión (suele tardar 1-3 días hábiles).
 
 ## Primera configuración
 
