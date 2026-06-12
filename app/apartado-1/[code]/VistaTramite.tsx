@@ -16,7 +16,7 @@ import {
   type TramiteType,
 } from "@/lib/tramites";
 import { obtenerDocType, type DatoExtraido } from "@/lib/extraccion";
-import { precargarValores } from "@/lib/precarga";
+import { ajustarASelect, precargarValores } from "@/lib/precarga";
 import { redimensionarImagen } from "@/lib/imagen";
 import { buscarFraccion } from "@/lib/catalogo-imss";
 import { buscarDelegacion } from "@/lib/delegaciones";
@@ -935,7 +935,13 @@ function FormularioCaso({
         for (const campo of tramiteType.field_schema) {
           const d = datos[campo.id];
           if (d?.valor && !out[campo.id]?.trim()) {
-            out[campo.id] = d.valor;
+            // En selects, mapear al casing exacto de la option — la IA
+            // extrae "FISICA"/"MORAL" pero las options de control van en
+            // minúsculas; sin esto el select queda en blanco y los
+            // show_if que dependen de él no disparan.
+            const ajustado = ajustarASelect(campo, d.valor);
+            if (ajustado === null) continue;
+            out[campo.id] = ajustado;
             aplicados += 1;
           }
         }

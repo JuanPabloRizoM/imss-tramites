@@ -97,7 +97,11 @@ export function precargarValores(
 
   for (const campo of schema) {
     const valor = encontrarValor(campo, extraido, schemaIds, docTypeId);
-    if (valor !== null) out[campo.id] = valor;
+    if (valor === null) continue;
+    // En selects, mapear al casing exacto de la option ("FISICA"→"fisica")
+    // — si no, el <select> queda en blanco y los show_if no disparan.
+    const ajustado = ajustarASelect(campo, valor);
+    if (ajustado !== null) out[campo.id] = ajustado;
   }
   return out;
 }
@@ -163,6 +167,53 @@ function encontrarValor(
   }
 
   return null;
+}
+
+// Para campos select, el valor extraído debe coincidir EXACTO con una de
+// las options o el <select> queda en blanco y los show_if que dependen de
+// él nunca disparan. La IA extrae "FISICA"/"MORAL" (regla de mayúsculas)
+// pero las options de control van en minúsculas ("fisica"/"moral") —
+// mapeamos ignorando mayúsculas y acentos. Si no hay match, se devuelve
+// null (mejor vacío que un valor que el select no puede representar).
+export function ajustarASelect(
+  campo: Pick<CampoSchema, "type" | "options">,
+  valor: string
+): string | null {
+  if (campo.type !== "select" || !campo.options?.length) return valor;
+  const clave = canonico(valor);
+  for (const opt of campo.options) {
+    if (canonico(opt) === clave) return opt;
+  }
+  return null;
+}
+
+// Sin\u00f3nimos sem\u00e1nticos: distintas formas de escribir el MISMO valor.
+// Clave y valor ya normalizados (sin acentos, min\u00fasculas). Solo entradas
+// 100% seguras \u2014 sexo usa la codificaci\u00f3n de los formatos AFIL (1=hombre,
+// 2=mujer). tipo_contratacion/tipo_salario NO se mapean (c\u00f3digos no
+// verificados) \u2014 esos los elige el usuario.
+const SINONIMOS: Record<string, string> = {
+  h: "1",
+  hombre: "1",
+  masculino: "1",
+  m: "2",
+  mujer: "2",
+  femenino: "2",
+  "persona fisica": "fisica",
+  "persona moral": "moral",
+};
+
+function canonico(s: string): string {
+  const norm = normalizarComparable(s);
+  return SINONIMOS[norm] ?? norm;
+}
+
+function normalizarComparable(s: string): string {
+  return s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
 }
 
 // Los datos extraídos vienen como {valor, confianza} envuelto. Sacamos

@@ -22,7 +22,7 @@ import {
   type FilaExtraida,
 } from "../lib/extraccion";
 import { validarValor } from "../lib/formatos-imss";
-import { precargarValores } from "../lib/precarga";
+import { ajustarASelect, precargarValores } from "../lib/precarga";
 import type { CampoSchema, TramiteType } from "../lib/tramites";
 
 let pasaron = 0;
@@ -143,6 +143,30 @@ seccion("validarValor (formatos IMSS)");
 }
 
 // ============================================================================
+// 2b. Ajuste de valores a options de selects
+// ============================================================================
+seccion("ajustarASelect (selects y show_if)");
+{
+  const tipoPersona = { type: "select" as const, options: ["moral", "fisica"] };
+  ok("FISICA → fisica", ajustarASelect(tipoPersona, "FISICA") === "fisica");
+  ok("Persona Física → fisica", ajustarASelect(tipoPersona, "Persona Física") === "fisica");
+  ok("MORAL → moral", ajustarASelect(tipoPersona, "MORAL") === "moral");
+  ok("basura → null", ajustarASelect(tipoPersona, "OTRA COSA") === null);
+
+  const sexo = { type: "select" as const, options: ["1", "2"] };
+  ok("sexo H → 1", ajustarASelect(sexo, "H") === "1");
+  ok("sexo Hombre → 1", ajustarASelect(sexo, "Hombre") === "1");
+  ok("sexo M → 2", ajustarASelect(sexo, "M") === "2");
+  ok("sexo MUJER → 2", ajustarASelect(sexo, "MUJER") === "2");
+
+  const clase = { type: "select" as const, options: ["I", "II", "III", "IV", "V"] };
+  ok("clase iv → IV", ajustarASelect(clase, "iv") === "IV");
+
+  const texto = { type: "text" as const, options: undefined };
+  ok("campo text pasa intacto", ajustarASelect(texto, "Lo Que Sea") === "Lo Que Sea");
+}
+
+// ============================================================================
 // 3. Construcción de prompts
 // ============================================================================
 seccion("construirPromptSistema");
@@ -179,11 +203,24 @@ function leerEnv(clave: string): string {
   return linea.slice(clave.length + 1).trim();
 }
 
+// Valores realistas para campos que terminan en selects del schema — un
+// placeholder genérico sería rechazado por ajustarASelect (correcto: un
+// select solo acepta sus options).
+const VALOR_SIMULADO: Record<string, string> = {
+  sexo: "H",
+  tipo_persona: "FISICA",
+  clase_rt: "IV",
+  clase: "IV",
+  tipo_emision: "EMA",
+};
+
 // Simula un documento extraído con TODOS los campos del doc_type llenos.
 function extraccionCompleta(docTypeId: string): Record<string, unknown> {
   const dt = DOC_TYPES[docTypeId];
   const out: Record<string, unknown> = {};
-  for (const c of dt.campos) out[c.id] = { valor: `<${c.id}>`, confianza: "alto" };
+  for (const c of dt.campos) {
+    out[c.id] = { valor: VALOR_SIMULADO[c.id] ?? `<${c.id}>`, confianza: "alto" };
+  }
   return out;
 }
 
@@ -305,6 +342,26 @@ async function escenarios() {
       ok(`${caso.nombre}: NO llena ${id}`, !(id in precargados), `se llenó con "${precargados[id]}" — cruce indebido`);
     }
   }
+
+  // ── Valores de select mapeados al casing exacto de la option ──
+  // (si no coinciden, el <select> queda en blanco y los show_if que
+  // dependen de él no disparan)
+  const afil02 = schemaDe("afil-02");
+  const conTipoPersona = precargarValores(
+    afil02,
+    { tipo_persona: { valor: "FISICA", confianza: "alto" } },
+    "tip"
+  );
+  ok(
+    'TIP tipo_persona "FISICA" → tipo_persona_patron === "fisica" (option exacta)',
+    conTipoPersona.tipo_persona_patron === "fisica"
+  );
+  const conSexo = precargarValores(
+    afil02,
+    { sexo: { valor: "M", confianza: "alto" } },
+    "ine"
+  );
+  ok('INE sexo "M" → sexo === "2" (codificación AFIL)', conSexo.sexo === "2");
 }
 
 escenarios()

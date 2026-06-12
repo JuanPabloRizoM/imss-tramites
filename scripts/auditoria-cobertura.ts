@@ -55,9 +55,22 @@ async function main() {
       }
 
       // Extracción simulada: todos los campos del doc_type con valor.
+      // Para campos que aterrizan en selects del schema hay que simular
+      // un valor REAL (ajustarASelect rechaza lo que no mapea a una
+      // option — comportamiento correcto).
+      const VALOR_SIMULADO: Record<string, string> = {
+        sexo: "H",
+        tipo_persona: "FISICA",
+        clase_rt: "IV",
+        clase: "IV",
+        tipo_emision: "EMA",
+      };
       const extraidoSimulado: Record<string, unknown> = {};
       for (const c of docType.campos) {
-        extraidoSimulado[c.id] = { valor: "X", confianza: "alto" };
+        extraidoSimulado[c.id] = {
+          valor: VALOR_SIMULADO[c.id] ?? "X",
+          confianza: "alto",
+        };
       }
 
       // Pasamos docId como tercer argumento — igual que el flujo real de

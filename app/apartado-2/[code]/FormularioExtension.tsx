@@ -11,7 +11,7 @@ import {
   type TramiteType,
 } from "@/lib/tramites";
 import type { DatoExtraido } from "@/lib/extraccion";
-import { precargarValores } from "@/lib/precarga";
+import { ajustarASelect, precargarValores } from "@/lib/precarga";
 import { SubirDocumentoTramite } from "@/components/SubirDocumentoTramite";
 
 type Props = {
@@ -173,7 +173,11 @@ export function FormularioExtension({ tramiteType, precarga, precargaDocType }: 
         for (const campo of tramiteType.field_schema) {
           const d = datos[campo.id];
           if (d?.valor && !out[campo.id]?.trim()) {
-            out[campo.id] = d.valor;
+            // Selects: mapear al casing exacto de la option (la extensión
+            // y el portal del IMSS los necesitan literales).
+            const ajustado = ajustarASelect(campo, d.valor);
+            if (ajustado === null) continue;
+            out[campo.id] = ajustado;
             aplicados += 1;
           }
         }
