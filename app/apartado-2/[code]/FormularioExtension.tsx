@@ -6,6 +6,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getBrowserClient } from "@/lib/supabase/client";
 import {
   agruparPorSeccion,
+  debeMostrar,
   normalizarParaSalida,
   type CampoSchema,
   type TramiteType,
@@ -55,16 +56,21 @@ export function FormularioExtension({ tramiteType, precarga, precargaDocType }: 
   const [mensaje, setMensaje] = useState<string | null>(null);
   const [copiado, setCopiado] = useState(false);
 
-  const grupos = useMemo(
-    () => agruparPorSeccion(tramiteType.field_schema),
-    [tramiteType.field_schema]
+  // Solo los campos cuya condición show_if se cumple con los valores
+  // actuales (p.ej. el centro de trabajo se oculta cuando "mismo
+  // domicilio" está marcado). Lo oculto no se pinta, no bloquea
+  // required, no se guarda ni se manda al portal.
+  const schemaVisible = useMemo(
+    () => tramiteType.field_schema.filter((c) => debeMostrar(c, valores)),
+    [tramiteType.field_schema, valores]
   );
+  const grupos = useMemo(() => agruparPorSeccion(schemaVisible), [schemaVisible]);
 
   // Texto compilado para pegar al portal cuando la extensión no esté
   // disponible. Aplica las mismas mayúsculas que la extensión (text → upcase;
   // textarea/date/select/etc. quedan tal cual). Solo incluye campos llenos.
   const textoParaPortal = useMemo(() => {
-    const normalizados = normalizarParaSalida(tramiteType.field_schema, valores);
+    const normalizados = normalizarParaSalida(schemaVisible, valores);
     const partes: string[] = [];
     for (const { seccion, campos } of grupos) {
       const llenos = campos.filter((c) => (normalizados[c.id] ?? "").trim() !== "");
@@ -195,8 +201,10 @@ export function FormularioExtension({ tramiteType, precarga, precargaDocType }: 
       setEstado("guardando");
       // MAYÚSCULAS para datos cortos antes de guardar: la extensión pega
       // estos valores tal cual en el portal del IMSS, y el IMSS los exige
-      // así. textarea/date/select/etc. se preservan.
-      const normalizados = normalizarParaSalida(tramiteType.field_schema, valores);
+      // así. textarea/date/select/etc. se preservan. Solo campos VISIBLES
+      // (show_if) — si marcaste "mismo domicilio", los valores viejos del
+      // centro de trabajo no viajan a la extensión.
+      const normalizados = normalizarParaSalida(schemaVisible, valores);
       const payload = { field_values: normalizados, status: nuevoStatus };
       if (tramiteId) {
         const { error } = await supabase
@@ -220,15 +228,17 @@ export function FormularioExtension({ tramiteType, precarga, precargaDocType }: 
       setTramiteId(data.id);
       setEstado(nuevoStatus === "revisado" ? "revisado" : "guardado");
     },
-    [supabase, valores, tramiteId, tramiteType.id, tramiteType.field_schema]
+    [supabase, valores, tramiteId, tramiteType.id, schemaVisible]
   );
 
-  const faltaObligatorio = tramiteType.field_schema.some(
+  // Required ocultos por show_if no bloquean (p.ej. CP del centro de
+  // trabajo cuando "mismo domicilio" está marcado).
+  const faltaObligatorio = schemaVisible.some(
     (c) => c.required && !valores[c.id]?.trim()
   );
 
   // Datos que la extensión NO va a pegar — se muestran en panel/notas.
-  const camposPanel = tramiteType.field_schema.filter(
+  const camposPanel = schemaVisible.filter(
     (c) => c.portal_show_in_panel || c.portal_skip
   );
 
@@ -395,12 +405,34 @@ function CampoInput({
   const id = `f-${campo.id}`;
   const esTextarea = campo.type === "textarea";
   const esSelect = campo.type === "select";
+  const esCheckbox = campo.type === "checkbox";
   const html =
     campo.type === "date"
       ? "date"
       : campo.type === "number"
       ? "number"
       : "text";
+
+  // Checkbox: guarda "true"/"" — la extensión interpreta "true" como
+  // marcado (#chkCopiarDomicilio del portal), y los show_if con
+  // distinto:"true" ocultan secciones cuando está activo.
+  if (esCheckbox) {
+    return (
+      <label
+        htmlFor={id}
+        className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-md border border-line bg-paper px-3 text-sm font-medium text-ink md:col-span-2"
+      >
+        <input
+          id={id}
+          type="checkbox"
+          checked={valor === "true"}
+          onChange={(e) => onChange(e.target.checked ? "true" : "")}
+          className="h-5 w-5 accent-current"
+        />
+        {campo.label}
+      </label>
+    );
+  }
 
   return (
     <div className={`flex flex-col gap-1 ${esTextarea ? "md:col-span-2" : ""}`}>

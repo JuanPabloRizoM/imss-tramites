@@ -30,9 +30,11 @@ export type CampoSchema = {
   // Mostrar este texto en el panel flotante de la extensión como nota.
   portal_show_in_panel?: boolean;
   // Condición de visibilidad: solo mostrar este campo si el campo `campo`
-  // tiene un valor que coincide con `igual` (string) o está en `en` (array).
-  // Útil para sub-formularios que dependen de una causa/tipo elegido.
-  show_if?: { campo: string; igual?: string; en?: string[] };
+  // tiene un valor que coincide con `igual` (string), está en `en` (array)
+  // o es DISTINTO de `distinto` (p.ej. ocultar el centro de trabajo cuando
+  // el checkbox "mismo domicilio" está marcado). Útil para sub-formularios
+  // que dependen de una causa/tipo elegido.
+  show_if?: { campo: string; igual?: string; en?: string[]; distinto?: string };
 };
 
 export function debeMostrar(
@@ -43,6 +45,7 @@ export function debeMostrar(
   const v = (valores[campo.show_if.campo] ?? "").toString().trim();
   if (campo.show_if.igual != null) return v === campo.show_if.igual;
   if (campo.show_if.en) return campo.show_if.en.includes(v);
+  if (campo.show_if.distinto != null) return v !== campo.show_if.distinto;
   return true;
 }
 
