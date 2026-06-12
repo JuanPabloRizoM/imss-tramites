@@ -30,6 +30,23 @@ function hostOf(url) {
   }
 }
 
+// El portal SAPI distingue persona física/moral por el query param `method`
+// (initCapturaFisica vs initCapturaMoral) — mismo host, página distinta.
+// Comparar solo el host dejaba pasar el cruce: llenar un trámite de persona
+// moral parado en la captura de persona física pegaba 1 campo y fallaba 11.
+function methodOf(url) {
+  try {
+    return new URL(url).searchParams.get("method");
+  } catch {
+    return null;
+  }
+}
+
+const NOMBRE_METHOD = {
+  initCapturaFisica: "persona FÍSICA",
+  initCapturaMoral: "persona MORAL",
+};
+
 const $ = (sel) => document.querySelector(sel);
 const $config = $("#config-block");
 const $main = $("#main-block");
@@ -133,10 +150,20 @@ async function verificarPortalAbierto(expectedPortalUrl) {
 
   if (expectedPortalUrl) {
     const expected = hostOf(expectedPortalUrl);
-    ok = !!tabHost && !!expected && tabHost === expected;
-    mensaje = ok
-      ? `Portal correcto detectado (${expected}).`
-      : `Abre ${expected} en esta pestaña — actualmente estás en ${tabHost || "una pestaña sin URL"}.`;
+    const expectedMethod = methodOf(expectedPortalUrl);
+    const tabMethod = methodOf(tab?.url ?? "");
+    const hostOk = !!tabHost && !!expected && tabHost === expected;
+    const methodOk = expectedMethod == null || tabMethod === expectedMethod;
+    ok = hostOk && methodOk;
+    if (!hostOk) {
+      mensaje = `Abre ${expected} en esta pestaña — actualmente estás en ${tabHost || "una pestaña sin URL"}.`;
+    } else if (!methodOk) {
+      const esperado = NOMBRE_METHOD[expectedMethod] ?? expectedMethod;
+      const actual = NOMBRE_METHOD[tabMethod] ?? tabMethod ?? "otra página del portal";
+      mensaje = `Este trámite es de ${esperado}, pero esta pestaña es la captura de ${actual}. Abre: ${expectedPortalUrl}`;
+    } else {
+      mensaje = `Portal correcto detectado (${expected}).`;
+    }
   } else {
     ok = !!tabHost && PORTAL_HOSTS.includes(tabHost);
     mensaje = ok
