@@ -209,8 +209,8 @@ export async function generarOverlay(
         const cell = conf.cells[i];
         const page = pages[cell.page ?? 0];
         if (!page) continue;
-        const size = cell.size ?? defaultSize;
-        const texto = truncarParaCabe(items[i], font, size, cell.ancho_max);
+        const sizeBase = cell.size ?? defaultSize;
+        const { texto, size } = ajustarParaCabe(items[i], font, sizeBase, cell.ancho_max);
         page.drawText(texto, { x: cell.x, y: cell.y, size, font, color: COLOR });
       }
       continue;
@@ -243,8 +243,8 @@ export async function generarOverlay(
     if (valor == null || String(valor).trim() === "") continue;
     const page = pages[c.page ?? 0];
     if (!page) continue;
-    const size = c.size ?? defaultSize;
-    const texto = truncarParaCabe(String(valor), font, size, c.ancho_max);
+    const sizeBase = c.size ?? defaultSize;
+    const { texto, size } = ajustarParaCabe(String(valor), font, sizeBase, c.ancho_max);
     page.drawText(texto, {
       x: c.x,
       y: c.y,
@@ -271,6 +271,29 @@ function truncarParaCabe(
     cur = cur.slice(0, -1);
   }
   return cur + "…";
+}
+
+// Ajusta un texto de una sola línea para que quepa en `anchoMax`:
+// primero reduce el tamaño de letra hasta `sizeMin` (sin perder texto), y
+// solo si aún no cabe a ese mínimo lo trunca con "…". Devuelve el texto y el
+// tamaño que se debe usar al dibujarlo. Para los formatos del IMSS preferimos
+// ver el dato completo en letra chica antes que perderlo con puntos suspensivos.
+const SIZE_MIN = 5;
+function ajustarParaCabe(
+  texto: string,
+  font: PDFFont,
+  size: number,
+  anchoMax?: number
+): { texto: string; size: number } {
+  if (!anchoMax || anchoMax <= 0) return { texto, size };
+  if (font.widthOfTextAtSize(texto, size) <= anchoMax) return { texto, size };
+  let s = size;
+  while (s > SIZE_MIN && font.widthOfTextAtSize(texto, s - 0.5) > anchoMax) {
+    s -= 0.5;
+  }
+  if (font.widthOfTextAtSize(texto, s) <= anchoMax) return { texto, size: s };
+  // Último recurso: a ese tamaño mínimo ya no cabe, truncar con "…".
+  return { texto: truncarParaCabe(texto, font, s, anchoMax), size: s };
 }
 
 // Helper genérico opcional usado desde lib/pdf.ts.
