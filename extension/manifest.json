@@ -15,14 +15,18 @@
   ],
   "host_permissions": [
     "https://altapatronalpresencial.imss.gob.mx/*",
+    "http://altapatronalpresencial.imss.gob.mx/*",
     "https://idse.imss.gob.mx/*",
+    "http://idse.imss.gob.mx/*",
     "https://*.supabase.co/*"
   ],
   "content_scripts": [
     {
       "matches": [
         "https://altapatronalpresencial.imss.gob.mx/*",
-        "https://idse.imss.gob.mx/*"
+        "http://altapatronalpresencial.imss.gob.mx/*",
+        "https://idse.imss.gob.mx/*",
+        "http://idse.imss.gob.mx/*"
       ],
       "js": [
         "content.js"
