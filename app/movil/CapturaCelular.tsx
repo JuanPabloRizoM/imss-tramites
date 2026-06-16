@@ -82,6 +82,16 @@ export function CapturaCelular() {
       }
       if (ins.error || !ins.data) throw ins.error ?? new Error("Insert vacío.");
 
+      // Modo trámite: la sesión apunta a un trámite de la computadora. NO
+      // extraemos aquí — la computadora hace UNA sola extracción dirigida
+      // (solo los campos de ese trámite) en cuanto llega la foto. Así no se
+      // gastan tokens dos veces. Ver migración 0025.
+      const target = sesion?.target_tramite ?? null;
+      if (target) {
+        setEstado({ tipo: "listo", nombre, documentId: ins.data.id });
+        return;
+      }
+
       setEstado({ tipo: "procesando", nombre });
 
       const res = await fetch("/api/extraer", {
@@ -166,6 +176,14 @@ export function CapturaCelular() {
         </div>
       )}
 
+      {sesion.target_tramite && (
+        <div className="rounded-md border border-accent/40 bg-paper-2 px-3 py-2 text-sm text-ink-2">
+          Estás capturando para el trámite{" "}
+          <strong className="text-ink">{sesion.target_tramite.name}</strong>. La
+          foto se procesa y llena los campos en la computadora — aquí no se lee.
+        </div>
+      )}
+
       <div className="flex flex-col gap-2">
         <label htmlFor="doc-type" className="text-sm font-medium text-ink-2">
           Tipo de documento
@@ -215,12 +233,24 @@ export function CapturaCelular() {
         </p>
       </div>
 
-      <EstadoBox estado={estado} onReset={reset} />
+      <EstadoBox
+        estado={estado}
+        onReset={reset}
+        targetTramite={sesion.target_tramite ?? null}
+      />
     </div>
   );
 }
 
-function EstadoBox({ estado, onReset }: { estado: Estado; onReset: () => void }) {
+function EstadoBox({
+  estado,
+  onReset,
+  targetTramite,
+}: {
+  estado: Estado;
+  onReset: () => void;
+  targetTramite: { code: string; name: string } | null;
+}) {
   if (estado.tipo === "vacio") return null;
 
   if (estado.tipo === "subiendo" || estado.tipo === "procesando") {
@@ -238,6 +268,28 @@ function EstadoBox({ estado, onReset }: { estado: Estado; onReset: () => void })
   }
 
   if (estado.tipo === "listo") {
+    // Modo trámite: la foto se envió a la computadora y allá se llena solo.
+    // No hay datos que revisar en el celular ni link a /apartado-3.
+    if (targetTramite) {
+      return (
+        <div role="status" className="rounded-md border border-ok/30 bg-ok-soft p-4">
+          <p className="eyebrow mb-1 text-ok">Enviado</p>
+          <p className="text-sm font-medium text-ink">{estado.nombre}</p>
+          <p className="mt-1 text-sm text-ink-2">
+            Se envió a la computadora. Los campos de{" "}
+            <strong className="text-ink">{targetTramite.name}</strong> se están
+            llenando allá. Revisa la pantalla de la computadora.
+          </p>
+          <button
+            type="button"
+            onClick={onReset}
+            className="mt-3 inline-flex min-h-[44px] items-center rounded-md border border-line bg-paper px-4 text-sm font-medium text-ink hover:bg-paper-2"
+          >
+            Capturar otro
+          </button>
+        </div>
+      );
+    }
     return (
       <div role="status" className="rounded-md border border-ok/30 bg-ok-soft p-4">
         <p className="eyebrow mb-1 text-ok">Listo</p>

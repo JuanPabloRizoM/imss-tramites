@@ -289,10 +289,9 @@
       }
     },
     "servicios_terceros": { "type": "checkbox-grid",
-      "_nota": "IV.8 — Servicios a terceros. SI marca la X en el radio. Página 4.",
+      "_nota": "IV.8 — Servicios a terceros. La forma solo tiene casilla para SI; se marca cuando presta servicios y se deja vacío si no. NO ya no existe como opción (marcaba la misma X que SI). Página 4.",
       "options": {
-        "SI": { "page": 3, "x": 318, "y": 632 },
-        "NO": { "page": 3, "x": 318, "y": 632 }
+        "SI": { "page": 3, "x": 318, "y": 632 }
       }
     },
 

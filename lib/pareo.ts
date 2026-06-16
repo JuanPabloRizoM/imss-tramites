@@ -34,7 +34,16 @@ export function normalizarCodigo(s: string): string {
   return s.toUpperCase().replace(/[^A-HJKMNP-Z2-9]/g, "");
 }
 
+// Trámite al que apunta una sesión de pareo (apartado 1 o 2). Cuando está
+// presente, el celular sube la foto SIN extraer — la computadora hace una
+// sola extracción dirigida. Ver migración 0025.
+export type TargetTramite = {
+  code: string;
+  name: string;
+};
+
 export type SesionResumen = {
   id: string;
   code: string;
+  target_tramite?: TargetTramite | null;
 };

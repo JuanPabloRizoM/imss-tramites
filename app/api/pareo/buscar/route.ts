@@ -24,7 +24,7 @@ export async function POST(req: Request) {
   const supabase = getServiceRoleClient();
   const { data, error } = await supabase
     .from("sessions")
-    .select("id, code, active")
+    .select("id, code, active, target_tramite")
     .eq("code", code)
     .eq("active", true)
     .maybeSingle();
@@ -39,5 +39,9 @@ export async function POST(req: Request) {
     );
   }
 
-  return NextResponse.json({ id: data.id, code: data.code });
+  return NextResponse.json({
+    id: data.id,
+    code: data.code,
+    target_tramite: data.target_tramite ?? null,
+  });
 }

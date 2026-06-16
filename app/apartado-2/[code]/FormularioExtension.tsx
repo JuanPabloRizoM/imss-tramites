@@ -273,6 +273,8 @@ export function FormularioExtension({ tramiteType, precarga, precargaDocType }: 
           supabase={supabase}
           schema={tramiteType.field_schema}
           onExtraido={aplicarDatosExtraidos}
+          tramiteCode={tramiteType.code}
+          tramiteName={tramiteType.name}
         />
       )}
 

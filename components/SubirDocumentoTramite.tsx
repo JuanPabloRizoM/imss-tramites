@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import {
   listarDocTypes,
+  obtenerDocType,
   type DatoExtraido,
 } from "@/lib/extraccion";
 import type { CampoSchema } from "@/lib/tramites";
@@ -60,12 +61,19 @@ export function SubirDocumentoTramite({
   supabase,
   schema,
   onExtraido,
+  tramiteCode,
+  tramiteName,
   titulo = "Subir documento para autollenar",
   hint = "La IA va a buscar SOLO los campos que pide este trámite en el documento. Lo que no encuentre queda vacío para que lo llenes a mano. Si el documento es de un trabajador o de un patrón específicamente, elige a quién — la IA solo intentará rellenar esa columna del form.",
 }: {
   supabase: SupabaseClient;
   schema: CampoSchema[];
   onExtraido: (datos: Record<string, DatoExtraido>) => number;
+  // Si se pasan ambos, se habilita "Escanear desde el celular": se genera un
+  // código de pareo amarrado a este trámite. El celular sube la foto sin
+  // extraer y aquí se hace UNA sola extracción dirigida. Ver migración 0025.
+  tramiteCode?: string;
+  tramiteName?: string;
   titulo?: string;
   hint?: string;
 }) {
@@ -101,9 +109,40 @@ export function SubirDocumentoTramite({
     [schema, contextoEfectivo]
   );
 
+  // target_fields para un doc_type arbitrario (el que eligió el celular).
+  // Mismo criterio de contexto que el flujo de PC: si el doc_type fuerza
+  // lado (TIP→patrón, etc.) se respeta; si no, usa lo elegido en el widget.
+  const targetFieldsParaDocType = useCallback(
+    (dt: string) => {
+      const forzado = CONTEXTO_FORZADO_POR_DOC_TYPE[dt];
+      const ctx: Contexto =
+        forzado === "representante" ? "patron" : (forzado ?? contextoElegido);
+      return camposParaExtraccion(schema, ctx).map((c) => ({
+        id: c.id,
+        label: c.label,
+      }));
+    },
+    [schema, contextoElegido]
+  );
+
   const actualizar = useCallback(
     (localId: string, patch: Partial<SubidaTramite>) =>
       setSubidas((prev) => prev.map((s) => (s.localId === localId ? { ...s, ...patch } : s))),
+    []
+  );
+
+  // Feedback faltantes/dudosos común a la subida desde PC y desde celular.
+  const calcularFeedback = useCallback(
+    (datos: Record<string, DatoExtraido>, target: { id: string; label: string }[]) => {
+      const faltantes: string[] = [];
+      const dudosos: string[] = [];
+      for (const f of target) {
+        const d = datos[f.id];
+        if (!d?.valor) faltantes.push(f.label);
+        else if (d.confianza !== "alto") dudosos.push(f.label);
+      }
+      return { faltantes, dudosos };
+    },
     []
   );
 
@@ -174,13 +213,7 @@ export function SubirDocumentoTramite({
         const aplicados = onExtraido(datos);
         // Feedback por subida: qué target_fields no vinieron en el documento
         // y cuáles vinieron con confianza dudosa (revisar a mano).
-        const faltantes: string[] = [];
-        const dudosos: string[] = [];
-        for (const f of targetFields) {
-          const d = datos[f.id];
-          if (!d?.valor) faltantes.push(f.label);
-          else if (d.confianza !== "alto") dudosos.push(f.label);
-        }
+        const { faltantes, dudosos } = calcularFeedback(datos, targetFields);
         actualizar(localId, {
           estado: "listo",
           campos_aplicados: aplicados,
@@ -194,7 +227,7 @@ export function SubirDocumentoTramite({
         });
       }
     },
-    [supabase, docType, targetFields, actualizar, onExtraido]
+    [supabase, docType, targetFields, actualizar, onExtraido, calcularFeedback]
   );
 
   const onArchivos = useCallback(
@@ -216,6 +249,127 @@ export function SubirDocumentoTramite({
     setSubidas((prev) => prev.filter((s) => s.estado !== "listo" && s.estado !== "error"));
   }, []);
   const hayFinalizadas = subidas.some((s) => s.estado === "listo" || s.estado === "error");
+
+  // -------------------------------------------------------------------------
+  // Escaneo desde el celular: pareo amarrado a este trámite + extracción
+  // dirigida cuando llega la foto. El celular sube SIN extraer (lo decide al
+  // ver que la sesión apunta a un trámite); aquí hacemos la única extracción.
+  // -------------------------------------------------------------------------
+  const habilitarCelular = !!tramiteCode && !!tramiteName;
+  const [sesionCel, setSesionCel] = useState<{ id: string; code: string } | null>(null);
+  const [iniciandoPareo, setIniciandoPareo] = useState(false);
+  const [errorPareo, setErrorPareo] = useState<string | null>(null);
+
+  // Procesa un documento ya subido por el celular (status "pendiente"): una
+  // sola extracción dirigida + llenar el form. Reusa el feedback de la subida.
+  const procesarEntrante = useCallback(
+    async (docId: string, docTypeEntrante: string) => {
+      const localId = crypto.randomUUID();
+      const tipoLabel = obtenerDocType(docTypeEntrante).label;
+      setSubidas((prev) =>
+        [
+          { localId, nombre: `Foto del celular · ${tipoLabel}`, estado: "procesando" as const },
+          ...prev,
+        ].slice(0, 10)
+      );
+      try {
+        const target = targetFieldsParaDocType(docTypeEntrante);
+        const res = await fetch("/api/extraer", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ documentId: docId, target_fields: target }),
+        });
+        if (!res.ok) {
+          const j = (await res.json().catch(() => null)) as { error?: string } | null;
+          throw new Error(j?.error ?? `Error de extracción (${res.status}).`);
+        }
+        const { data: docRow } = await supabase
+          .from("documents")
+          .select("extracted_data")
+          .eq("id", docId)
+          .single();
+        const datos = (docRow?.extracted_data ?? {}) as Record<string, DatoExtraido>;
+        const aplicados = onExtraido(datos);
+        const { faltantes, dudosos } = calcularFeedback(datos, target);
+        actualizar(localId, { estado: "listo", campos_aplicados: aplicados, faltantes, dudosos });
+      } catch (err) {
+        actualizar(localId, {
+          estado: "error",
+          error: err instanceof Error ? err.message : "Error desconocido.",
+        });
+      }
+    },
+    [supabase, targetFieldsParaDocType, onExtraido, calcularFeedback, actualizar]
+  );
+
+  // Ref para que el canal realtime lea siempre la última versión (el contexto
+  // trabajador/patrón puede cambiar después de mostrar el código).
+  const procesarEntranteRef = useRef(procesarEntrante);
+  useEffect(() => {
+    procesarEntranteRef.current = procesarEntrante;
+  }, [procesarEntrante]);
+
+  const iniciarPareo = useCallback(async () => {
+    if (!habilitarCelular) return;
+    setIniciandoPareo(true);
+    setErrorPareo(null);
+    try {
+      const res = await fetch("/api/pareo/crear", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ target_tramite: { code: tramiteCode, name: tramiteName } }),
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}`);
+      const j = (await res.json()) as { id: string; code: string };
+      setSesionCel({ id: j.id, code: j.code });
+    } catch (err) {
+      setErrorPareo(err instanceof Error ? err.message : "No se pudo generar el código.");
+    } finally {
+      setIniciandoPareo(false);
+    }
+  }, [habilitarCelular, tramiteCode, tramiteName]);
+
+  // Realtime: foto del celular (pendiente, amarrada a esta sesión) → procesar
+  // una sola vez. El Set de-dupe evita reprocesar si llegan eventos repetidos.
+  const procesadosRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (!sesionCel) return;
+    const sid = sesionCel.id;
+    type DocRT = {
+      id: string;
+      doc_type: string | null;
+      extraction_status: string;
+      session_id: string | null;
+    };
+    const intentar = (doc: DocRT) => {
+      if (doc.session_id !== sid || doc.extraction_status !== "pendiente") return;
+      if (procesadosRef.current.has(doc.id)) return;
+      procesadosRef.current.add(doc.id);
+      procesarEntranteRef.current(doc.id, doc.doc_type ?? "generico");
+    };
+
+    // Por si la foto llegó entre crear la sesión y suscribirnos.
+    (async () => {
+      const { data } = await supabase
+        .from("documents")
+        .select("id, doc_type, extraction_status, session_id")
+        .eq("session_id", sid)
+        .eq("extraction_status", "pendiente");
+      for (const d of (data ?? []) as DocRT[]) intentar(d);
+    })();
+
+    const channel = supabase
+      .channel(`tramite-cel-${sid}`)
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "documents" },
+        (payload) => intentar(payload.new as DocRT)
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [supabase, sesionCel]);
 
   return (
     <section className="rounded-md border border-line bg-paper-2 p-5">
@@ -277,6 +431,55 @@ export function SubirDocumentoTramite({
           </button>
         )}
       </div>
+
+      {habilitarCelular && (
+        <div className="mt-4 rounded-md border border-dashed border-line-2 bg-paper p-4">
+          {!sesionCel ? (
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={iniciarPareo}
+                disabled={iniciandoPareo}
+                className="inline-flex min-h-[44px] items-center rounded-md border border-ink bg-paper px-4 text-sm font-semibold text-ink hover:bg-paper-2 disabled:opacity-60"
+              >
+                {iniciandoPareo ? "Generando código…" : "Escanear desde el celular"}
+              </button>
+              <p className="text-xs text-ink-3">
+                Toma la foto con el celular y los campos se llenan aquí solos. La
+                IA lee solo los campos de este trámite — igual de barato que subir
+                desde la PC.
+              </p>
+              {errorPareo && <p className="text-xs text-err">{errorPareo}</p>}
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <p className="eyebrow">Escanear desde el celular</p>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span className="text-sm text-ink-2">En el celular abre</span>
+                <code className="rounded bg-paper-2 px-2 py-0.5 font-mono text-sm">/movil</code>
+                <span className="text-sm text-ink-2">y escribe este código:</span>
+                <span className="font-display text-3xl tracking-[0.3em] text-ink">
+                  {sesionCel.code}
+                </span>
+              </div>
+              <p className="text-xs text-ink-3">
+                Cada foto que tomes se procesa aquí solo y llena los campos vacíos.
+                Deja esta pantalla abierta.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSesionCel(null);
+                  procesadosRef.current = new Set();
+                }}
+                className="self-start text-xs text-ink-3 underline-offset-2 hover:text-ink hover:underline"
+              >
+                Dejar de escanear
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       {subidas.length > 0 && (
         <ul className="mt-4 grid gap-2">

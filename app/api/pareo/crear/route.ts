@@ -10,19 +10,35 @@ export const runtime = "nodejs";
 
 const MAX_INTENTOS_CODIGO = 3;
 
-export async function POST() {
+export async function POST(req: Request) {
   const supabase = getServiceRoleClient();
+
+  // Opcional: la sesión puede apuntar a un trámite (captura dirigida desde
+  // el celular). Se guarda atómicamente en el insert para que el celular lo
+  // vea apenas se conecte. Ver migración 0025.
+  const body = (await req.json().catch(() => null)) as {
+    target_tramite?: { code?: string; name?: string } | null;
+  } | null;
+  const tt = body?.target_tramite;
+  const target_tramite =
+    tt && typeof tt.code === "string" && typeof tt.name === "string"
+      ? { code: tt.code, name: tt.name }
+      : null;
 
   for (let i = 0; i < MAX_INTENTOS_CODIGO; i++) {
     const code = generarCodigo();
     const { data, error } = await supabase
       .from("sessions")
-      .insert({ code })
-      .select("id, code")
+      .insert({ code, target_tramite })
+      .select("id, code, target_tramite")
       .single();
 
     if (!error && data) {
-      return NextResponse.json({ id: data.id, code: data.code });
+      return NextResponse.json({
+        id: data.id,
+        code: data.code,
+        target_tramite: data.target_tramite,
+      });
     }
     // 23505 = unique_violation. Solo reintentamos en ese caso.
     const codigoError =

@@ -978,6 +978,8 @@ function FormularioCaso({
           supabase={supabase}
           schema={schemaParaSubida}
           onExtraido={aplicarDatosExtraidos}
+          tramiteCode={tramiteType.code}
+          tramiteName={tramiteType.name}
         />
       )}
 
@@ -1031,6 +1033,20 @@ function FormularioCaso({
           // sin campos visibles, no se pinta ni el encabezado.
           const visibles = camposSec.filter((c) => debeMostrar(c, valores));
           if (visibles.length === 0) return null;
+
+          // AM-SRT: IV.7 Personal y IV.3/4 Maquinaria se capturan como tabla
+          // dinámica (un renglón por trabajador/máquina) en vez de textareas
+          // paralelas. La tabla escribe en los mismos campos planos.
+          const gridConfig =
+            tramiteType.code === "am-srt" ? GRID_POR_SECCION[seccion] : undefined;
+          if (gridConfig) {
+            return (
+              <fieldset key={seccion} className="grid gap-3">
+                <legend className="eyebrow">{seccion}</legend>
+                <GridFlat config={gridConfig} valores={valores} setCampo={setCampo} />
+              </fieldset>
+            );
+          }
           return (
             <fieldset key={seccion} className="grid gap-4">
               <legend className="eyebrow">{seccion}</legend>
@@ -1168,6 +1184,162 @@ function CampoInput({
           className="h-11 rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:border-ink"
         />
       )}
+    </div>
+  );
+}
+
+// -------------------------------------------------------------------------
+// Tablas dinámicas del AM-SRT (IV.7 Personal y IV.3 Maquinaria).
+//
+// Son SOLO una capa de UI sobre los campos planos del schema: cada columna
+// se serializa (un valor por línea) hacia uno o más campos planos por rango
+// de fila. Así el overlay del PDF (table-cells), los coords y la extracción
+// siguen usando los ids planos sin cambios — esto solo cambia cómo se captura.
+//
+// El número de filas crece solo: arranca en `minRows` y mantiene 2 vacías
+// disponibles conforme el usuario llena, hasta `maxRows` (= lo que cabe en
+// la forma oficial). Al escanear, la IA llena los campos planos y la tabla
+// los muestra sin trabarse.
+// -------------------------------------------------------------------------
+type SegmentoGrid = { field: string; start: number; count: number };
+type ColumnaGrid = {
+  label: string;
+  tipo?: "text" | "number" | "select";
+  options?: string[];
+  segmentos: SegmentoGrid[];
+};
+type ConfigGrid = { minRows: number; maxRows: number; columnas: ColumnaGrid[] };
+
+const GRID_POR_SECCION: Record<string, ConfigGrid> = {
+  "IV.7 Personal": {
+    minRows: 3,
+    maxRows: 12,
+    columnas: [
+      {
+        label: "No. de Trabajadores",
+        tipo: "number",
+        segmentos: [
+          { field: "personal_num_izq", start: 0, count: 6 },
+          { field: "personal_num_der", start: 6, count: 6 },
+        ],
+      },
+      {
+        label: "Oficio u ocupación",
+        segmentos: [
+          { field: "personal_oficio_izq", start: 0, count: 6 },
+          { field: "personal_oficio_der", start: 6, count: 6 },
+        ],
+      },
+    ],
+  },
+  "IV.4 Maquinaria y equipo": {
+    minRows: 3,
+    maxRows: 5,
+    columnas: [
+      { label: "Número de unidades", tipo: "number", segmentos: [{ field: "maquinaria_unidades", start: 0, count: 5 }] },
+      { label: "Nombre", segmentos: [{ field: "maquinaria_nombre", start: 0, count: 5 }] },
+      { label: "Uso", segmentos: [{ field: "maquinaria_uso", start: 0, count: 5 }] },
+      {
+        label: "No motorizados / Motorizados / Automatizados / Otros",
+        tipo: "select",
+        options: ["NO MOTORIZADOS", "MOTORIZADOS NO AUTOMATIZADOS", "AUTOMATIZADOS", "HERRAMIENTAS MANUALES"],
+        segmentos: [{ field: "maquinaria_tipo", start: 0, count: 5 }],
+      },
+      { label: "Capacidad o potencia", segmentos: [{ field: "maquinaria_capacidad", start: 0, count: 5 }] },
+    ],
+  },
+};
+
+function GridFlat({
+  config,
+  valores,
+  setCampo,
+}: {
+  config: ConfigGrid;
+  valores: Record<string, string>;
+  setCampo: (id: string, valor: string) => void;
+}) {
+  // Reconstruye la matriz columna×fila desde los campos planos.
+  const celdas: string[][] = config.columnas.map((col) => {
+    const filas = new Array<string>(config.maxRows).fill("");
+    for (const seg of col.segmentos) {
+      const lineas = (valores[seg.field] ?? "").split("\n");
+      for (let i = 0; i < seg.count; i++) {
+        filas[seg.start + i] = (lineas[i] ?? "").trim();
+      }
+    }
+    return filas;
+  });
+
+  // Última fila con algún dato (para decidir cuántas mostrar).
+  let ultimaLlena = -1;
+  for (let r = 0; r < config.maxRows; r++) {
+    if (config.columnas.some((_, ci) => celdas[ci][r]?.trim())) ultimaLlena = r;
+  }
+  // Arranca en minRows y deja 2 vacías disponibles, sin pasar de maxRows.
+  const visibles = Math.min(config.maxRows, Math.max(config.minRows, ultimaLlena + 1 + 2));
+
+  // Escribe una celda: actualiza la matriz de esa columna y re-serializa sus
+  // segmentos hacia los campos planos (recorta líneas vacías al final).
+  const setCelda = (colIdx: number, fila: number, valor: string) => {
+    const col = config.columnas[colIdx];
+    const filas = celdas[colIdx].slice();
+    filas[fila] = valor;
+    for (const seg of col.segmentos) {
+      const trozo = filas.slice(seg.start, seg.start + seg.count);
+      const serial = trozo.join("\n").replace(/\n+$/, "");
+      setCampo(seg.field, serial);
+    }
+  };
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-full border-separate border-spacing-0 text-sm">
+        <thead>
+          <tr className="text-left">
+            <th className="px-2 py-1 text-xs font-medium text-ink-3">#</th>
+            {config.columnas.map((c) => (
+              <th key={c.label} className="px-2 py-1 text-xs font-medium text-ink-3">
+                {c.label}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: visibles }, (_, r) => (
+            <tr key={r}>
+              <td className="px-2 py-1 align-middle text-xs text-ink-3">{r + 1}</td>
+              {config.columnas.map((col, ci) => (
+                <td key={col.label} className="px-1 py-1 align-top">
+                  {col.tipo === "select" ? (
+                    <select
+                      value={celdas[ci][r] ?? ""}
+                      onChange={(e) => setCelda(ci, r, e.target.value)}
+                      className="h-10 w-full min-w-[150px] rounded-md border border-line bg-paper px-2 text-sm text-ink focus-visible:border-ink"
+                    >
+                      <option value="">—</option>
+                      {(col.options ?? []).map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type={col.tipo === "number" ? "number" : "text"}
+                      value={celdas[ci][r] ?? ""}
+                      onChange={(e) => setCelda(ci, r, e.target.value)}
+                      className={`h-10 w-full rounded-md border border-line bg-paper px-2 text-sm text-ink focus-visible:border-ink ${
+                        col.tipo === "number" ? "min-w-[90px]" : "min-w-[140px]"
+                      }`}
+                    />
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
