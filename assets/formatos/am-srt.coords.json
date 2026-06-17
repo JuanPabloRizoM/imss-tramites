@@ -79,17 +79,17 @@
     "clase_descripcion_iii1":     { "page": 1, "x": 178, "y": 441, "size": 9, "ancho_max": 130, "from": "clase_descripcion" },
 
     "productos_elaborados": { "type": "table-cells",
-      "_nota": "Tabla IV.1: 5 filas × 2 columnas en página 2. Acepta hasta 10 items separados por coma o salto de línea.",
+      "_nota": "Tabla IV.1: 5 filas × 2 columnas en página 2. Acepta hasta 10 items separados por coma o salto de línea. Orden: columna izquierda completa (arriba→abajo) y luego la derecha.",
       "cells": [
         { "page": 1, "x": 31,  "y": 351, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 351, "size": 9, "ancho_max": 280 },
         { "page": 1, "x": 31,  "y": 333, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 333, "size": 9, "ancho_max": 280 },
         { "page": 1, "x": 31,  "y": 315, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 315, "size": 9, "ancho_max": 280 },
         { "page": 1, "x": 31,  "y": 297, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 297, "size": 9, "ancho_max": 280 },
         { "page": 1, "x": 31,  "y": 280, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 351, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 305, "y": 333, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 305, "y": 315, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 305, "y": 297, "size": 9, "ancho_max": 280 },
         { "page": 1, "x": 305, "y": 280, "size": 9, "ancho_max": 280 }
       ]
     },
@@ -296,17 +296,17 @@
     },
 
     "materias_primas": { "type": "table-cells",
-      "_nota": "Tabla IV.2: 5 filas × 2 columnas en página 2.",
+      "_nota": "Tabla IV.2: 5 filas × 2 columnas en página 2. Orden: columna izquierda completa (arriba→abajo) y luego la derecha.",
       "cells": [
         { "page": 1, "x": 31,  "y": 227, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 227, "size": 9, "ancho_max": 280 },
         { "page": 1, "x": 31,  "y": 208, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 208, "size": 9, "ancho_max": 280 },
         { "page": 1, "x": 31,  "y": 190, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 190, "size": 9, "ancho_max": 280 },
         { "page": 1, "x": 31,  "y": 173, "size": 9, "ancho_max": 260 },
-        { "page": 1, "x": 305, "y": 173, "size": 9, "ancho_max": 280 },
         { "page": 1, "x": 31,  "y": 157, "size": 9, "ancho_max": 260 },
+        { "page": 1, "x": 305, "y": 227, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 305, "y": 208, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 305, "y": 190, "size": 9, "ancho_max": 280 },
+        { "page": 1, "x": 305, "y": 173, "size": 9, "ancho_max": 280 },
         { "page": 1, "x": 305, "y": 157, "size": 9, "ancho_max": 280 }
       ]
     },
