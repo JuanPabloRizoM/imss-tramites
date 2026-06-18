@@ -1454,7 +1454,7 @@
         },
         {
           "codigo": "67",
-          "nombre": "COMPRAVENTA DE MAQUINARIA, EQUIPO, INSTRUMENTOS, APARATOS Y SUS REFACCIONES",
+          "nombre": "COMPRAVENTA DE MAQUINARIA, EQUIPO, INSTRUMENTOS, APARATOS, HERRAMIENTAS; SUS REFACCIONES Y ACCESORIOS",
           "fracciones": [
             {
               "codigo": "671",
@@ -1706,7 +1706,7 @@
       "grupos": [
         {
           "codigo": "81",
-          "nombre": "SERVICIOS FINANCIEROS Y DE SEGUROS (BANCOS, ASEGURADORAS Y AFIANZADORAS)",
+          "nombre": "SERVICIOS FINANCIEROS Y DE SEGUROS (BANCOS, FINANCIERAS, COMPAÑÍAS DE SEGUROS Y SIMILARES)",
           "fracciones": [
             {
               "codigo": "810",
