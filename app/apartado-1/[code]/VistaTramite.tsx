@@ -985,21 +985,6 @@ function FormularioCaso({
 
       {tramiteType.code === "am-srt" && (
         <div className="grid gap-3 rounded-md border border-line bg-paper-2 p-4">
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={sugerirProductosMaterias}
-              disabled={sugiriendo || (!valores.fraccion && !valores.giro)}
-              className="inline-flex min-h-[44px] items-center rounded-md bg-ink px-4 text-sm font-semibold text-paper hover:bg-ink-2 disabled:bg-ink-3"
-              title="Genera IV.1 y IV.2 con Haiku. Necesita fracción o giro. ~$0.003 USD."
-            >
-              {sugiriendo ? "Generando…" : "Sugerir productos y materias (IV.1 / IV.2)"}
-            </button>
-            {errorSugerir && (
-              <span className="text-sm text-err">{errorSugerir}</span>
-            )}
-          </div>
-
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs text-ink-3">Procesos (IV.6) — uno a la vez:</span>
             {(["principales","intermedios","finales"] as const).map((s) => (
@@ -1043,6 +1028,22 @@ function FormularioCaso({
             return (
               <fieldset key={seccion} className="grid gap-3">
                 <legend className="eyebrow">{seccion}</legend>
+                {seccion === "IV. Actividad declarada" && (
+                  <div className="flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={sugerirProductosMaterias}
+                      disabled={sugiriendo || (!valores.fraccion && !valores.giro)}
+                      className="inline-flex min-h-[44px] items-center rounded-md bg-ink px-4 text-sm font-semibold text-paper hover:bg-ink-2 disabled:bg-ink-3"
+                      title="Genera IV.1 y IV.2 con Haiku. Necesita fracción o giro. ~$0.003 USD."
+                    >
+                      {sugiriendo ? "Generando…" : "Sugerir productos y materias (IV.1 / IV.2)"}
+                    </button>
+                    {errorSugerir && (
+                      <span className="text-sm text-err">{errorSugerir}</span>
+                    )}
+                  </div>
+                )}
                 <GridFlat config={gridConfig} valores={valores} setCampo={setCampo} />
               </fieldset>
             );
@@ -1211,6 +1212,35 @@ type ColumnaGrid = {
 type ConfigGrid = { minRows: number; maxRows: number; columnas: ColumnaGrid[] };
 
 const GRID_POR_SECCION: Record<string, ConfigGrid> = {
+  // IV.1 / IV.2 — Productos elaborados y Materias primas. Dos listas
+  // independientes (una columna cada una); arranca en 3 filas y mantiene 2
+  // libres hasta 10 (lo que cabe en las tablas IV.1/IV.2 del PDF).
+  "IV. Actividad declarada": {
+    minRows: 3,
+    maxRows: 10,
+    columnas: [
+      { label: "Productos elaborados o servicios prestados", segmentos: [{ field: "productos_elaborados", start: 0, count: 10 }] },
+      { label: "Materias primas y materiales utilizados", segmentos: [{ field: "materias_primas", start: 0, count: 10 }] },
+    ],
+  },
+  // IV.5 — Equipo de transporte. Solo se muestra si IV.4 = SI (show_if del
+  // schema). Arranca en 2 filas y mantiene 2 libres hasta 5.
+  "IV.5. Equipo de transporte utilizado": {
+    minRows: 2,
+    maxRows: 5,
+    columnas: [
+      { label: "Número de unidades", tipo: "number", segmentos: [{ field: "transporte_unidades", start: 0, count: 5 }] },
+      { label: "Nombre", segmentos: [{ field: "transporte_nombre", start: 0, count: 5 }] },
+      { label: "Uso", segmentos: [{ field: "transporte_uso", start: 0, count: 5 }] },
+      {
+        label: "Combustible o energía",
+        tipo: "select",
+        options: ["GASOLINA", "DIESEL", "GAS", "ELECTRICO", "HIBRIDO", "OTROS"],
+        segmentos: [{ field: "transporte_combustible", start: 0, count: 5 }],
+      },
+      { label: "Capacidad o potencia", segmentos: [{ field: "transporte_capacidad", start: 0, count: 5 }] },
+    ],
+  },
   "IV.7. Personal": {
     minRows: 3,
     maxRows: 12,
