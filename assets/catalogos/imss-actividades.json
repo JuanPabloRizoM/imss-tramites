@@ -4,7 +4,7 @@
   "divisiones": [
     {
       "codigo": "0",
-      "nombre": "AGRICULTURA, GANADERÍA, SILVICULTURA, PESCA Y",
+      "nombre": "AGRICULTURA, GANADERÍA, SILVICULTURA, PESCA Y CAZA",
       "grupos": [
         {
           "codigo": "01",
@@ -36,9 +36,9 @@
           "fracciones": [
             {
               "codigo": "031",
-              "titulo": "Explotación de bosques madereros; extracción de productos",
+              "titulo": "Explotación de bosques madereros; extracción de productos forestales no maderables y servicios de explotación forestal.",
               "clase": "V",
-              "descripcion": "forestales no maderables y servicios de explotación forestal. Comprende a las empresas que se dedican a la plantación, repoblación y conservación de bosques, corte de árboles (excepto aserraderos), extracción de leña y cortezas, producción de carbón vegetal, extracción de chicle crudo y otras savias, recolección de frutas, flores, hongos, hierbas, carrizos y otras materias forestales silvestres. Incluye a las empresas que se dedican a prestar servicios de explotación forestal, tales como: estimación de volúmenes de madera, protección de bosques y otros."
+              "descripcion": "Comprende a las empresas que se dedican a la plantación, repoblación y conservación de bosques, corte de árboles (excepto aserraderos), extracción de leña y cortezas, producción de carbón vegetal, extracción de chicle crudo y otras savias, recolección de frutas, flores, hongos, hierbas, carrizos y otras materias forestales silvestres. Incluye a las empresas que se dedican a prestar servicios de explotación forestal, tales como: estimación de volúmenes de madera, protección de bosques y otros."
             }
           ]
         },
@@ -96,9 +96,9 @@
           "fracciones": [
             {
               "codigo": "111",
-              "titulo": "Extracción y beneficio de carbón mineral, grafito y minerales no",
+              "titulo": "Extracción y beneficio de carbón mineral, grafito y minerales no metálicos en minas de profundidad.",
               "clase": "V",
-              "descripcion": "metálicos en minas de profundidad. Comprende a las empresas que se dedican a la extracción a profundidad, con o sin beneficio de carbón mineral, grafito y otros minerales no metálicos; no se incluye la sal. Se considera también en esta fracción la extracción de azufre, excepto cuando este mineral se obtenga mediante la inyección de agua caliente, clasificada en la fracción 113."
+              "descripcion": "Comprende a las empresas que se dedican a la extracción a profundidad, con o sin beneficio de carbón mineral, grafito y otros minerales no metálicos; no se incluye la sal. Se considera también en esta fracción la extracción de azufre, excepto cuando este mineral se obtenga mediante la inyección de agua caliente, clasificada en la fracción 113."
             },
             {
               "codigo": "112",
@@ -114,9 +114,9 @@
             },
             {
               "codigo": "114",
-              "titulo": "Extracción y beneficio de minerales no metálicos, en minas a cielo",
+              "titulo": "Extracción y beneficio de minerales no metálicos, en minas a cielo abierto.",
               "clase": "V",
-              "descripcion": "abierto. Comprende a las empresas que se dedican a la extracción a cielo abierto, con o sin beneficio de piedra caliza, yeso, arena, grava, mármol, piedras para construcción, arcilla, caolín, barro, barita, fluorita, sílice, roca fosfórica y otros minerales no metálicos, excepto sal."
+              "descripcion": "Comprende a las empresas que se dedican a la extracción a cielo abierto, con o sin beneficio de piedra caliza, yeso, arena, grava, mármol, piedras para construcción, arcilla, caolín, barro, barita, fluorita, sílice, roca fosfórica y otros minerales no metálicos, excepto sal."
             }
           ]
         },
@@ -138,9 +138,9 @@
           "fracciones": [
             {
               "codigo": "131",
-              "titulo": "Extracción y beneficio de minerales metálicos, en minas de",
+              "titulo": "Extracción y beneficio de minerales metálicos, en minas de profundidad.",
               "clase": "V",
-              "descripcion": "profundidad. Comprende a las empresas que se dedican a la extracción a profundidad, con o sin beneficio de hierro, oro, plata, mercurio, antimonio, cobre, plomo, zinc y otros minerales metálicos."
+              "descripcion": "Comprende a las empresas que se dedican a la extracción a profundidad, con o sin beneficio de hierro, oro, plata, mercurio, antimonio, cobre, plomo, zinc y otros minerales metálicos."
             },
             {
               "codigo": "132",
@@ -150,9 +150,9 @@
             },
             {
               "codigo": "133",
-              "titulo": "Extracción y beneficio de minerales metálicos, en minas a cielo",
+              "titulo": "Extracción y beneficio de minerales metálicos, en minas a cielo abierto.",
               "clase": "IV",
-              "descripcion": "abierto. Comprende a las empresas que se dedican a la extracción a cielo abierto, con o sin beneficio de minerales de hierro, oro, plata, mercurio, antimonio, cobre, plomo, zinc y otros minerales metálicos."
+              "descripcion": "Comprende a las empresas que se dedican a la extracción a cielo abierto, con o sin beneficio de minerales de hierro, oro, plata, mercurio, antimonio, cobre, plomo, zinc y otros minerales metálicos."
             }
           ]
         },
@@ -180,9 +180,9 @@
           "fracciones": [
             {
               "codigo": "201",
-              "titulo": "Elaboración y preparación de productos alimenticios a base de",
+              "titulo": "Elaboración y preparación de productos alimenticios a base de frutas y legumbres, su conservación, envasado y/o empacado.",
               "clase": "III",
-              "descripcion": "frutas y legumbres, su conservación, envasado y/o empacado. Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la elaboración, preparación, envasado y/o empacado de encurtidos, jugos, mermeladas, ates, jaleas, frutas cubiertas o cristalizadas, salsas, sopas, alimentos colados y otros productos alimenticios a base de frutas y legumbres. Incluye la conservación de frutas y legumbres por deshidratación, congelación, cocción y otros procedimientos similares."
+              "descripcion": "Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la elaboración, preparación, envasado y/o empacado de encurtidos, jugos, mermeladas, ates, jaleas, frutas cubiertas o cristalizadas, salsas, sopas, alimentos colados y otros productos alimenticios a base de frutas y legumbres. Incluye la conservación de frutas y legumbres por deshidratación, congelación, cocción y otros procedimientos similares."
             },
             {
               "codigo": "202",
@@ -204,21 +204,21 @@
             },
             {
               "codigo": "205",
-              "titulo": "Elaboración, preparación, conservación, envasado y/o empacado",
+              "titulo": "Elaboración, preparación, conservación, envasado y/o empacado de carnes y sus derivados.",
               "clase": "IV",
-              "descripcion": "de carnes y sus derivados. Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la elaboración, preparación, envasado y/o empacado de carnes frías, embutidos, manteca de cerdo, sopas y otros productos derivados de carne. Incluye la deshidratación, congelación, salado, ahumado, envinagrado y otros procedimientos para conservar o preservar carnes y sus derivados, así como la elaboración de grenetinas como materia prima para otras industrias."
+              "descripcion": "Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la elaboración, preparación, envasado y/o empacado de carnes frías, embutidos, manteca de cerdo, sopas y otros productos derivados de carne. Incluye la deshidratación, congelación, salado, ahumado, envinagrado y otros procedimientos para conservar o preservar carnes y sus derivados, así como la elaboración de grenetinas como materia prima para otras industrias."
             },
             {
               "codigo": "206",
-              "titulo": "Elaboración, preparación, conservación, envasado y/o empacado",
+              "titulo": "Elaboración, preparación, conservación, envasado y/o empacado de productos lácteos.",
               "clase": "III",
-              "descripcion": "de productos lácteos. Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la elaboración, preparación, conservación, envasado y/o empacado de cremas, mantequillas, quesos, leche condensada, evaporada, flanes, cajetas, yogures y otros productos a base de leche. Incluye la pasteurización, deshidratación, rehidratación, homogeneización, vitaminización y otros tratamientos similares."
+              "descripcion": "Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la elaboración, preparación, conservación, envasado y/o empacado de cremas, mantequillas, quesos, leche condensada, evaporada, flanes, cajetas, yogures y otros productos a base de leche. Incluye la pasteurización, deshidratación, rehidratación, homogeneización, vitaminización y otros tratamientos similares."
             },
             {
               "codigo": "207",
-              "titulo": "Elaboración, preparación, conservación, envasado y/o empacado",
+              "titulo": "Elaboración, preparación, conservación, envasado y/o empacado de pescados, mariscos y otros productos marinos.",
               "clase": "IV",
-              "descripcion": "de pescados, mariscos y otros productos marinos. Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la elaboración, preparación, conservación, envasado y/o empacado de pescados, mariscos y otros productos de especies marinas. Incluye la deshidratación, congelación, salado, ahumado y otros tratamientos similares, así como la elaboración de harinas y aceites a base de especies marinas."
+              "descripcion": "Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la elaboración, preparación, conservación, envasado y/o empacado de pescados, mariscos y otros productos de especies marinas. Incluye la deshidratación, congelación, salado, ahumado y otros tratamientos similares, así como la elaboración de harinas y aceites a base de especies marinas."
             },
             {
               "codigo": "208",
@@ -228,9 +228,9 @@
             },
             {
               "codigo": "209",
-              "titulo": "Elaboración de chocolates, dulces,                    confituras,     jarabes,",
+              "titulo": "Elaboración de chocolates, dulces, confituras, jarabes, concentrados y colorantes para alimentos.",
               "clase": "III",
-              "descripcion": "concentrados y colorantes para alimentos. Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la elaboración de chocolates, malvaviscos, gelatinas, dulces rellenos, chicles, caramelos y similares. Incluye el tratamiento y envase de miel de abeja y la elaboración de concentrados, esencias, jarabes y colorantes para alimentos."
+              "descripcion": "Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la elaboración de chocolates, malvaviscos, gelatinas, dulces rellenos, chicles, caramelos y similares. Incluye el tratamiento y envase de miel de abeja y la elaboración de concentrados, esencias, jarabes y colorantes para alimentos."
             },
             {
               "codigo": "2010",
@@ -246,33 +246,33 @@
             },
             {
               "codigo": "2012",
-              "titulo": "Fabricación de almidones, féculas, levaduras, malta y productos",
+              "titulo": "Fabricación de almidones, féculas, levaduras, malta y productos similares.",
               "clase": "III",
-              "descripcion": "similares. Comprende a las empresas que se dedican a la fabricación con empleo de maquinaria y/o equipo motorizado, de almidones, féculas, levaduras, malta, extractos de malta y productos similares. Cuando estos productos se fabriquen de manera simultánea en la industria cervecera, se clasificarán en la fracción 212."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación con empleo de maquinaria y/o equipo motorizado, de almidones, féculas, levaduras, malta, extractos de malta y productos similares. Cuando estos productos se fabriquen de manera simultánea en la industria cervecera, se clasificarán en la fracción 212."
             },
             {
               "codigo": "2013",
-              "titulo": "Elaboración, preparación, envasado y/o empacado de otros",
+              "titulo": "Elaboración, preparación, envasado y/o empacado de otros productos alimenticios.",
               "clase": "III",
-              "descripcion": "productos alimenticios. Comprende a las empresas que preparan, elaboran, envasan y/o empacan con empleo de maquinaria y/o equipo motorizado, otros productos alimenticios no incluidos en las fracciones anteriores. Incluye hielo, helados, paletas, nieves, sal comestible, mostaza, vinagre y otros condimentos."
+              "descripcion": "Comprende a las empresas que preparan, elaboran, envasan y/o empacan con empleo de maquinaria y/o equipo motorizado, otros productos alimenticios no incluidos en las fracciones anteriores. Incluye hielo, helados, paletas, nieves, sal comestible, mostaza, vinagre y otros condimentos."
             },
             {
               "codigo": "2014",
-              "titulo": "Elaboración, preparación, envasado y/o empacado de productos",
+              "titulo": "Elaboración, preparación, envasado y/o empacado de productos alimenticios, sin maquinaria ni equipo motorizado.",
               "clase": "II",
-              "descripcion": "alimenticios, sin maquinaria ni equipo motorizado. Comprende a las empresas que sin empleo de maquinaria ni equipo motorizado, elaboran, preparan, envasan y/o empacan productos alimenticios. Incluye los descritos o no en las fracciones del Grupo 20."
+              "descripcion": "Comprende a las empresas que sin empleo de maquinaria ni equipo motorizado, elaboran, preparan, envasan y/o empacan productos alimenticios. Incluye los descritos o no en las fracciones del Grupo 20."
             },
             {
               "codigo": "2015",
-              "titulo": "Fabricación de productos a base de cereales, con procesos",
+              "titulo": "Fabricación de productos a base de cereales, con procesos continuos automatizados.",
               "clase": "III",
-              "descripcion": "continuos automatizados. Comprende a las empresas que se dedican con empleo de procesos continuos automatizados, a la fabricación de pan, pasteles, galletas, pastas alimenticias, tortillas, obleas, conos para helados, tortillas doradas, botanas y similares. Incluye la producción de hojuelas de maíz, arroz tostado, palomitas de maíz y otros productos similares."
+              "descripcion": "Comprende a las empresas que se dedican con empleo de procesos continuos automatizados, a la fabricación de pan, pasteles, galletas, pastas alimenticias, tortillas, obleas, conos para helados, tortillas doradas, botanas y similares. Incluye la producción de hojuelas de maíz, arroz tostado, palomitas de maíz y otros productos similares."
             },
             {
               "codigo": "2016",
-              "titulo": "Fabricación de harinas y productos de molino a base de cereales",
+              "titulo": "Fabricación de harinas y productos de molino a base de cereales y leguminosas.",
               "clase": "V",
-              "descripcion": "y leguminosas. Comprende a las empresas que se dedican a la fabricación de harinas de trigo, maíz, centeno, soya, avena, cebada, mijo, alubia, garbanzo, haba, lenteja y otros cereales y leguminosas. Incluye la fabricación de harina de arroz; molienda de nixtamal y empresas tortilladoras que cuenten con molinos. Excepto empresas dedicadas a otros beneficios de granos, clasificadas por separado en la fracción 202."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación de harinas de trigo, maíz, centeno, soya, avena, cebada, mijo, alubia, garbanzo, haba, lenteja y otros cereales y leguminosas. Incluye la fabricación de harina de arroz; molienda de nixtamal y empresas tortilladoras que cuenten con molinos. Excepto empresas dedicadas a otros beneficios de granos, clasificadas por separado en la fracción 202."
             }
           ]
         },
@@ -294,9 +294,9 @@
             },
             {
               "codigo": "213",
-              "titulo": "Elaboración y/o envase de refrescos, aguas gaseosas y",
+              "titulo": "Elaboración y/o envase de refrescos, aguas gaseosas y purificadas.",
               "clase": "IV",
-              "descripcion": "purificadas. Comprende a las empresas dedicadas a la elaboración y/o envase de refrescos, aguas purificadas y aguas minerales. Incluye la elaboración y envase de concentrados de pulpa de frutas, así como el almacenamiento y/o distribución, cuando se desarrollen en forma simultánea a la industria refresquera o de purificación de agua."
+              "descripcion": "Comprende a las empresas dedicadas a la elaboración y/o envase de refrescos, aguas purificadas y aguas minerales. Incluye la elaboración y envase de concentrados de pulpa de frutas, así como el almacenamiento y/o distribución, cuando se desarrollen en forma simultánea a la industria refresquera o de purificación de agua."
             }
           ]
         },
@@ -318,15 +318,15 @@
           "fracciones": [
             {
               "codigo": "231",
-              "titulo": "Fabricación, preparación, hilado, tejido y acabado de textiles de",
+              "titulo": "Fabricación, preparación, hilado, tejido y acabado de textiles de fibras blandas.",
               "clase": "IV",
-              "descripcion": "fibras blandas. Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la fabricación y preparación de hilados, hilo para coser, bordar y tejer; casimires, paños, cobijas, telas afelpadas, colchas, toallas, encajes, cintas, telas elásticas, etiquetas, galonería, cordones, agujetas y similares. Incluye la preparación de algodón para usos higiénicos; la fabricación de alfombras y tapetes; guatas, borras y similares. Así como a las empresas que en forma simultánea realizan el blanqueo, teñido, estampado, impermeabilizado y otros procedimientos de acabado de hilados y tejidos de fibras blandas. Excepto los tejidos de punto y los de fibras de asbesto, clasificados en las fracciones 233 y 337, respectivamente."
+              "descripcion": "Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la fabricación y preparación de hilados, hilo para coser, bordar y tejer; casimires, paños, cobijas, telas afelpadas, colchas, toallas, encajes, cintas, telas elásticas, etiquetas, galonería, cordones, agujetas y similares. Incluye la preparación de algodón para usos higiénicos; la fabricación de alfombras y tapetes; guatas, borras y similares. Así como a las empresas que en forma simultánea realizan el blanqueo, teñido, estampado, impermeabilizado y otros procedimientos de acabado de hilados y tejidos de fibras blandas. Excepto los tejidos de punto y los de fibras de asbesto, clasificados en las fracciones 233 y 337, respectivamente."
             },
             {
               "codigo": "232",
-              "titulo": "Trabajos de blanqueo, teñido, estampado, impermeabilizado y",
+              "titulo": "Trabajos de blanqueo, teñido, estampado, impermeabilizado y acabado de hilados y tejidos de fibras blandas.",
               "clase": "IV",
-              "descripcion": "acabado de hilados y tejidos de fibras blandas. Comprende a las empresas que se dedican a realizar trabajos de blanqueo, teñido, estampado, impermeabilizado, texturizado y otros procedimientos de acabado de hilados y tejidos de fibras blandas y de punto."
+              "descripcion": "Comprende a las empresas que se dedican a realizar trabajos de blanqueo, teñido, estampado, impermeabilizado, texturizado y otros procedimientos de acabado de hilados y tejidos de fibras blandas y de punto."
             },
             {
               "codigo": "233",
@@ -336,21 +336,21 @@
             },
             {
               "codigo": "234",
-              "titulo": "Fabricación, preparación, hilado, tejido y acabado de textiles de",
+              "titulo": "Fabricación, preparación, hilado, tejido y acabado de textiles de fibras duras.",
               "clase": "V",
-              "descripcion": "fibras duras. Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la fabricación, preparación, hilado, tejido y acabado de productos de henequén, palma, cáñamo, yute, ixtle, fibra de coco, lechuguilla y otras fibras duras similares. Incluye la fabricación de cables, cuerdas, cordelería, tapetes, alfombras y otros productos textiles de fibras duras."
+              "descripcion": "Comprende a las empresas que se dedican con empleo de maquinaria y/o equipo motorizado, a la fabricación, preparación, hilado, tejido y acabado de productos de henequén, palma, cáñamo, yute, ixtle, fibra de coco, lechuguilla y otras fibras duras similares. Incluye la fabricación de cables, cuerdas, cordelería, tapetes, alfombras y otros productos textiles de fibras duras."
             },
             {
               "codigo": "235",
-              "titulo": "Trabajos de hilados y/o tejidos sin maquinaria ni equipo",
+              "titulo": "Trabajos de hilados y/o tejidos sin maquinaria ni equipo motorizado.",
               "clase": "II",
-              "descripcion": "motorizado. Comprende a las empresas que en forma manual o sin empleo de maquinaria ni equipo motorizado, manufacturan hilados o tejidos de cualquier tipo. Incluye empresas que en forma simultánea a la manufactura, realizan confecciones."
+              "descripcion": "Comprende a las empresas que en forma manual o sin empleo de maquinaria ni equipo motorizado, manufacturan hilados o tejidos de cualquier tipo. Incluye empresas que en forma simultánea a la manufactura, realizan confecciones."
             },
             {
               "codigo": "236",
-              "titulo": "Fabricación de tejidos de fibras blandas con telares automáticos",
+              "titulo": "Fabricación de tejidos de fibras blandas con telares automáticos sin lanzadera.",
               "clase": "IV",
-              "descripcion": "sin lanzadera. Comprende a las empresas que se dedican a la fabricación de tejidos de fibras blandas con pie o urdimbre y trama, sin lanzadera ni canilla interior, es decir, con inserción de trama a base de proyectil, pinzas, lanzas, succión de aire, transporte por líquidos o similares. Se incluye en esta fracción a las empresas que además de las actividades anteriores, también en forma simultánea realicen procesos previos de preparación de hilado, hilado y preparación de tejido, así como los posteriores de acabado de hilados y tejidos de fibras blandas."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación de tejidos de fibras blandas con pie o urdimbre y trama, sin lanzadera ni canilla interior, es decir, con inserción de trama a base de proyectil, pinzas, lanzas, succión de aire, transporte por líquidos o similares. Se incluye en esta fracción a las empresas que además de las actividades anteriores, también en forma simultánea realicen procesos previos de preparación de hilado, hilado y preparación de tejido, así como los posteriores de acabado de hilados y tejidos de fibras blandas."
             },
             {
               "codigo": "237",
@@ -408,9 +408,9 @@
             },
             {
               "codigo": "254",
-              "titulo": "Manufactura de artículos de cuero, piel y sucedáneos, en forma",
+              "titulo": "Manufactura de artículos de cuero, piel y sucedáneos, en forma artesanal.",
               "clase": "II",
-              "descripcion": "artesanal. Comprende a las empresas que en forma artesanal, sin empleo de maquinaria ni equipo motorizado ni procesos de producción en serie, se dedican a la manufactura de artículos de cuero, piel y telas plásticas sintéticas o artificiales. Excepto calzado y prendas de vestir."
+              "descripcion": "Comprende a las empresas que en forma artesanal, sin empleo de maquinaria ni equipo motorizado ni procesos de producción en serie, se dedican a la manufactura de artículos de cuero, piel y telas plásticas sintéticas o artificiales. Excepto calzado y prendas de vestir."
             },
             {
               "codigo": "255",
@@ -420,9 +420,9 @@
             },
             {
               "codigo": "256",
-              "titulo": "Curtido y acabado de cuero y piel, con uso exclusivo de",
+              "titulo": "Curtido y acabado de cuero y piel, con uso exclusivo de maquinaria y/o equipo motorizado.",
               "clase": "V",
-              "descripcion": "maquinaria y/o equipo motorizado. Comprende a las empresas que con la utilización exclusiva de maquinaria y/o equipo motorizado, realizan la totalidad del proceso productivo para el curtido y acabado de cuero y piel de animales."
+              "descripcion": "Comprende a las empresas que con la utilización exclusiva de maquinaria y/o equipo motorizado, realizan la totalidad del proceso productivo para el curtido y acabado de cuero y piel de animales."
             }
           ]
         },
@@ -444,9 +444,9 @@
             },
             {
               "codigo": "263",
-              "titulo": "Manufactura de artículos de corcho, palma, vara, carrizo y",
+              "titulo": "Manufactura de artículos de corcho, palma, vara, carrizo y mimbre.",
               "clase": "II",
-              "descripcion": "mimbre. Comprende a las empresas que sin empleo de maquinaria ni equipo motorizado, se dedican a la manufactura en forma artesanal de artículos de corcho, cestería ornamental y decoración, sombreros de palma, escobas, escobillas, escobetas, cepillos, plumeros, brochas, pinceles y similares, a base de palma, vara, carrizo y mimbre. Excepto muebles."
+              "descripcion": "Comprende a las empresas que sin empleo de maquinaria ni equipo motorizado, se dedican a la manufactura en forma artesanal de artículos de corcho, cestería ornamental y decoración, sombreros de palma, escobas, escobillas, escobetas, cepillos, plumeros, brochas, pinceles y similares, a base de palma, vara, carrizo y mimbre. Excepto muebles."
             },
             {
               "codigo": "264",
@@ -476,7 +476,7 @@
               "codigo": "281",
               "titulo": "Fabricación de papel y/o cartón y sus derivados.",
               "clase": "IV",
-              "descripcion": "Comprende a las empresas que se dedican a la fabricación de papel y/o cartón y sus derivados. Incluye la producción de celulosa, pasta y pulpas de madera y otras plantas, así como aquéllas que en forma simultánea a la fabricación, elaboran artículos diversos a base de dichos materiales. 282               Fabricación de artículos a base de papel y/o cartón. IV Comprende a las empresas que con papel y/o cartón se dedican a fabricar cajas, envases, bolsas, papel para copiar o reportar, papel engomado, sobres, tarjetas, papel de escribir, cuadernos, bloques, láminas de cartón impermeabilizadas, papel y toallas higiénicas, pañales desechables y otros, cuando no se fabriquen en forma simultánea a la producción del papel o pasta de celulosa."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación de papel y/o cartón y sus derivados. Incluye la producción de celulosa, pasta y pulpas de madera y otras plantas, así como aquéllas que en forma simultánea a la fabricación, elaboran artículos diversos a base de dichos materiales. 282 Fabricación de artículos a base de papel y/o cartón. IV Comprende a las empresas que con papel y/o cartón se dedican a fabricar cajas, envases, bolsas, papel para copiar o reportar, papel engomado, sobres, tarjetas, papel de escribir, cuadernos, bloques, láminas de cartón impermeabilizadas, papel y toallas higiénicas, pañales desechables y otros, cuando no se fabriquen en forma simultánea a la producción del papel o pasta de celulosa."
             }
           ]
         },
@@ -486,9 +486,9 @@
           "fracciones": [
             {
               "codigo": "291",
-              "titulo": "Industrias editorial, de impresión, encuadernación y actividades",
+              "titulo": "Industrias editorial, de impresión, encuadernación y actividades conexas.",
               "clase": "III",
-              "descripcion": "conexas. Comprende a las empresas que se dedican a realizar trabajos de edición, impresión y/o encuadernación de periódicos, revistas, libros y similares, así como la fabricación de calcomanías, trabajos de serigrafía, litografía, process, fotograbado y rotograbado, grabado en placas metálicas, fabricación de clisés, tipos para imprentas y otros trabajos relacionados con la impresión y edición. Incluye trabajos de fotolito."
+              "descripcion": "Comprende a las empresas que se dedican a realizar trabajos de edición, impresión y/o encuadernación de periódicos, revistas, libros y similares, así como la fabricación de calcomanías, trabajos de serigrafía, litografía, process, fotograbado y rotograbado, grabado en placas metálicas, fabricación de clisés, tipos para imprentas y otros trabajos relacionados con la impresión y edición. Incluye trabajos de fotolito."
             }
           ]
         },
@@ -498,9 +498,9 @@
           "fracciones": [
             {
               "codigo": "301",
-              "titulo": "Fabricación de sustancias químicas e industriales; excepto",
+              "titulo": "Fabricación de sustancias químicas e industriales; excepto abonos.",
               "clase": "III",
-              "descripcion": "abonos. Comprende a las empresas que con productos petroquímicos básicos y/o materias primas elementales o compuestas derivadas de la carboquímica básica y de las industrias extractivas, se dedican por cualquier método a la fabricación de productos químicos orgánicos e inorgánicos básicos; incluye la fabricación de pigmentos y materias colorantes, carbón activado, gases industriales, ácidos, óxidos, bases, sales y otras sustancias químicas industriales; excepto abonos y productos clasificados en las fracciones subsecuentes del Grupo 30."
+              "descripcion": "Comprende a las empresas que con productos petroquímicos básicos y/o materias primas elementales o compuestas derivadas de la carboquímica básica y de las industrias extractivas, se dedican por cualquier método a la fabricación de productos químicos orgánicos e inorgánicos básicos; incluye la fabricación de pigmentos y materias colorantes, carbón activado, gases industriales, ácidos, óxidos, bases, sales y otras sustancias químicas industriales; excepto abonos y productos clasificados en las fracciones subsecuentes del Grupo 30."
             },
             {
               "codigo": "302",
@@ -518,7 +518,7 @@
               "codigo": "304",
               "titulo": "Industria de las pinturas.",
               "clase": "III",
-              "descripcion": "Comprende a las empresas que con materiales colorantes o pigmentos orgánicos e inorgánicos, disolventes y otros provenientes de la industria química básica, se dedican a la fabricación de pinturas, barnices, lacas, esmaltes, tintas. Incluye la fabricación de aguarrás, brea, colofonia, derivados de resinas de la madera como: disolventes, lejías, gomas, alquitranes, pegamentos,         adhesivos,        aprestos,        compuestos impermeabilizantes y otros productos similares."
+              "descripcion": "Comprende a las empresas que con materiales colorantes o pigmentos orgánicos e inorgánicos, disolventes y otros provenientes de la industria química básica, se dedican a la fabricación de pinturas, barnices, lacas, esmaltes, tintas. Incluye la fabricación de aguarrás, brea, colofonia, derivados de resinas de la madera como: disolventes, lejías, gomas, alquitranes, pegamentos, adhesivos, aprestos, compuestos impermeabilizantes y otros productos similares."
             },
             {
               "codigo": "305",
@@ -528,9 +528,9 @@
             },
             {
               "codigo": "307",
-              "titulo": "Fabricación de productos químicos para limpieza y aromatizantes",
+              "titulo": "Fabricación de productos químicos para limpieza y aromatizantes ambientales.",
               "clase": "III",
-              "descripcion": "ambientales. Comprende a las empresas que se dedican a la fabricación de jabones, detergentes, desinfectantes, lustradores, aromatizantes ambientales y otros productos para lavado y aseo."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación de jabones, detergentes, desinfectantes, lustradores, aromatizantes ambientales y otros productos para lavado y aseo."
             },
             {
               "codigo": "308",
@@ -540,9 +540,9 @@
             },
             {
               "codigo": "309",
-              "titulo": "Fabricación de aceites y grasas vegetales y animales no",
+              "titulo": "Fabricación de aceites y grasas vegetales y animales no comestibles, para usos industriales.",
               "clase": "IV",
-              "descripcion": "comestibles, para usos industriales. Comprende a las empresas que fabrican aceites y grasas vegetales y animales no comestibles, para usos industriales. Incluye aquéllas que realicen parte del proceso productivo como la extracción, refinación, hidrogenación, blanqueo, epoxidación, polimerización, esterificación, purificación y otros similares para los aceites y grasas de uso industrial."
+              "descripcion": "Comprende a las empresas que fabrican aceites y grasas vegetales y animales no comestibles, para usos industriales. Incluye aquéllas que realicen parte del proceso productivo como la extracción, refinación, hidrogenación, blanqueo, epoxidación, polimerización, esterificación, purificación y otros similares para los aceites y grasas de uso industrial."
             },
             {
               "codigo": "3010",
@@ -636,9 +636,9 @@
             },
             {
               "codigo": "332",
-              "titulo": "Fabricación de muebles sanitarios, loza, porcelana y artículos",
+              "titulo": "Fabricación de muebles sanitarios, loza, porcelana y artículos refractarios.",
               "clase": "V",
-              "descripcion": "refractarios. Comprende a las empresas que se dedican a la fabricación de muebles sanitarios y sus accesorios, loza, porcelana, artículos refractarios y similares. Excepto la fabricación de azulejos, clasificados en las fracciones 339 o 3312."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación de muebles sanitarios y sus accesorios, loza, porcelana, artículos refractarios y similares. Excepto la fabricación de azulejos, clasificados en las fracciones 339 o 3312."
             },
             {
               "codigo": "333",
@@ -672,9 +672,9 @@
             },
             {
               "codigo": "339",
-              "titulo": "Fabricación de granito artificial, productos de mármol y otras",
+              "titulo": "Fabricación de granito artificial, productos de mármol y otras piedras.",
               "clase": "V",
-              "descripcion": "piedras. Comprende a las empresas que con materiales provenientes de la industria extractiva, se dedican a la fabricación de granito artificial, al corte, pulido y laminado de mármol y otras piedras, para obtener mosaicos, losetas, baldosas, adoquines, losas para pavimentos, azulejos, piedras para acabados y ornamentación en la construcción, lápidas y productos a base de granito artificial, mármol y otras piedras."
+              "descripcion": "Comprende a las empresas que con materiales provenientes de la industria extractiva, se dedican a la fabricación de granito artificial, al corte, pulido y laminado de mármol y otras piedras, para obtener mosaicos, losetas, baldosas, adoquines, losas para pavimentos, azulejos, piedras para acabados y ornamentación en la construcción, lápidas y productos a base de granito artificial, mármol y otras piedras."
             },
             {
               "codigo": "3310",
@@ -690,9 +690,9 @@
             },
             {
               "codigo": "3313",
-              "titulo": "Fabricación de vidrio y/o productos de vidrio, con procesos",
+              "titulo": "Fabricación de vidrio y/o productos de vidrio, con procesos continuos automatizados.",
               "clase": "II",
-              "descripcion": "continuos automatizados. Comprende a las empresas que se dedican por medio de procesos continuos automatizados, a la fabricación y regeneración de vidrio para obtener materiales y productos como vidrio en masa, en bolas, barras, varillas o tubos, templado, refractario, colado, laminado, estirado o soplado, chapado, desbastado o pulido de superficie no lisa, vidrio multicelular en bloques, baldosas, placas, paneles y formas análogas, recipientes para transporte o envase, tapones y otros dispositivos de cierre, ampollas, objetos para laboratorio, higiene, farmacia, artísticos, decorativos, ornamentales, espejos, cristalería tallada y otros. Incluye la fabricación de fibras y lana de vidrio, así como la manufactura de estos materiales."
+              "descripcion": "Comprende a las empresas que se dedican por medio de procesos continuos automatizados, a la fabricación y regeneración de vidrio para obtener materiales y productos como vidrio en masa, en bolas, barras, varillas o tubos, templado, refractario, colado, laminado, estirado o soplado, chapado, desbastado o pulido de superficie no lisa, vidrio multicelular en bloques, baldosas, placas, paneles y formas análogas, recipientes para transporte o envase, tapones y otros dispositivos de cierre, ampollas, objetos para laboratorio, higiene, farmacia, artísticos, decorativos, ornamentales, espejos, cristalería tallada y otros. Incluye la fabricación de fibras y lana de vidrio, así como la manufactura de estos materiales."
             },
             {
               "codigo": "3315",
@@ -726,9 +726,9 @@
             },
             {
               "codigo": "342",
-              "titulo": "Industrias básicas del hierro, acero y metales no ferrosos, con",
+              "titulo": "Industrias básicas del hierro, acero y metales no ferrosos, con procesos automatizados.",
               "clase": "V",
-              "descripcion": "procesos automatizados. Comprende a las empresas que, con la utilización exclusiva de procesos automatizados, se dedican a la fabricación de productos primarios de hierro, acero y metales no ferrosos, tales como: ferroaleaciones, arrabio, fierro esponja, aceros especiales, planchón, tocho, palanquilla, varilla corrugada, alambrón, barras, rieles, plancha, tubos y otros productos primarios de hierro o acero y de metales no ferrosos. Incluye a empresas que realicen todo el proceso de transformación o parte de él, desde la fundición, afinación y refinación, hasta la fase de productos semiacabados por laminación, vaciado, moldeado, extrusión, trefilado, forjado y otros procesos para obtener alambre, perfiles estructurales, láminas, hojas, cintas, hojalata, cañerías, piezas fundidas y otros; así como a las dedicadas al aprovechamiento de chatarra para obtener piezas fundidas y coladas. No se incluye en esta fracción a aquellas empresas cuyos procesos de trabajo no sean automatizados o lo sean parcialmente. Igualmente, se excluye a las empresas que tengan algunas líneas de producción totalmente automatizadas, pero que cuenten con otras que no lo sean, clasificadas en la fracción 341."
+              "descripcion": "Comprende a las empresas que, con la utilización exclusiva de procesos automatizados, se dedican a la fabricación de productos primarios de hierro, acero y metales no ferrosos, tales como: ferroaleaciones, arrabio, fierro esponja, aceros especiales, planchón, tocho, palanquilla, varilla corrugada, alambrón, barras, rieles, plancha, tubos y otros productos primarios de hierro o acero y de metales no ferrosos. Incluye a empresas que realicen todo el proceso de transformación o parte de él, desde la fundición, afinación y refinación, hasta la fase de productos semiacabados por laminación, vaciado, moldeado, extrusión, trefilado, forjado y otros procesos para obtener alambre, perfiles estructurales, láminas, hojas, cintas, hojalata, cañerías, piezas fundidas y otros; así como a las dedicadas al aprovechamiento de chatarra para obtener piezas fundidas y coladas. No se incluye en esta fracción a aquellas empresas cuyos procesos de trabajo no sean automatizados o lo sean parcialmente. Igualmente, se excluye a las empresas que tengan algunas líneas de producción totalmente automatizadas, pero que cuenten con otras que no lo sean, clasificadas en la fracción 341."
             }
           ]
         },
@@ -738,27 +738,27 @@
           "fracciones": [
             {
               "codigo": "351",
-              "titulo": "Fabricación de utensilios agrícolas, herramientas y artículos de",
+              "titulo": "Fabricación de utensilios agrícolas, herramientas y artículos de ferretería y cerrajería.",
               "clase": "V",
-              "descripcion": "ferretería y cerrajería. Comprende a las empresas que se dedican a la fabricación de palas, picos, azadones, horquillas, rastrillos, hachas, hocinas, guadañas, hoces, machetes y otras herramientas agrícolas; serruchos,     seguetas,      útiles     intercambiables    para máquinas-herramientas o de mano, buriles, brocas, pijas, pernos, tuercas, pasadores, tornillos, tensores, grilletes, chavetas, ganchos, armellas, remaches, clavos, tachuelas, clavijas, arandelas, guarniciones y herrajes, cierrapuertas automáticos, perchas, ménsulas, chapas, candados, llaves, cerraduras, accesorios metálicos para baños y otros artículos y utensilios. Incluye espuelas, herraduras y frenos para animales."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación de palas, picos, azadones, horquillas, rastrillos, hachas, hocinas, guadañas, hoces, machetes y otras herramientas agrícolas; serruchos, seguetas, útiles intercambiables para máquinas-herramientas o de mano, buriles, brocas, pijas, pernos, tuercas, pasadores, tornillos, tensores, grilletes, chavetas, ganchos, armellas, remaches, clavos, tachuelas, clavijas, arandelas, guarniciones y herrajes, cierrapuertas automáticos, perchas, ménsulas, chapas, candados, llaves, cerraduras, accesorios metálicos para baños y otros artículos y utensilios. Incluye espuelas, herraduras y frenos para animales."
             },
             {
               "codigo": "352",
-              "titulo": "Fabricación y/o reparación de puertas, ventanas, cortinas",
+              "titulo": "Fabricación y/o reparación de puertas, ventanas, cortinas metálicas y otros trabajos de herrería.",
               "clase": "IV",
-              "descripcion": "metálicas y otros trabajos de herrería. Comprende a las empresas que se dedican a la fabricación y/o reparación de puertas, ventanas, rejas, cortinas, escaleras, barandales y otros artículos de metal. Incluye la fabricación de juegos metálicos infantiles no motorizados. Excepto las empresas que en forma simultánea con la fabricación de los productos mencionados instalen los mismos, así como aquéllas que realicen exclusivamente la instalación de los productos mencionados, las que se clasifican en la fracción 423."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o reparación de puertas, ventanas, rejas, cortinas, escaleras, barandales y otros artículos de metal. Incluye la fabricación de juegos metálicos infantiles no motorizados. Excepto las empresas que en forma simultánea con la fabricación de los productos mencionados instalen los mismos, así como aquéllas que realicen exclusivamente la instalación de los productos mencionados, las que se clasifican en la fracción 423."
             },
             {
               "codigo": "353",
-              "titulo": "Fabricación, ensamble y/o reparación de muebles metálicos y sus",
+              "titulo": "Fabricación, ensamble y/o reparación de muebles metálicos y sus partes.",
               "clase": "IV",
-              "descripcion": "partes. Comprende a las empresas dedicadas a fabricar, ensamblar y/o reparar unidades terminadas o partes de muebles y equipos metálicos y sus partes para uso doméstico, comercial, de oficina, profesional y científico como gabinetes, camas, ataúdes, mesas, sillería, escritorios, archiveros, estanterías, cajas fuertes, cajas de seguridad, libreros, muebles y equipo para restaurantes, peluquerías, salas de belleza, centros comerciales y hospitales."
+              "descripcion": "Comprende a las empresas dedicadas a fabricar, ensamblar y/o reparar unidades terminadas o partes de muebles y equipos metálicos y sus partes para uso doméstico, comercial, de oficina, profesional y científico como gabinetes, camas, ataúdes, mesas, sillería, escritorios, archiveros, estanterías, cajas fuertes, cajas de seguridad, libreros, muebles y equipo para restaurantes, peluquerías, salas de belleza, centros comerciales y hospitales."
             },
             {
               "codigo": "354",
-              "titulo": "Fabricación y/o reparación de estructuras metálicas, tanques,",
+              "titulo": "Fabricación y/o reparación de estructuras metálicas, tanques, calderas y similares.",
               "clase": "V",
-              "descripcion": "calderas y similares. Comprende a las empresas que se dedican a la fabricación y/o reparación de estructuras metálicas, tanques, calderas, recipientes de placa metálica estacionarios o para montarse sobre vehículos de transporte. Incluye estructuras para puentes, juegos electromecánicos, depósitos elevados, hangares, torres, castilletes, columnas y otros sistemas de soporte estructurales."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o reparación de estructuras metálicas, tanques, calderas, recipientes de placa metálica estacionarios o para montarse sobre vehículos de transporte. Incluye estructuras para puentes, juegos electromecánicos, depósitos elevados, hangares, torres, castilletes, columnas y otros sistemas de soporte estructurales."
             },
             {
               "codigo": "355",
@@ -780,15 +780,15 @@
             },
             {
               "codigo": "358",
-              "titulo": "Fabricación de agujas, alfileres, cierres, botones y navajas para",
+              "titulo": "Fabricación de agujas, alfileres, cierres, botones y navajas para rasurar.",
               "clase": "III",
-              "descripcion": "rasurar. Comprende a las empresas que se dedican a la fabricación de agujas, alfileres, cierres, botones, pasacintas, ganchillos, cuentas, lentejuelas, chaquiras, horquillas, rizadores, grapas, clips y navajas para rasurar."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación de agujas, alfileres, cierres, botones, pasacintas, ganchillos, cuentas, lentejuelas, chaquiras, horquillas, rizadores, grapas, clips y navajas para rasurar."
             },
             {
               "codigo": "359",
-              "titulo": "Fabricación de baterías de cocina, cucharas, cuchillos y",
+              "titulo": "Fabricación de baterías de cocina, cucharas, cuchillos y tenedores.",
               "clase": "V",
-              "descripcion": "tenedores. Comprende a las empresas que se dedican a la fabricación de ollas, sartenes, charolas, ollas express, cafeteras, moldes para hornear, cazuelas, cucharas, tenedores, cuchillos, abrelatas, destapadores, peladores, rebanadores y otros artefactos de uso doméstico similares."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación de ollas, sartenes, charolas, ollas express, cafeteras, moldes para hornear, cazuelas, cucharas, tenedores, cuchillos, abrelatas, destapadores, peladores, rebanadores y otros artefactos de uso doméstico similares."
             },
             {
               "codigo": "3510",
@@ -798,39 +798,39 @@
             },
             {
               "codigo": "3511",
-              "titulo": "Tratamientos térmicos y galvanoplastia, con procesos continuos",
+              "titulo": "Tratamientos térmicos y galvanoplastia, con procesos continuos automatizados.",
               "clase": "III",
-              "descripcion": "automatizados. Comprende a las empresas que con procesos continuos automatizados, se dedican exclusivamente a trabajos de tratamientos térmicos y galvanoplastia, tales como: normalizado, relevado, revenido, patentado, templado, cromado, niquelado, cobrizado, anodizado, estañado, plateado, tropicalizado y otros. Excepto empresas que realicen estos trabajos como parte de su proceso productivo en la fabricación de un producto, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que con procesos continuos automatizados, se dedican exclusivamente a trabajos de tratamientos térmicos y galvanoplastia, tales como: normalizado, relevado, revenido, patentado, templado, cromado, niquelado, cobrizado, anodizado, estañado, plateado, tropicalizado y otros. Excepto empresas que realicen estos trabajos como parte de su proceso productivo en la fabricación de un producto, clasificadas por separado."
             }
           ]
         },
         {
           "codigo": "36",
-          "nombre": "FABRICACIÓN,       ENSAMBLE      Y/O     REPARACIÓN       DE",
+          "nombre": "FABRICACIÓN, ENSAMBLE Y/O REPARACIÓN DE",
           "fracciones": [
             {
               "codigo": "361",
-              "titulo": "Fabricación y/o ensamble de maquinaria, equipos e implementos",
+              "titulo": "Fabricación y/o ensamble de maquinaria, equipos e implementos para labores agropecuarias.",
               "clase": "IV",
-              "descripcion": "para labores agropecuarias. Comprende a las empresas que se dedican a la fabricación y/o ensamble de sembradoras, cosechadoras, segadoras, trilladoras, fertilizadoras, cortadoras, arados, rastras, ordeñadoras y otros equipos, implementos y máquinas para labores agropecuarias. Excepto tractores clasificados en la fracción 363."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de sembradoras, cosechadoras, segadoras, trilladoras, fertilizadoras, cortadoras, arados, rastras, ordeñadoras y otros equipos, implementos y máquinas para labores agropecuarias. Excepto tractores clasificados en la fracción 363."
             },
             {
               "codigo": "362",
-              "titulo": "Fabricación y/o ensamble de maquinaria, equipo e implementos",
+              "titulo": "Fabricación y/o ensamble de maquinaria, equipo e implementos para las industrias de alimentos, bebidas, tabacalera, textil, calzado, madera, cuero, impresión, hule, plástico, productos de minerales no metálicos (excepto cemento), metal mecánica y maquinaria y equipo de uso común a varias industrias.",
               "clase": "IV",
-              "descripcion": "para las industrias de alimentos, bebidas, tabacalera, textil, calzado, madera, cuero, impresión, hule, plástico, productos de minerales no metálicos (excepto cemento), metal mecánica y maquinaria y equipo de uso común a varias industrias. Comprende a las empresas que se dedican a la fabricación y/o ensamble de implementos, equipos y máquinas especiales para las industrias señaladas. Incluye la fabricación de bombas, motores (excepto los eléctricos y automotrices), compresores, centrifugadores, aparatos de filtración, calefacción y refrigeración, equipos de elevación, carga, descarga y manipulación (carretillas, polipastos, grúas, montacargas, escaleras electromecánicas, bandas transportadoras, elevadores para personas y mercancías y otros), básculas, herramientas neumáticas (pistolas aerográficas, extintores, aparatos de chorro de arena) y otros equipos y máquinas de uso común a varias industrias. No se considera en esta fracción la fabricación y/o ensamble de implementos, equipos y máquinas clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de implementos, equipos y máquinas especiales para las industrias señaladas. Incluye la fabricación de bombas, motores (excepto los eléctricos y automotrices), compresores, centrifugadores, aparatos de filtración, calefacción y refrigeración, equipos de elevación, carga, descarga y manipulación (carretillas, polipastos, grúas, montacargas, escaleras electromecánicas, bandas transportadoras, elevadores para personas y mercancías y otros), básculas, herramientas neumáticas (pistolas aerográficas, extintores, aparatos de chorro de arena) y otros equipos y máquinas de uso común a varias industrias. No se considera en esta fracción la fabricación y/o ensamble de implementos, equipos y máquinas clasificados por separado."
             },
             {
               "codigo": "363",
-              "titulo": "Fabricación y/o ensamble de maquinaria, equipo e implementos",
+              "titulo": "Fabricación y/o ensamble de maquinaria, equipo e implementos para las industrias de la construcción, extractivas, papel, cemento, petroquímica básica, química; metálicas básicas del hierro, del acero y de metales no ferrosos.",
               "clase": "V",
-              "descripcion": "para las industrias de la construcción, extractivas, papel, cemento, petroquímica básica, química; metálicas básicas del hierro, del acero y de metales no ferrosos. Comprende a las empresas que se dedican a la fabricación y/o ensamble de implementos, equipos y máquinas especiales para las industrias señaladas. Incluye la fabricación de tractores para labores agropecuarias e industriales. No se considera en esta fracción la fabricación y/o ensamble de implementos, equipos y máquinas clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de implementos, equipos y máquinas especiales para las industrias señaladas. Incluye la fabricación de tractores para labores agropecuarias e industriales. No se considera en esta fracción la fabricación y/o ensamble de implementos, equipos y máquinas clasificados por separado."
             },
             {
               "codigo": "364",
-              "titulo": "Fabricación y/o ensamble de máquinas de coser, oficina, cómputo",
+              "titulo": "Fabricación y/o ensamble de máquinas de coser, oficina, cómputo y sus partes.",
               "clase": "II",
-              "descripcion": "y sus partes. Comprende a las empresas que se dedican a la fabricación y/o ensamble de máquinas de coser, de escribir, protectoras de cheques, calculadoras, registradoras, franqueadoras de correspondencia, sus partes y otras máquinas de oficina. Incluye la fabricación de equipo de cómputo o de procesamiento electrónico de datos y sus periféricos. Excepto los equipos de comunicación, clasificados en la fracción 372."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de máquinas de coser, de escribir, protectoras de cheques, calculadoras, registradoras, franqueadoras de correspondencia, sus partes y otras máquinas de oficina. Incluye la fabricación de equipo de cómputo o de procesamiento electrónico de datos y sus periféricos. Excepto los equipos de comunicación, clasificados en la fracción 372."
             },
             {
               "codigo": "365",
@@ -840,9 +840,9 @@
             },
             {
               "codigo": "366",
-              "titulo": "Fabricación de partes y piezas sueltas, para maquinaria y equipo",
+              "titulo": "Fabricación de partes y piezas sueltas, para maquinaria y equipo en general.",
               "clase": "V",
-              "descripcion": "en general. Comprende a las empresas que se dedican a la fabricación de partes y piezas sueltas para maquinaria y equipo en general."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación de partes y piezas sueltas para maquinaria y equipo en general."
             },
             {
               "codigo": "367",
@@ -858,45 +858,45 @@
           "fracciones": [
             {
               "codigo": "371",
-              "titulo": "Fabricación y/o ensamble de maquinaria y equipo para generación",
+              "titulo": "Fabricación y/o ensamble de maquinaria y equipo para generación y transformación de energía eléctrica.",
               "clase": "IV",
-              "descripcion": "y transformación de energía eléctrica. Comprende a las empresas que se dedican a la fabricación y/o ensamble de generadores, motogeneradores, motorreductores, transformadores, reguladores, alternadores, rectificadores, motores eléctricos, punteadoras, soldadoras eléctricas y otros equipos y máquinas para generación y transformación de energía eléctrica. Excepto la fabricación y/o ensamble de partes para el sistema eléctrico de vehículos automóviles, clasificadas en la fracción 384."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de generadores, motogeneradores, motorreductores, transformadores, reguladores, alternadores, rectificadores, motores eléctricos, punteadoras, soldadoras eléctricas y otros equipos y máquinas para generación y transformación de energía eléctrica. Excepto la fabricación y/o ensamble de partes para el sistema eléctrico de vehículos automóviles, clasificadas en la fracción 384."
             },
             {
               "codigo": "372",
-              "titulo": "Fabricación y/o ensamble de equipo y aparatos de radio,",
+              "titulo": "Fabricación y/o ensamble de equipo y aparatos de radio, televisión y comunicaciones.",
               "clase": "II",
-              "descripcion": "televisión y comunicaciones. Comprende a las empresas que se dedican a la fabricación y/o ensamble de aparatos de radio y televisión, grabadores o reproductores de la imagen o del sonido, equipos de telefonía, télex, radar, telegrafía, micrófonos, audífonos, altavoces, amplificadores y otros aparatos y equipos de radio, televisión y comunicaciones. Incluye a las empresas que en forma simultánea a la fabricación de los equipos y aparatos antes mencionados, fabriquen y/o ensamblen sus partes."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de aparatos de radio y televisión, grabadores o reproductores de la imagen o del sonido, equipos de telefonía, télex, radar, telegrafía, micrófonos, audífonos, altavoces, amplificadores y otros aparatos y equipos de radio, televisión y comunicaciones. Incluye a las empresas que en forma simultánea a la fabricación de los equipos y aparatos antes mencionados, fabriquen y/o ensamblen sus partes."
             },
             {
               "codigo": "373",
-              "titulo": "Fabricación y/o grabado de discos y cintas magnéticas para",
+              "titulo": "Fabricación y/o grabado de discos y cintas magnéticas para sonidos, imágenes y datos.",
               "clase": "III",
-              "descripcion": "sonidos, imágenes y datos. Comprende a las empresas que se dedican a la fabricación y/o grabado de discos y cintas magnéticas para sonidos, imágenes y datos. Incluye el ensamble de los artículos mencionados en cartuchos."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o grabado de discos y cintas magnéticas para sonidos, imágenes y datos. Incluye el ensamble de los artículos mencionados en cartuchos."
             },
             {
               "codigo": "374",
-              "titulo": "Fabricación y/o ensamble de aparatos eléctricos y sus partes para",
+              "titulo": "Fabricación y/o ensamble de aparatos eléctricos y sus partes para uso doméstico.",
               "clase": "III",
-              "descripcion": "uso doméstico. Comprende a las empresas que se dedican a la fabricación y/o ensamble de unidades terminadas o partes de batidoras, tostadores, freidoras, sartenetas, cafeteras, hornos de microondas, planchas, licuadoras, extractores de jugo, aspiradoras, enceradoras, máquinas para afeitar, cortar y secar el pelo, ventiladores y otros aparatos eléctricos similares para uso doméstico o comercial. Incluye a las empresas que además de fabricar alguno(s) de los aparatos anteriormente señalados, fabrican y/o ensamblan refrigeradores, lavadoras, estufas y otros equipos similares para uso doméstico. Las empresas que se dedican en forma exclusiva a fabricar y/o ensamblar refrigeradores, lavadoras, estufas y otros equipos similares, se clasifican por separado en la fracción 3712."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de unidades terminadas o partes de batidoras, tostadores, freidoras, sartenetas, cafeteras, hornos de microondas, planchas, licuadoras, extractores de jugo, aspiradoras, enceradoras, máquinas para afeitar, cortar y secar el pelo, ventiladores y otros aparatos eléctricos similares para uso doméstico o comercial. Incluye a las empresas que además de fabricar alguno(s) de los aparatos anteriormente señalados, fabrican y/o ensamblan refrigeradores, lavadoras, estufas y otros equipos similares para uso doméstico. Las empresas que se dedican en forma exclusiva a fabricar y/o ensamblar refrigeradores, lavadoras, estufas y otros equipos similares, se clasifican por separado en la fracción 3712."
             },
             {
               "codigo": "375",
-              "titulo": "Fabricación, reconstrucción y/o ensamble de acumuladores",
+              "titulo": "Fabricación, reconstrucción y/o ensamble de acumuladores eléctricos.",
               "clase": "IV",
-              "descripcion": "eléctricos. Comprende a las empresas que se dedican a la fabricación, reconstrucción y/o ensamble de acumuladores eléctricos (húmedos) para usos diversos."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación, reconstrucción y/o ensamble de acumuladores eléctricos (húmedos) para usos diversos."
             },
             {
               "codigo": "376",
-              "titulo": "Fabricación y/o ensamble de pilas (secas), componentes",
+              "titulo": "Fabricación y/o ensamble de pilas (secas), componentes eléctricos y electrónicos diversos.",
               "clase": "III",
-              "descripcion": "eléctricos y electrónicos diversos. Comprende a las empresas que se dedican a la fabricación y/o ensamble de pilas secas, partes e implementos eléctricos o electrónicos como escobillas de carbón, carbones para lámparas, electrodos de carbón, cristales piezoeléctricos, diodos, transistores, microcircuitos electrónicos, condensadores eléctricos y similares."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de pilas secas, partes e implementos eléctricos o electrónicos como escobillas de carbón, carbones para lámparas, electrodos de carbón, cristales piezoeléctricos, diodos, transistores, microcircuitos electrónicos, condensadores eléctricos y similares."
             },
             {
               "codigo": "377",
-              "titulo": "Fabricación y/o ensamble de lámparas (focos) y tubos al vacío",
+              "titulo": "Fabricación y/o ensamble de lámparas (focos) y tubos al vacío para alumbrado eléctrico.",
               "clase": "III",
-              "descripcion": "para alumbrado eléctrico. Comprende a las empresas que se dedican a la fabricación y/o ensamble de lámparas (focos) y tubos al vacío para alumbrado eléctrico. Incluye válvulas electrónicas de vacío, de vapor, de gas y de rayos catódicos. Excepto empresas que fabriquen aparatos denominados luminarias que provistos de lámparas (focos) sirven para alumbrar, clasificadas en la fracción 3710."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de lámparas (focos) y tubos al vacío para alumbrado eléctrico. Incluye válvulas electrónicas de vacío, de vapor, de gas y de rayos catódicos. Excepto empresas que fabriquen aparatos denominados luminarias que provistos de lámparas (focos) sirven para alumbrar, clasificadas en la fracción 3710."
             },
             {
               "codigo": "378",
@@ -906,9 +906,9 @@
             },
             {
               "codigo": "379",
-              "titulo": "Fabricación y/o ensamble de aparatos, accesorios eléctricos o",
+              "titulo": "Fabricación y/o ensamble de aparatos, accesorios eléctricos o electrónicos, para empalme, corte, protección y conexión.",
               "clase": "II",
-              "descripcion": "electrónicos, para empalme, corte, protección y conexión. Comprende a las empresas que se dedican a la fabricación y/o ensamble de interruptores, arrancadores, relevadores, tableros, conmutadores, cortacircuitos, pararrayos, amortiguadores de onda, alarmas, tomas de corriente, pletinas y similares."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de interruptores, arrancadores, relevadores, tableros, conmutadores, cortacircuitos, pararrayos, amortiguadores de onda, alarmas, tomas de corriente, pletinas y similares."
             },
             {
               "codigo": "3710",
@@ -918,15 +918,15 @@
             },
             {
               "codigo": "3711",
-              "titulo": "Fabricación en serie o con procesos continuos de acumuladores",
+              "titulo": "Fabricación en serie o con procesos continuos de acumuladores eléctricos.",
               "clase": "III",
-              "descripcion": "eléctricos. Comprende a las empresas que se dedican, mediante procesos continuos o líneas de producción en serie, a la fabricación y/o ensamble de acumuladores eléctricos (húmedos) para usos diversos."
+              "descripcion": "Comprende a las empresas que se dedican, mediante procesos continuos o líneas de producción en serie, a la fabricación y/o ensamble de acumuladores eléctricos (húmedos) para usos diversos."
             },
             {
               "codigo": "3712",
-              "titulo": "Fabricación y/o ensamble de refrigeradores, estufas, lavadoras,",
+              "titulo": "Fabricación y/o ensamble de refrigeradores, estufas, lavadoras, secadoras y otros aparatos de línea blanca.",
               "clase": "IV",
-              "descripcion": "secadoras y otros aparatos de línea blanca. Comprende a las empresas que se dedican en forma exclusiva a la fabricación y/o ensamble de aparatos eléctricos para uso comercial y doméstico, tales como: refrigeradores, congeladores, estufas, hornos, lavadoras, secadoras, lava-vajillas y otros similares de línea blanca. Incluye calentadores."
+              "descripcion": "Comprende a las empresas que se dedican en forma exclusiva a la fabricación y/o ensamble de aparatos eléctricos para uso comercial y doméstico, tales como: refrigeradores, congeladores, estufas, hornos, lavadoras, secadoras, lava-vajillas y otros similares de línea blanca. Incluye calentadores."
             }
           ]
         },
@@ -942,21 +942,21 @@
             },
             {
               "codigo": "382",
-              "titulo": "Fabricación y/o ensamble de carrocerías para vehículos de",
+              "titulo": "Fabricación y/o ensamble de carrocerías para vehículos de transporte.",
               "clase": "IV",
-              "descripcion": "transporte. Comprende a las empresas que se dedican a la fabricación, ensamble, adaptación o conversión de carrocerías y remolques para vehículos de transporte. Excepto la fabricación y/o ensamble de tanques para vehículos de transporte clasificados en la fracción 354."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación, ensamble, adaptación o conversión de carrocerías y remolques para vehículos de transporte. Excepto la fabricación y/o ensamble de tanques para vehículos de transporte clasificados en la fracción 354."
             },
             {
               "codigo": "383",
-              "titulo": "Fabricación y/o ensamble de partes y accesorios para",
+              "titulo": "Fabricación y/o ensamble de partes y accesorios para automóviles, autobuses, camiones, motocicletas y bicicletas.",
               "clase": "IV",
-              "descripcion": "automóviles, autobuses, camiones, motocicletas y bicicletas. Comprende a las empresas que se dedican a la fabricación y/o ensamble, para automóviles, autobuses, camiones, motocicletas y bicicletas, de muelles, amortiguadores, asientos, escapes y otras partes similares. Incluye accesorios tales como: espejos retrovisores, antenas, volantes, cinturones de seguridad y otros. Excepto las partes y/o componentes para motores, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble, para automóviles, autobuses, camiones, motocicletas y bicicletas, de muelles, amortiguadores, asientos, escapes y otras partes similares. Incluye accesorios tales como: espejos retrovisores, antenas, volantes, cinturones de seguridad y otros. Excepto las partes y/o componentes para motores, clasificadas por separado."
             },
             {
               "codigo": "384",
-              "titulo": "Fabricación y/o ensamble de partes para el sistema eléctrico de",
+              "titulo": "Fabricación y/o ensamble de partes para el sistema eléctrico de vehículos automóviles.",
               "clase": "II",
-              "descripcion": "vehículos automóviles. Comprende a las empresas que se dedican a la fabricación y/o ensamble de bobinas, generadores, distribuidores, reguladores, alternadores, transformadores, bujías, platinos, sistemas de encendido y otras partes y accesorios para el sistema eléctrico de vehículos automóviles. Excepto la fabricación de acumuladores, clasificados en las fracciones 375 y 3711."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de bobinas, generadores, distribuidores, reguladores, alternadores, transformadores, bujías, platinos, sistemas de encendido y otras partes y accesorios para el sistema eléctrico de vehículos automóviles. Excepto la fabricación de acumuladores, clasificados en las fracciones 375 y 3711."
             },
             {
               "codigo": "385",
@@ -966,9 +966,9 @@
             },
             {
               "codigo": "386",
-              "titulo": "Fabricación, ensamble y/o reparación de carros de ferrocarril,",
+              "titulo": "Fabricación, ensamble y/o reparación de carros de ferrocarril, equipo ferroviario y sus partes.",
               "clase": "V",
-              "descripcion": "equipo ferroviario y sus partes. Comprende a las empresas que se dedican a la fabricación, montaje, reconstrucción y/o reparación de equipo ferroviario, armazones, estructuras para locomotoras, carros comedor, carros dormitorio, autovía, locomotoras, tranvías, vagones de carga, de pasajeros, de plataforma, frigoríficos, carros para trenes urbanos (metro), suburbanos y sus partes."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación, montaje, reconstrucción y/o reparación de equipo ferroviario, armazones, estructuras para locomotoras, carros comedor, carros dormitorio, autovía, locomotoras, tranvías, vagones de carga, de pasajeros, de plataforma, frigoríficos, carros para trenes urbanos (metro), suburbanos y sus partes."
             },
             {
               "codigo": "387",
@@ -978,21 +978,21 @@
             },
             {
               "codigo": "388",
-              "titulo": "Fabricación y/o ensamble de automóviles, autobuses, camiones y",
+              "titulo": "Fabricación y/o ensamble de automóviles, autobuses, camiones y motocicletas.",
               "clase": "III",
-              "descripcion": "motocicletas. Comprende a las empresas que se dedican a la fabricación y/o ensamble de automóviles, autobuses, camiones y motocicletas."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de automóviles, autobuses, camiones y motocicletas."
             },
             {
               "codigo": "389",
-              "titulo": "Fabricación y/o ensamble                  de      motores   para   automóviles,",
+              "titulo": "Fabricación y/o ensamble de motores para automóviles, autobuses y camiones.",
               "clase": "III",
-              "descripcion": "autobuses y camiones. Comprende a las empresas que se dedican a la fabricación y/o ensamble de motores como producto final para su uso inmediato en la función para la que fue creado en automóviles, autobuses y camiones. Excepto empresas que se dedican a fabricar partes y/o componentes para estos motores, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de motores como producto final para su uso inmediato en la función para la que fue creado en automóviles, autobuses y camiones. Excepto empresas que se dedican a fabricar partes y/o componentes para estos motores, clasificadas por separado."
             },
             {
               "codigo": "3810",
-              "titulo": "Fabricación de conjuntos mecánicos y sus                           partes   para",
+              "titulo": "Fabricación de conjuntos mecánicos y sus partes para automóviles, autobuses, camiones y motocicletas.",
               "clase": "IV",
-              "descripcion": "automóviles, autobuses, camiones y motocicletas. Comprende a las empresas que se dedican a la fabricación en serie de conjuntos mecánicos tales como: sistemas de transmisión, de dirección, de suspensión, de embrague, de frenos y otros, así como sus partes. Incluye a las empresas que se dedican exclusivamente a la fabricación de partes metálicas para motores de combustión interna (gasolina o diesel), tales como: monoblocks, pistones, bielas, anillos, engranes, cigüeñales, árboles de levas, cabezas de cilindros, balancines, bujes, inyectores, bombas (de enfriamiento, lubricación y combustible), múltiples (de admisión y escape), poleas, tapas cojinete (de cigüeñal y de árbol de levas), válvulas (para admisión y escape), carcazas, retenes de sello de aceite, flechas, camisas para cilindro, filtros (para aceite, combustibles y aire) y carburadores. Excepto empresas que fabriquen partes para motor, como tornillos, tuercas, arandelas, bandas, mangueras, cables, partes metálicas para soporte y otras, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación en serie de conjuntos mecánicos tales como: sistemas de transmisión, de dirección, de suspensión, de embrague, de frenos y otros, así como sus partes. Incluye a las empresas que se dedican exclusivamente a la fabricación de partes metálicas para motores de combustión interna (gasolina o diesel), tales como: monoblocks, pistones, bielas, anillos, engranes, cigüeñales, árboles de levas, cabezas de cilindros, balancines, bujes, inyectores, bombas (de enfriamiento, lubricación y combustible), múltiples (de admisión y escape), poleas, tapas cojinete (de cigüeñal y de árbol de levas), válvulas (para admisión y escape), carcazas, retenes de sello de aceite, flechas, camisas para cilindro, filtros (para aceite, combustibles y aire) y carburadores. Excepto empresas que fabriquen partes para motor, como tornillos, tuercas, arandelas, bandas, mangueras, cables, partes metálicas para soporte y otras, clasificadas por separado."
             }
           ]
         },
@@ -1002,33 +1002,33 @@
           "fracciones": [
             {
               "codigo": "390",
-              "titulo": "Fabricación, ensamble y/o reparación de equipos, aparatos",
+              "titulo": "Fabricación, ensamble y/o reparación de equipos, aparatos científicos y profesionales e instrumentos de medida y control.",
               "clase": "III",
-              "descripcion": "científicos y profesionales e instrumentos de medida y control. Comprende a las empresas que se dedican a la fabricación, ensamble y/o reparación de equipos, aparatos e instrumentos científicos, profesionales, médicos, quirúrgicos, de laboratorio, prótesis, ortopedia, auditivos, de medida, control y otros similares; excepto muebles metálicos, básculas industriales y prótesis dentales, que se clasifican por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación, ensamble y/o reparación de equipos, aparatos e instrumentos científicos, profesionales, médicos, quirúrgicos, de laboratorio, prótesis, ortopedia, auditivos, de medida, control y otros similares; excepto muebles metálicos, básculas industriales y prótesis dentales, que se clasifican por separado."
             },
             {
               "codigo": "391",
-              "titulo": "Fabricación, ensamble y/o reparación de aparatos, instrumentos y",
+              "titulo": "Fabricación, ensamble y/o reparación de aparatos, instrumentos y accesorios de óptica y fotografía.",
               "clase": "II",
-              "descripcion": "accesorios de óptica y fotografía. Comprende a las empresas que se dedican a la fabricación, ensamble y/o reparación de anteojos, lentes, aparatos e instrumentos ópticos, fotográficos y de fotocopiado. Incluye la fabricación de películas, placas, papel sensible y otros accesorios de óptica y fotografía."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación, ensamble y/o reparación de anteojos, lentes, aparatos e instrumentos ópticos, fotográficos y de fotocopiado. Incluye la fabricación de películas, placas, papel sensible y otros accesorios de óptica y fotografía."
             },
             {
               "codigo": "392",
-              "titulo": "Fabricación, montaje y/o ensamble de relojes, joyas, artículos de",
+              "titulo": "Fabricación, montaje y/o ensamble de relojes, joyas, artículos de orfebrería y fantasía.",
               "clase": "II",
-              "descripcion": "orfebrería y fantasía. Comprende a las empresas que se dedican a la fabricación, montaje y/o ensamble de relojes, joyas, artículos de orfebrería, de fantasía, mecanismos, conjuntos mecánicos, partes o componentes para relojes. Incluye el corte, grabado, tallado y pulido de piedras preciosas y metales utilizados en joyería."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación, montaje y/o ensamble de relojes, joyas, artículos de orfebrería, de fantasía, mecanismos, conjuntos mecánicos, partes o componentes para relojes. Incluye el corte, grabado, tallado y pulido de piedras preciosas y metales utilizados en joyería."
             },
             {
               "codigo": "394",
-              "titulo": "Fabricación y/o ensamble de instrumentos musicales, paraguas,",
+              "titulo": "Fabricación y/o ensamble de instrumentos musicales, paraguas, juguetes y artículos deportivos, con maquinaria y/o equipo motorizado.",
               "clase": "III",
-              "descripcion": "juguetes y artículos deportivos, con maquinaria y/o equipo motorizado. Comprende a las empresas que con empleo de maquinaria y/o equipo motorizado, se dedican a la fabricación y/o ensamble de instrumentos musicales, paraguas, juguetes (excepto los de plástico moldeado y de madera, clasificados por separado). Incluye a las empresas que fabrican artículos deportivos que por los materiales, maquinaria o equipo utilizados y procesos de trabajo desarrollados no puedan clasificarse en las fracciones correspondientes de la División de las Industrias de Transformación."
+              "descripcion": "Comprende a las empresas que con empleo de maquinaria y/o equipo motorizado, se dedican a la fabricación y/o ensamble de instrumentos musicales, paraguas, juguetes (excepto los de plástico moldeado y de madera, clasificados por separado). Incluye a las empresas que fabrican artículos deportivos que por los materiales, maquinaria o equipo utilizados y procesos de trabajo desarrollados no puedan clasificarse en las fracciones correspondientes de la División de las Industrias de Transformación."
             },
             {
               "codigo": "395",
-              "titulo": "Fabricación y/o ensamble de instrumentos musicales, paraguas,",
+              "titulo": "Fabricación y/o ensamble de instrumentos musicales, paraguas, juguetes y artículos deportivos, sin maquinaria ni equipo motorizado.",
               "clase": "II",
-              "descripcion": "juguetes y artículos deportivos, sin maquinaria ni equipo motorizado. Comprende a las empresas que sin empleo de maquinaria ni equipo motorizado, se dedican a la fabricación y/o ensamble de instrumentos musicales, paraguas, juguetes (excepto los de madera), artículos deportivos y otros similares."
+              "descripcion": "Comprende a las empresas que sin empleo de maquinaria ni equipo motorizado, se dedican a la fabricación y/o ensamble de instrumentos musicales, paraguas, juguetes (excepto los de madera), artículos deportivos y otros similares."
             },
             {
               "codigo": "396",
@@ -1044,21 +1044,21 @@
             },
             {
               "codigo": "398",
-              "titulo": "Fabricación y/o ensamble de armas de fuego portátiles,",
+              "titulo": "Fabricación y/o ensamble de armas de fuego portátiles, cartuchos, municiones y accesorios.",
               "clase": "III",
-              "descripcion": "cartuchos, municiones y accesorios. Comprende a las empresas que se dedican a la fabricación y/o ensamble de armas de fuego portátiles, cartuchos, municiones y accesorios."
+              "descripcion": "Comprende a las empresas que se dedican a la fabricación y/o ensamble de armas de fuego portátiles, cartuchos, municiones y accesorios."
             },
             {
               "codigo": "399",
-              "titulo": "Fabricación, ensamble y/o reparación de otros artículos",
+              "titulo": "Fabricación, ensamble y/o reparación de otros artículos manufacturados no clasificados anteriormente, sin maquinaria ni equipo motorizado.",
               "clase": "III",
-              "descripcion": "manufacturados no clasificados anteriormente, sin maquinaria ni equipo motorizado. Comprende a las empresas que sin empleo de maquinaria ni equipo motorizado, se dedican a la fabricación, ensamble y/o reparación de artículos diversos no clasificados anteriormente."
+              "descripcion": "Comprende a las empresas que sin empleo de maquinaria ni equipo motorizado, se dedican a la fabricación, ensamble y/o reparación de artículos diversos no clasificados anteriormente."
             },
             {
               "codigo": "3910",
-              "titulo": "Fabricación, ensamble y/o reparación de otros artículos",
+              "titulo": "Fabricación, ensamble y/o reparación de otros artículos manufacturados no clasificados anteriormente, con maquinaria y/o equipo motorizado.",
               "clase": "IV",
-              "descripcion": "manufacturados no clasificados anteriormente, con maquinaria y/o equipo motorizado. Comprende a las empresas que con empleo de maquinaria y/o equipo motorizado, se dedican a la fabricación, ensamble y/o reparación de artículos diversos no clasificados anteriormente."
+              "descripcion": "Comprende a las empresas que con empleo de maquinaria y/o equipo motorizado, se dedican a la fabricación, ensamble y/o reparación de artículos diversos no clasificados anteriormente."
             }
           ]
         }
@@ -1080,27 +1080,27 @@
             },
             {
               "codigo": "412",
-              "titulo": "Construcciones de obras de infraestructura y edificaciones en",
+              "titulo": "Construcciones de obras de infraestructura y edificaciones en obra pública.",
               "clase": "V",
-              "descripcion": "obra pública. Comprende a las empresas que se dedican a la construcción, reparación, reformas, reconstrucción y supervisión de obras de urbanización     y    saneamiento,     de    electrificación,   de comunicaciones y transporte, hidráulicas y marítimas, de excavación, nivelación de terrenos, topografía, cimentación, perforación de pozos, alumbrado, andamiaje, demolición, montaje de estructuras prefabricadas (metálicas o de concreto) y similares. Se considera la construcción de instalaciones y edificaciones agropecuarias, industriales, edificaciones especiales relacionadas con el transporte (estaciones de pasajeros y otras) y edificaciones industriales especiales (centrales telefónicas, telegráficas o eléctricas, industria química y otras). Obras de colección, disposición y tratamiento de aguas negras, potabilizadoras y redes de distribución; camellones, banquetas, calles, avenidas, bulevares, viaductos, pasos a desnivel, sistemas de señalamiento, alumbrado público y otras obras de urbanización y saneamiento; líneas telegráficas, telefónicas, incluso cables submarinos, télex, red de microondas, torres transmisoras de radio y televisión, tendido de líneas para transmisión por cable y otros similares, incluso radares y microondas; caminos, brechas, carreteras, autopistas, pistas de aeropuertos, sistemas ferroviarios y transporte urbano eléctrico, estructura de vías para transporte ferroviario, urbano, suburbano e interurbano, estaciones subterráneas y vías férreas (metro); oleoductos, gasoductos y conductos similares y otras obras de comunicación y transportes; presas, estaciones de bombeo, acueductos y redes de distribución de agua, canales y obras de riego, obras para control de inundaciones (malecones, diques pluviales y otras), dragado y eliminación de rocas submarinas, puertos, muelles, desembarcaderos, diques rompeolas y similares; canales de navegación y otras obras marítimas; estadios, campos y canchas deportivas; perforación de pozos de agua, petroleros o de gas; lagos y estanques artificiales; instalación y remodelación de esculturas, monumentos y otras obras de ingeniería civil no especificadas. Se incluyen las edificaciones a que se refiere la fracción 411, cuando se trate de obra pública, cuando sean realizadas por personas morales o cuando, tratándose de personas físicas, éstas acrediten de manera fehaciente que se dedican normalmente a actividades de construcción."
+              "descripcion": "Comprende a las empresas que se dedican a la construcción, reparación, reformas, reconstrucción y supervisión de obras de urbanización y saneamiento, de electrificación, de comunicaciones y transporte, hidráulicas y marítimas, de excavación, nivelación de terrenos, topografía, cimentación, perforación de pozos, alumbrado, andamiaje, demolición, montaje de estructuras prefabricadas (metálicas o de concreto) y similares. Se considera la construcción de instalaciones y edificaciones agropecuarias, industriales, edificaciones especiales relacionadas con el transporte (estaciones de pasajeros y otras) y edificaciones industriales especiales (centrales telefónicas, telegráficas o eléctricas, industria química y otras). Obras de colección, disposición y tratamiento de aguas negras, potabilizadoras y redes de distribución; camellones, banquetas, calles, avenidas, bulevares, viaductos, pasos a desnivel, sistemas de señalamiento, alumbrado público y otras obras de urbanización y saneamiento; líneas telegráficas, telefónicas, incluso cables submarinos, télex, red de microondas, torres transmisoras de radio y televisión, tendido de líneas para transmisión por cable y otros similares, incluso radares y microondas; caminos, brechas, carreteras, autopistas, pistas de aeropuertos, sistemas ferroviarios y transporte urbano eléctrico, estructura de vías para transporte ferroviario, urbano, suburbano e interurbano, estaciones subterráneas y vías férreas (metro); oleoductos, gasoductos y conductos similares y otras obras de comunicación y transportes; presas, estaciones de bombeo, acueductos y redes de distribución de agua, canales y obras de riego, obras para control de inundaciones (malecones, diques pluviales y otras), dragado y eliminación de rocas submarinas, puertos, muelles, desembarcaderos, diques rompeolas y similares; canales de navegación y otras obras marítimas; estadios, campos y canchas deportivas; perforación de pozos de agua, petroleros o de gas; lagos y estanques artificiales; instalación y remodelación de esculturas, monumentos y otras obras de ingeniería civil no especificadas. Se incluyen las edificaciones a que se refiere la fracción 411, cuando se trate de obra pública, cuando sean realizadas por personas morales o cuando, tratándose de personas físicas, éstas acrediten de manera fehaciente que se dedican normalmente a actividades de construcción."
             }
           ]
         },
         {
           "codigo": "42",
-          "nombre": "TRABAJOS        REALIZADOS          POR                   CONTRATISTAS",
+          "nombre": "TRABAJOS REALIZADOS POR CONTRATISTAS",
           "fracciones": [
             {
               "codigo": "421",
-              "titulo": "Instalaciones sanitarias, eléctricas, de                gas      y   de    aire",
+              "titulo": "Instalaciones sanitarias, eléctricas, de gas y de aire acondicionado.",
               "clase": "IV",
-              "descripcion": "acondicionado. Comprende a las empresas que se dedican a la instalación de sistemas sanitarios, de plomería y fontanería, de sistema eléctrico, intercomunicación y de alarma, de sistemas de aire acondicionado, de redes de distribución de gas combustible e instalaciones similares. Incluye la modificación, ampliación o mantenimiento y reparación de las instalaciones mencionadas, así como la limpieza del alcantarillado, caños y tuberías."
+              "descripcion": "Comprende a las empresas que se dedican a la instalación de sistemas sanitarios, de plomería y fontanería, de sistema eléctrico, intercomunicación y de alarma, de sistemas de aire acondicionado, de redes de distribución de gas combustible e instalaciones similares. Incluye la modificación, ampliación o mantenimiento y reparación de las instalaciones mencionadas, así como la limpieza del alcantarillado, caños y tuberías."
             },
             {
               "codigo": "422",
-              "titulo": "Instalación   y    reparación    de     ascensores,                  escaleras",
+              "titulo": "Instalación y reparación de ascensores, escaleras electromecánicas y otros equipos para transportación Comprende a las empresas que se dedican a la instalación de ascensores, escaleras electromecánicas y otros equipos o sistemas para elevación o transportación.",
               "clase": "IV",
-              "descripcion": "electromecánicas y otros equipos para transportación Comprende a las empresas que se dedican a la instalación de ascensores, escaleras electromecánicas y otros equipos o sistemas para elevación o transportación. Incluye la modificación, ampliación, mantenimiento y reparación de los equipos mencionados."
+              "descripcion": "Incluye la modificación, ampliación, mantenimiento y reparación de los equipos mencionados."
             },
             {
               "codigo": "423",
@@ -1110,9 +1110,9 @@
             },
             {
               "codigo": "424",
-              "titulo": "Otros servicios de instalación vinculados                   al   acabado      o",
+              "titulo": "Otros servicios de instalación vinculados al acabado o remodelación de obras de construcción.",
               "clase": "V",
-              "descripcion": "remodelación de obras de construcción. Comprende a las empresas que se dedican a la instalación de revestimientos de interiores o exteriores de obras de construcción en general con mezclas de cemento, yeso o cal, materiales pétreos o vidriados, pinturas, madera, impermeabilizantes, materiales térmicos o acústicos, elementos ornamentales y otros materiales o partes no especificados, vinculados al acabado o remodelación de obras de construcción. Incluye a los rotulistas que realicen trabajos en interiores y exteriores de inmuebles sobre muros, paredes, paneles y similares y/o empresas que instalen los anuncios publicitarios, así como sus elementos de suspensión o sustentación."
+              "descripcion": "Comprende a las empresas que se dedican a la instalación de revestimientos de interiores o exteriores de obras de construcción en general con mezclas de cemento, yeso o cal, materiales pétreos o vidriados, pinturas, madera, impermeabilizantes, materiales térmicos o acústicos, elementos ornamentales y otros materiales o partes no especificados, vinculados al acabado o remodelación de obras de construcción. Incluye a los rotulistas que realicen trabajos en interiores y exteriores de inmuebles sobre muros, paredes, paneles y similares y/o empresas que instalen los anuncios publicitarios, así como sus elementos de suspensión o sustentación."
             }
           ]
         }
@@ -1120,7 +1120,7 @@
     },
     {
       "codigo": "5",
-      "nombre": "INDUSTRIA ELÉCTRICA Y CAPTACIÓN Y SUMINISTRO DE",
+      "nombre": "INDUSTRIA ELÉCTRICA Y CAPTACIÓN Y SUMINISTRO DE AGUA POTABLE",
       "grupos": [
         {
           "codigo": "50",
@@ -1158,21 +1158,21 @@
           "fracciones": [
             {
               "codigo": "611",
-              "titulo": "Expendios de ventas al menudeo de alimentos, bebidas y/o",
+              "titulo": "Expendios de ventas al menudeo de alimentos, bebidas y/o productos del tabaco.",
               "clase": "II",
-              "descripcion": "productos del tabaco. Comprende a las empresas que se dedican a la compra y expendio al menudeo de frutas, verduras, carnes, pollos, pescados, vísceras, huevo, leche, chiles secos, moles, especias, granos, y otros productos alimenticios agropecuarios o de la pesca, en estado natural o elaborados. Incluye tiendas de abarrotes, ultramarinos, misceláneas, dulcerías, salchichonerías, cremerías, tabaquerías, vinaterías y otros establecimientos con ventas al menudeo de alimentos, bebidas y/o productos del tabaco. Excepto supermercados o tiendas de autoservicio, almacenes y establecimientos con transporte, cantinas, restaurantes, cafeterías y otras empresas que preparen y den servicio de alimentos, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de frutas, verduras, carnes, pollos, pescados, vísceras, huevo, leche, chiles secos, moles, especias, granos, y otros productos alimenticios agropecuarios o de la pesca, en estado natural o elaborados. Incluye tiendas de abarrotes, ultramarinos, misceláneas, dulcerías, salchichonerías, cremerías, tabaquerías, vinaterías y otros establecimientos con ventas al menudeo de alimentos, bebidas y/o productos del tabaco. Excepto supermercados o tiendas de autoservicio, almacenes y establecimientos con transporte, cantinas, restaurantes, cafeterías y otras empresas que preparen y den servicio de alimentos, clasificadas por separado."
             },
             {
               "codigo": "612",
-              "titulo": "Compraventa de alimentos, bebidas y/o productos del tabaco, sin",
+              "titulo": "Compraventa de alimentos, bebidas y/o productos del tabaco, sin transporte.",
               "clase": "III",
-              "descripcion": "transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de alimentos, bebidas y/o productos del tabaco, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de alimentos, bebidas y/o productos del tabaco, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "613",
-              "titulo": "Compraventa de alimentos, bebidas y/o productos del tabaco, con",
+              "titulo": "Compraventa de alimentos, bebidas y/o productos del tabaco, con transporte.",
               "clase": "III",
-              "descripcion": "transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de alimentos, bebidas y/o productos del tabaco, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Incluye exclusivamente el almacenamiento, venta y distribución de hielo, aguas purificadas y refrescos con transporte. Excepto supermercados o tiendas de autoservicio y empresas que se dedican a prestar el servicio de transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de alimentos, bebidas y/o productos del tabaco, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Incluye exclusivamente el almacenamiento, venta y distribución de hielo, aguas purificadas y refrescos con transporte. Excepto supermercados o tiendas de autoservicio y empresas que se dedican a prestar el servicio de transporte, clasificados por separado."
             },
             {
               "codigo": "614",
@@ -1188,21 +1188,21 @@
           "fracciones": [
             {
               "codigo": "621",
-              "titulo": "Expendios de ventas al menudeo de prendas y accesorios de",
+              "titulo": "Expendios de ventas al menudeo de prendas y accesorios de vestir y artículos para su confección.",
               "clase": "I",
-              "descripcion": "vestir y artículos para su confección. Comprende a las empresas que se dedican a la compra y expendio al menudeo de ropa en general, calzado, sombreros, pieles para dama, pelucas, telas, casimires, artículos de mercería, bonetería, sedería y otros establecimientos con ventas al menudeo de prendas y accesorios de vestir y/o artículos para su confección. Excepto supermercados o tiendas de autoservicio, almacenes y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de ropa en general, calzado, sombreros, pieles para dama, pelucas, telas, casimires, artículos de mercería, bonetería, sedería y otros establecimientos con ventas al menudeo de prendas y accesorios de vestir y/o artículos para su confección. Excepto supermercados o tiendas de autoservicio, almacenes y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "622",
-              "titulo": "Compraventa de prendas y accesorios de vestir y artículos para",
+              "titulo": "Compraventa de prendas y accesorios de vestir y artículos para su confección, sin transporte.",
               "clase": "II",
-              "descripcion": "su confección, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de prendas y accesorios de vestir y artículos para su confección que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de prendas y accesorios de vestir y artículos para su confección que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "623",
-              "titulo": "Compraventa de prendas y accesorios de vestir y artículos para",
+              "titulo": "Compraventa de prendas y accesorios de vestir y artículos para su confección, con transporte.",
               "clase": "I",
-              "descripcion": "su confección, con transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de prendas y accesorios de vestir y artículos para su confección que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y empresas que se dedican a prestar el servicio de transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de prendas y accesorios de vestir y artículos para su confección que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y empresas que se dedican a prestar el servicio de transporte, clasificados por separado."
             },
             {
               "codigo": "624",
@@ -1224,39 +1224,39 @@
             },
             {
               "codigo": "627",
-              "titulo": "Expendios de ventas al menudeo de medicamentos, productos",
+              "titulo": "Expendios de ventas al menudeo de medicamentos, productos farmacéuticos, químico-farmacéuticos y de perfumería.",
               "clase": "I",
-              "descripcion": "farmacéuticos, químico-farmacéuticos y de perfumería. Comprende a las empresas que se dedican a la compra y expendio     al    menudeo    de    medicamentos,       productos farmacéuticos, químico-farmacéuticos, de perfumería, veterinarios y otros establecimientos que expendan al menudeo productos o artículos similares. Excepto supermercados o tiendas de autoservicio, almacenes y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de medicamentos, productos farmacéuticos, químico-farmacéuticos, de perfumería, veterinarios y otros establecimientos que expendan al menudeo productos o artículos similares. Excepto supermercados o tiendas de autoservicio, almacenes y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "628",
-              "titulo": "Compraventa de medicamentos, productos farmacéuticos,",
+              "titulo": "Compraventa de medicamentos, productos farmacéuticos, químico-farmacéuticos y de perfumería, sin transporte.",
               "clase": "I",
-              "descripcion": "químico-farmacéuticos y de perfumería, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de medicamentos, productos farmacéuticos, químico- farmacéuticos, de perfumería, veterinarios y similares, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de medicamentos, productos farmacéuticos, químico- farmacéuticos, de perfumería, veterinarios y similares, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "629",
-              "titulo": "Compraventa de medicamentos, productos farmacéuticos,",
+              "titulo": "Compraventa de medicamentos, productos farmacéuticos, químico-farmacéuticos y de perfumería, con transporte.",
               "clase": "II",
-              "descripcion": "químico-farmacéuticos y de perfumería, con transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de medicamentos, productos farmacéuticos, químico- farmacéuticos, de perfumería, veterinarios y similares, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de medicamentos, productos farmacéuticos, químico- farmacéuticos, de perfumería, veterinarios y similares, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             },
             {
               "codigo": "6210",
-              "titulo": "Expendios de ventas al menudeo de papelería, útiles escolares y",
+              "titulo": "Expendios de ventas al menudeo de papelería, útiles escolares y de oficina; libros, periódicos y revistas.",
               "clase": "I",
-              "descripcion": "de oficina; libros, periódicos y revistas. Comprende a las empresas que se dedican a la compra y expendio al menudeo de papelería, útiles escolares y de oficina; libros,   periódicos, revistas, billetes de lotería, pronósticos deportivos y otros establecimientos que expendan al menudeo productos o artículos similares. Excepto supermercados o tiendas de autoservicio, almacenes y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de papelería, útiles escolares y de oficina; libros, periódicos, revistas, billetes de lotería, pronósticos deportivos y otros establecimientos que expendan al menudeo productos o artículos similares. Excepto supermercados o tiendas de autoservicio, almacenes y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "6211",
-              "titulo": "Compraventa de papelería, útiles escolares y de oficina; libros,",
+              "titulo": "Compraventa de papelería, útiles escolares y de oficina; libros, periódicos y revistas, sin transporte.",
               "clase": "III",
-              "descripcion": "periódicos y revistas, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de papelería, útiles escolares y de oficina; libros, periódicos, revistas y similares, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de papelería, útiles escolares y de oficina; libros, periódicos, revistas y similares, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "6212",
-              "titulo": "Compraventa de papelería, útiles escolares y de oficina; libros,",
+              "titulo": "Compraventa de papelería, útiles escolares y de oficina; libros, periódicos y revistas, con transporte.",
               "clase": "II",
-              "descripcion": "periódicos y revistas, con transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de papelería, útiles escolares y de oficina; libros, periódicos, revistas y similares, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de papelería, útiles escolares y de oficina; libros, periódicos, revistas y similares, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto supermercados o tiendas de autoservicio y empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             }
           ]
         },
@@ -1266,21 +1266,21 @@
           "fracciones": [
             {
               "codigo": "631",
-              "titulo": "Expendios de ventas al menudeo de máquinas, muebles,",
+              "titulo": "Expendios de ventas al menudeo de máquinas, muebles, aparatos e instrumentos para el hogar, sus refacciones y accesorios.",
               "clase": "I",
-              "descripcion": "aparatos e instrumentos para el hogar, sus refacciones y accesorios. Comprende a las empresas que se dedican a la compra y expendio al menudeo de estufas, lavadoras, refrigeradores, cocinas integrales, aparatos eléctricos y electrónicos, radios, televisores, videocaseteras, máquinas de coser y tejer de uso doméstico, salas, recámaras, comedores y similares; incluso sus refacciones y accesorios. Excepto muebles para baño, oficinas, comercio y tiendas de departamentos especializados por línea de mercancías, almacenes y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de estufas, lavadoras, refrigeradores, cocinas integrales, aparatos eléctricos y electrónicos, radios, televisores, videocaseteras, máquinas de coser y tejer de uso doméstico, salas, recámaras, comedores y similares; incluso sus refacciones y accesorios. Excepto muebles para baño, oficinas, comercio y tiendas de departamentos especializados por línea de mercancías, almacenes y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "632",
-              "titulo": "Compraventa de máquinas, muebles, aparatos e instrumentos",
+              "titulo": "Compraventa de máquinas, muebles, aparatos e instrumentos para el hogar, sus refacciones y accesorios, sin transporte.",
               "clase": "I",
-              "descripcion": "para el hogar, sus refacciones y accesorios, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de estufas, lavadoras, refrigeradores, cocinas integrales, aparatos eléctricos y electrónicos, radios, televisores, videocaseteras, máquinas de coser y tejer de uso doméstico, salas, recámaras, comedores y similares; incluso sus refacciones y accesorios, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto muebles para baño, oficinas, comercio y tiendas de departamentos especializados por línea de mercancías y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de estufas, lavadoras, refrigeradores, cocinas integrales, aparatos eléctricos y electrónicos, radios, televisores, videocaseteras, máquinas de coser y tejer de uso doméstico, salas, recámaras, comedores y similares; incluso sus refacciones y accesorios, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto muebles para baño, oficinas, comercio y tiendas de departamentos especializados por línea de mercancías y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "633",
-              "titulo": "Compraventa de máquinas, muebles, aparatos e instrumentos",
+              "titulo": "Compraventa de máquinas, muebles, aparatos e instrumentos para el hogar, sus refacciones y accesorios, con transporte y/o servicios de instalación.",
               "clase": "III",
-              "descripcion": "para el hogar, sus refacciones y accesorios, con transporte y/o servicios de instalación. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de estufas, lavadoras, refrigeradores, cocinas integrales, aparatos eléctricos y electrónicos, radios, televisores, videocaseteras, máquinas de coser y tejer de uso doméstico, salas, recámaras, comedores y similares; incluso sus refacciones y accesorios, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o servicios de instalación. Excepto muebles para baño, oficinas y comercio y tiendas de departamentos especializados por línea de mercancías y empresas que se dedican a prestar el servicio de transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de estufas, lavadoras, refrigeradores, cocinas integrales, aparatos eléctricos y electrónicos, radios, televisores, videocaseteras, máquinas de coser y tejer de uso doméstico, salas, recámaras, comedores y similares; incluso sus refacciones y accesorios, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o servicios de instalación. Excepto muebles para baño, oficinas y comercio y tiendas de departamentos especializados por línea de mercancías y empresas que se dedican a prestar el servicio de transporte, clasificados por separado."
             },
             {
               "codigo": "634",
@@ -1296,9 +1296,9 @@
             },
             {
               "codigo": "636",
-              "titulo": "Compraventa de otros artículos para el hogar, con transporte y/o",
+              "titulo": "Compraventa de otros artículos para el hogar, con transporte y/o servicios de instalación.",
               "clase": "II",
-              "descripcion": "servicios de instalación. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de cristalería, loza, cuchillería y otros utensilios de comedor y cocina, de diversos materiales; alfombras, linóleums, pisos vinílicos, tapices, losetas vinílicas, cortinas, persianas; discos, discos compactos, cintas magnéticas para sonidos e imágenes; obras de arte, tales como: pinturas, esculturas; artículos religiosos, artesanías, antigüedades, plantas y flores naturales o artificiales, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o servicios de instalación. Incluye los denominados bazares. Excepto tiendas de departamentos especializados por línea de mercancías y empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de cristalería, loza, cuchillería y otros utensilios de comedor y cocina, de diversos materiales; alfombras, linóleums, pisos vinílicos, tapices, losetas vinílicas, cortinas, persianas; discos, discos compactos, cintas magnéticas para sonidos e imágenes; obras de arte, tales como: pinturas, esculturas; artículos religiosos, artesanías, antigüedades, plantas y flores naturales o artificiales, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o servicios de instalación. Incluye los denominados bazares. Excepto tiendas de departamentos especializados por línea de mercancías y empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             }
           ]
         },
@@ -1308,21 +1308,21 @@
           "fracciones": [
             {
               "codigo": "641",
-              "titulo": "Supermercados, tiendas de autoservicio y de departamentos",
+              "titulo": "Supermercados, tiendas de autoservicio y de departamentos especializados por línea de mercancías.",
               "clase": "II",
-              "descripcion": "especializados por línea de mercancías. Comprende a las empresas consideradas o denominadas como supermercados, tiendas de autoservicio y tiendas de departamentos especializados por línea de mercancías, que se dedican a la compraventa de artículos o productos misceláneos."
+              "descripcion": "Comprende a las empresas consideradas o denominadas como supermercados, tiendas de autoservicio y tiendas de departamentos especializados por línea de mercancías, que se dedican a la compraventa de artículos o productos misceláneos."
             }
           ]
         },
         {
           "codigo": "65",
-          "nombre": "COMPRAVENTA                      DE     GASES,    COMBUSTIBLES                Y",
+          "nombre": "COMPRAVENTA DE GASES, COMBUSTIBLES Y",
           "fracciones": [
             {
               "codigo": "651",
-              "titulo": "Compraventa, envasado y/o distribución de gases para uso",
+              "titulo": "Compraventa, envasado y/o distribución de gases para uso doméstico, industrial y medicinal.",
               "clase": "V",
-              "descripcion": "doméstico, industrial y medicinal. Comprende a las empresas que se dedican a la compra, venta, envase y/o distribución de gases a través de redes concesionadas, pipas, cilindros y otros similares, para uso doméstico, industrial y medicinal."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, venta, envase y/o distribución de gases a través de redes concesionadas, pipas, cilindros y otros similares, para uso doméstico, industrial y medicinal."
             },
             {
               "codigo": "652",
@@ -1332,9 +1332,9 @@
             },
             {
               "codigo": "653",
-              "titulo": "Estaciones de venta de gasolina, diesel y compraventa de",
+              "titulo": "Estaciones de venta de gasolina, diesel y compraventa de lubricantes y aditivos, con transporte.",
               "clase": "III",
-              "descripcion": "lubricantes y aditivos, con transporte. Comprende a las estaciones de venta de gasolina, diesel y otros combustibles similares y a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de aceites y grasas lubricantes y aditivos no comestibles, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las estaciones de venta de gasolina, diesel y otros combustibles similares y a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de aceites y grasas lubricantes y aditivos no comestibles, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             },
             {
               "codigo": "654",
@@ -1350,9 +1350,9 @@
           "fracciones": [
             {
               "codigo": "661",
-              "titulo": "Expendios de ventas al menudeo de materias primas",
+              "titulo": "Expendios de ventas al menudeo de materias primas agropecuarias.",
               "clase": "II",
-              "descripcion": "agropecuarias. Comprende a las empresas que se dedican a la compra y expendio al menudeo de algodón en pluma, semillas para siembra, cueros y pieles sin curtir, fibras textiles naturales, tabaco en rama, corcho, copra, chicle y otras materias primas agropecuarias. Incluye guanos, forrajes y alimentos balanceados para animales. Excepto almacenes y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de algodón en pluma, semillas para siembra, cueros y pieles sin curtir, fibras textiles naturales, tabaco en rama, corcho, copra, chicle y otras materias primas agropecuarias. Incluye guanos, forrajes y alimentos balanceados para animales. Excepto almacenes y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "662",
@@ -1368,63 +1368,63 @@
             },
             {
               "codigo": "664",
-              "titulo": "Compraventa de materiales para construcción, tales como",
+              "titulo": "Compraventa de materiales para construcción, tales como madera, aceros y productos de ferretería, sin transporte, ni preparación de mercancías.",
               "clase": "II",
-              "descripcion": "madera, aceros y productos de ferretería, sin transporte, ni preparación de mercancías. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de cemento, cal, yeso, arena, grava, piedra, tabiques, ladrillos, mosaicos, losetas, azulejos, tejas, láminas acanaladas y lisas, tinacos, muebles sanitarios y otros similares; madera en diversas formas, tales como: postes, polines, vigas, tableros macizos, aglomerados, triplay y similares; varilla, alambre, alambrón, mallas metálicas, tubería, perfiles metálicos, barra, placa; vaciados o partes fundidas, valvulería, herramientas, cuchillería, herrajes, cerrajería, tornillería, artículos de plomería, soldadura, empaques y otros materiales o suministros similares, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Incluye productos de fibra de vidrio, PVC y otros. Excepto empresas que preparen las mercancías mencionadas para su venta (con procesos de corte, soldadura u otros) y almacenes o empresas con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de cemento, cal, yeso, arena, grava, piedra, tabiques, ladrillos, mosaicos, losetas, azulejos, tejas, láminas acanaladas y lisas, tinacos, muebles sanitarios y otros similares; madera en diversas formas, tales como: postes, polines, vigas, tableros macizos, aglomerados, triplay y similares; varilla, alambre, alambrón, mallas metálicas, tubería, perfiles metálicos, barra, placa; vaciados o partes fundidas, valvulería, herramientas, cuchillería, herrajes, cerrajería, tornillería, artículos de plomería, soldadura, empaques y otros materiales o suministros similares, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Incluye productos de fibra de vidrio, PVC y otros. Excepto empresas que preparen las mercancías mencionadas para su venta (con procesos de corte, soldadura u otros) y almacenes o empresas con transporte, clasificados por separado."
             },
             {
               "codigo": "665",
-              "titulo": "Compraventa de materiales para construcción tales como:",
+              "titulo": "Compraventa de materiales para construcción tales como: madera, aceros y productos de ferretería, con transporte y/o preparación de mercancías.",
               "clase": "IV",
-              "descripcion": "madera, aceros y productos de ferretería, con transporte y/o preparación de mercancías. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de cemento, cal, yeso, arena, grava, piedra, tabiques, ladrillos, mosaicos, losetas, azulejos, tejas, láminas acanaladas y lisas, tinacos, muebles sanitarios y otros similares; madera en diversas formas, tales como: postes, polines, vigas, tableros macizos, aglomerados, triplay y similares; varilla, alambre, alambrón, mallas metálicas, tubería, perfiles metálicos, barra, placa, vaciados o partes fundidas, valvulería, herramientas, cuchillería, herrajes, cerrajería, tornillería, artículos de plomería, soldadura, empaques y otros materiales o suministros, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías, así como empresas que preparen para su venta las mercancías mencionadas (con procesos de corte, soldadura, doblado u otros). Incluye productos de fibra de vidrio, PVC y otros. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de cemento, cal, yeso, arena, grava, piedra, tabiques, ladrillos, mosaicos, losetas, azulejos, tejas, láminas acanaladas y lisas, tinacos, muebles sanitarios y otros similares; madera en diversas formas, tales como: postes, polines, vigas, tableros macizos, aglomerados, triplay y similares; varilla, alambre, alambrón, mallas metálicas, tubería, perfiles metálicos, barra, placa, vaciados o partes fundidas, valvulería, herramientas, cuchillería, herrajes, cerrajería, tornillería, artículos de plomería, soldadura, empaques y otros materiales o suministros, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías, así como empresas que preparen para su venta las mercancías mencionadas (con procesos de corte, soldadura, doblado u otros). Incluye productos de fibra de vidrio, PVC y otros. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             },
             {
               "codigo": "666",
-              "titulo": "Compraventa de material eléctrico, pinturas y productos de",
+              "titulo": "Compraventa de material eléctrico, pinturas y productos de tlapalería, sin transporte.",
               "clase": "II",
-              "descripcion": "tlapalería, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de material eléctrico y/o accesorios, pinturas y productos de tlapalería, lacas, barnices, disolventes y otros, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de material eléctrico y/o accesorios, pinturas y productos de tlapalería, lacas, barnices, disolventes y otros, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
             },
             {
               "codigo": "667",
-              "titulo": "Compraventa de material eléctrico, pinturas y productos de",
+              "titulo": "Compraventa de material eléctrico, pinturas y productos de tlapalería, con transporte.",
               "clase": "II",
-              "descripcion": "tlapalería, con transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de material eléctrico y/o accesorios, pinturas y productos de tlapalería, lacas, barnices, disolventes y otros, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de material eléctrico y/o accesorios, pinturas y productos de tlapalería, lacas, barnices, disolventes y otros, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             },
             {
               "codigo": "668",
-              "titulo": "Compraventa de vidrio plano, cristales, espejos y lunas, sin",
+              "titulo": "Compraventa de vidrio plano, cristales, espejos y lunas, sin transporte ni servicios de instalación.",
               "clase": "V",
-              "descripcion": "transporte ni servicios de instalación. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de vidrio, cristales, espejos y lunas, que no instalen ni cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de vidrio, cristales, espejos y lunas, que no instalen ni cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
             },
             {
               "codigo": "669",
-              "titulo": "Compraventa de vidrio plano, cristales, espejos y lunas, con",
+              "titulo": "Compraventa de vidrio plano, cristales, espejos y lunas, con transporte y/o servicios de instalación.",
               "clase": "V",
-              "descripcion": "transporte y/o servicios de instalación. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de vidrio, cristales, espejos y lunas, que instalen y/o cuenten con transporte para la distribución o equipo para el movimiento de las mercancías. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de vidrio, cristales, espejos y lunas, que instalen y/o cuenten con transporte para la distribución o equipo para el movimiento de las mercancías. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             },
             {
               "codigo": "6610",
-              "titulo": "Compraventa de fertilizantes, plaguicidas y productos químicos",
+              "titulo": "Compraventa de fertilizantes, plaguicidas y productos químicos (no explosivos) en envases cerrados, sin transporte.",
               "clase": "II",
-              "descripcion": "(no explosivos) en envases cerrados, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de fertilizantes, plaguicidas y productos químicos diversos (no explosivos) en envases cerrados, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Incluye la compraventa de extintores y su carga. Excepto empresas que se dedican a prestar el servicio de recarga y mantenimiento de los mismos, clasificados en la fracción 6611."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de fertilizantes, plaguicidas y productos químicos diversos (no explosivos) en envases cerrados, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Incluye la compraventa de extintores y su carga. Excepto empresas que se dedican a prestar el servicio de recarga y mantenimiento de los mismos, clasificados en la fracción 6611."
             },
             {
               "codigo": "6611",
-              "titulo": "Compraventa de fertilizantes, plaguicidas y productos químicos",
+              "titulo": "Compraventa de fertilizantes, plaguicidas y productos químicos (no explosivos) en envases cerrados o a granel, con transporte.",
               "clase": "III",
-              "descripcion": "(no explosivos) en envases cerrados o a granel, con transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de fertilizantes, plaguicidas y productos químicos diversos (no explosivos) en envases cerrados o a granel, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Incluye la compraventa, recarga y mantenimiento de extintores. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de fertilizantes, plaguicidas y productos químicos diversos (no explosivos) en envases cerrados o a granel, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Incluye la compraventa, recarga y mantenimiento de extintores. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             },
             {
               "codigo": "6612",
-              "titulo": "Compraventa de pieles, cueros curtidos y otros artículos de",
+              "titulo": "Compraventa de pieles, cueros curtidos y otros artículos de peletería, sin transporte.",
               "clase": "II",
-              "descripcion": "peletería, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de pieles, cueros curtidos y otros artículos de peletería, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de pieles, cueros curtidos y otros artículos de peletería, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
             },
             {
               "codigo": "6613",
-              "titulo": "Compraventa de pieles, cueros curtidos y otros artículos de",
+              "titulo": "Compraventa de pieles, cueros curtidos y otros artículos de peletería, con transporte.",
               "clase": "I",
-              "descripcion": "peletería, con transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de pieles, cueros curtidos y otros artículos de peletería, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de pieles, cueros curtidos y otros artículos de peletería, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             },
             {
               "codigo": "6614",
@@ -1440,9 +1440,9 @@
             },
             {
               "codigo": "6616",
-              "titulo": "Compraventa de chatarra, fierro viejo, partes o mecanismos",
+              "titulo": "Compraventa de chatarra, fierro viejo, partes o mecanismos usados y desperdicios en general.",
               "clase": "V",
-              "descripcion": "usados y desperdicios en general. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de chatarra o fierro viejo, partes o mecanismos usados y desperdicios en general. Se consideran las plantas procesadoras de basura y empresas que prestan servicios de recolección y/o control de desechos industriales y en general; así como los establecimientos de compraventa de maquinaria vieja en general, trapo, papel, cartón, vidrio y plástico usados. Excepto empresas que se dedican al desmantelamiento o deshuese de equipo de transporte, para poner sus partes o mecanismos a la venta y las que prestan el servicio de transporte, clasificadas en las fracciones 683 y 712, respectivamente."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de chatarra o fierro viejo, partes o mecanismos usados y desperdicios en general. Se consideran las plantas procesadoras de basura y empresas que prestan servicios de recolección y/o control de desechos industriales y en general; así como los establecimientos de compraventa de maquinaria vieja en general, trapo, papel, cartón, vidrio y plástico usados. Excepto empresas que se dedican al desmantelamiento o deshuese de equipo de transporte, para poner sus partes o mecanismos a la venta y las que prestan el servicio de transporte, clasificadas en las fracciones 683 y 712, respectivamente."
             },
             {
               "codigo": "6617",
@@ -1458,69 +1458,69 @@
           "fracciones": [
             {
               "codigo": "671",
-              "titulo": "Expendio de ventas al menudeo de refacciones y accesorios para",
+              "titulo": "Expendio de ventas al menudeo de refacciones y accesorios para maquinaria y/o equipo para la producción de bienes.",
               "clase": "II",
-              "descripcion": "maquinaria y/o equipo para la producción de bienes. Comprende a las empresas que se dedican a la compra y expendio al menudeo de refacciones y accesorios para maquinaria y/o equipo industrial en general. Excepto almacenes y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de refacciones y accesorios para maquinaria y/o equipo industrial en general. Excepto almacenes y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "672",
-              "titulo": "Compraventa de maquinaria, equipo y sus refacciones y/o",
+              "titulo": "Compraventa de maquinaria, equipo y sus refacciones y/o accesorios para la producción de bienes, sin transporte.",
               "clase": "II",
-              "descripcion": "accesorios para la producción de bienes, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de maquinaria y equipo industrial en general, sus refacciones y/o accesorios, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de maquinaria y equipo industrial en general, sus refacciones y/o accesorios, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
             },
             {
               "codigo": "673",
-              "titulo": "Compraventa de maquinaria, equipo y sus refacciones y/o",
+              "titulo": "Compraventa de maquinaria, equipo y sus refacciones y/o accesorios para la producción de bienes, con transporte y/o servicios de reparación o mantenimiento.",
               "clase": "III",
-              "descripcion": "accesorios para la producción de bienes, con transporte y/o servicios de reparación o mantenimiento. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de maquinaria y equipo industrial en general, sus refacciones y/o accesorios, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o con servicios de reparación y mantenimiento. Excepto empresas que se dedican a prestar el servicio de transporte y aquellas que en forma simultánea prestan los servicios de instalación, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de maquinaria y equipo industrial en general, sus refacciones y/o accesorios, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o con servicios de reparación y mantenimiento. Excepto empresas que se dedican a prestar el servicio de transporte y aquellas que en forma simultánea prestan los servicios de instalación, clasificadas por separado."
             },
             {
               "codigo": "674",
-              "titulo": "Compraventa de maquinaria, equipo y sus refacciones y/o",
+              "titulo": "Compraventa de maquinaria, equipo y sus refacciones y/o accesorios para la producción de bienes, con servicios de instalación.",
               "clase": "IV",
-              "descripcion": "accesorios para la producción de bienes, con servicios de instalación. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de maquinaria y equipo industrial en general, sus refacciones y/o accesorios, que cuenten con servicios de instalación."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de maquinaria y equipo industrial en general, sus refacciones y/o accesorios, que cuenten con servicios de instalación."
             },
             {
               "codigo": "675",
-              "titulo": "Expendios de ventas al menudeo de equipo, mobiliario, sus partes",
+              "titulo": "Expendios de ventas al menudeo de equipo, mobiliario, sus partes y/o accesorios para la prestación de servicios y el comercio.",
               "clase": "I",
-              "descripcion": "y/o accesorios para la prestación de servicios y el comercio. Comprende a las empresas que se dedican a la compra y expendio al menudeo de equipos, mobiliario, sus partes y/o accesorios para oficinas y comercios, hoteles, restaurantes, peluquerías, salones de belleza, billares, boliches y otro equipo y mobiliario para la prestación de servicios y el comercio. Excepto almacenes y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de equipos, mobiliario, sus partes y/o accesorios para oficinas y comercios, hoteles, restaurantes, peluquerías, salones de belleza, billares, boliches y otro equipo y mobiliario para la prestación de servicios y el comercio. Excepto almacenes y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "676",
-              "titulo": "Compraventa de equipo, mobiliario, sus partes y/o accesorios",
+              "titulo": "Compraventa de equipo, mobiliario, sus partes y/o accesorios para la prestación de servicios y el comercio, sin transporte.",
               "clase": "I",
-              "descripcion": "para la prestación de servicios y el comercio, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de equipo y mobiliario, sus partes y/o accesorios para oficinas y comercios, hoteles, restaurantes, peluquerías, salones de belleza, billares, boliches y otro equipo y mobiliario para la prestación de servicios y el comercio, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de equipo y mobiliario, sus partes y/o accesorios para oficinas y comercios, hoteles, restaurantes, peluquerías, salones de belleza, billares, boliches y otro equipo y mobiliario para la prestación de servicios y el comercio, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
             },
             {
               "codigo": "677",
-              "titulo": "Compraventa de equipo, mobiliario, sus partes y/o accesorios",
+              "titulo": "Compraventa de equipo, mobiliario, sus partes y/o accesorios para la prestación de servicios y el comercio, con transporte y/o servicios de instalación, reparación y mantenimiento.",
               "clase": "II",
-              "descripcion": "para la prestación de servicios y el comercio, con transporte y/o servicios de instalación, reparación y mantenimiento. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de equipo y mobiliario, sus partes y/o accesorios para oficinas y comercios, hoteles, restaurantes, peluquerías, salones de belleza, billares, boliches y otro equipo y mobiliario para la prestación de servicios y el comercio, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o con servicios de instalación, reparación y mantenimiento. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de equipo y mobiliario, sus partes y/o accesorios para oficinas y comercios, hoteles, restaurantes, peluquerías, salones de belleza, billares, boliches y otro equipo y mobiliario para la prestación de servicios y el comercio, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o con servicios de instalación, reparación y mantenimiento. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             },
             {
               "codigo": "678",
-              "titulo": "Expendios de ventas al menudeo de aparatos e instrumentos de",
+              "titulo": "Expendios de ventas al menudeo de aparatos e instrumentos de medición, precisión, cirugía, laboratorio y otros usos científicos.",
               "clase": "I",
-              "descripcion": "medición, precisión, cirugía, laboratorio y otros usos científicos. Comprende a las empresas que se dedican a la compra y expendio al menudeo de básculas, balanzas, aparatos e instrumentos médicos, quirúrgicos, de laboratorio, de prótesis, ortopedia y otros aparatos e instrumentos técnicos, científicos de medida y control. Excepto almacenes y establecimientos con transporte, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de básculas, balanzas, aparatos e instrumentos médicos, quirúrgicos, de laboratorio, de prótesis, ortopedia y otros aparatos e instrumentos técnicos, científicos de medida y control. Excepto almacenes y establecimientos con transporte, clasificados por separado."
             },
             {
               "codigo": "679",
-              "titulo": "Compraventa de aparatos e instrumentos de medición, precisión,",
+              "titulo": "Compraventa de aparatos e instrumentos de medición, precisión, cirugía, laboratorio y otros usos científicos, sin transporte.",
               "clase": "I",
-              "descripcion": "cirugía, laboratorio y otros usos científicos, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de básculas, balanzas, aparatos e instrumentos médicos, quirúrgicos, de laboratorio, de prótesis, ortopedia y otros aparatos e instrumentos técnicos, científicos de medida y control, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de básculas, balanzas, aparatos e instrumentos médicos, quirúrgicos, de laboratorio, de prótesis, ortopedia y otros aparatos e instrumentos técnicos, científicos de medida y control, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías."
             },
             {
               "codigo": "6710",
-              "titulo": "Compraventa de aparatos e instrumentos de medición, precisión,",
+              "titulo": "Compraventa de aparatos e instrumentos de medición, precisión, cirugía, laboratorio y otros usos científicos, con transporte y/o servicios de instalación, reparación o mantenimiento.",
               "clase": "II",
-              "descripcion": "cirugía, laboratorio y otros usos científicos, con transporte y/o servicios de instalación, reparación o mantenimiento. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de básculas, balanzas, aparatos e instrumentos médicos, quirúrgicos, de laboratorio, de prótesis, de ortopedia y otros aparatos e instrumentos técnicos científicos de medida y control, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o con servicios de instalación, reparación o mantenimiento. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de básculas, balanzas, aparatos e instrumentos médicos, quirúrgicos, de laboratorio, de prótesis, de ortopedia y otros aparatos e instrumentos técnicos científicos de medida y control, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o con servicios de instalación, reparación o mantenimiento. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             },
             {
               "codigo": "6711",
-              "titulo": "Compraventa de equipo de cómputo o de procesamiento",
+              "titulo": "Compraventa de equipo de cómputo o de procesamiento electrónico de datos y sus periféricos, con servicios de instalación, reparación y/o mantenimiento.",
               "clase": "II",
-              "descripcion": "electrónico de datos y sus periféricos, con servicios de instalación, reparación y/o mantenimiento. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de equipo de cómputo o de procesamiento electrónico de datos; servicios de instalación, reparación y/o mantenimiento; incluye los equipos denominados periféricos, como son las impresoras, unidades de cintas y discos o disquetes, mouse, digitalizadores,  scanners,     monitores,   modems,     plotters, ampliadores de memoria, teclados y otros similares. También se incluyen equipos semejantes, como aparatos de videojuegos, de sonido y máquinas de escribir electrónicas que se adapten como equipo periférico de computadoras."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de equipo de cómputo o de procesamiento electrónico de datos; servicios de instalación, reparación y/o mantenimiento; incluye los equipos denominados periféricos, como son las impresoras, unidades de cintas y discos o disquetes, mouse, digitalizadores, scanners, monitores, modems, plotters, ampliadores de memoria, teclados y otros similares. También se incluyen equipos semejantes, como aparatos de videojuegos, de sonido y máquinas de escribir electrónicas que se adapten como equipo periférico de computadoras."
             }
           ]
         },
@@ -1530,21 +1530,21 @@
           "fracciones": [
             {
               "codigo": "681",
-              "titulo": "Expendios de ventas al menudeo de refacciones, accesorios y/o",
+              "titulo": "Expendios de ventas al menudeo de refacciones, accesorios y/o partes para equipo de transporte.",
               "clase": "II",
-              "descripcion": "partes para equipo de transporte. Comprende a las empresas que se dedican a la compra y expendio al menudeo de refacciones, accesorios y/o partes nuevas o usadas para automóviles, autobuses, camiones, motocicletas, bicicletas, aeronaves, embarcaciones y otros equipos de transporte. Excepto almacenes y establecimientos con transporte y empresas que se dedican al desmantelamiento o desarmado de equipos de transporte para poner sus partes o mecanismos a la venta, clasificadas en las fracciones 682 y 683."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de refacciones, accesorios y/o partes nuevas o usadas para automóviles, autobuses, camiones, motocicletas, bicicletas, aeronaves, embarcaciones y otros equipos de transporte. Excepto almacenes y establecimientos con transporte y empresas que se dedican al desmantelamiento o desarmado de equipos de transporte para poner sus partes o mecanismos a la venta, clasificadas en las fracciones 682 y 683."
             },
             {
               "codigo": "682",
-              "titulo": "Compraventa de equipo de transporte,                      sus    refacciones,",
+              "titulo": "Compraventa de equipo de transporte, sus refacciones, accesorios y/o partes, sin transporte.",
               "clase": "II",
-              "descripcion": "accesorios y/o partes, sin transporte. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de equipos de transporte, nuevos o usados (automóviles, autobuses, camiones, motocicletas, bicicletas, aeronaves, embarcaciones y otros equipos de transporte) y/o sus refacciones, accesorios o partes, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías.    Excepto    empresas que se dedican               al desmantelamiento o desarmado de equipo de transporte para poner sus partes o mecanismos a la venta o a prestar servicios de instalación, reparación o mantenimiento, clasificadas en la fracción 683."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de equipos de transporte, nuevos o usados (automóviles, autobuses, camiones, motocicletas, bicicletas, aeronaves, embarcaciones y otros equipos de transporte) y/o sus refacciones, accesorios o partes, que no cuenten con transporte para la distribución ni equipo para el movimiento de las mercancías. Excepto empresas que se dedican al desmantelamiento o desarmado de equipo de transporte para poner sus partes o mecanismos a la venta o a prestar servicios de instalación, reparación o mantenimiento, clasificadas en la fracción 683."
             },
             {
               "codigo": "683",
-              "titulo": "Compraventa de equipo de transporte, sus refacciones,",
+              "titulo": "Compraventa de equipo de transporte, sus refacciones, accesorios y/o partes, con transporte y/o servicios de instalación, reparación o mantenimiento.",
               "clase": "III",
-              "descripcion": "accesorios y/o partes, con transporte y/o servicios de instalación, reparación o mantenimiento. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de equipos de transporte, nuevos o usados (automóviles, autobuses, camiones, motocicletas, bicicletas, aeronaves, embarcaciones y otros equipos de transporte) y/o sus refacciones, accesorios o partes, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o con servicios de instalación, reparación y mantenimiento; incluye empresas que se dedican al desmantelamiento o deshuese de equipo de transporte para poner sus partes o mecanismos a la venta. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de equipos de transporte, nuevos o usados (automóviles, autobuses, camiones, motocicletas, bicicletas, aeronaves, embarcaciones y otros equipos de transporte) y/o sus refacciones, accesorios o partes, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o con servicios de instalación, reparación y mantenimiento; incluye empresas que se dedican al desmantelamiento o deshuese de equipo de transporte para poner sus partes o mecanismos a la venta. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             }
           ]
         },
@@ -1560,9 +1560,9 @@
             },
             {
               "codigo": "692",
-              "titulo": "Expendios de ventas al menudeo de artículos diversos no",
+              "titulo": "Expendios de ventas al menudeo de artículos diversos no clasificados.",
               "clase": "I",
-              "descripcion": "clasificados. Comprende a las empresas que se dedican a la compra y expendio al menudeo de artículos diversos no clasificados. Excepto almacenes y establecimientos con transporte y empresas que presten servicios de instalación, reparación y/o mantenimiento, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra y expendio al menudeo de artículos diversos no clasificados. Excepto almacenes y establecimientos con transporte y empresas que presten servicios de instalación, reparación y/o mantenimiento, clasificadas por separado."
             },
             {
               "codigo": "693",
@@ -1572,9 +1572,9 @@
             },
             {
               "codigo": "694",
-              "titulo": "Compraventa de artículos diversos no clasificados, con transporte",
+              "titulo": "Compraventa de artículos diversos no clasificados, con transporte y/o servicios de instalación, reparación o mantenimiento.",
               "clase": "II",
-              "descripcion": "y/o servicios de instalación, reparación o mantenimiento. Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de artículos diversos no clasificados, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o que presten los servicios de instalación, reparación y mantenimiento. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
+              "descripcion": "Comprende a las empresas que se dedican a la compra, almacenamiento y venta al menudeo, medio mayoreo y/o mayoreo de artículos diversos no clasificados, que cuenten con transporte para la distribución y/o equipo para el movimiento de las mercancías o que presten los servicios de instalación, reparación y mantenimiento. Excepto empresas que se dedican a prestar el servicio de transporte, clasificadas por separado."
             }
           ]
         }
@@ -1614,15 +1614,15 @@
           "fracciones": [
             {
               "codigo": "721",
-              "titulo": "Transporte marítimo y de navegación interior y servicios diversos",
+              "titulo": "Transporte marítimo y de navegación interior y servicios diversos a bordo y/o en plataformas marinas.",
               "clase": "IV",
-              "descripcion": "a bordo y/o en plataformas marinas. Comprende a las empresas que se dedican a prestar servicios de transportación marítima, de carga y pasajeros, de altura, cabotaje, fluvial, lacustre y en el interior de puertos; incluyendo servicios diversos a bordo y/o asistencia en plataformas marinas, tales como: preparación y servicio de alimentos y de limpieza y aseo."
+              "descripcion": "Comprende a las empresas que se dedican a prestar servicios de transportación marítima, de carga y pasajeros, de altura, cabotaje, fluvial, lacustre y en el interior de puertos; incluyendo servicios diversos a bordo y/o asistencia en plataformas marinas, tales como: preparación y servicio de alimentos y de limpieza y aseo."
             },
             {
               "codigo": "722",
-              "titulo": "Servicios directamente vinculados con el transporte por agua y/o",
+              "titulo": "Servicios directamente vinculados con el transporte por agua y/o servicios de supervisión y mantenimiento en plataformas marinas.",
               "clase": "V",
-              "descripcion": "servicios de supervisión y mantenimiento en plataformas marinas. Comprende a las empresas que se dedican a prestar servicios relacionados con el transporte marítimo, fluvial y lacustre como carga y descarga (estiba y alijo); mantenimiento y explotación de canales, muelles, atracaderos y otros servicios directamente vinculados con el transporte por agua. Incluye servicios de supervisión y mantenimiento preventivo y correctivo en plataformas marinas."
+              "descripcion": "Comprende a las empresas que se dedican a prestar servicios relacionados con el transporte marítimo, fluvial y lacustre como carga y descarga (estiba y alijo); mantenimiento y explotación de canales, muelles, atracaderos y otros servicios directamente vinculados con el transporte por agua. Incluye servicios de supervisión y mantenimiento preventivo y correctivo en plataformas marinas."
             }
           ]
         },
@@ -1644,9 +1644,9 @@
           "fracciones": [
             {
               "codigo": "740",
-              "titulo": "Administración de vías de comunicación, terminales y servicios",
+              "titulo": "Administración de vías de comunicación, terminales y servicios auxiliares.",
               "clase": "II",
-              "descripcion": "auxiliares. Comprende a las empresas que se dedican a prestar servicios de administración de caminos, puentes, aeropuertos, puertos marítimos, lacustres, fluviales, centrales camioneras, terminales y servicios auxiliares."
+              "descripcion": "Comprende a las empresas que se dedican a prestar servicios de administración de caminos, puentes, aeropuertos, puertos marítimos, lacustres, fluviales, centrales camioneras, terminales y servicios auxiliares."
             }
           ]
         },
@@ -1662,9 +1662,9 @@
             },
             {
               "codigo": "752",
-              "titulo": "Servicios sin transporte de agencias de gestión aduanal, de",
+              "titulo": "Servicios sin transporte de agencias de gestión aduanal, de equipajes, viajes y turísticas.",
               "clase": "I",
-              "descripcion": "equipajes, viajes y turísticas. Comprende a las empresas que se dedican a prestar servicios turísticos, de representación y gestión aduanal, de equipajes, organización y promoción de viajes, venta de boletos y reservación para hospedaje, que no cuenten con operadores de vehículos ni transporte para su distribución y entrega."
+              "descripcion": "Comprende a las empresas que se dedican a prestar servicios turísticos, de representación y gestión aduanal, de equipajes, organización y promoción de viajes, venta de boletos y reservación para hospedaje, que no cuenten con operadores de vehículos ni transporte para su distribución y entrega."
             },
             {
               "codigo": "753",
@@ -1674,15 +1674,15 @@
             },
             {
               "codigo": "754",
-              "titulo": "Servicios de alquiler de aeronaves, carros de ferrocarril y",
+              "titulo": "Servicios de alquiler de aeronaves, carros de ferrocarril y transportes acuáticos.",
               "clase": "III",
-              "descripcion": "transportes acuáticos. Comprende a las empresas que se dedican al alquiler de aeronaves, carros de ferrocarril y transportes acuáticos."
+              "descripcion": "Comprende a las empresas que se dedican al alquiler de aeronaves, carros de ferrocarril y transportes acuáticos."
             },
             {
               "codigo": "755",
-              "titulo": "Servicios con transporte de agencias de gestión aduanal, de",
+              "titulo": "Servicios con transporte de agencias de gestión aduanal, de mensajería y paquetería, de equipajes, viajes, turísticas y otras actividades relacionadas con los transportes en general.",
               "clase": "IV",
-              "descripcion": "mensajería y paquetería, de equipajes, viajes, turísticas y otras actividades relacionadas con los transportes en general. Comprende a las empresas que se dedican a prestar servicios turísticos, de representación y gestión aduanal, de equipajes, organización y promoción de viajes, venta de boletos y reservación para hospedaje, que cuenten con operadores de vehículos y/o transporte para su distribución y entrega. Incluye a las empresas que se dedican a la recepción, almacenamiento, manipulación de carga y embalaje, distribución y entrega de mensajería y paquetería; así como a las academias o escuelas de manejo y otras actividades relacionadas con los transportes en general no clasificadas anteriormente. Excepto las que se dedican exclusivamente a la transportación turística de pasajeros, que se clasifican en la fracción 711."
+              "descripcion": "Comprende a las empresas que se dedican a prestar servicios turísticos, de representación y gestión aduanal, de equipajes, organización y promoción de viajes, venta de boletos y reservación para hospedaje, que cuenten con operadores de vehículos y/o transporte para su distribución y entrega. Incluye a las empresas que se dedican a la recepción, almacenamiento, manipulación de carga y embalaje, distribución y entrega de mensajería y paquetería; así como a las academias o escuelas de manejo y otras actividades relacionadas con los transportes en general no clasificadas anteriormente. Excepto las que se dedican exclusivamente a la transportación turística de pasajeros, que se clasifican en la fracción 711."
             }
           ]
         },
@@ -1718,7 +1718,7 @@
         },
         {
           "codigo": "82",
-          "nombre": "SERVICIOS       COLATERALES            A    LAS     INSTITUCIONES",
+          "nombre": "SERVICIOS COLATERALES A LAS INSTITUCIONES",
           "fracciones": [
             {
               "codigo": "820",
@@ -1782,15 +1782,15 @@
             },
             {
               "codigo": "852",
-              "titulo": "Servicios de alquiler de maquinaria y equipo para la construcción",
+              "titulo": "Servicios de alquiler de maquinaria y equipo para la construcción con operadores.",
               "clase": "V",
-              "descripcion": "con operadores. Comprende a las empresas que se dedican al alquiler de maquinaria y equipo para la construcción con operadores."
+              "descripcion": "Comprende a las empresas que se dedican al alquiler de maquinaria y equipo para la construcción con operadores."
             },
             {
               "codigo": "853",
-              "titulo": "Servicios de alquiler de maquinaria y equipo para la construcción",
+              "titulo": "Servicios de alquiler de maquinaria y equipo para la construcción sin operadores.",
               "clase": "III",
-              "descripcion": "sin operadores. Comprende a las empresas que se dedican al alquiler de maquinaria y equipo para la construcción sin operadores."
+              "descripcion": "Comprende a las empresas que se dedican al alquiler de maquinaria y equipo para la construcción sin operadores."
             },
             {
               "codigo": "854",
@@ -1806,9 +1806,9 @@
             },
             {
               "codigo": "856",
-              "titulo": "Servicios de alquiler o renta de automóviles, bicicletas y",
+              "titulo": "Servicios de alquiler o renta de automóviles, bicicletas y motocicletas.",
               "clase": "II",
-              "descripcion": "motocicletas. Comprende a las empresas que se dedican al alquiler de vehículos automóviles, bicicletas y motocicletas. Incluye el servicio de pesado de camiones. Excepto servicios de alquiler de maquinaria y equipo para la agricultura y la construcción, clasificados por separado."
+              "descripcion": "Comprende a las empresas que se dedican al alquiler de vehículos automóviles, bicicletas y motocicletas. Incluye el servicio de pesado de camiones. Excepto servicios de alquiler de maquinaria y equipo para la agricultura y la construcción, clasificados por separado."
             }
           ]
         },
@@ -1832,7 +1832,7 @@
               "codigo": "871",
               "titulo": "Preparación y servicio de alimentos.",
               "clase": "II",
-              "descripcion": "Comprende a las empresas que se dedican a la preparación y a prestar servicios de alimentos en restaurantes, cafés, fondas, cocinas económicas, loncherías, ostionerías, rosticerías, pizzerías,    taquerías,  torterías,    neverías,    refresquerías, merenderos, cenadurías y similares, que cuenten o no con el servicio de entrega a domicilio. Incluye a aquellas empresas que además de prestar los servicios antes mencionados, simultáneamente preparen y sirvan bebidas alcohólicas. Excepto empresas que se dedican a la preparación y servicio de bebidas en cantinas, bares, cervecerías y otros similares, clasificadas en la fracción 872."
+              "descripcion": "Comprende a las empresas que se dedican a la preparación y a prestar servicios de alimentos en restaurantes, cafés, fondas, cocinas económicas, loncherías, ostionerías, rosticerías, pizzerías, taquerías, torterías, neverías, refresquerías, merenderos, cenadurías y similares, que cuenten o no con el servicio de entrega a domicilio. Incluye a aquellas empresas que además de prestar los servicios antes mencionados, simultáneamente preparen y sirvan bebidas alcohólicas. Excepto empresas que se dedican a la preparación y servicio de bebidas en cantinas, bares, cervecerías y otros similares, clasificadas en la fracción 872."
             },
             {
               "codigo": "872",
@@ -1856,13 +1856,13 @@
               "codigo": "882",
               "titulo": "Servicios de esparcimiento.",
               "clase": "I",
-              "descripcion": "Comprende a las empresas que se dedican a la producción, distribución, alquiler, exhibición, copia, edición, rotulación y sonido de     películas    cinematográficas;      promoción,      montaje    y representación de espectáculos de música, teatro y danza. Así como la producción, transmisión y repetición de programas de radio y televisión. Excepto empresas que realicen como parte de su servicio, trabajos de canalización y tendido de líneas para la recepción y transmisión de señal por cable y otros similares, clasificadas en la fracción 412."
+              "descripcion": "Comprende a las empresas que se dedican a la producción, distribución, alquiler, exhibición, copia, edición, rotulación y sonido de películas cinematográficas; promoción, montaje y representación de espectáculos de música, teatro y danza. Así como la producción, transmisión y repetición de programas de radio y televisión. Excepto empresas que realicen como parte de su servicio, trabajos de canalización y tendido de líneas para la recepción y transmisión de señal por cable y otros similares, clasificadas en la fracción 412."
             },
             {
               "codigo": "883",
-              "titulo": "Hipódromos, galgódromos, lienzos charros, palenques                            y",
+              "titulo": "Hipódromos, galgódromos, lienzos charros, palenques y promoción y presentación de espectáculos taurinos.",
               "clase": "III",
-              "descripcion": "promoción y presentación de espectáculos taurinos. Comprende a las empresas que se dedican a promover y presentar     espectáculos  en   hipódromos,    galgódromos, autódromos, velódromos, lienzos charros, palenques, plazas de toros y similares."
+              "descripcion": "Comprende a las empresas que se dedican a promover y presentar espectáculos en hipódromos, galgódromos, autódromos, velódromos, lienzos charros, palenques, plazas de toros y similares."
             },
             {
               "codigo": "884",
@@ -1880,7 +1880,7 @@
               "codigo": "886",
               "titulo": "Circos y juegos electromecánicos.",
               "clase": "III",
-              "descripcion": "Comprende a las empresas que se dedican a la promoción y presentación      de      espectáculos       circenses, juegos electromecánicos, adiestramiento y exhibición de animales salvajes, acrobacia aérea y otros similares."
+              "descripcion": "Comprende a las empresas que se dedican a la promoción y presentación de espectáculos circenses, juegos electromecánicos, adiestramiento y exhibición de animales salvajes, acrobacia aérea y otros similares."
             }
           ]
         },
@@ -1890,21 +1890,21 @@
           "fracciones": [
             {
               "codigo": "891",
-              "titulo": "Servicios de reparación, lavado, engrasado, verificación de",
+              "titulo": "Servicios de reparación, lavado, engrasado, verificación de emisión de contaminantes y estacionamiento de vehículos con servicios mecánicos y/o de hojalatería.",
               "clase": "III",
-              "descripcion": "emisión de contaminantes y estacionamiento de vehículos con servicios mecánicos y/o de hojalatería. Comprende a las empresas que se dedican a los servicios de reparación de automóviles, camiones, autobuses, motocicletas, bicicletas, lanchas, aeronaves y sus partes componentes como: motores, transmisiones, cajas de cambio, carburadores, arranques, radiadores, frenos, sistema eléctrico, carrocerías (hojalatería, pintura, asientos, polarizado de cristales y otros); así como los servicios de parchado de llantas y cámaras, lubricación, lavado y engrasado, alineación y balanceo; el servicio de estacionamiento y pensión de vehículos, siempre y cuando además presten alguno(s) de los servicios antes mencionados. Incluye a los centros de verificación de emisión de contaminantes automotrices, que realicen en forma simultánea la(s) actividad(es) descrita(s) en esta fracción. Excepto empresas que se dedican a la reforma, reconstrucción (como la regeneración y vulcanización de llantas) o fabricación de equipo de transporte y sus partes, que se clasifican por separado."
+              "descripcion": "Comprende a las empresas que se dedican a los servicios de reparación de automóviles, camiones, autobuses, motocicletas, bicicletas, lanchas, aeronaves y sus partes componentes como: motores, transmisiones, cajas de cambio, carburadores, arranques, radiadores, frenos, sistema eléctrico, carrocerías (hojalatería, pintura, asientos, polarizado de cristales y otros); así como los servicios de parchado de llantas y cámaras, lubricación, lavado y engrasado, alineación y balanceo; el servicio de estacionamiento y pensión de vehículos, siempre y cuando además presten alguno(s) de los servicios antes mencionados. Incluye a los centros de verificación de emisión de contaminantes automotrices, que realicen en forma simultánea la(s) actividad(es) descrita(s) en esta fracción. Excepto empresas que se dedican a la reforma, reconstrucción (como la regeneración y vulcanización de llantas) o fabricación de equipo de transporte y sus partes, que se clasifican por separado."
             },
             {
               "codigo": "892",
-              "titulo": "Servicios de reparación de artículos de uso doméstico y personal,",
+              "titulo": "Servicios de reparación de artículos de uso doméstico y personal, sin maquinaria ni equipo motorizado.",
               "clase": "II",
-              "descripcion": "sin maquinaria ni equipo motorizado. Comprende a las empresas que prestan servicios de reparación o mantenimiento de artículos de uso doméstico y personal, sin empleo de maquinaria ni equipo motorizado."
+              "descripcion": "Comprende a las empresas que prestan servicios de reparación o mantenimiento de artículos de uso doméstico y personal, sin empleo de maquinaria ni equipo motorizado."
             },
             {
               "codigo": "893",
-              "titulo": "Servicios de reparación de artículos de uso doméstico y personal,",
+              "titulo": "Servicios de reparación de artículos de uso doméstico y personal, con maquinaria y/o equipo motorizado.",
               "clase": "IV",
-              "descripcion": "con maquinaria y/o equipo motorizado. Comprende a las empresas que prestan servicios de reparación o mantenimiento de artículos de uso doméstico y personal, con empleo de maquinaria y/o equipo motorizado. Incluye talleres de reparación de calzado, afiladurías y cerrajerías."
+              "descripcion": "Comprende a las empresas que prestan servicios de reparación o mantenimiento de artículos de uso doméstico y personal, con empleo de maquinaria y/o equipo motorizado. Incluye talleres de reparación de calzado, afiladurías y cerrajerías."
             },
             {
               "codigo": "894",
@@ -1926,9 +1926,9 @@
             },
             {
               "codigo": "897",
-              "titulo": "Servicios de aseo y limpieza, con maquinaria y/o equipo",
+              "titulo": "Servicios de aseo y limpieza, con maquinaria y/o equipo motorizado.",
               "clase": "III",
-              "descripcion": "motorizado. Comprende a las empresas que con empleo de maquinaria y/o equipo motorizado, se dedican a proporcionar servicios de limpieza tales como: lavado y/o planchado de ropa, alfombras, tapetes, cortinas, blancos y otros en lavanderías, tintorerías y planchadurías. Incluye los servicios de aseo y limpieza en interiores de inmuebles (lavado, pulido, encerado y similares). Excepto empresas que se dedican a los servicios de fontanería (limpieza de caños y tuberías), clasificadas en la fracción 421."
+              "descripcion": "Comprende a las empresas que con empleo de maquinaria y/o equipo motorizado, se dedican a proporcionar servicios de limpieza tales como: lavado y/o planchado de ropa, alfombras, tapetes, cortinas, blancos y otros en lavanderías, tintorerías y planchadurías. Incluye los servicios de aseo y limpieza en interiores de inmuebles (lavado, pulido, encerado y similares). Excepto empresas que se dedican a los servicios de fontanería (limpieza de caños y tuberías), clasificadas en la fracción 421."
             },
             {
               "codigo": "898",
@@ -1986,15 +1986,15 @@
           "fracciones": [
             {
               "codigo": "911",
-              "titulo": "Servicios de enseñanza académica, capacitación, investigación",
+              "titulo": "Servicios de enseñanza académica, capacitación, investigación científica y difusión cultural.",
               "clase": "I",
-              "descripcion": "científica y difusión cultural. Comprende a las empresas que prestan servicios de guardería, enseñanza preprimaria, primaria, secundaria, media-superior (preparatoria, vocacional), subprofesional, profesional, enseñanza comercial, idiomas y cursos por correspondencia; capacitación técnica de oficios y artesanías; música, danza y otras artes; servicios de investigación científica; bibliotecas, museos, jardines botánicos y otros servicios similares de difusión cultural. Excepto academias o escuelas de manejo de vehículos y de cultura física (gimnasios) clasificadas en las fracciones 755 y 881, respectivamente."
+              "descripcion": "Comprende a las empresas que prestan servicios de guardería, enseñanza preprimaria, primaria, secundaria, media-superior (preparatoria, vocacional), subprofesional, profesional, enseñanza comercial, idiomas y cursos por correspondencia; capacitación técnica de oficios y artesanías; música, danza y otras artes; servicios de investigación científica; bibliotecas, museos, jardines botánicos y otros servicios similares de difusión cultural. Excepto academias o escuelas de manejo de vehículos y de cultura física (gimnasios) clasificadas en las fracciones 755 y 881, respectivamente."
             }
           ]
         },
         {
           "codigo": "92",
-          "nombre": "SERVICIOS       MÉDICOS,    ASISTENCIA                        SOCIAL          Y",
+          "nombre": "SERVICIOS MÉDICOS, ASISTENCIA SOCIAL Y",
           "fracciones": [
             {
               "codigo": "921",
@@ -2024,13 +2024,13 @@
         },
         {
           "codigo": "93",
-          "nombre": "AGRUPACIONES              MERCANTILES, PROFESIONALES,",
+          "nombre": "AGRUPACIONES MERCANTILES, PROFESIONALES,",
           "fracciones": [
             {
               "codigo": "931",
-              "titulo": "Asociaciones y organizaciones comerciales, profesionales,",
+              "titulo": "Asociaciones y organizaciones comerciales, profesionales, cívicas, laborales y políticas.",
               "clase": "I",
-              "descripcion": "cívicas, laborales y políticas. Comprende asociaciones y organizaciones tales como: cámaras industriales, de comercio, agricultores, ganaderos, abogados, actuarios, médicos, ingenieros; cívicas, fraternidades, clubes literarios e históricos, políticas, sindicales, laborales y otras asociaciones y organizaciones similares."
+              "descripcion": "Comprende asociaciones y organizaciones tales como: cámaras industriales, de comercio, agricultores, ganaderos, abogados, actuarios, médicos, ingenieros; cívicas, fraternidades, clubes literarios e históricos, políticas, sindicales, laborales y otras asociaciones y organizaciones similares."
             },
             {
               "codigo": "933",
@@ -2070,9 +2070,9 @@
           "fracciones": [
             {
               "codigo": "990",
-              "titulo": "Servicios de organizaciones internacionales y otros organismos",
+              "titulo": "Servicios de organizaciones internacionales y otros organismos extraterritoriales.",
               "clase": "I",
-              "descripcion": "extraterritoriales. Comprende los servicios de oficina y representación de organizaciones internacionales, servicios de embajadas, legaciones y consulados de otros países; servicios de oficina y representación de otros países u organismos que gozan de extraterritorialidad. TRANSITORIOS Primero. Este Reglamento entrará en vigor al día siguiente de su publicación en el Diario Oficial de la Federación. Segundo. A la entrada en vigor del presente Reglamento, se abrogan los Reglamentos de Afiliación; de la Seguridad Social para el Campo; del Seguro de Salud para la Familia; para el Pago de Cuotas del Seguro Social y para la Imposición de Multas por Infracción a las Disposiciones de la Ley del Seguro Social y sus Reglamentos, publicados en el Diario Oficial de la Federación el día 30 de junio de 1997, así como el Reglamento para la Clasificación de Empresas y Determinación de la Prima en el Seguro de Riesgos de Trabajo, publicado en el Diario Oficial de la Federación el día 11 de noviembre de 1998. Los procedimientos o instancias iniciados bajo la vigencia de los reglamentos que se abrogan, seguirán tramitándose hasta su conclusión en los términos previstos del reglamento que corresponda. Se derogan todas aquellas disposiciones de carácter administrativo y técnico que se opongan al presente Reglamento. Tercero. Para el cumplimiento de las obligaciones a que se refiere la Ley y este Reglamento, los patrones o sujetos obligados deberán continuar utilizando los formatos de los trámites que el Instituto tiene autorizados a la fecha, hasta en tanto éste publique en el Diario Oficial de la Federación, los nuevos formatos a que se refiere el presente Reglamento."
+              "descripcion": "Comprende los servicios de oficina y representación de organizaciones internacionales, servicios de embajadas, legaciones y consulados de otros países; servicios de oficina y representación de otros países u organismos que gozan de extraterritorialidad. TRANSITORIOS Primero. Este Reglamento entrará en vigor al día siguiente de su publicación en el Diario Oficial de la Federación. Segundo. A la entrada en vigor del presente Reglamento, se abrogan los Reglamentos de Afiliación; de la Seguridad Social para el Campo; del Seguro de Salud para la Familia; para el Pago de Cuotas del Seguro Social y para la Imposición de Multas por Infracción a las Disposiciones de la Ley del Seguro Social y sus Reglamentos, publicados en el Diario Oficial de la Federación el día 30 de junio de 1997, así como el Reglamento para la Clasificación de Empresas y Determinación de la Prima en el Seguro de Riesgos de Trabajo, publicado en el Diario Oficial de la Federación el día 11 de noviembre de 1998. Los procedimientos o instancias iniciados bajo la vigencia de los reglamentos que se abrogan, seguirán tramitándose hasta su conclusión en los términos previstos del reglamento que corresponda. Se derogan todas aquellas disposiciones de carácter administrativo y técnico que se opongan al presente Reglamento. Tercero. Para el cumplimiento de las obligaciones a que se refiere la Ley y este Reglamento, los patrones o sujetos obligados deberán continuar utilizando los formatos de los trámites que el Instituto tiene autorizados a la fecha, hasta en tanto éste publique en el Diario Oficial de la Federación, los nuevos formatos a que se refiere el presente Reglamento."
             }
           ]
         }
