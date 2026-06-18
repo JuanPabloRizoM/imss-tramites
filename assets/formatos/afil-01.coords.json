@@ -28,7 +28,7 @@
     "registro_patronal":       { "page": 0, "x": 435, "y": 419, "size": 9,  "ancho_max": 110 },
 
     "fraccion":                { "page": 0, "x": 70,  "y": 400, "size": 9,  "ancho_max": 200 },
-    "actividad_giro":          { "page": 0, "x": 437, "y": 398, "size": 9,  "ancho_max": 155 },
+    "actividad_giro":          { "page": 0, "x": 437, "y": 398, "size": 9,  "ancho_max": 165 },
 
     "prima":                   { "page": 0, "x": 67,  "y": 378, "size": 9,  "ancho_max": 210 },
     "fecha_causa_dd":          { "page": 0, "x": 450, "y": 380, "size": 9 },
@@ -44,7 +44,7 @@
     "municipio":               { "page": 0, "x": 118, "y": 220, "size": 9,  "ancho_max": 135 },
     "estado":                  { "page": 0, "x": 70,  "y": 200, "size": 9,  "ancho_max": 195 },
     "telefono":                { "page": 0, "x": 157, "y": 179, "size": 9,  "ancho_max": 75 },
-    "correo":                  { "page": 0, "x": 115, "y": 160, "size": 9,  "ancho_max": 135 },
+    "correo":                  { "page": 0, "x": 115, "y": 160, "size": 9,  "ancho_max": 180 },
 
     "no_notaria":              { "page": 1, "x": 91,  "y": 656, "size": 9,  "ancho_max": 200 },
     "no_acta":                 { "page": 1, "x": 370, "y": 656, "size": 9,  "ancho_max": 200 },

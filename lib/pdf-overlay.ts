@@ -278,7 +278,7 @@ function truncarParaCabe(
 // solo si aún no cabe a ese mínimo lo trunca con "…". Devuelve el texto y el
 // tamaño que se debe usar al dibujarlo. Para los formatos del IMSS preferimos
 // ver el dato completo en letra chica antes que perderlo con puntos suspensivos.
-const SIZE_MIN = 5;
+const SIZE_MIN = 3.5;
 function ajustarParaCabe(
   texto: string,
   font: PDFFont,
@@ -287,8 +287,11 @@ function ajustarParaCabe(
 ): { texto: string; size: number } {
   if (!anchoMax || anchoMax <= 0) return { texto, size };
   if (font.widthOfTextAtSize(texto, size) <= anchoMax) return { texto, size };
+  // Encoge mientras el texto NO quepa al tamaño actual (no a s-0.5: ese
+  // off-by-one detenía el loop un paso antes y truncaba aunque el tamaño justo
+  // abajo sí cabía).
   let s = size;
-  while (s > SIZE_MIN && font.widthOfTextAtSize(texto, s - 0.5) > anchoMax) {
+  while (s > SIZE_MIN && font.widthOfTextAtSize(texto, s) > anchoMax) {
     s -= 0.5;
   }
   if (font.widthOfTextAtSize(texto, s) <= anchoMax) return { texto, size: s };
