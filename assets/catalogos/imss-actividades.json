@@ -92,7 +92,7 @@
       "grupos": [
         {
           "codigo": "11",
-          "nombre": "EXTRACCIÓN Y BENEFICIO DE CARBÓN MINERAL, GRAFITO Y",
+          "nombre": "EXTRACCIÓN Y BENEFICIO DE CARBÓN MINERAL, GRAFITO Y MINERALES NO METÁLICOS",
           "fracciones": [
             {
               "codigo": "111",
@@ -122,7 +122,7 @@
         },
         {
           "codigo": "12",
-          "nombre": "EXPLORACIÓN Y EXTRACCIÓN DE PETRÓLEO CRUDO Y",
+          "nombre": "EXPLORACIÓN Y EXTRACCIÓN DE PETRÓLEO CRUDO Y GAS NATURAL",
           "fracciones": [
             {
               "codigo": "121",
@@ -362,7 +362,7 @@
         },
         {
           "codigo": "24",
-          "nombre": "CONFECCIÓN DE PRENDAS DE VESTIR Y OTROS",
+          "nombre": "CONFECCIÓN DE PRENDAS DE VESTIR Y OTROS ARTÍCULOS CONFECCIONADOS CON TEXTILES Y MATERIALES DIVERSOS",
           "fracciones": [
             {
               "codigo": "241",
@@ -428,7 +428,7 @@
         },
         {
           "codigo": "26",
-          "nombre": "INDUSTRIA Y PRODUCTOS DE MADERA Y CORCHO;",
+          "nombre": "INDUSTRIA Y PRODUCTOS DE MADERA Y CORCHO; EXCEPTO MUEBLES",
           "fracciones": [
             {
               "codigo": "261",
@@ -626,7 +626,7 @@
         },
         {
           "codigo": "33",
-          "nombre": "FABRICACIÓN DE PRODUCTOS DE MINERALES NO",
+          "nombre": "FABRICACIÓN DE PRODUCTOS DE MINERALES NO METÁLICOS",
           "fracciones": [
             {
               "codigo": "331",
@@ -734,7 +734,7 @@
         },
         {
           "codigo": "35",
-          "nombre": "FABRICACIÓN DE PRODUCTOS METÁLICOS; EXCEPTO",
+          "nombre": "FABRICACIÓN DE PRODUCTOS METÁLICOS; EXCEPTO MAQUINARIA Y EQUIPO",
           "fracciones": [
             {
               "codigo": "351",
@@ -806,7 +806,7 @@
         },
         {
           "codigo": "36",
-          "nombre": "FABRICACIÓN, ENSAMBLE Y/O REPARACIÓN DE",
+          "nombre": "FABRICACIÓN, ENSAMBLE Y/O REPARACIÓN DE MAQUINARIA, EQUIPO Y SUS PARTES; EXCEPTO LOS ELÉCTRICOS",
           "fracciones": [
             {
               "codigo": "361",
@@ -854,7 +854,7 @@
         },
         {
           "codigo": "37",
-          "nombre": "FABRICACIÓN Y/O ENSAMBLE DE MAQUINARIA, EQUIPOS,",
+          "nombre": "FABRICACIÓN Y/O ENSAMBLE DE MAQUINARIA, EQUIPOS, APARATOS Y ARTÍCULOS ELÉCTRICOS Y ELECTRÓNICOS",
           "fracciones": [
             {
               "codigo": "371",
@@ -932,7 +932,7 @@
         },
         {
           "codigo": "38",
-          "nombre": "CONSTRUCCIÓN, RECONSTRUCCIÓN Y ENSAMBLE DE",
+          "nombre": "CONSTRUCCIÓN, RECONSTRUCCIÓN Y ENSAMBLE DE EQUIPO DE TRANSPORTE Y SUS PARTES",
           "fracciones": [
             {
               "codigo": "381",
@@ -1070,7 +1070,7 @@
       "grupos": [
         {
           "codigo": "41",
-          "nombre": "CONSTRUCCIÓN DE EDIFICACIONES Y DE OBRAS DE",
+          "nombre": "CONSTRUCCIÓN DE EDIFICACIONES Y DE OBRAS DE INGENIERÍA CIVIL",
           "fracciones": [
             {
               "codigo": "411",
@@ -1154,7 +1154,7 @@
       "grupos": [
         {
           "codigo": "61",
-          "nombre": "COMPRAVENTA DE ALIMENTOS, BEBIDAS Y PRODUCTOS",
+          "nombre": "COMPRAVENTA DE ALIMENTOS, BEBIDAS Y PRODUCTOS DEL TABACO",
           "fracciones": [
             {
               "codigo": "611",
@@ -1184,7 +1184,7 @@
         },
         {
           "codigo": "62",
-          "nombre": "COMPRAVENTA DE PRENDAS DE VESTIR Y OTROS",
+          "nombre": "COMPRAVENTA DE PRENDAS DE VESTIR Y OTROS ARTÍCULOS DE USO PERSONAL",
           "fracciones": [
             {
               "codigo": "621",
@@ -1304,7 +1304,7 @@
         },
         {
           "codigo": "64",
-          "nombre": "COMPRAVENTA EN TIENDAS DE AUTOSERVICIO Y DE",
+          "nombre": "COMPRAVENTA EN TIENDAS DE AUTOSERVICIO Y DE DEPARTAMENTOS ESPECIALIZADOS",
           "fracciones": [
             {
               "codigo": "641",
@@ -1316,7 +1316,7 @@
         },
         {
           "codigo": "65",
-          "nombre": "COMPRAVENTA DE GASES, COMBUSTIBLES Y",
+          "nombre": "COMPRAVENTA DE GASES, COMBUSTIBLES Y LUBRICANTES",
           "fracciones": [
             {
               "codigo": "651",
@@ -1346,7 +1346,7 @@
         },
         {
           "codigo": "66",
-          "nombre": "COMPRAVENTA DE MATERIAS PRIMAS, MATERIALES Y",
+          "nombre": "COMPRAVENTA DE MATERIAS PRIMAS, MATERIALES Y AUXILIARES",
           "fracciones": [
             {
               "codigo": "661",
@@ -1454,7 +1454,7 @@
         },
         {
           "codigo": "67",
-          "nombre": "COMPRAVENTA DE MAQUINARIA, EQUIPO, INSTRUMENTOS,",
+          "nombre": "COMPRAVENTA DE MAQUINARIA, EQUIPO, INSTRUMENTOS, APARATOS Y SUS REFACCIONES",
           "fracciones": [
             {
               "codigo": "671",
@@ -1526,7 +1526,7 @@
         },
         {
           "codigo": "68",
-          "nombre": "COMPRAVENTA DE EQUIPO DE TRANSPORTE; SUS",
+          "nombre": "COMPRAVENTA DE EQUIPO DE TRANSPORTE; SUS REFACCIONES, ACCESORIOS Y/O PARTES",
           "fracciones": [
             {
               "codigo": "681",
@@ -1652,7 +1652,7 @@
         },
         {
           "codigo": "75",
-          "nombre": "SERVICIOS RELACIONADOS CON EL TRANSPORTE EN",
+          "nombre": "SERVICIOS RELACIONADOS CON EL TRANSPORTE EN GENERAL",
           "fracciones": [
             {
               "codigo": "751",
@@ -1706,7 +1706,7 @@
       "grupos": [
         {
           "codigo": "81",
-          "nombre": "SERVICIOS FINANCIEROS Y DE SEGUROS (BANCOS,",
+          "nombre": "SERVICIOS FINANCIEROS Y DE SEGUROS (BANCOS, ASEGURADORAS Y AFIANZADORAS)",
           "fracciones": [
             {
               "codigo": "810",
@@ -1718,7 +1718,7 @@
         },
         {
           "codigo": "82",
-          "nombre": "SERVICIOS COLATERALES A LAS INSTITUCIONES",
+          "nombre": "SERVICIOS COLATERALES A LAS INSTITUCIONES FINANCIERAS Y DE SEGUROS",
           "fracciones": [
             {
               "codigo": "820",
@@ -1982,7 +1982,7 @@
       "grupos": [
         {
           "codigo": "91",
-          "nombre": "SERVICIOS DE ENSEÑANZA, INVESTIGACIÓN CIENTÍFICA Y",
+          "nombre": "SERVICIOS DE ENSEÑANZA, INVESTIGACIÓN CIENTÍFICA Y DIFUSIÓN CULTURAL",
           "fracciones": [
             {
               "codigo": "911",
@@ -1994,7 +1994,7 @@
         },
         {
           "codigo": "92",
-          "nombre": "SERVICIOS MÉDICOS, ASISTENCIA SOCIAL Y",
+          "nombre": "SERVICIOS MÉDICOS, ASISTENCIA SOCIAL Y VETERINARIOS",
           "fracciones": [
             {
               "codigo": "921",
@@ -2024,7 +2024,7 @@
         },
         {
           "codigo": "93",
-          "nombre": "AGRUPACIONES MERCANTILES, PROFESIONALES,",
+          "nombre": "AGRUPACIONES MERCANTILES, PROFESIONALES, CÍVICAS, POLÍTICAS, LABORALES Y RELIGIOSAS",
           "fracciones": [
             {
               "codigo": "931",
@@ -2042,7 +2042,7 @@
         },
         {
           "codigo": "94",
-          "nombre": "SERVICIOS DE ADMINISTRACIÓN PUBLICA Y SEGURIDAD",
+          "nombre": "SERVICIOS DE ADMINISTRACIÓN PÚBLICA Y SEGURIDAD SOCIAL",
           "fracciones": [
             {
               "codigo": "941",
@@ -2066,7 +2066,7 @@
         },
         {
           "codigo": "99",
-          "nombre": "SERVICIOS DE ORGANIZACIONES INTERNACIONALES Y",
+          "nombre": "SERVICIOS DE ORGANIZACIONES INTERNACIONALES Y OTROS ORGANISMOS EXTRATERRITORIALES",
           "fracciones": [
             {
               "codigo": "990",
