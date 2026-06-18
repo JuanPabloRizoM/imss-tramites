@@ -1211,7 +1211,7 @@ type ColumnaGrid = {
 type ConfigGrid = { minRows: number; maxRows: number; columnas: ColumnaGrid[] };
 
 const GRID_POR_SECCION: Record<string, ConfigGrid> = {
-  "IV.7 Personal": {
+  "IV.7. Personal": {
     minRows: 3,
     maxRows: 12,
     columnas: [
@@ -1232,17 +1232,17 @@ const GRID_POR_SECCION: Record<string, ConfigGrid> = {
       },
     ],
   },
-  "IV.4 Maquinaria y equipo": {
-    minRows: 3,
+  "IV.3. Maquinaria y equipo utilizado [excepto equipo de transporte]": {
+    minRows: 2,
     maxRows: 5,
     columnas: [
       { label: "Número de unidades", tipo: "number", segmentos: [{ field: "maquinaria_unidades", start: 0, count: 5 }] },
       { label: "Nombre", segmentos: [{ field: "maquinaria_nombre", start: 0, count: 5 }] },
       { label: "Uso", segmentos: [{ field: "maquinaria_uso", start: 0, count: 5 }] },
       {
-        label: "No motorizados / Motorizados / Automatizados / Otros",
+        label: "No motorizados / Motorizados no automatizados / Automatizados / Otros",
         tipo: "select",
-        options: ["NO MOTORIZADOS", "MOTORIZADOS NO AUTOMATIZADOS", "AUTOMATIZADOS", "HERRAMIENTAS MANUALES"],
+        options: ["NO MOTORIZADOS", "MOTORIZADOS NO AUTOMATIZADOS", "AUTOMATIZADOS", "OTROS"],
         segmentos: [{ field: "maquinaria_tipo", start: 0, count: 5 }],
       },
       { label: "Capacidad o potencia", segmentos: [{ field: "maquinaria_capacidad", start: 0, count: 5 }] },
