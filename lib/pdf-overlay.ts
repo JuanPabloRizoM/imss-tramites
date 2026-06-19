@@ -3,7 +3,8 @@ import "server-only";
 import { promises as fs } from "fs";
 import path from "path";
 
-import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf-lib";
+import fontkit from "@pdf-lib/fontkit";
+import { PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 
 // Motor de overlay sobre PDFs oficiales.
 //
@@ -86,6 +87,7 @@ type CoordSchema = {
 };
 
 const ROOT = path.join(process.cwd(), "assets", "formatos");
+const FONTS = path.join(process.cwd(), "assets", "fonts");
 const COLOR = rgb(0.08, 0.08, 0.12);
 
 export async function existePdfBase(codigo: string): Promise<boolean> {
@@ -102,13 +104,20 @@ export async function generarOverlay(
   codigo: string,
   values: Record<string, string>
 ): Promise<Uint8Array> {
-  const [pdfBytes, coordsRaw] = await Promise.all([
+  const [pdfBytes, coordsRaw, fontReg, fontBoldBytes] = await Promise.all([
     fs.readFile(path.join(ROOT, `${codigo}.pdf`)),
     fs.readFile(path.join(ROOT, `${codigo}.coords.json`), "utf8"),
+    fs.readFile(path.join(FONTS, "Arimo-Regular.ttf")),
+    fs.readFile(path.join(FONTS, "Arimo-Bold.ttf")),
   ]);
 
   const coords = JSON.parse(coordsRaw) as CoordSchema;
   const doc = await PDFDocument.load(pdfBytes);
+  // fontkit + fuente EMBEBIDA (Arimo, métrica-compatible con Helvetica/Arial).
+  // Antes se usaba StandardFonts.Helvetica, que NO se embebe: en visores sin
+  // Helvetica el PDF descargado mostraba "tofu"/símbolos raros. Embebida se ve
+  // igual en cualquier PC.
+  doc.registerFontkit(fontkit);
 
   // Recortar páginas si el coords lo indica (ej. AM-SRT: solo páginas 1-5,
   // las posteriores son instructivo/generalidades que no se entregan).
@@ -120,8 +129,8 @@ export async function generarOverlay(
     }
   }
 
-  const font = await doc.embedFont(StandardFonts.Helvetica);
-  const fontBold = await doc.embedFont(StandardFonts.HelveticaBold);
+  const font = await doc.embedFont(fontReg, { subset: true });
+  const fontBold = await doc.embedFont(fontBoldBytes, { subset: true });
   const pages = doc.getPages();
   const defaultSize = coords._default_size ?? 9;
 
