@@ -52,11 +52,18 @@ Para probar cambios locales antes de mandarlos a la tienda:
 
 ## Pendiente de publicar
 
-La tienda tiene la **0.4.0**. En el repo ya está la **0.4.1** (candado
-física/moral: avisa si el trámite elegido no corresponde a la captura
-abierta). Decisión: no subirla sola — se va a acumular con la siguiente
-funcionalidad grande (llenado automático de la tabla dinámica de
-Productos, bloqueado por el dump del DOM del sub-formulario del portal).
+La tienda tiene la **0.4.0**. En el repo ya está la **0.4.1**, que acumula:
+- Candado física/moral: avisa si el trámite elegido no corresponde a la
+  captura abierta.
+- Botón "Copiar estructura de tablas" (popup): estando en el portal, vuelca
+  el HTML de las tablas dinámicas con campos + los controles "Agregar fila"
+  (con su `onclick`) al portapapeles. Es la herramienta de captura para
+  desbloquear el auto-llenado de las tablas dinámicas (Productos, personas
+  autorizadas, maquinaria, transporte, personal) — paso previo a escribir
+  sus selectores. Mensaje `TRAMITES_IMSS_DUMP` en content.js.
+
+Decisión: no subirla sola — se acumula con el llenado automático de las
+tablas dinámicas (lo que habilita el dump de arriba).
 
 ## Publicar una versión nueva en la tienda
 

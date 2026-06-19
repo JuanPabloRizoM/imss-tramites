@@ -215,6 +215,27 @@ async function llenarFormulario() {
   }
 }
 
+// Captura la estructura de las tablas del portal y la copia al portapapeles,
+// para poder escribir el auto-llenado de las tablas dinámicas (Productos,
+// personas autorizadas, etc.). El content script hace el volcado.
+async function copiarEstructuraTablas() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const host = hostOf(tab?.url ?? "");
+  if (!host || !PORTAL_HOSTS.includes(host)) {
+    setMsg("Abre el portal del IMSS en esta pestaña primero.", "err");
+    return;
+  }
+  setMsg("Leyendo tablas del portal…");
+  try {
+    const resp = await chrome.tabs.sendMessage(tab.id, { type: "TRAMITES_IMSS_DUMP" });
+    if (!resp?.ok) throw new Error(resp?.error || "Sin respuesta del portal.");
+    await navigator.clipboard.writeText(resp.dump);
+    setMsg("✓ Estructura copiada. Pégala en el chat.", "ok");
+  } catch {
+    setMsg("No se pudo leer. Recarga la página del portal e intenta otra vez.", "err");
+  }
+}
+
 async function guardarConfig() {
   const url = $("#cfg-url").value.trim().replace(/\/+$/, "");
   const key = $("#cfg-key").value.trim();
@@ -256,6 +277,7 @@ async function init() {
 
 $("#cfg-save").addEventListener("click", guardarConfig);
 $("#btn-reset").addEventListener("click", resetConfig);
+$("#btn-dump").addEventListener("click", copiarEstructuraTablas);
 $("#btn-llenar").addEventListener("click", llenarFormulario);
 $("#btn-refresh").addEventListener("click", pintarLista);
 

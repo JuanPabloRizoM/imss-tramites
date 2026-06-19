@@ -11,12 +11,72 @@
 const TAG_PREFIX = "[Trámites IMSS]";
 
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+  // Herramienta de captura: vuelca la estructura HTML de las tablas dinámicas
+  // del portal (botón "Agregar fila" + inputs por renglón) para poder escribir
+  // los selectores de auto-llenado. Es de desarrollo: no toca el formulario.
+  if (msg?.type === "TRAMITES_IMSS_DUMP") {
+    try {
+      sendResponse({ ok: true, dump: dumpEstructuraTablas() });
+    } catch (err) {
+      sendResponse({ ok: false, error: String(err) });
+    }
+    return true;
+  }
   if (msg?.type !== "TRAMITES_IMSS_FILL") return;
   llenarFormulario(msg.payload)
     .then((resumen) => sendResponse({ ok: true, resumen }))
     .catch((err) => sendResponse({ ok: false, error: String(err) }));
   return true; // respuesta asíncrona
 });
+
+// Captura la estructura de las tablas/sub-formularios del portal: cada <table>
+// que tenga inputs, y los controles tipo "Agregar fila" con su onclick (que
+// suele revelar la función JS que crea el renglón). Limpia scripts/estilos y
+// colapsa espacios para que el texto sea pegable en el chat.
+function dumpEstructuraTablas() {
+  const limpiar = (html) =>
+    html
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<svg[\s\S]*?<\/svg>/gi, "")
+      .replace(/<!--[\s\S]*?-->/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const partes = [];
+  partes.push(`URL: ${location.href}`);
+  partes.push(`method: ${new URLSearchParams(location.search).get("method") || "(ninguno)"}`);
+
+  // Tablas con campos de captura (ignora las de puro layout).
+  const tablas = [...document.querySelectorAll("table")].filter(
+    (t) => t.querySelector("input, select, textarea")
+  );
+  partes.push(`\n===== ${tablas.length} TABLA(S) CON CAMPOS =====`);
+  tablas.forEach((t, i) => {
+    const n = t.querySelectorAll("input, select, textarea").length;
+    partes.push(
+      `\n----- TABLE #${i}  id="${t.id}" class="${t.className}"  campos=${n} -----`
+    );
+    partes.push(limpiar(t.outerHTML).slice(0, 8000));
+  });
+
+  // Controles tipo "Agregar / + fila / Nuevo renglón".
+  const reAgregar = /agregar|añad|anad|\bagrega\b|\+\s*fila|nuevo\s+rengl|a[ñn]adir/i;
+  const controles = [
+    ...document.querySelectorAll(
+      "button, input[type=button], input[type=submit], input[type=image], a"
+    ),
+  ].filter((el) => reAgregar.test((el.textContent || "") + " " + (el.value || "") + " " + (el.title || "")));
+  partes.push(`\n===== ${controles.length} CONTROL(ES) tipo "Agregar" =====`);
+  controles.slice(0, 40).forEach((c, i) => {
+    const txt = (c.textContent || c.value || c.title || "").trim().slice(0, 50);
+    partes.push(
+      `BTN #${i}: <${c.tagName.toLowerCase()}> text="${txt}" id="${c.id}" name="${c.name || ""}" onclick="${(c.getAttribute("onclick") || "").slice(0, 200)}"`
+    );
+  });
+
+  return partes.join("\n");
+}
 
 async function llenarFormulario(payload) {
   const { field_schema = [], field_values = {}, tramite_code } = payload || {};
