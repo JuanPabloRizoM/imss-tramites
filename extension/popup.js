@@ -229,8 +229,7 @@ async function copiarEstructuraTablas() {
   try {
     const resp = await chrome.tabs.sendMessage(tab.id, { type: "TRAMITES_IMSS_DUMP" });
     if (!resp?.ok) throw new Error(resp?.error || "Sin respuesta del portal.");
-    await navigator.clipboard.writeText(resp.dump);
-    setMsg("✓ Estructura copiada. Pégala en el chat.", "ok");
+    setMsg("✓ Se abrió un panel en la página con la estructura. Cópiala de ahí.", "ok");
   } catch {
     setMsg("No se pudo leer. Recarga la página del portal e intenta otra vez.", "err");
   }

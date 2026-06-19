@@ -16,7 +16,9 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   // los selectores de auto-llenado. Es de desarrollo: no toca el formulario.
   if (msg?.type === "TRAMITES_IMSS_DUMP") {
     try {
-      sendResponse({ ok: true, dump: dumpEstructuraTablas() });
+      const dump = dumpEstructuraTablas();
+      mostrarPanelDump(dump); // panel visible en la página, no solo portapapeles
+      sendResponse({ ok: true, dump });
     } catch (err) {
       sendResponse({ ok: false, error: String(err) });
     }
@@ -343,6 +345,69 @@ function renderCampoItem(campo, valor) {
   });
   item.appendChild(btn);
   return item;
+}
+
+// Panel visible con el volcado de estructura, en una caja de texto ya
+// seleccionada (Ctrl/Cmd+C copia todo). No depende del portapapeles del popup,
+// que algunos portales bloquean.
+function mostrarPanelDump(texto) {
+  document.getElementById("tii-dump-panel")?.remove();
+  const root = document.createElement("div");
+  root.id = "tii-dump-panel";
+  root.style.cssText = `
+    position: fixed; top: 16px; right: 16px; z-index: 2147483647;
+    width: min(560px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
+    display: flex; flex-direction: column; gap: 8px;
+    background: #fafaf6; color: #16181d;
+    border: 1px solid #d4d0c5; border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    font: 13px/1.45 -apple-system, "Segoe UI", system-ui, sans-serif;
+    padding: 14px 16px;
+  `;
+  const tablas = (texto.match(/----- TABLE #/g) || []).length;
+  const btns = (texto.match(/BTN #/g) || []).length;
+  root.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#93969d">Trámites IMSS</div>
+        <div style="font-family:Georgia,serif;font-style:italic;font-size:18px;line-height:1.1">Estructura de tablas</div>
+      </div>
+      <button id="tii-dump-close" style="background:transparent;border:0;font-size:18px;cursor:pointer;color:#93969d;line-height:1">×</button>
+    </div>
+    <p style="margin:0;color:#5a5d65;font-size:12px">${tablas} tabla(s) con campos · ${btns} control(es) "Agregar". Selecciona todo y copia (Ctrl/Cmd+C), luego pégalo en el chat.</p>
+  `;
+  const ta = document.createElement("textarea");
+  ta.readOnly = true;
+  ta.value = texto;
+  ta.style.cssText = `
+    width:100%; flex:1; min-height:260px; resize:vertical;
+    border:1px solid #d4d0c5; border-radius:6px; padding:8px;
+    font:11px/1.4 ui-monospace, "SF Mono", Menlo, monospace;
+    color:#16181d; background:#fff;
+  `;
+  root.appendChild(ta);
+  const fila = document.createElement("div");
+  fila.style.cssText = "display:flex;gap:8px";
+  const copiar = document.createElement("button");
+  copiar.textContent = "Copiar todo";
+  copiar.style.cssText = "flex:1;min-height:36px;border:1px solid #16181d;border-radius:6px;background:#16181d;color:#fafaf6;cursor:pointer;font:inherit;font-weight:600";
+  copiar.addEventListener("click", async () => {
+    ta.focus(); ta.select();
+    try {
+      await navigator.clipboard.writeText(texto);
+      copiar.textContent = "✓ Copiado";
+    } catch {
+      document.execCommand("copy"); // fallback
+      copiar.textContent = "✓ Copiado";
+    }
+    setTimeout(() => (copiar.textContent = "Copiar todo"), 1500);
+  });
+  fila.appendChild(copiar);
+  root.appendChild(fila);
+  document.body.appendChild(root);
+  document.getElementById("tii-dump-close").addEventListener("click", () => root.remove());
+  // Pre-selecciona para que Ctrl/Cmd+C funcione de inmediato.
+  ta.focus(); ta.select();
 }
 
 function escapeHtml(s) {
