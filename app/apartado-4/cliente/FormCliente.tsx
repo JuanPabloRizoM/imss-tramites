@@ -163,6 +163,7 @@ function Campo({
           id={id}
           type={campo.type === "date" ? "date" : "text"}
           inputMode={campo.type === "number" ? "numeric" : undefined}
+          maxLength={campo.maxlength}
           value={valor}
           onChange={(e) => onChange(e.target.value)}
           className="h-12 rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:border-ink"
