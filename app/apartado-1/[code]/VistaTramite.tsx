@@ -1181,6 +1181,7 @@ function CampoInput({
           id={id}
           type={html}
           value={valor}
+          maxLength={campo.maxlength}
           onChange={(e) => onChange(e.target.value)}
           className="h-11 rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:border-ink"
         />

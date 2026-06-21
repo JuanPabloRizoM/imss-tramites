@@ -103,7 +103,28 @@ export function precargarValores(
     const ajustado = ajustarASelect(campo, valor);
     if (ajustado !== null) out[campo.id] = ajustado;
   }
-  return out;
+  return separarRegistroPatronal(schema, out);
+}
+
+// El Registro Patronal del IMSS son 11 caracteres: 1 letra + 9 dígitos (el NRP)
+// + 1 dígito verificador (el carácter 11). Algunos formatos lo capturan en una
+// sola casilla (los PDF de apartado 1 → se queda completo), pero otros lo
+// separan en dos campos (el portal de Certificado Digital: NRP + dígito
+// verificador). Cuando el schema tiene `digito_verificador` y el registro vino
+// completo (11), movemos el carácter 11 a su casilla y dejamos 10 en el NRP —
+// así la extensión no mete los 11 en el campo de 10 del portal.
+export function separarRegistroPatronal(
+  schema: CampoSchema[],
+  values: Record<string, string>
+): Record<string, string> {
+  if (!schema.some((c) => c.id === "digito_verificador")) return values;
+  const rp = (values.registro_patronal ?? "").toUpperCase().replace(/[\s.\-]/g, "");
+  if (rp.length !== 11) return values;
+  // Si el verificador ya viene por separado, solo recorta el NRP a 10.
+  if ((values.digito_verificador ?? "").trim()) {
+    return { ...values, registro_patronal: rp.slice(0, 10) };
+  }
+  return { ...values, registro_patronal: rp.slice(0, 10), digito_verificador: rp.slice(10) };
 }
 
 function encontrarValor(

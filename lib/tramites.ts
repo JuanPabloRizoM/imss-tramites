@@ -39,6 +39,10 @@ export type CampoSchema = {
   // el checkbox "mismo domicilio" está marcado). Útil para sub-formularios
   // que dependen de una causa/tipo elegido.
   show_if?: { campo: string; igual?: string; en?: string[]; distinto?: string };
+  // Límite de caracteres del input (atributo maxlength). Ej. registro patronal
+  // = 11 (letra + 9 dígitos + verificador); en formatos que separan el dígito
+  // verificador, el NRP va a 10 y el verificador a 1.
+  maxlength?: number;
 };
 
 export function debeMostrar(

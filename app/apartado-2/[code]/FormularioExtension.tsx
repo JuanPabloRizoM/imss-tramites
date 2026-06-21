@@ -12,7 +12,7 @@ import {
   type TramiteType,
 } from "@/lib/tramites";
 import type { DatoExtraido } from "@/lib/extraccion";
-import { ajustarASelect, precargarValores } from "@/lib/precarga";
+import { ajustarASelect, precargarValores, separarRegistroPatronal } from "@/lib/precarga";
 import { SubirDocumentoTramite } from "@/components/SubirDocumentoTramite";
 
 type Props = {
@@ -187,7 +187,8 @@ export function FormularioExtension({ tramiteType, precarga, precargaDocType }: 
             aplicados += 1;
           }
         }
-        return out;
+        // Si el formato separa NRP y dígito verificador, rutea el 11º dígito.
+        return separarRegistroPatronal(tramiteType.field_schema, out);
       });
       if (estado === "guardado" || estado === "revisado") setEstado("idle");
       return aplicados;
@@ -474,6 +475,7 @@ function CampoInput({
           id={id}
           type={html}
           value={valor}
+          maxLength={campo.maxlength}
           onChange={(e) => onChange(e.target.value)}
           className="h-11 rounded-md border border-line bg-paper px-3 text-base text-ink focus-visible:border-ink"
         />
