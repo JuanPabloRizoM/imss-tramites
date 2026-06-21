@@ -36,12 +36,12 @@ export async function POST(req: Request) {
 
   try {
     const tramiteType = data as TramiteType;
-    // El IMSS exige MAYÚSCULAS para datos cortos. textarea/date/select/etc.
-    // se preservan tal cual (notas, descripciones, fechas, códigos).
-    const valoresNormalizados = normalizarParaSalida(
-      tramiteType.field_schema,
-      values
-    );
+    // El IMSS exige MAYÚSCULAS en sus FORMATOS. Los escritos (cartas) son texto
+    // libre: se preservan tal cual para que no salgan gritados (title case se
+    // ve mejor en una carta formal).
+    const valoresNormalizados = tramiteType.code.startsWith("escrito-")
+      ? values
+      : normalizarParaSalida(tramiteType.field_schema, values);
     const bytes = await generarPDF(tramiteType, valoresNormalizados);
     const arrayBuffer = (bytes.buffer as ArrayBuffer).slice(
       bytes.byteOffset,

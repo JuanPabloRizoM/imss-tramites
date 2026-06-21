@@ -1,6 +1,10 @@
 import "server-only";
 
-import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf-lib";
+import { promises as fs } from "fs";
+import path from "path";
+
+import fontkit from "@pdf-lib/fontkit";
+import { PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 
 import {
   agruparPorSeccion,
@@ -8,6 +12,8 @@ import {
   type TramiteType,
 } from "@/lib/tramites";
 import { existePdfBase, generarOverlay } from "@/lib/pdf-overlay";
+
+const FONTS_DIR = path.join(process.cwd(), "assets", "fonts");
 
 // Tamaños base en puntos (1 pt = 1/72 in). Carta = 612 × 792.
 const PAGE_W = 612;
@@ -34,11 +40,21 @@ type Ctx = {
 
 async function nuevoCtx(): Promise<Ctx> {
   const doc = await PDFDocument.create();
+  // Fuentes EMBEBIDAS (Arimo sans + Tinos serif, métrica-compatibles con
+  // Helvetica/Times). Antes se usaban StandardFonts, que NO se embeben: el PDF
+  // descargado mostraba "tofu"/símbolos raros en PCs sin esas fuentes.
+  doc.registerFontkit(fontkit);
+  const [arimo, arimoBold, tinos, tinosItalic] = await Promise.all([
+    fs.readFile(path.join(FONTS_DIR, "Arimo-Regular.ttf")),
+    fs.readFile(path.join(FONTS_DIR, "Arimo-Bold.ttf")),
+    fs.readFile(path.join(FONTS_DIR, "Tinos-Regular.ttf")),
+    fs.readFile(path.join(FONTS_DIR, "Tinos-Italic.ttf")),
+  ]);
   const page = doc.addPage([PAGE_W, PAGE_H]);
-  const sans = await doc.embedFont(StandardFonts.Helvetica);
-  const sansBold = await doc.embedFont(StandardFonts.HelveticaBold);
-  const serif = await doc.embedFont(StandardFonts.TimesRoman);
-  const serifItalic = await doc.embedFont(StandardFonts.TimesRomanItalic);
+  const sans = await doc.embedFont(arimo, { subset: true });
+  const sansBold = await doc.embedFont(arimoBold, { subset: true });
+  const serif = await doc.embedFont(tinos, { subset: true });
+  const serifItalic = await doc.embedFont(tinosItalic, { subset: true });
   return {
     doc,
     page,
@@ -198,6 +214,128 @@ async function generarEscritoGenerico(
   return ctx.doc.save();
 }
 
+// Texto alineado a la derecha (para el lugar/fecha del encabezado).
+function dibujarTextoDerecha(
+  ctx: Ctx,
+  texto: string,
+  opts: { size: number; font: PDFFont; color?: ReturnType<typeof rgb> }
+) {
+  const { size, font, color = COLOR_INK } = opts;
+  asegurarEspacio(ctx, size + 4);
+  const w = font.widthOfTextAtSize(texto, size);
+  ctx.page.drawText(texto, { x: PAGE_W - MARGIN_X - w, y: ctx.cursorY - size, size, font, color });
+  ctx.cursorY -= size + 6;
+}
+
+// Texto centrado (para "ATENTAMENTE" y el bloque de firma).
+function dibujarTextoCentrado(
+  ctx: Ctx,
+  texto: string,
+  opts: { size: number; font: PDFFont; color?: ReturnType<typeof rgb> }
+) {
+  const { size, font, color = COLOR_INK } = opts;
+  asegurarEspacio(ctx, size + 4);
+  const w = font.widthOfTextAtSize(texto, size);
+  ctx.page.drawText(texto, { x: (PAGE_W - w) / 2, y: ctx.cursorY - size, size, font, color });
+  ctx.cursorY -= size + 6;
+}
+
+// Fecha en letra para escritos: "12 de Junio del 2026".
+function fechaEnLetra(iso: string | undefined | null): string {
+  if (!iso) return "";
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!m) return iso;
+  const [, y, mo, d] = m;
+  const meses = [
+    "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+    "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre",
+  ];
+  return `${parseInt(d, 10)} de ${meses[parseInt(mo, 10) - 1]} del ${y}`;
+}
+
+// =============================================================================
+// Escrito de solicitud a la Subdelegación (apartado 1, code "escrito-subdeleg").
+// Carta formal: lugar/fecha arriba-derecha, destinatario (IMSS/Delegación/
+// Subdelegación) a la izquierda, cuerpo con datos del patrón + el trámite
+// solicitado, "ATENTAMENTE" y bloque de firma centrado (línea + nombre +
+// empresa si es persona moral).
+// =============================================================================
+async function generarEscritoSubdelegacion(
+  values: Record<string, string>
+): Promise<Uint8Array> {
+  const ctx = await nuevoCtx();
+  const v = (k: string) => (values[k] ?? "").trim();
+
+  // 1) Lugar y fecha — arriba a la derecha.
+  const lugar = v("lugar") || "Guadalajara, Jalisco";
+  const fecha = fechaEnLetra(v("fecha"));
+  const encabezado = [lugar, fecha ? `a ${fecha}` : ""].filter(Boolean).join(", ");
+  dibujarTextoDerecha(ctx, encabezado, { size: 11, font: ctx.serif });
+  ctx.cursorY -= 28;
+
+  // 2) Destinatario — a la izquierda.
+  const subdelegacion = v("subdelegacion") || "Subdelegación Hidalgo";
+  dibujarTexto(ctx, "INSTITUTO MEXICANO DEL SEGURO SOCIAL", { size: 11, font: ctx.sansBold });
+  dibujarTexto(ctx, v("delegacion") || "Delegación Estatal Jalisco", { size: 11, font: ctx.sansBold });
+  dibujarTexto(ctx, subdelegacion, { size: 11, font: ctx.sans, color: COLOR_INK_2 });
+  ctx.cursorY -= 8;
+  dibujarTexto(ctx, "P R E S E N T E.", { size: 11, font: ctx.sansBold });
+  ctx.cursorY -= 18;
+
+  // 3) Cuerpo — identificación del patrón + trámite solicitado.
+  const esMoral = v("tipo_persona").toUpperCase().startsWith("M");
+  const nombre = v("nombre_patron");
+  const rp = v("registro_patronal");
+  const rfc = v("rfc");
+  const identificacion = [
+    esMoral ? `la empresa ${nombre || "(razón social)"}` : `el(la) C. ${nombre || "(nombre)"}`,
+    rp ? `con Registro Patronal No. ${rp}` : "",
+    rfc ? `y R.F.C. ${rfc}` : "",
+  ].filter(Boolean).join(", ");
+
+  dibujarParrafo(
+    ctx,
+    `Por medio del presente, ${identificacion}, me dirijo a esta H. ${subdelegacion} ` +
+      `para exponer y solicitar respetuosamente lo siguiente:`,
+    { size: 11, font: ctx.serif, lineHeight: 1.6 }
+  );
+  ctx.cursorY -= 8;
+
+  const tramite = v("tramite_solicitado");
+  if (tramite) {
+    dibujarParrafo(ctx, tramite, { size: 11, font: ctx.serif, lineHeight: 1.6 });
+    ctx.cursorY -= 8;
+  }
+
+  dibujarParrafo(
+    ctx,
+    "Sin otro particular y agradeciendo de antemano la atención que se sirva dar a la " +
+      "presente, quedo a sus órdenes.",
+    { size: 11, font: ctx.serif, lineHeight: 1.6 }
+  );
+  ctx.cursorY -= 36;
+
+  // 4) Atentamente + firma centrada.
+  dibujarTextoCentrado(ctx, "A T E N T A M E N T E", { size: 11, font: ctx.sansBold });
+  ctx.cursorY -= 52;
+  const anchoLinea = 250;
+  const x0 = (PAGE_W - anchoLinea) / 2;
+  ctx.page.drawLine({
+    start: { x: x0, y: ctx.cursorY },
+    end: { x: x0 + anchoLinea, y: ctx.cursorY },
+    thickness: 0.6,
+    color: COLOR_INK_3,
+  });
+  ctx.cursorY -= 15;
+  if (v("firmante")) dibujarTextoCentrado(ctx, v("firmante"), { size: 11, font: ctx.sansBold });
+  const pie = esMoral ? v("empresa") || nombre : "";
+  if (pie) dibujarTextoCentrado(ctx, pie, { size: 10, font: ctx.sans, color: COLOR_INK_2 });
+  if (esMoral) dibujarTextoCentrado(ctx, "Representante Legal", { size: 9, font: ctx.sans, color: COLOR_INK_3 });
+  if (rp) dibujarTextoCentrado(ctx, `Registro Patronal: ${rp}`, { size: 9, font: ctx.sans, color: COLOR_INK_3 });
+
+  return ctx.doc.save();
+}
+
 // =============================================================================
 // Generador genérico de "ficha de captura" — útil para AFIL-01 hasta que se
 // implemente overlay sobre el PDF oficial. Lista los campos agrupados por
@@ -309,6 +447,9 @@ export async function generarPDF(
   }
   if (tipo.code === "escrito-generico") {
     return generarEscritoGenerico(values);
+  }
+  if (tipo.code === "escrito-subdeleg") {
+    return generarEscritoSubdelegacion(values);
   }
   return generarFichaCampos(tipo, values);
 }
