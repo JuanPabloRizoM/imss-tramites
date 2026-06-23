@@ -93,13 +93,17 @@ export const FORMATOS_IMSS: Record<string, FormatoCampo> = {
   },
   registro_patronal: {
     hint:
-      "11 posiciones: 1 letra + 10 dígitos. Estructura: letra + 2 dígitos " +
-      "(clave de municipio) + 5 progresivos + 2 de modalidad + 1 dígito " +
-      "verificador. Suele imprimirse con espacios o guiones " +
-      "('B55 10768 10 8') — júntalos. A veces falta el verificador (10 " +
-      "posiciones): repórtalo tal cual con confianza 'medio'. NO lo " +
-      "confundas con el RFC ni con el NSS.",
-    regex: /^[A-Z]\d{9,10}$|^\d{10,11}$/,
+      "11 posiciones (a veces 10 si falta el verificador). REGLA CLAVE: SOLO el " +
+      "PRIMER carácter puede ser letra; del 2º en adelante SIEMPRE son dígitos. " +
+      "Algunos registros empiezan con dígito (no con letra). Estructura: " +
+      "[letra o dígito] + 9 dígitos + 1 dígito verificador. Suele imprimirse con " +
+      "espacios o guiones ('B55 10768 10 8') — júntalos. " +
+      "OJO CON LA LECTURA: si crees ver una LETRA después de la 1ª posición, es " +
+      "un dígito mal leído — corrígelo: I/l/T→1, O→0, B→8, S→5, Z→2, G→6, D→0. " +
+      "Cuenta los dígitos con cuidado (no te comas ninguno): deben dar 10 u 11 " +
+      "en total. Si dudas de algún carácter o el conteo no cuadra, baja la " +
+      "confianza a 'bajo' para que se revise. NO lo confundas con RFC ni NSS.",
+    regex: /^[A-Z0-9]\d{9,10}$/,
     normalizar: normalizarCompacto,
   },
   curp: {
