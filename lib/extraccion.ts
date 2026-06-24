@@ -239,6 +239,62 @@ export const DOC_TYPES: Record<string, DocType> = {
     ],
   },
 
+  amsrt_lleno: {
+    id: "amsrt_lleno",
+    label: "AM-SRT lleno (Aviso de Modificación de empresa para el SRT)",
+    descripcion_para_ia:
+      "Formato AM-SRT del IMSS YA LLENADO (Aviso para modificar empresas para " +
+      "el Seguro de Riesgos de Trabajo). Es la fuente más completa para un " +
+      "trámite AM-SRT — extrae TODO lo que veas. " +
+      "MUY IMPORTANTE — LEE LAS CASILLAS MARCADAS: el formato tiene casillas/" +
+      "recuadros que se marcan con 'X', '✓' o tache. En CADA sección identifica " +
+      "cuál casilla está marcada y devuelve la opción correspondiente:\n" +
+      "• Tipo de modificación (una sola X). Devuelve la CLAVE: reanudación→" +
+      "reanudacion, cambio de domicilio→cambio_domicilio, cambio de actividad→" +
+      "cambio_actividad, cambio por Ley o RACERF→cambio_ley_racerf, incorporación " +
+      "de actividades→incorporacion_actividades, escisión→escision, sustitución " +
+      "patronal→sustitucion_patronal, fusión→fusion, compra de activos→" +
+      "compra_activos, comodato→comodato, enajenación→enajenacion, arrendamiento→" +
+      "arrendamiento, fideicomiso→fideicomiso.\n" +
+      "• Clase de riesgo (I, II, III, IV o V).\n" +
+      "• ¿Cuenta con equipo de transporte? → SI o NO.\n" +
+      "• ¿Presta servicios de personal? → si o no.\n" +
+      "• ¿Presta servicios de instalación/reparación/mantenimiento a terceros? → SI.\n" +
+      "• Distribución de mercancías → CON TRANSPORTE PROPIO / CON TRANSPORTE AJENO / " +
+      "NO DISTRIBUYE NI ENTREGA.\n" +
+      "Si una casilla NO tiene marca, NO la reportes (déjala en null). Si la marca " +
+      "es ambigua o dudas cuál está marcada, baja la confianza a 'bajo'. " +
+      "DISTINGUE persona física (nombre + apellidos) de persona moral (razón social).",
+    campos: [
+      { id: "registro_patronal", label: "Registro patronal del IMSS" },
+      { id: "rfc", label: "RFC del patrón" },
+      { id: "curp", label: "CURP del patrón (solo persona física)" },
+      { id: "tipo_persona", label: "Tipo de persona", hint: "'FISICA' o 'MORAL'." },
+      { id: "razon_social", label: "Razón social o nombre completo del patrón" },
+      { id: "nombre", label: "Nombre(s) de pila (solo persona física)" },
+      { id: "apellido_paterno", label: "Apellido paterno (solo persona física)" },
+      { id: "apellido_materno", label: "Apellido materno (solo persona física)" },
+      { id: "tipo_modificacion", label: "Tipo de modificación (casilla con X)", hint: "Devuelve la CLAVE técnica de la casilla marcada (reanudacion, cambio_domicilio, cambio_actividad, cambio_ley_racerf, incorporacion_actividades, escision, sustitucion_patronal, fusion, compra_activos, comodato, enajenacion, arrendamiento, fideicomiso). Solo una." },
+      { id: "division", label: "División (clasificación RT)" },
+      { id: "grupo", label: "Grupo (clasificación RT)" },
+      { id: "fraccion_rt", label: "Fracción (clasificación RT)" },
+      { id: "clase_rt", label: "Clase de riesgo (I a V, casilla marcada)" },
+      { id: "prima_rt", label: "Prima de riesgo de trabajo (%)" },
+      { id: "giro", label: "Giro o actividad de la empresa" },
+      { id: "cuenta_equipo_transporte", label: "¿Cuenta con equipo de transporte? (casilla SI/NO)", hint: "Devuelve SI o NO según la casilla marcada." },
+      { id: "presta_servicios_personal", label: "¿Presta servicios de personal? (casilla si/no)", hint: "Devuelve si o no según la casilla marcada." },
+      { id: "servicios_terceros", label: "¿Presta servicios a terceros? (casilla)", hint: "Devuelve SI solo si la casilla está marcada." },
+      { id: "distribucion_mercancias", label: "Distribución de mercancías (casilla marcada)", hint: "CON TRANSPORTE PROPIO, CON TRANSPORTE AJENO o NO DISTRIBUYE NI ENTREGA — el texto de la casilla marcada en MAYÚSCULAS." },
+      { id: "calle", label: "Calle del domicilio" },
+      { id: "numero_exterior", label: "Número exterior" },
+      { id: "numero_interior", label: "Número interior" },
+      { id: "colonia", label: "Colonia" },
+      { id: "codigo_postal", label: "Código postal" },
+      { id: "municipio", label: "Municipio o alcaldía" },
+      { id: "estado", label: "Entidad federativa (estado)" },
+    ],
+  },
+
   cedula_rfc: {
     id: "cedula_rfc",
     label: "Cédula RFC / Constancia de Situación Fiscal",
